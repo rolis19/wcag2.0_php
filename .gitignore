@@ -1,2 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
-.idea/*
+.idea/copyright
+.idea/learn.iml
+.idea/workspace.xml
+.idea/misc.xml
+.idea/modules.xml
