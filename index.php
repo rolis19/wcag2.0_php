@@ -203,7 +203,7 @@ $start = $time;
 					}
 					public function check_labelid($start_tag, $id_name){
 						$end_label = $start_tag-1;
-						// Check if end is trully label, if not then add aria-label to input
+						// Check if end is truly label, if not then add aria-label to input
 						$check_label = substr($this->all_array[$end_label], strlen($this->all_array[$end_label])-14, strlen($this->all_array[$end_label]));
 						if ($check_label == htmlspecialchars('</label>')){
 							echo "Yes";
@@ -236,8 +236,7 @@ $start = $time;
 							//echo "Tak sama Bro";
 						}
 					}
-
-//===========================================================================================
+					
 //===================   Process final array correcting and saving   ========================
 					public function correcting_arr($index, $word){
 						$a1 = array($this->all_array[$index], $word);
