@@ -63,7 +63,7 @@ $start = $time;
 							echo $item.") (";
 						}
 					}
-//================================================================================
+//========================================================================================
 
 					//Find tag, also their index
 					public function tag_check(){
@@ -80,8 +80,7 @@ $start = $time;
 							array_push($this->correct_arr, $items);
 						}
 					}
-
-					//Find every index of end tags and return new array
+					//Find end tag
 					public function find_end_tag($start_tag){
 						$nd_tag = 0;
 						for ($n = $start_tag; $n < count($this->all_array); $n++) {
@@ -94,7 +93,7 @@ $start = $time;
 						}
 						return $nd_tag;
 					}
-
+					//Check whether end tag is true, by checking open tag for next element
 					public function is_end_tag($start_tag, $end_tag){
 						$st_tag = 0;
 						$indicator = 0;
@@ -107,12 +106,14 @@ $start = $time;
 								break;
 							}
 						}
+						//if indicator equal 0 that means no more open tag in next array, so it suppose end of file.
 						if ($indicator == 0){
 							return $end_tag;
 						} else{
 							return $st_tag;
 						}
 					}
+					//If open tag for next element less than close tag for current element then false, else true
 					public function is_end_true($nd_tag, $st_tag){
 						if ($nd_tag>$st_tag){
 							return false;
@@ -120,6 +121,8 @@ $start = $time;
 							return $nd_tag;
 						}
 					}
+
+					// After start and end tag found return new array accordingly (new array equal one tag (open and close)
 					public function single_tag($start_tag, $end_tag){
 						$single_tag_arr = array();
 						for ($n = $start_tag; $n < count($this->all_array); $n++) {
@@ -130,6 +133,8 @@ $start = $time;
 						}
 						return $single_tag_arr;
 					}
+
+
 					public function alloc_work($start_tag){
 						switch ($this->tag_name) {
 							case "&lt;img":
