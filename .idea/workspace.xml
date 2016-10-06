@@ -32,11 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="140" column="33" selection-start-line="140" selection-start-column="33" selection-end-line="140" selection-end-column="33" />
+            <state relative-caret-position="357">
+              <caret line="150" column="36" selection-start-line="150" selection-start-column="36" selection-end-line="150" selection-end-column="36" />
               <folding>
                 <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
                 <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -74,7 +74,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="newfile.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="newfile.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/newfile.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
@@ -277,12 +277,12 @@
       <workItem from="1475536049602" duration="5203000" />
       <workItem from="1475549358102" duration="10472000" />
       <workItem from="1475636032145" duration="14510000" />
-      <workItem from="1475724655082" duration="51000" />
+      <workItem from="1475724655082" duration="698000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="187196000" />
+    <option name="totallyTimeSpent" value="187843000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -836,14 +836,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/newfile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="55" selection-start-line="0" selection-start-column="55" selection-end-line="0" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/stack.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="731">
@@ -862,8 +854,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="140" column="33" selection-start-line="140" selection-start-column="33" selection-end-line="140" selection-end-column="33" />
+        <state relative-caret-position="357">
+          <caret line="150" column="36" selection-start-line="150" selection-start-column="36" selection-end-line="150" selection-end-column="36" />
           <folding>
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -877,6 +869,14 @@
             <element signature="n#img_check#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/newfile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="55" selection-start-line="0" selection-start-column="55" selection-end-line="0" selection-end-column="55" />
+          <folding />
         </state>
       </provider>
     </entry>

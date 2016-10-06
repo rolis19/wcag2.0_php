@@ -107,10 +107,10 @@ $start = $time;
 								break;
 							}
 						}
-						if ($indicator >= 0){
-							return $st_tag;
-						} else {
+						if ($indicator == 0){
 							return $end_tag;
+						} else{
+							return $st_tag;
 						}
 					}
 					public function is_end_true($nd_tag, $st_tag){
@@ -141,15 +141,12 @@ $start = $time;
 								}
 								break;
 							case "&lt;input":
-								$end_t = $this->find_end_tag($start_tag);
-								echo $end_t."<br>";
-								echo $this->is_end_tag($start_tag, 9);
-//								$endt = $this->find_end_tag($start_tag);
-//								if (!$this->is_end_true($endt, $this->is_end_tag($start_tag, $endt))) {
-//									echo "End tag for input not found";
-//								} else {
-//									$this->input_alloc($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag);
-//								}
+								$endt = $this->find_end_tag($start_tag);
+								if (!$this->is_end_true($endt, $this->is_end_tag($start_tag, $endt))) {
+									echo "End tag for input not found";
+								} else {
+									$this->input_alloc($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag);
+								}
 								break;
 							default:
 								echo "Make sure u are inputting Html code";
