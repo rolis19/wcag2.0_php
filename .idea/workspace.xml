@@ -36,8 +36,8 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-260">
-              <caret line="147" column="161" selection-start-line="147" selection-start-column="161" selection-end-line="147" selection-end-column="161" />
+            <state relative-caret-position="217">
+              <caret line="218" column="52" selection-start-line="218" selection-start-column="52" selection-end-line="218" selection-end-column="52" />
               <folding>
                 <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
                 <element signature="e#1720#1786#0#PHP" expanded="false" />
@@ -46,12 +46,11 @@
                 <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
                 <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
                 <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-                <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
                 <element signature="n#input_check#0;n#!!top" expanded="false" />
-                <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-                <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-                <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-                <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+                <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+                <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+                <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+                <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
               </folding>
             </state>
           </provider>
@@ -71,7 +70,7 @@
         <entry file="file://$PROJECT_DIR$/test.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
-              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="97" />
+              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -81,7 +80,7 @@
         <entry file="file://$PROJECT_DIR$/newfile.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="62" selection-start-line="0" selection-start-column="62" selection-end-line="0" selection-end-column="62" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -285,7 +284,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="191584000" />
+    <option name="totallyTimeSpent" value="192802000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -357,12 +356,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -387,12 +385,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -417,12 +414,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -447,12 +443,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -477,12 +472,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -507,12 +501,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -529,12 +522,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -551,35 +543,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resource.php" />
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -597,12 +565,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -620,12 +587,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -643,12 +609,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -666,12 +631,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -689,12 +653,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -712,12 +675,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -735,12 +697,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -758,12 +719,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -781,12 +741,33 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource.php" />
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="e#1720#1786#0#PHP" expanded="false" />
+            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#input_check#0;n#!!top" expanded="false" />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -803,12 +784,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -828,12 +808,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
@@ -869,7 +848,7 @@
     <entry file="file://$PROJECT_DIR$/test.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="97" />
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="63" />
           <folding />
         </state>
       </provider>
@@ -877,15 +856,15 @@
     <entry file="file://$PROJECT_DIR$/newfile.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="62" selection-start-line="0" selection-start-column="62" selection-end-line="0" selection-end-column="62" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-260">
-          <caret line="147" column="161" selection-start-line="147" selection-start-column="161" selection-end-line="147" selection-end-column="161" />
+        <state relative-caret-position="217">
+          <caret line="218" column="52" selection-start-line="218" selection-start-column="52" selection-end-line="218" selection-end-column="52" />
           <folding>
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
@@ -894,12 +873,11 @@
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
-            <marker date="1475729196041" expanded="false" signature="1422:1677" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="2456:2816" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="8286:8491" ph="..." />
-            <marker date="1475729196041" expanded="false" signature="10301:10418" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="1422:1677" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="2456:2816" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="8285:8490" ph="..." />
+            <marker date="1475736619990" expanded="false" signature="10300:10417" ph="..." />
           </folding>
         </state>
       </provider>
