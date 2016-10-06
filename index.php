@@ -143,18 +143,19 @@ $start = $time;
 									echo "End tag for Img not found";
 								} else {
 									if (!img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag)){
-										echo "alt there";
 									}else{
 										$this->correcting_arr($start_tag+1, img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag));
 									}
 								}
 								break;
 							case "&lt;input":
-								$endt = $this->find_end_tag($start_tag);
+								$endt = $this->find_end_tag($start_tag); // End tag return value
 								if (!$this->is_end_true($endt, $this->is_end_tag($start_tag, $endt))) {
 									echo "End tag for input not found";
 								} else {
-									$this->input_alloc($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag);
+									echo $start_tag."<br>";
+									echo $endt."<br>";
+									$this->input_alloc($this->single_tag($start_tag, $endt), $start_tag);
 								}
 								break;
 							default:
@@ -164,6 +165,9 @@ $start = $time;
 
 //===================   Check input Tag Process    ==========================================
 					public function input_alloc($input_tag, $start_tag){
+						foreach ($input_tag as $item) {
+							echo $item." ";
+						}
 						$indicator = 0;
 						foreach ($input_tag as $item) {
 							switch ($item){
@@ -198,7 +202,7 @@ $start = $time;
 							}
 						}
 						if ($indicator==0){
-							echo "You don't have proper type of input set";
+							echo "<br>You don't have proper type of input set<br>";
 						}
 					}
 					public function check_labelid($start_tag, $id_name){
