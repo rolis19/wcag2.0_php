@@ -142,7 +142,11 @@ $start = $time;
 								if (!$this->is_end_true($endt, $this->is_end_tag($start_tag, $endt))) {
 									echo "End tag for Img not found";
 								} else {
-									img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag);
+									if (!img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag)){
+										echo "alt there";
+									}else{
+										$this->correcting_arr($start_tag, img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag));
+									}
 								}
 								break;
 							case "&lt;input":
@@ -268,10 +272,10 @@ $start = $time;
 						}
 					}
 					if ($indicator >= 1){
-						echo "<p class='bg-success'>Alternative image found</p>";
+						return false;
 					} else{
-						echo $index;
-						echo "<p class='bg-warning'>Alternative image not found</p>";
+						$word = "alt=&quot;"."Smileeee"."&quot;";
+						return $word;
 					}
 				}
 				function input_check($input_tag, $start_tag){
