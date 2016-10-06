@@ -35,13 +35,12 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="82" column="34" selection-start-line="82" selection-start-column="34" selection-end-line="82" selection-end-column="34" />
+            <state relative-caret-position="306">
+              <caret line="253" column="37" selection-start-line="253" selection-start-column="37" selection-end-line="253" selection-end-column="37" />
               <folding>
                 <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
                 <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
                 <element signature="e#1720#1786#0#PHP" expanded="false" />
-                <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
                 <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
                 <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
                 <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -285,7 +284,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="188730000" />
+    <option name="totallyTimeSpent" value="188963000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -372,7 +371,6 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -403,7 +401,6 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -434,7 +431,6 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -465,7 +461,6 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -496,7 +491,6 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -527,7 +521,6 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -550,7 +543,6 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -573,31 +565,6 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#correcting_arr#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#print_true#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#img_check#0;n#!!top" expanded="false" />
-            <element signature="n#input_check#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resource.php" />
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -621,7 +588,6 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -645,7 +611,6 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -669,7 +634,6 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -693,7 +657,6 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -717,7 +680,6 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -741,7 +703,6 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -765,7 +726,6 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -789,7 +749,6 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -813,7 +772,29 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#correcting_arr#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#print_true#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#img_check#0;n#!!top" expanded="false" />
+            <element signature="n#input_check#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource.php" />
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="e#1720#1786#0#PHP" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -836,7 +817,6 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -862,7 +842,6 @@
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
@@ -886,7 +865,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="1040" column="9" selection-start-line="0" selection-start-column="0" selection-end-line="1153" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -895,7 +873,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="519">
           <caret line="54" column="47" selection-start-line="54" selection-start-column="47" selection-end-line="54" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -925,13 +902,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="82" column="34" selection-start-line="82" selection-start-column="34" selection-end-line="82" selection-end-column="34" />
+        <state relative-caret-position="306">
+          <caret line="253" column="37" selection-start-line="253" selection-start-column="37" selection-end-line="253" selection-end-column="37" />
           <folding>
             <element signature="n#push#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#find_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />

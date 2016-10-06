@@ -122,7 +122,7 @@ $start = $time;
 						}
 					}
 
-					// After start and end tag found return new array accordingly (new array equal one tag (open and close)
+					// After start and end tag found return new array accordingly Snew array equal one tag (open and close)
 					public function single_tag($start_tag, $end_tag){
 						$single_tag_arr = array();
 						for ($n = $start_tag; $n < count($this->all_array); $n++) {
@@ -134,7 +134,7 @@ $start = $time;
 						return $single_tag_arr;
 					}
 
-
+					//Work allocation here
 					public function alloc_work($start_tag){
 						switch ($this->tag_name) {
 							case "&lt;img":
@@ -234,7 +234,7 @@ $start = $time;
 					}
 
 //===========================================================================================
-//===================   Process final array correctiong and saving   ========================
+//===================   Process final array correcting and saving   ========================
 					public function correcting_arr($index, $word){
 						$a1 = array($this->all_array[$index], $word);
 						array_splice($this->all_array, $index,1,$a1);
