@@ -145,7 +145,7 @@ $start = $time;
 									if (!img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag)){
 										echo "alt there";
 									}else{
-										$this->correcting_arr($start_tag, img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag));
+										$this->correcting_arr($start_tag+1, img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag));
 									}
 								}
 								break;

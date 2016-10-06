@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e51feb90-eeb5-4d92-bbd5-6daf7d645c69" name="Default" comment="" />
+    <list default="true" id="e51feb90-eeb5-4d92-bbd5-6daf7d645c69" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/newfile.html" afterPath="$PROJECT_DIR$/newfile.html" />
+    </list>
     <ignored path="learn.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -14,7 +18,7 @@
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
-  </component>    
+  </component>
   <component name="DatabaseView">
     <option name="GROUP_SCHEMA" value="true" />
     <option name="GROUP_CONTENTS" value="false" />
@@ -32,8 +36,8 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1901">
-              <caret line="240" column="59" selection-start-line="240" selection-start-column="59" selection-end-line="240" selection-end-column="59" />
+            <state relative-caret-position="250">
+              <caret line="147" column="74" selection-start-line="147" selection-start-column="74" selection-end-line="147" selection-end-column="74" />
               <folding>
                 <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
                 <element signature="e#1720#1786#0#PHP" expanded="false" />
@@ -41,8 +45,8 @@
                 <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
                 <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
                 <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-                <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
                 <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+                <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
                 <element signature="n#input_check#0;n#!!top" expanded="false" />
               </folding>
             </state>
@@ -52,28 +56,28 @@
       <file leaf-file-name="stack.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/stack.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="731">
+            <state relative-caret-position="523">
               <caret line="43" column="5" selection-start-line="39" selection-start-column="3" selection-end-line="43" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.txt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="test.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
-              <caret line="6" column="43" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="43" />
+              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="63" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="newfile.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="newfile.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/newfile.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="0" column="46" selection-start-line="0" selection-start-column="46" selection-end-line="0" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -273,12 +277,12 @@
       <workItem from="1475549358102" duration="10472000" />
       <workItem from="1475636032145" duration="14510000" />
       <workItem from="1475724655082" duration="1585000" />
-      <workItem from="1475737894958" duration="891000" />
+      <workItem from="1475737894958" duration="1672000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="192496000" />
+    <option name="totallyTimeSpent" value="193277000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -290,7 +294,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1370" height="744" extended-state="1" />
+    <frame x="-8" y="-8" width="1370" height="744" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13282442" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -349,8 +353,8 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -375,8 +379,8 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -401,8 +405,8 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -427,8 +431,8 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -453,8 +457,8 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -479,8 +483,8 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -497,8 +501,8 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -515,27 +519,8 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#input_check#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resource.php" />
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -553,8 +538,8 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -572,8 +557,8 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -591,8 +576,8 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -610,8 +595,8 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -629,8 +614,8 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -648,8 +633,8 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -667,8 +652,8 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -686,8 +671,8 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -705,8 +690,27 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#input_check#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource.php" />
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="e#1720#1786#0#PHP" expanded="false" />
+            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -723,8 +727,8 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -744,8 +748,8 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -771,26 +775,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stack.php">
+    <entry file="file://$PROJECT_DIR$/test.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="43" column="5" selection-start-line="39" selection-start-column="3" selection-end-line="43" selection-end-column="5" />
+        <state relative-caret-position="102">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="63" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/newfile.html">
+    <entry file="file://$PROJECT_DIR$/stack.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="523">
+          <caret line="43" column="5" selection-start-line="39" selection-start-column="3" selection-end-line="43" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1901">
-          <caret line="240" column="59" selection-start-line="240" selection-start-column="59" selection-end-line="240" selection-end-column="59" />
+        <state relative-caret-position="250">
+          <caret line="147" column="74" selection-start-line="147" selection-start-column="74" selection-end-line="147" selection-end-column="74" />
           <folding>
             <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="e#1720#1786#0#PHP" expanded="false" />
@@ -798,17 +802,17 @@
             <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#is_end_true#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#single_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#alloc_work#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_alloc#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
             <element signature="n#input_check#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.txt">
+    <entry file="file://$PROJECT_DIR$/newfile.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="43" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="43" />
+        <state relative-caret-position="0">
+          <caret line="0" column="46" selection-start-line="0" selection-start-column="46" selection-end-line="0" selection-end-column="46" />
           <folding />
         </state>
       </provider>
