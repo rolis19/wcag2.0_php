@@ -159,7 +159,7 @@ $start = $time;
 								}
 								break;
 							default:
-								echo "Make sure u are inputting Html code";
+								echo "Make sure u are input Html code";
 						}
 					}
 
