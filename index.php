@@ -206,7 +206,11 @@ $start = $time;
 						}
 					}
 					public function check_labelid($start_tag, $id_name){
-						$end_label = $start_tag-1;
+						if ($start_tag == 0){
+							$end_label = $start_tag;
+						} else {
+							$end_label = $start_tag-1;
+						}
 						// Check if end is truly label, if not then add aria-label to input
 						$check_label = substr($this->all_array[$end_label], strlen($this->all_array[$end_label])-14, strlen($this->all_array[$end_label]));
 						if ($check_label == htmlspecialchars('</label>')){
