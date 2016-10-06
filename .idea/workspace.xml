@@ -29,11 +29,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="152" column="100" selection-start-line="152" selection-start-column="100" selection-end-line="152" selection-end-column="100" />
+            <state relative-caret-position="-113">
+              <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
               <folding>
                 <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
                 <element signature="e#1720#1786#0#PHP" expanded="false" />
@@ -41,16 +41,6 @@
                 <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
                 <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -101,9 +91,9 @@
         <option value="$PROJECT_DIR$/stacka.php" />
         <option value="$PROJECT_DIR$/stacke.php" />
         <option value="$PROJECT_DIR$/test.txt" />
-        <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/newfile.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/index.php" />
       </list>
     </option>
   </component>
@@ -156,30 +146,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="learn" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="learn" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="learn" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="learn" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="learn" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -282,12 +248,12 @@
       <workItem from="1475724655082" duration="1585000" />
       <workItem from="1475737894958" duration="6844000" />
       <workItem from="1475744788405" duration="55000" />
-      <workItem from="1475769120135" duration="260000" />
+      <workItem from="1475769120135" duration="648000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="198764000" />
+    <option name="totallyTimeSpent" value="199152000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -299,7 +265,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1370" height="744" extended-state="1" />
+    <frame x="-8" y="-8" width="1370" height="744" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13587786" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -708,20 +674,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="152" column="100" selection-start-line="152" selection-start-column="100" selection-end-line="152" selection-end-column="100" />
-          <folding>
-            <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="e#1720#1786#0#PHP" expanded="false" />
-            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
-            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/stack.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="523">
@@ -735,6 +687,20 @@
         <state relative-caret-position="17">
           <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-113">
+          <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
+          <folding>
+            <element signature="n#printStack#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="e#1720#1786#0#PHP" expanded="false" />
+            <element signature="n#tag_check#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#is_end_tag#0;n#mainArray#0;n#!!top" expanded="false" />
+            <element signature="n#check_labelid#0;n#mainArray#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
