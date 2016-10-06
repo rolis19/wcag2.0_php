@@ -236,8 +236,7 @@ $start = $time;
 							//echo "Tak sama Bro";
 						}
 					}
-
-//===========================================================================================
+					
 //===================   Process final array correcting and saving   ========================
 					public function correcting_arr($index, $word){
 						$a1 = array($this->all_array[$index], $word);
