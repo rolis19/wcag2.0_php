@@ -36,11 +36,34 @@ $start = $time;
 					public $tag_name;
 					public $start_tag;
 					public $end_tag;
+					protected $stack;
+					protected $limit;
 					public $checker_list = array("&lt;img", "&lt;input");
 
-					public function __construct($all_text){
+					public function __construct($all_text, $limit = 10){
 						$this->all_array = explode(" ", $all_text);
+						// initialize the stack
+						$this->stack = array();
+						// stack can only contain this many items
+						$this->limit = $limit;
 					}
+
+//=================== Stack use for checking open and closed tag =========================
+					public function push($item) {
+						// trap for stack overflow
+						if (count($this->stack) < $this->limit) {
+							// prepend item to the start of the array
+							array_unshift($this->stack, $item);
+						} else {
+							throw new RunTimeException('Stack is full!');
+						}
+					}
+					public function printStack(){
+						foreach ($this->stack as $item) {
+							echo $item.") (";
+						}
+					}
+//================================================================================
 
 					//Find tag, also their index
 					public function tag_check(){
@@ -51,6 +74,7 @@ $start = $time;
 									$this->tag_name = $items;
 									$this->start_tag = $key;
 									$this->alloc_work($this->start_tag);
+									$this->push($items);
 								}
 							}
 							array_push($this->correct_arr, $items);
@@ -59,20 +83,43 @@ $start = $time;
 
 					//Find every index of end tags and return new array
 					public function find_end_tag($start_tag){
-						$indicator = 0;
+						$nd_tag = 0;
 						for ($n = $start_tag; $n < count($this->all_array); $n++) {
-							$str_tag = substr($this->all_array[$n], 0, 3);
-							similar_text(' &lt;', $str_tag, $numb);
 							$new_line = substr($this->all_array[$n], strlen($this->all_array[$n]) - 4, strlen($this->all_array[$n]));
 							similar_text('&gt;', $new_line, $percent);
-
-							while($numb == 75) {
-								echo "The number is:  <br>";
+							if ($percent == 100) {
+								$nd_tag = $n;
+								break;
 							}
 						}
-						return $this->end_tag;
+						return $nd_tag;
 					}
 
+					public function is_end_tag($start_tag, $end_tag){
+						$st_tag = 0;
+						$indicator = 0;
+						for ($n = $start_tag+1; $n < count($this->all_array); $n++) {
+							$new_line = substr($this->all_array[$n], 0, 3);
+							similar_text('&lt;', $new_line, $percent);
+							if ($percent >= 75) {
+								$indicator++;
+								$st_tag = $n;
+								break;
+							}
+						}
+						if ($indicator >= 0){
+							return $st_tag;
+						} else {
+							return $end_tag;
+						}
+					}
+					public function is_end_true($nd_tag, $st_tag){
+						if ($nd_tag>$st_tag){
+							return false;
+						} else {
+							return $nd_tag;
+						}
+					}
 					public function single_tag($start_tag, $end_tag){
 						$single_tag_arr = array();
 						for ($n = $start_tag; $n < count($this->all_array); $n++) {
@@ -83,28 +130,33 @@ $start = $time;
 						}
 						return $single_tag_arr;
 					}
-
 					public function alloc_work($start_tag){
 						switch ($this->tag_name) {
 							case "&lt;img":
-								if (!$this->find_end_tag($start_tag)) {
+								$endt = $this->find_end_tag($start_tag);
+								if (!$this->is_end_true($endt, $this->is_end_tag($start_tag, $endt))) {
 									echo "End tag for Img not found";
 								} else {
 									img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag);
 								}
 								break;
 							case "&lt;input":
-								if (!$this->find_end_tag($start_tag)) {
-									echo "End tag not found";
-								} else {
-									$this->input_alloc($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag);
-								}
+								$end_t = $this->find_end_tag($start_tag);
+								echo $end_t."<br>";
+								echo $this->is_end_tag($start_tag, 9);
+//								$endt = $this->find_end_tag($start_tag);
+//								if (!$this->is_end_true($endt, $this->is_end_tag($start_tag, $endt))) {
+//									echo "End tag for input not found";
+//								} else {
+//									$this->input_alloc($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag);
+//								}
 								break;
 							default:
 								echo "Make sure u are inputting Html code";
 						}
 					}
 
+//===================   Check input Tag Process    ==========================================
 					public function input_alloc($input_tag, $start_tag){
 						$indicator = 0;
 						foreach ($input_tag as $item) {
@@ -143,7 +195,6 @@ $start = $time;
 							echo "You don't have proper type of input set";
 						}
 					}
-
 					public function check_labelid($start_tag, $id_name){
 						$end_label = $start_tag-1;
 						// Check if end is trully label, if not then add aria-label to input
@@ -179,13 +230,15 @@ $start = $time;
 							//echo "Tak sama Bro";
 						}
 					}
+
+//===========================================================================================
+//===================   Process final array correctiong and saving   ========================
 					public function correcting_arr($index, $word){
 						$a1 = array($this->all_array[$index], $word);
 						array_splice($this->all_array, $index,1,$a1);
 						$this->print_true($this->all_array);
 
 					}
-
 					public function print_true($true_arr){
 						$myfile = fopen("newfile.html", "w") or die("Unable to open file!");
 						foreach ($true_arr as $items){
@@ -194,7 +247,7 @@ $start = $time;
 						fclose($myfile);
 					}
 				}
-//  End of class here
+//=============== End of class here  =======================================================
 
                 //Run Code start here
                 if (isset($_POST['stage']) && ('process' == $_POST['stage'])) {
