@@ -134,6 +134,23 @@ $start = $time;
 						return $single_tag_arr;
 					}
 
+//					Use this class everytime we need to check the excistance of certain word.
+                    public function is_exist($word, $start, $end, $array_of){
+                        $index = 0;
+                        $indicator = 0;
+                        for ($i=$start; $i<$end; $i++){
+                            if ($word == $array_of[$i]){
+                                $indicator++;
+                                $index = $i;
+                                break;
+                            }
+                        }
+                        if ($indicator == 0){
+                            return false;
+                        } else{
+                            return $index;
+                        }
+                    }
 					//Work allocation here
 					public function alloc_work($start_tag){
 						switch ($this->tag_name) {
@@ -153,8 +170,6 @@ $start = $time;
 								if (!$this->is_end_true($endt, $this->is_end_tag($start_tag, $endt))) {
 									echo "End tag for input not found";
 								} else {
-									echo $start_tag."<br>";
-									echo $endt."<br>";
 									$this->input_alloc($this->single_tag($start_tag, $endt), $start_tag);
 								}
 								break;
@@ -165,9 +180,6 @@ $start = $time;
 
 //===================   Check input Tag Process    ==========================================
 					public function input_alloc($input_tag, $start_tag){
-						foreach ($input_tag as $item) {
-							echo $item." ";
-						}
 						$indicator = 0;
 						foreach ($input_tag as $item) {
 							switch ($item){
@@ -206,6 +218,7 @@ $start = $time;
 						}
 					}
 					public function check_labelid($start_tag, $id_name){
+					    $yes_label = 0;
 						if ($start_tag == 0){
 							$end_label = $start_tag;
 						} else {
@@ -214,39 +227,52 @@ $start = $time;
 						// Check if end is truly label, if not then add aria-label to input
 						$check_label = substr($this->all_array[$end_label], strlen($this->all_array[$end_label])-14, strlen($this->all_array[$end_label]));
 						if ($check_label == htmlspecialchars('</label>')){
-							echo "Yes";
+							$yes_label = 1;
 						} else {
-							$this->correcting_arr($start_tag+1, "aria-labelledby=&quot;".$id_name."&quot;");
+							if ($id_name == " "){
+                                $this->correcting_arr($start_tag+1, "aria-labelledby=&quot;Add label info&quot;");
+                            } else {
+                                $this->correcting_arr($start_tag+1, "aria-labelledby=&quot;".$id_name."&quot;");
+                            }
 							echo "<p class='bg-warning'>'aria-labelledby' added to the input tag</p>";
 						}
-						$start_label = 0;
-						$indicator = 0;
-						$label_tag = array();
-						for ($i=$end_label; $i>=0; $i--){
-							$new_label = substr($this->all_array[$i], 0, 4);
-							if ($new_label == htmlspecialchars('<')){
-								$start_label = $i;
-								break;
-							}
-						}
-						for ($j=$start_label; $j<=$end_label; $j++){
-							array_push($label_tag, $this->all_array[$j]);
-						}
-						$label_tag = implode(" ", $label_tag);
-						$label_tag = explode("&quot;", $label_tag);
-						foreach ($label_tag as $item){
-							if ($item == $id_name){
-								$indicator++;
-								break;
-							}
-						}
-						if ($indicator == 0){
-							//echo "Tak sama Bro";
-						}
+						if ($yes_label == 1){
+                            $start_label = 0;
+                            $indicator = 0;
+                            $label_tag = array();
+                            for ($i=$end_label-2; $i>=0; $i--){
+                                $new_label = substr($this->all_array[$i], 0, 4);
+                                if ($new_label == htmlspecialchars('<')){
+                                    $start_label = $i;
+                                    break;
+                                }
+                            }
+                            for ($j=$start_label; $j<=$end_label; $j++){
+                                array_push($label_tag, $this->all_array[$j]);
+                            }
+                            $label_tag = implode(" ", $label_tag);
+                            // Create new array based on double quote, check it one by one if equal to ID
+                            $label_tag = explode("&quot;", $label_tag);
+                            foreach ($label_tag as $item){
+//                                echo $item." ";
+                                if ($item == $id_name){
+                                    $indicator++;
+                                    $this->correcting_arr($start_tag+1);
+                                    break;
+                                }
+                            }
+                            if ($indicator == 0){
+                                if ($id_name == " "){
+                                    echo "Id have no value";
+                                } else {
+                                    echo "Id have value";
+                                }
+                            }
+                        }
 					}
 					
 //===================   Process final array correcting and saving   ========================
-					public function correcting_arr($index, $word){
+					public function correcting_arr($index, $word=""){
 						$a1 = array($this->all_array[$index], $word);
 						array_splice($this->all_array, $index,1,$a1);
 						$this->print_true($this->all_array);
@@ -287,7 +313,8 @@ $start = $time;
 				}
 				function input_check($input_tag, $start_tag){
 					$indicator = 0;
-					$key_index=0;
+                    $indi_id = 0;
+                    $check_labelid = new mainArray(htmlspecialchars($_POST['cekode']));
 					$input_tag = implode(" ", $input_tag);
 					$input_tag = explode("&quot;", $input_tag);
 					foreach ($input_tag as $key=>$input){
@@ -295,7 +322,6 @@ $start = $time;
 						$arial_sort = substr($input, 0, 11);
 						similar_text($arial_sort," aria-label",$percent);
 						if ($percent > 90){
-							echo $input_tag[$key+1]." ";
 							$indicator=1;
 							break;
 						}
@@ -308,12 +334,16 @@ $start = $time;
 							$id_sort = substr($input, 0, 3);
 							similar_text($id_sort," id",$percent_id);
 							if ($percent_id > 90){
-								$check_labelid = new mainArray(htmlspecialchars($_POST['cekode']));
 								$check_labelid->check_labelid($start_tag, $input_tag[$key+1]);
+                                $indi_id++;
 								break;
 							}
 						}
 					}
+					if ($indi_id == 0){
+//                      if ID not there than just set ID value to null
+                        $check_labelid->check_labelid($start_tag, " ");
+                    }
 				}
 				?>
 				
