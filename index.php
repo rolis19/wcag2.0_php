@@ -95,22 +95,15 @@ $start = $time;
 					}
 					//Check whether end tag is true, by checking open tag for next element
 					public function is_end_tag($start_tag, $end_tag){
-						$st_tag = 0;
-						$indicator = 0;
-						for ($n = $start_tag+1; $n < count($this->all_array); $n++) {
-							$new_line = substr($this->all_array[$n], 0, 3);
-							similar_text('&lt;', $new_line, $percent);
-							if ($percent >= 75) {
-								$indicator++;
-								$st_tag = $n;
-								break;
-							}
+						$short_arr = array();
+						foreach ($this->all_array as $items){
+							array_push($short_arr, substr($items, 0 ,3));
 						}
-						//if indicator equal 0 that means no more open tag in next array, so it suppose end of file.
-						if ($indicator == 0){
+						$is_there = $this->is_exist('&alt;', $start_tag, $end_tag, $short_arr);
+						if (!$is_there){
 							return $end_tag;
-						} else{
-							return $st_tag;
+						} else {
+							return $is_there;
 						}
 					}
 					//If open tag for next element less than close tag for current element then false, else true
@@ -134,7 +127,7 @@ $start = $time;
 						return $single_tag_arr;
 					}
 
-//					Use this class everytime we need to check the excistance of certain word.
+//					Use this class every time we need to check the existence of certain word.
                     public function is_exist($word, $start, $end, $array_of){
                         $index = 0;
                         $indicator = 0;
