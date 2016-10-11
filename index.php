@@ -175,9 +175,9 @@ $start = $time;
                     public function form_correct(){
                         echo "<form action='' method='post' style='width: 50%'>";
                         echo "<div class='form-group'>";
-                        echo "<label for='correct'>Correct</label>";
+                        echo "<label for='correct'>Correct img tag</label>";
                         echo "<input type='text' class='form-control' id='correct' name='correct' placeholder='your text'>";
-                        echo  "<input type='hidden' name='stageb' value='process'>";
+                        echo  "<input type='hidden' name='stage1' value='process'>";
                         echo "</div>";
                         echo "<button class='btn btn-success btn-sm' type='submit'>Correct</button>";
                         echo "</form>";
@@ -410,7 +410,7 @@ $start = $time;
                 }
                 if (isset($_POST['stage1']) && ('process' == $_POST['stage1'])) {
                     $correcting = new mainArray();
-                    $correcting-> correct_word($_POST['$correct']);
+                    $correcting-> correct_word($_POST['correct']);
                 }
                 ?>
 
