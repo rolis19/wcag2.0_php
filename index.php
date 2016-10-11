@@ -19,12 +19,30 @@ $start = $time;
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
-				<form action="" method="post">
-                    <label for="cek">cek kode</label>
-					<textarea name="cekode" id="cek" cols="80" rows="8"></textarea>
-					<input type="hidden" name="stage" value="process">
-					<button class="btn btn-success btn-lg" type="submit">CHECK</button>
-				</form>
+                <ul class="nav nav-pills">
+                    <li class="active"><a data-toggle="pill" href="#home">Html tag</a></li>
+                    <li><a data-toggle="pill" href="#menu1">URL</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                        <form action="" method="post">
+                            <label for="cek">Insert your code below.</label>
+                            <textarea name="cekode" id="cek" cols="80" rows="8"></textarea>
+                            <input type="hidden" name="stage" value="process">
+                            <button class="btn btn-success btn-lg" type="submit">CHECK</button>
+                        </form>
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                        <form action="" method="post">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Input your URL</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="url">
+                            </div>
+                            <button class="btn btn-success btn-lg" type="submit">CHECK</button>
+                        </form>
+                    </div>
+                </div>
 			</div>
 			<div class="col-md-6">
 				<h4>Your error code will be displayed here</h4>
@@ -144,6 +162,25 @@ $start = $time;
                             return $index;
                         }
                     }
+//					For slicing every element in array
+					public function subarr ($arrays_of, $start, $length ){
+						$new_sort = array();
+						foreach ($arrays_of as $items){
+							array_push($new_sort, substr($items, $start, $length));
+						}
+						return $new_sort;
+					}
+                    //Form for correcting input from user
+                    public function form_correct(){
+                        echo "<form action='' method='post' style='width: 50%'>";
+                        echo "<div class='form-group'>";
+                        echo "<label for='correct'>Correct</label>";
+                        echo "<input type='text' class='form-control' id='correct' name='correct' placeholder='your text'>";
+                        echo "</div>";
+                        echo "<button class='btn btn-success btn-sm' type='submit'>Correct</button>";
+                        echo "</form>";
+                    }
+
 					//Work allocation here
 					public function alloc_work($start_tag){
 						switch ($this->tag_name) {
@@ -152,9 +189,9 @@ $start = $time;
 								if (!$this->is_end_true($endt, $this->is_end_tag($start_tag, $endt))) {
 									echo "End tag for Img not found";
 								} else {
-									if (!img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag)){
+									if (!$this->img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag)){
 									}else{
-										$this->correcting_arr($start_tag+1, img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag));
+										$this->correcting_arr($start_tag+1, $this->img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag));
 									}
 								}
 								break;
@@ -170,6 +207,27 @@ $start = $time;
 								echo "Make sure u are input Html code";
 						}
 					}
+
+//===================   Check img Tag Process    ==========================================
+                    public function img_check($img_tag, $index){
+                        $indicator = 0;
+                        foreach ($img_tag as $img){
+                            $img_sort = substr($img, 0, 3);
+                            similar_text($img_sort,"alt",$percent);
+                            if ($percent > 90){
+                                $indicator++;
+                            }
+                        }
+                        if ($indicator >= 1){
+                            return false;
+                        } else{
+                            $this->form_correct();
+//                        $word = "alt=&quot;".$_POST['correct']."&quot;";
+//                        return $word;
+
+                        }
+                    }
+
 
 //===================   Check input Tag Process    ==========================================
 					public function input_alloc($input_tag, $start_tag){
@@ -195,7 +253,7 @@ $start = $time;
 								case "type=&quot;url&quot;":
 								case "type=&quot;week&quot;":
 									$indicator = 1;
-									input_check($input_tag, $start_tag);
+									$this->input_check($input_tag, $start_tag);
 									break;
 								//below no need any action
 								case "type=&quot;submit&quot;":
@@ -207,9 +265,38 @@ $start = $time;
 							}
 						}
 						if ($indicator==0){
-							echo "<br>You don't have proper type of input set<br>";
+//							echo "<br>You don't have proper type of input set<br>";
 						}
 					}
+					public function input_check($input_tag, $start_tag){
+						$indicator = 0;
+						$input_tags = implode(" ", $input_tag);
+						//Create new array based on double quote
+						$input_tags = explode("&quot;", $input_tags);
+						foreach ($input_tags as $key=>$input){
+//						find aria-label for input tag
+							$arial_sort = substr($input, 0, 11);
+							similar_text($arial_sort," aria-label",$percent);
+							if ($percent > 90){
+								$this->correcting_arr($start_tag+1);
+								$indicator=1;
+								break;
+							}
+						}
+						if ($indicator == 0){
+//						if arial-label not exist find id then
+							$new_sort = $this->subarr($input_tag, 0, 2);
+							$is_there = $this->is_exist('id', $start_tag, sizeof($input_tag), $new_sort);
+							echo $new_sort[2];
+							if (!$is_there){
+//								if ID not there than just set ID value to null
+								$this->check_labelid($start_tag, " ");
+							} else {
+								$this->check_labelid($start_tag, $input_tags[$is_there+1]);
+							}
+						}
+					}
+
 					public function check_labelid($start_tag, $id_name){
 					    $yes_label = 0;
 						if ($start_tag == 0){
@@ -229,10 +316,12 @@ $start = $time;
                             }
 							echo "<p class='bg-warning'>'aria-labelledby' added to the input tag</p>";
 						}
+						// When end equal to label do following
 						if ($yes_label == 1){
                             $start_label = 0;
                             $indicator = 0;
                             $label_tag = array();
+							// Find the first index of label
                             for ($i=$end_label-2; $i>=0; $i--){
                                 $new_label = substr($this->all_array[$i], 0, 4);
                                 if ($new_label == htmlspecialchars('<')){
@@ -244,21 +333,44 @@ $start = $time;
                                 array_push($label_tag, $this->all_array[$j]);
                             }
                             $label_tag = implode(" ", $label_tag);
-                            // Create new array based on double quote, check it one by one if equal to ID
+                            // Create new array based on double quote, check it one by one if it equal to ID
                             $label_tag = explode("&quot;", $label_tag);
                             foreach ($label_tag as $item){
-//                                echo $item." ";
                                 if ($item == $id_name){
                                     $indicator++;
-                                    $this->correcting_arr($start_tag+1);
+                                    $this->correcting_arr($start_tag+1); //Label already equal to ID
                                     break;
                                 }
                             }
                             if ($indicator == 0){
+								$new_sort = $this->subarr($this->all_array, 0, 3);
+								$is_there = $this->is_exist('for', $start_label, $end_label, $new_sort);
+                            	// When ID don't have value do
                                 if ($id_name == " "){
-                                    echo "Id have no value";
-                                } else {
-                                    echo "Id have value";
+									echo "disinyalir tak punya id";
+//									if (!$is_there){
+//										//When label don't have for
+//									} else {
+//										//When label have for
+//
+//									}
+                                }
+                                //When ID have value do
+                                else {
+									echo sizeof($label_tag);
+                                	if (!$is_there){ //When for doesn't exist
+										$this->all_array[0] = htmlspecialchars('<label for="').$id_name.htmlspecialchars('">');
+									} else{ //When for do exist
+										if (sizeof($label_tag)<=3){ // Check whether
+											echo "";
+											$this->all_array[$is_there] = htmlspecialchars('for="').$id_name.htmlspecialchars('">');
+										} elseif (sizeof($label_tag)>=4){
+											echo "2";
+											$this->all_array[$is_there] = htmlspecialchars('for="').$id_name.htmlspecialchars('"');
+										}
+									}
+									echo "<p class='bg-primary'>We have corrected your label</p>";
+									$this->correcting_arr($start_tag+1);
                                 }
                             }
                         }
@@ -287,59 +399,8 @@ $start = $time;
 					$main_array->tag_check();
                 }
 
+                ?>
 
-				function img_check($img_tag, $index){
-					$indicator = 0;
-					foreach ($img_tag as $img){
-						$img_sort = substr($img, 0, 3);
-						similar_text($img_sort,"alt",$percent);
-						if ($percent > 90){
-							$indicator++;
-						}
-					}
-					if ($indicator >= 1){
-						return false;
-					} else{
-						$word = "alt=&quot;"."Smileeee"."&quot;";
-						return $word;
-					}
-				}
-				function input_check($input_tag, $start_tag){
-					$indicator = 0;
-                    $indi_id = 0;
-                    $check_labelid = new mainArray(htmlspecialchars($_POST['cekode']));
-					$input_tag = implode(" ", $input_tag);
-					$input_tag = explode("&quot;", $input_tag);
-					foreach ($input_tag as $key=>$input){
-//						find aria-label for input tag
-						$arial_sort = substr($input, 0, 11);
-						similar_text($arial_sort," aria-label",$percent);
-						if ($percent > 90){
-							$indicator=1;
-							break;
-						}
-					}
-					if ($indicator == 1){
-
-					}else{
-//						if arial-label not exist find id then
-						foreach ($input_tag as $key=>$input){
-							$id_sort = substr($input, 0, 3);
-							similar_text($id_sort," id",$percent_id);
-							if ($percent_id > 90){
-								$check_labelid->check_labelid($start_tag, $input_tag[$key+1]);
-                                $indi_id++;
-								break;
-							}
-						}
-					}
-					if ($indi_id == 0){
-//                      if ID not there than just set ID value to null
-                        $check_labelid->check_labelid($start_tag, " ");
-                    }
-				}
-				?>
-				
 			</div>
 		</div>
 	</div>
@@ -366,7 +427,7 @@ $start = $time;
 		echo " Peak Memory: ".convert(memory_get_peak_usage());
 		?>
 	</footer>
-	<script src="js/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-	<script type='text/javascript' src='js/bootstrap.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>
