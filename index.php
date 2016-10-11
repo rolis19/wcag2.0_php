@@ -3,6 +3,7 @@ $time = microtime();
 $time = explode(' ', $time);
 $time = $time[1] + $time[0];
 $start = $time;
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -185,7 +186,7 @@ $start = $time;
 
                     public function correct_word($word){
                         $this->correct_words = $word;
-                        echo $word;
+                        return $this->correct_words;
                     }
 					//Work allocation here
 					public function alloc_work($start_tag){
@@ -199,7 +200,7 @@ $start = $time;
 									if (!$this->img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag)){
                                         $this->correcting_arr($start_tag);
 									} else {
-//                                        echo $this->correct_words;
+                                        echo $this->correct_words;
                                     }
 								}
 								break;
@@ -392,6 +393,7 @@ $start = $time;
 						$this->print_true($this->all_array);
 
 					}
+
 					public function print_true($true_arr){
 						$myfile = fopen("newfile.html", "w") or die("Unable to open file!");
 						foreach ($true_arr as $items){
@@ -407,10 +409,11 @@ $start = $time;
                     $all_array = htmlspecialchars($_POST['cekode']);
                     $main_array = new mainArray($all_array);
 					$main_array->tag_check();
+                    $_SESSION["obj"] = serialize($main_array);
                 }
                 if (isset($_POST['stage1']) && ('process' == $_POST['stage1'])) {
-                    $correcting = new mainArray();
-                    $correcting-> correct_word($_POST['correct']);
+                    $var = unserialize($_SESSION["obj"]);
+                    $var->correct_word($_POST['correct']);
                 }
                 ?>
 
