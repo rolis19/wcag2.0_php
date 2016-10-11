@@ -191,7 +191,7 @@ $start = $time;
 								} else {
 									if (!$this->img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag)){
 									}else{
-										$this->correcting_arr($start_tag+1, $this->img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag));
+//										$this->correcting_arr($start_tag+1, $this->img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag));
 									}
 								}
 								break;
@@ -278,7 +278,7 @@ $start = $time;
 							$arial_sort = substr($input, 0, 11);
 							similar_text($arial_sort," aria-label",$percent);
 							if ($percent > 90){
-								$this->correcting_arr($start_tag+1);
+//								$this->correcting_arr($start_tag+1);
 								$indicator=1;
 								break;
 							}
@@ -310,9 +310,9 @@ $start = $time;
 							$yes_label = 1;
 						} else {
 							if ($id_name == " "){
-                                $this->correcting_arr($start_tag+1, "aria-labelledby=&quot;Add label info&quot;");
+//                                $this->correcting_arr($start_tag+1, "aria-labelledby=&quot;Add label info&quot;");
                             } else {
-                                $this->correcting_arr($start_tag+1, "aria-labelledby=&quot;".$id_name."&quot;");
+//                                $this->correcting_arr($start_tag+1, "aria-labelledby=&quot;".$id_name."&quot;");
                             }
 							echo "<p class='bg-warning'>'aria-labelledby' added to the input tag</p>";
 						}
@@ -338,7 +338,7 @@ $start = $time;
                             foreach ($label_tag as $item){
                                 if ($item == $id_name){
                                     $indicator++;
-                                    $this->correcting_arr($start_tag+1); //Label already equal to ID
+//                                    $this->correcting_arr($start_tag+1); //Label already equal to ID
                                     break;
                                 }
                             }
@@ -370,7 +370,7 @@ $start = $time;
 										}
 									}
 									echo "<p class='bg-primary'>We have corrected your label</p>";
-									$this->correcting_arr($start_tag+1);
+//									$this->correcting_arr($start_tag+1);
                                 }
                             }
                         }
