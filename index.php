@@ -36,7 +36,7 @@ $start = $time;
                     <div id="menu1" class="tab-pane fade">
                         <form action="" method="post">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Input your URL</label>
+                                <label for="exampl">Input your URL</label>
                                 <input type="text" class="form-control" id="exampleInputEmail1" placeholder="url">
                             </div>
                             <button class="btn btn-success btn-lg" type="submit">CHECK</button>
@@ -54,11 +54,12 @@ $start = $time;
 					public $tag_name;
 					public $start_tag;
 					public $end_tag;
+                    public $correct_words;
 					protected $stack;
 					protected $limit;
 					public $checker_list = array("&lt;img", "&lt;input");
 
-					public function __construct($all_text, $limit = 10){
+					public function __construct($all_text="", $limit = 10){
 						$this->all_array = explode(" ", $all_text);
 						// initialize the stack
 						$this->stack = array();
@@ -176,11 +177,16 @@ $start = $time;
                         echo "<div class='form-group'>";
                         echo "<label for='correct'>Correct</label>";
                         echo "<input type='text' class='form-control' id='correct' name='correct' placeholder='your text'>";
+                        echo  "<input type='hidden' name='stageb' value='process'>";
                         echo "</div>";
                         echo "<button class='btn btn-success btn-sm' type='submit'>Correct</button>";
                         echo "</form>";
                     }
 
+                    public function correct_word($word){
+                        $this->correct_words = $word;
+                        echo $word;
+                    }
 					//Work allocation here
 					public function alloc_work($start_tag){
 						switch ($this->tag_name) {
@@ -189,10 +195,12 @@ $start = $time;
 								if (!$this->is_end_true($endt, $this->is_end_tag($start_tag, $endt))) {
 									echo "End tag for Img not found";
 								} else {
+								    // When alt found no need further action
 									if (!$this->img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag)){
-									}else{
-//										$this->correcting_arr($start_tag+1, $this->img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag));
-									}
+                                        $this->correcting_arr($start_tag);
+									} else {
+//                                        echo $this->correct_words;
+                                    }
 								}
 								break;
 							case "&lt;input":
@@ -218,12 +226,13 @@ $start = $time;
                                 $indicator++;
                             }
                         }
+//                        alt not found
                         if ($indicator >= 1){
+                            //When id found
                             return false;
                         } else{
                             $this->form_correct();
-//                        $word = "alt=&quot;".$_POST['correct']."&quot;";
-//                        return $word;
+                            return true;
 
                         }
                     }
@@ -395,10 +404,14 @@ $start = $time;
 
                 //Run Code start here
                 if (isset($_POST['stage']) && ('process' == $_POST['stage'])) {
-                    $main_array = new mainArray(htmlspecialchars($_POST['cekode']));
+                    $all_array = htmlspecialchars($_POST['cekode']);
+                    $main_array = new mainArray($all_array);
 					$main_array->tag_check();
                 }
-
+                if (isset($_POST['stage1']) && ('process' == $_POST['stage1'])) {
+                    $correcting = new mainArray();
+                    $correcting-> correct_word($_POST['$correct']);
+                }
                 ?>
 
 			</div>
