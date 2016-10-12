@@ -48,6 +48,18 @@ session_start();
 			<div class="col-md-6">
 				<h4>Your error code will be displayed here</h4>
 				<?php
+                //Form for correcting input from user
+                function form_correct(){
+                    echo "<form action='' method='post' style='width: 50%'>";
+                    echo "<div class='form-group'>";
+                    echo "<label for='correct'>Correct img tag</label>";
+                    echo "<input type='text' class='form-control' id='correct' name='correct' placeholder='your text' value='bento'>";
+                    echo  "<input type='hidden' name='stage1' value='process'>";
+                    echo "</div>";
+                    echo "<button class='btn btn-success btn-sm' type='submit' name='submit'>Correct</button>";
+                    echo "</form>";
+                }
+
 
                 class mainArray{
 					public $all_array;
@@ -119,7 +131,7 @@ session_start();
 						foreach ($this->all_array as $items){
 							array_push($short_arr, substr($items, 0 ,3));
 						}
-						$is_there = $this->is_exist('&alt;', $start_tag, $end_tag, $short_arr);
+						$is_there = $this->is_exist('&lt;', $start_tag, $end_tag, $short_arr);
 						if (!$is_there){
 							return $end_tag;
 						} else {
@@ -172,22 +184,16 @@ session_start();
 						}
 						return $new_sort;
 					}
-                    //Form for correcting input from user
-                    public function form_correct(){
-                        echo "<form action='' method='post' style='width: 50%'>";
-                        echo "<div class='form-group'>";
-                        echo "<label for='correct'>Correct img tag</label>";
-                        echo "<input type='text' class='form-control' id='correct' name='correct' placeholder='your text'>";
-                        echo  "<input type='hidden' name='stage1' value='process'>";
-                        echo "</div>";
-                        echo "<button class='btn btn-success btn-sm' type='submit'>Correct</button>";
-                        echo "</form>";
-                    }
 
                     public function correct_word($word){
-                        $this->correct_words = $word;
-                        return $this->correct_words;
+                        $myfile = fopen("revisi.txt", "a+") or die("Unable to open file!");
+                        fwrite($myfile, $word);
+                        while(!feof($myfile)) {
+                            echo fgets($myfile) . "<br>";
+                        }
+                        fclose($myfile);
                     }
+
 					//Work allocation here
 					public function alloc_work($start_tag){
 						switch ($this->tag_name) {
@@ -200,7 +206,9 @@ session_start();
 									if (!$this->img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag)){
                                         $this->correcting_arr($start_tag);
 									} else {
-                                        echo $this->correct_words;
+                                        $myfile = fopen("revisi.txt", "w") or die("Unable to open file!");
+                                        fwrite($myfile, $start_tag);
+                                        fclose($myfile);
                                     }
 								}
 								break;
@@ -232,9 +240,8 @@ session_start();
                             //When id found
                             return false;
                         } else{
-                            $this->form_correct();
+                            form_correct();
                             return true;
-
                         }
                     }
 
@@ -415,6 +422,7 @@ session_start();
                     $var = unserialize($_SESSION["obj"]);
                     $var->correct_word($_POST['correct']);
                 }
+
                 ?>
 
 			</div>
