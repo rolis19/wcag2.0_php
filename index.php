@@ -53,7 +53,7 @@ session_start();
                     echo "<form action='' method='post' style='width: 50%'>";
                     echo "<div class='form-group'>";
                     echo "<label for='correct'>Correct img tag</label>";
-                    echo "<input type='text' class='form-control' id='correct' name='correct' placeholder='your text' value='bento'>";
+                    echo "<input type='text' class='form-control' id='correct' name='correct' placeholder='your text'>";
                     echo  "<input type='hidden' name='stage1' value='process'>";
                     echo "</div>";
                     echo "<button class='btn btn-success btn-sm' type='submit' name='submit'>Correct</button>";
@@ -186,11 +186,10 @@ session_start();
 					}
 
                     public function correct_word($word){
-                        $myfile = fopen("revisi.txt", "a+") or die("Unable to open file!");
-                        fwrite($myfile, $word);
-                        while(!feof($myfile)) {
-                            echo fgets($myfile) . "<br>";
-                        }
+                        $myfile = fopen("revisi.txt", "r") or die("Unable to open file!");
+                        $index = (int)fgets($myfile);
+                        $word = htmlspecialchars('alt="').$word.htmlspecialchars('"');
+                        $this->correcting_arr($index+1, $word);
                         fclose($myfile);
                     }
 
