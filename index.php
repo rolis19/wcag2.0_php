@@ -10,6 +10,7 @@ session_start();
 <head>
 	<title>Php file handling</title>
 	<link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
 	<style>
 		header{height: 120px}
 	</style>
@@ -49,10 +50,16 @@ session_start();
 				<h4>Your error code will be displayed here</h4>
 				<?php
                 //Form for correcting input from user
-                function form_correct(){
+                function form_correct($tag_array){
+                    $word = "<code>".htmlspecialchars('alt="..."')."</code>";
+                    $a1 = array($tag_array[0], $word);
+                    array_splice($tag_array, 0,1,$a1);
+                    foreach ($tag_array as $items){
+                        echo $items." ";
+                    }
                     echo "<form action='' method='post' style='width: 50%'>";
                     echo "<div class='form-group'>";
-                    echo "<label for='correct'>Correct img tag</label>";
+                    echo "<label for='correct'>Give Alt value</label>";
                     echo "<input type='text' class='form-control' id='correct' name='correct' placeholder='your text'>";
                     echo  "<input type='hidden' name='stage1' value='process'>";
                     echo "</div>";
@@ -68,34 +75,36 @@ session_start();
 					public $start_tag;
 					public $end_tag;
                     public $correct_words;
-					protected $stack;
-					protected $limit;
 					public $checker_list = array("&lt;img", "&lt;input");
 
-					public function __construct($all_text="", $limit = 10){
+					public function __construct($all_text=""){
 						$this->all_array = explode(" ", $all_text);
-						// initialize the stack
-						$this->stack = array();
-						// stack can only contain this many items
-						$this->limit = $limit;
 					}
+//======================= General function, custom library
+//					Use this class every time we need to check the existence of certain word.
+                    public function is_exist($word, $start, $end, $array_of){
+                        $index = 0;
+                        for ($i=$start; $i<$end; $i++){
+                            if ($word == $array_of[$i]){
+                                $index = $i;
+                                //break;
+                            }
+                        }
+                        if ($index==0){
+                            return false;
+                        } else {
+                            return $index;
+                        }
+                    }
+//					For slicing every element in array
+                    public function subarr ($arrays_of, $start, $length ){
+                        $new_sort = array();
+                        foreach ($arrays_of as $items){
+                            array_push($new_sort, substr($items, $start, $length));
+                        }
+                        return $new_sort;
+                    }
 
-//=================== Stack use for checking open and closed tag =========================
-					public function push($item) {
-						// trap for stack overflow
-						if (count($this->stack) < $this->limit) {
-							// prepend item to the start of the array
-							array_unshift($this->stack, $item);
-						} else {
-							throw new RunTimeException('Stack is full!');
-						}
-					}
-					public function printStack(){
-						foreach ($this->stack as $item) {
-							echo $item.") (";
-						}
-					}
-//========================================================================================
 
 					//Find tag, also their index
 					public function tag_check(){
@@ -104,9 +113,8 @@ session_start();
 								similar_text($items, $this->checker_list[$i], $percent);
 								if ($percent == 100) {
 									$this->tag_name = $items;
-									$this->start_tag = $key;
-									$this->alloc_work($this->start_tag);
-									$this->push($items);
+									$start_tag = $key;
+									$this->alloc_work($start_tag);
 								}
 							}
 							array_push($this->correct_arr, $items);
@@ -127,28 +135,30 @@ session_start();
 					}
 					//Check whether end tag is true, by checking open tag for next element
 					public function is_end_tag($start_tag, $end_tag){
-						$short_arr = array();
-						foreach ($this->all_array as $items){
-							array_push($short_arr, substr($items, 0 ,3));
-						}
-						$is_there = $this->is_exist('&lt;', $start_tag, $end_tag, $short_arr);
-						if (!$is_there){
-							return $end_tag;
-						} else {
-							return $is_there;
-						}
+					    $new_sort = array();
+                        foreach ($this->all_array as $items){
+                            array_push($new_sort, substr($items, 0, 4));
+                        }
+                        $next_tag = $this->is_exist(htmlspecialchars('<'), $start_tag + 1, sizeof($new_sort), $new_sort);
+                        if (!$next_tag) {
+                            //In case this is end of file
+                            return sizeof($this->all_array);
+                        } else {
+                            return $next_tag;
+                        }
 					}
 					//If open tag for next element less than close tag for current element then false, else true
-					public function is_end_true($nd_tag, $st_tag){
-						if ($nd_tag>$st_tag){
+					public function is_end_true($end_tag, $next_open_tag){
+						if ($next_open_tag < $end_tag){
 							return false;
 						} else {
-							return $nd_tag;
+							return $end_tag;
 						}
 					}
 
 					// After start and end tag found return new array accordingly Snew array equal one tag (open and close)
 					public function single_tag($start_tag, $end_tag){
+
 						$single_tag_arr = array();
 						for ($n = $start_tag; $n < count($this->all_array); $n++) {
 							for ($i = $start_tag; $i <= $end_tag; $i++) {
@@ -158,66 +168,43 @@ session_start();
 						}
 						return $single_tag_arr;
 					}
-
-//					Use this class every time we need to check the existence of certain word.
-                    public function is_exist($word, $start, $end, $array_of){
-                        $index = 0;
-                        $indicator = 0;
-                        for ($i=$start; $i<$end; $i++){
-                            if ($word == $array_of[$i]){
-                                $indicator++;
-                                $index = $i;
-                                break;
-                            }
-                        }
-                        if ($indicator == 0){
-                            return false;
-                        } else{
-                            return $index;
-                        }
-                    }
-//					For slicing every element in array
-					public function subarr ($arrays_of, $start, $length ){
-						$new_sort = array();
-						foreach ($arrays_of as $items){
-							array_push($new_sort, substr($items, $start, $length));
-						}
-						return $new_sort;
-					}
-
-                    public function correct_word($word){
-                        $myfile = fopen("revisi.txt", "r") or die("Unable to open file!");
-                        $index = (int)fgets($myfile);
-                        $word = htmlspecialchars('alt="').$word.htmlspecialchars('"');
-                        $this->correcting_arr($index+1, $word);
-                        fclose($myfile);
-                    }
+//======================= End of General function, custom library
 
 					//Work allocation here
 					public function alloc_work($start_tag){
 						switch ($this->tag_name) {
 							case "&lt;img":
-								$endt = $this->find_end_tag($start_tag);
-								if (!$this->is_end_true($endt, $this->is_end_tag($start_tag, $endt))) {
-									echo "End tag for Img not found";
-								} else {
-								    // When alt found no need further action
-									if (!$this->img_check($this->single_tag($start_tag, $this->find_end_tag($start_tag)), $start_tag)){
-                                        $this->correcting_arr($start_tag);
-									} else {
-                                        $myfile = fopen("revisi.txt", "w") or die("Unable to open file!");
-                                        fwrite($myfile, $start_tag);
-                                        fclose($myfile);
-                                    }
-								}
+								$end_tag = $this->find_end_tag($start_tag);
+                                $next_open_tag = $this->is_end_tag($start_tag, $end_tag);
+                                $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
+                                if (!$is_end_true){
+                                    //When img doesn't have end tag
+                                    $img_tag = $this->single_tag($start_tag, $next_open_tag-1);
+                                    $this->img_check($img_tag, $start_tag);
+                                } else {
+                                    $img_tag = $this->single_tag($start_tag, $end_tag);
+                                    $this->img_check($img_tag, 0);
+                                }
+                                $myfile = fopen("tempindex.txt", "w") or die("Unable to open file!");
+                                foreach ($img_tag as $items){
+                                    fwrite($myfile, htmlspecialchars_decode($items)." ");
+                                }
+                                fclose($myfile);
 								break;
 							case "&lt;input":
-								$endt = $this->find_end_tag($start_tag); // End tag return value
-								if (!$this->is_end_true($endt, $this->is_end_tag($start_tag, $endt))) {
-									echo "End tag for input not found";
-								} else {
-									$this->input_alloc($this->single_tag($start_tag, $endt), $start_tag);
-								}
+                                $end_tag = $this->find_end_tag($start_tag);
+                                $next_open_tag = $this->is_end_tag($start_tag, $end_tag);
+                                $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
+                                $input_tag = $this->single_tag($start_tag, $end_tag);
+                                $this->write_to_file($input_tag);
+//                                if (!$is_end_true){
+//                                    echo "end tag not found";
+//                                } else {
+//                                    $this->input_alloc($this->single_tag($start_tag, $end_tag), $start_tag);
+//                                }
+//                                $myfile = fopen("tempindex.txt", "w") or die("Unable to open file!");
+//                                fwrite($myfile, $start_tag);
+//                                fclose($myfile);
 								break;
 							default:
 								echo "Make sure u are input Html code";
@@ -225,7 +212,7 @@ session_start();
 					}
 
 //===================   Check img Tag Process    ==========================================
-                    public function img_check($img_tag, $index){
+                    public function img_check($img_tag, $start_tag){
                         $indicator = 0;
                         foreach ($img_tag as $img){
                             $img_sort = substr($img, 0, 3);
@@ -236,172 +223,69 @@ session_start();
                         }
 //                        alt not found
                         if ($indicator >= 1){
-                            //When id found
-                            return false;
+                            $this->write_to_file($img_tag);
                         } else{
-                            form_correct();
-                            return true;
+                            form_correct($img_tag);
                         }
                     }
-
-
 //===================   Check input Tag Process    ==========================================
-					public function input_alloc($input_tag, $start_tag){
-						$indicator = 0;
-						foreach ($input_tag as $item) {
-							switch ($item){
-								case "type=&quot;text&quot;":
-								case "type=&quot;password&quot;":
-								case "type=&quot;radio&quot;":
-								case "type=&quot;checkbox&quot;":
-									//Html5 new
-								case "type=&quot;color&quot;":
-								case "type=&quot;date&quot;":
-								case "type=&quot;datetime&quot;":
-								case "type=&quot;datetime-local&quot;":
-								case "type=&quot;email&quot;":
-								case "type=&quot;month&quot;":
-								case "type=&quot;number&quot;":
-								case "type=&quot;range&quot;":
-								case "type=&quot;search&quot;":
-								case "type=&quot;tel&quot;":
-								case "type=&quot;time&quot;":
-								case "type=&quot;url&quot;":
-								case "type=&quot;week&quot;":
-									$indicator = 1;
-									$this->input_check($input_tag, $start_tag);
-									break;
-								//below no need any action
-								case "type=&quot;submit&quot;":
-								case "type=&quot;image&quot;":
-								case "type=&quot;reset&quot;":
-								case "type=&quot;button&quot;":
-									$indicator = 2;
-									break;
-							}
-						}
-						if ($indicator==0){
-//							echo "<br>You don't have proper type of input set<br>";
-						}
-					}
-					public function input_check($input_tag, $start_tag){
-						$indicator = 0;
-						$input_tags = implode(" ", $input_tag);
-						//Create new array based on double quote
-						$input_tags = explode("&quot;", $input_tags);
-						foreach ($input_tags as $key=>$input){
-//						find aria-label for input tag
-							$arial_sort = substr($input, 0, 11);
-							similar_text($arial_sort," aria-label",$percent);
-							if ($percent > 90){
-//								$this->correcting_arr($start_tag+1);
-								$indicator=1;
-								break;
-							}
-						}
-						if ($indicator == 0){
-//						if arial-label not exist find id then
-							$new_sort = $this->subarr($input_tag, 0, 2);
-							$is_there = $this->is_exist('id', $start_tag, sizeof($input_tag), $new_sort);
-							echo $new_sort[2];
-							if (!$is_there){
-//								if ID not there than just set ID value to null
-								$this->check_labelid($start_tag, " ");
-							} else {
-								$this->check_labelid($start_tag, $input_tags[$is_there+1]);
-							}
-						}
-					}
-
-					public function check_labelid($start_tag, $id_name){
-					    $yes_label = 0;
-						if ($start_tag == 0){
-							$end_label = $start_tag;
-						} else {
-							$end_label = $start_tag-1;
-						}
-						// Check if end is truly label, if not then add aria-label to input
-						$check_label = substr($this->all_array[$end_label], strlen($this->all_array[$end_label])-14, strlen($this->all_array[$end_label]));
-						if ($check_label == htmlspecialchars('</label>')){
-							$yes_label = 1;
-						} else {
-							if ($id_name == " "){
-//                                $this->correcting_arr($start_tag+1, "aria-labelledby=&quot;Add label info&quot;");
-                            } else {
-//                                $this->correcting_arr($start_tag+1, "aria-labelledby=&quot;".$id_name."&quot;");
-                            }
-							echo "<p class='bg-warning'>'aria-labelledby' added to the input tag</p>";
-						}
-						// When end equal to label do following
-						if ($yes_label == 1){
-                            $start_label = 0;
-                            $indicator = 0;
-                            $label_tag = array();
-							// Find the first index of label
-                            for ($i=$end_label-2; $i>=0; $i--){
-                                $new_label = substr($this->all_array[$i], 0, 4);
-                                if ($new_label == htmlspecialchars('<')){
-                                    $start_label = $i;
+                    public function input_alloc($input_tag, $start_tag){
+                        $indicator = 0;
+                        foreach ($input_tag as $item) {
+                            switch ($item){
+                                case "type=&quot;text&quot;":
+                                case "type=&quot;password&quot;":
+                                case "type=&quot;radio&quot;":
+                                case "type=&quot;checkbox&quot;":
+                                    //Html5 new
+                                case "type=&quot;color&quot;":
+                                case "type=&quot;date&quot;":
+                                case "type=&quot;datetime&quot;":
+                                case "type=&quot;datetime-local&quot;":
+                                case "type=&quot;email&quot;":
+                                case "type=&quot;month&quot;":
+                                case "type=&quot;number&quot;":
+                                case "type=&quot;range&quot;":
+                                case "type=&quot;search&quot;":
+                                case "type=&quot;tel&quot;":
+                                case "type=&quot;time&quot;":
+                                case "type=&quot;url&quot;":
+                                case "type=&quot;week&quot;":
+                                    $indicator = 1;
+                                    echo "further";
+                                    //$this->input_check($input_tag, $start_tag);
                                     break;
-                                }
-                            }
-                            for ($j=$start_label; $j<=$end_label; $j++){
-                                array_push($label_tag, $this->all_array[$j]);
-                            }
-                            $label_tag = implode(" ", $label_tag);
-                            // Create new array based on double quote, check it one by one if it equal to ID
-                            $label_tag = explode("&quot;", $label_tag);
-                            foreach ($label_tag as $item){
-                                if ($item == $id_name){
-                                    $indicator++;
-//                                    $this->correcting_arr($start_tag+1); //Label already equal to ID
+                                //below no need any action
+                                case "type=&quot;submit&quot;":
+                                case "type=&quot;image&quot;":
+                                case "type=&quot;reset&quot;":
+                                case "type=&quot;button&quot;":
+                                    $indicator = 2;
                                     break;
-                                }
-                            }
-                            if ($indicator == 0){
-								$new_sort = $this->subarr($this->all_array, 0, 3);
-								$is_there = $this->is_exist('for', $start_label, $end_label, $new_sort);
-                            	// When ID don't have value do
-                                if ($id_name == " "){
-									echo "disinyalir tak punya id";
-//									if (!$is_there){
-//										//When label don't have for
-//									} else {
-//										//When label have for
-//
-//									}
-                                }
-                                //When ID have value do
-                                else {
-									echo sizeof($label_tag);
-                                	if (!$is_there){ //When for doesn't exist
-										$this->all_array[0] = htmlspecialchars('<label for="').$id_name.htmlspecialchars('">');
-									} else{ //When for do exist
-										if (sizeof($label_tag)<=3){ // Check whether
-											echo "";
-											$this->all_array[$is_there] = htmlspecialchars('for="').$id_name.htmlspecialchars('">');
-										} elseif (sizeof($label_tag)>=4){
-											echo "2";
-											$this->all_array[$is_there] = htmlspecialchars('for="').$id_name.htmlspecialchars('"');
-										}
-									}
-									echo "<p class='bg-primary'>We have corrected your label</p>";
-//									$this->correcting_arr($start_tag+1);
-                                }
                             }
                         }
-					}
-					
+                        if ($indicator==0){
+							echo "<br>You don't have proper type of input set<br>";
+                        }
+                    }
 //===================   Process final array correcting and saving   ========================
+                    public function input_user_value($word){
+//                        $myfile = fopen("tempindex.txt", "r") or die("Unable to open file!");
+                        $one_tag = file_get_contents('tempindex.txt');
+                        $one_tag_array = explode(" ", htmlspecialchars($one_tag));
+                        print_r($one_tag_array);
+//                        fclose($myfile);
+                    }
+                    
 					public function correcting_arr($index, $word=""){
 						$a1 = array($this->all_array[$index], $word);
 						array_splice($this->all_array, $index,1,$a1);
-						$this->print_true($this->all_array);
+						$this->write_to_file($this->all_array);
 
 					}
 
-					public function print_true($true_arr){
-						$myfile = fopen("newfile.html", "w") or die("Unable to open file!");
+					public function write_to_file($true_arr){
+						$myfile = fopen("newfile.html", "a+") or die("Unable to open file!");
 						foreach ($true_arr as $items){
 							fwrite($myfile, html_entity_decode($items)." ");
 						}
@@ -419,7 +303,7 @@ session_start();
                 }
                 if (isset($_POST['stage1']) && ('process' == $_POST['stage1'])) {
                     $var = unserialize($_SESSION["obj"]);
-                    $var->correct_word($_POST['correct']);
+                    $var->input_user_value($_POST['correct']);
                 }
 
                 ?>

@@ -5,4 +5,4 @@
 <input type="text" id="billing"/>
 
 <img src="smiley.gif" alt="Smiley face" height="43" width="44"> <label> Name </label> <input type="text" id="billing"/>
-<img src="smiley.gif" width=30> <input type="text" id="billing" aria-labelledby="billing address"/>
+<img src="smiley.gif" width="30"/ <input type="text" id="billing" aria-labelledby="billing address"/>
