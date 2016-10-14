@@ -71,8 +71,9 @@ session_start();
                 class mainArray{
 					public $all_array;
 					public $correct_arr = array();
+                    public $array_ready = array();
+                    public $array_indicator;
 					public $tag_name;
-					public $start_tag;
 					public $end_tag;
                     public $correct_words;
 					public $checker_list = array("&lt;img", "&lt;input");
@@ -114,6 +115,7 @@ session_start();
 								if ($percent == 100) {
 									$this->tag_name = $items;
 									$start_tag = $key;
+                                    $this->array_indicator++;
 									$this->alloc_work($start_tag);
 								}
 							}
@@ -196,7 +198,7 @@ session_start();
                                 $next_open_tag = $this->is_end_tag($start_tag, $end_tag);
                                 $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
                                 $input_tag = $this->single_tag($start_tag, $end_tag);
-                                $this->write_to_file($input_tag);
+                                $this->write_to_file($input_tag, 1);
 //                                if (!$is_end_true){
 //                                    echo "end tag not found";
 //                                } else {
@@ -223,7 +225,7 @@ session_start();
                         }
 //                        alt not found
                         if ($indicator >= 1){
-                            $this->write_to_file($img_tag);
+                            $this->write_to_file($img_tag, $start_tag);
                         } else{
                             form_correct($img_tag);
                         }
@@ -270,26 +272,33 @@ session_start();
                     }
 //===================   Process final array correcting and saving   ========================
                     public function input_user_value($word){
-//                        $myfile = fopen("tempindex.txt", "r") or die("Unable to open file!");
                         $one_tag = file_get_contents('tempindex.txt');
                         $one_tag_array = explode(" ", htmlspecialchars($one_tag));
-                        print_r($one_tag_array);
-//                        fclose($myfile);
+                        $word = htmlspecialchars('alt="').$word.htmlspecialchars('"');
+                        $a1 = array($one_tag_array[0], $word);
+                        array_splice($one_tag_array, 0,1,$a1);
+                        $this->write_to_file($one_tag_array, 0);
                     }
                     
-					public function correcting_arr($index, $word=""){
-						$a1 = array($this->all_array[$index], $word);
-						array_splice($this->all_array, $index,1,$a1);
-						$this->write_to_file($this->all_array);
+//					public function correcting_arr($index, $word=""){
+//						$a1 = array($this->all_array[$index], $word);
+//						array_splice($this->all_array, $index,1,$a1);
+//						$this->write_to_file($this->all_array);
+//
+//					}
 
-					}
-
-					public function write_to_file($true_arr){
-						$myfile = fopen("newfile.html", "a+") or die("Unable to open file!");
-						foreach ($true_arr as $items){
-							fwrite($myfile, html_entity_decode($items)." ");
-						}
-						fclose($myfile);
+					public function write_to_file($true_arr, $index){
+					    $this->array_ready[$index] = implode(" ", $true_arr);
+                        if (sizeof($this->array_ready) == $this->array_indicator){
+                            sort($this->array_ready);
+                            $myfile = fopen("newfile.html", "w") or die("Unable to open file!");
+                            foreach ($this->all_array as $items){
+                                fwrite($myfile, htmlspecialchars_decode($items)." ");
+                            }
+                            fclose($myfile);
+                        }
+//
+//
 					}
 				}
 //=============== End of class here  =======================================================
