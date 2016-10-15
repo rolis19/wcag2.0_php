@@ -109,18 +109,19 @@ session_start();
 
 					//Find tag, also their index
 					public function tag_check(){
+					    $indicator =0;
 						foreach ($this->all_array as $key => $items) {
 							for ($i = 0; $i < count($this->checker_list); $i++) {
 								similar_text($items, $this->checker_list[$i], $percent);
 								if ($percent == 100) {
 									$this->tag_name = $items;
 									$start_tag = $key;
-                                    $this->array_indicator++;
+                                    $indicator++;
 									$this->alloc_work($start_tag);
 								}
 							}
-							array_push($this->correct_arr, $items);
 						}
+                        $this->array_indicator = $indicator;
 					}
 					//Find end tag
 					public function find_end_tag($start_tag){
@@ -185,9 +186,10 @@ session_start();
                                     $this->img_check($img_tag, $start_tag);
                                 } else {
                                     $img_tag = $this->single_tag($start_tag, $end_tag);
-                                    $this->img_check($img_tag, 0);
+                                    $this->img_check($img_tag, $start_tag);
                                 }
                                 $myfile = fopen("tempindex.txt", "w") or die("Unable to open file!");
+                                fwrite($myfile, $start_tag." ");
                                 foreach ($img_tag as $items){
                                     fwrite($myfile, htmlspecialchars_decode($items)." ");
                                 }
@@ -198,7 +200,7 @@ session_start();
                                 $next_open_tag = $this->is_end_tag($start_tag, $end_tag);
                                 $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
                                 $input_tag = $this->single_tag($start_tag, $end_tag);
-                                $this->write_to_file($input_tag, 1);
+                                $this->write_to_file($input_tag, $start_tag);
 //                                if (!$is_end_true){
 //                                    echo "end tag not found";
 //                                } else {
@@ -274,26 +276,22 @@ session_start();
                     public function input_user_value($word){
                         $one_tag = file_get_contents('tempindex.txt');
                         $one_tag_array = explode(" ", htmlspecialchars($one_tag));
+                        $index = (int)$one_tag_array[0];
+                        unset($one_tag_array[0]);
                         $word = htmlspecialchars('alt="').$word.htmlspecialchars('"');
-                        $a1 = array($one_tag_array[0], $word);
+                        $a1 = array($one_tag_array[1], $word);
                         array_splice($one_tag_array, 0,1,$a1);
-                       $this->write_to_file($one_tag_array, 0);
+                       $this->write_to_file($one_tag_array, $index);
                     }
-                    
-//					public function correcting_arr($index, $word=""){
-//						$a1 = array($this->all_array[$index], $word);
-//						array_splice($this->all_array, $index,1,$a1);
-//						$this->write_to_file($this->all_array);
-//
-//					}
 
 					public function write_to_file($true_arr, $index){
 					    $this->array_ready[$index] = implode(" ", $true_arr);
                         if (sizeof($this->array_ready) == $this->array_indicator){
-                            sort($this->array_ready);
                             $myfile = fopen("newfile.html", "w") or die("Unable to open file!");
-                            for ($i=0; $i<$this->array_indicator; $i++){
-                                fwrite($myfile, htmlspecialchars_decode($this->array_ready[$i])." ");
+                            ksort($this->array_ready);
+                            foreach ($this->array_ready as $index=>$items){
+                                echo $index."==>".$items."<br>";
+                                fwrite($myfile, htmlspecialchars_decode($items)." ");
                             }
                             fclose($myfile);
                         }
