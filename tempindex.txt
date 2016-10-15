@@ -1,1 +1,1 @@
-<img src="smiley.gif" width="30"/ 
+<img src="smiley.gif" width="30"/> 

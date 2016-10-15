@@ -277,7 +277,7 @@ session_start();
                         $word = htmlspecialchars('alt="').$word.htmlspecialchars('"');
                         $a1 = array($one_tag_array[0], $word);
                         array_splice($one_tag_array, 0,1,$a1);
-                        $this->write_to_file($one_tag_array, 0);
+                       $this->write_to_file($one_tag_array, 0);
                     }
                     
 //					public function correcting_arr($index, $word=""){
@@ -292,13 +292,11 @@ session_start();
                         if (sizeof($this->array_ready) == $this->array_indicator){
                             sort($this->array_ready);
                             $myfile = fopen("newfile.html", "w") or die("Unable to open file!");
-                            foreach ($this->all_array as $items){
-                                fwrite($myfile, htmlspecialchars_decode($items)." ");
+                            for ($i=0; $i<$this->array_indicator; $i++){
+                                fwrite($myfile, htmlspecialchars_decode($this->array_ready[$i])." ");
                             }
                             fclose($myfile);
                         }
-//
-//
 					}
 				}
 //=============== End of class here  =======================================================
