@@ -67,7 +67,8 @@ public function input_check($input_tag, $start_tag){
     }
 }
 
-public function check_labelid($start_tag, $id_name){
+
+public function check_labelid($input_tag, $start_tag, $id_name){
     $yes_label = 0;
     if ($start_tag == 0){
         $end_label = $start_tag;
@@ -79,8 +80,13 @@ public function check_labelid($start_tag, $id_name){
     if ($check_label == htmlspecialchars('</label>')){
         $yes_label = 1;
     } else {
-        if ($id_name == " "){
-//                                $this->correcting_arr($start_tag+1, "aria-labelledby=&quot;Add label info&quot;");
+        if (empty($id_name)){
+            $myfile = fopen("tempindex.txt", "w") or die("Unable to open file!");
+            fwrite($myfile, $start_tag." ");
+            foreach ($input_tag as $items){
+                fwrite($myfile, htmlspecialchars_decode($items)." ");
+            }
+            fclose($myfile);
         } else {
 //                                $this->correcting_arr($start_tag+1, "aria-labelledby=&quot;".$id_name."&quot;");
         }
@@ -145,3 +151,4 @@ public function check_labelid($start_tag, $id_name){
         }
     }
 }
+

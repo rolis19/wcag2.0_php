@@ -117,6 +117,7 @@ session_start();
 									$this->tag_name = $items;
 									$start_tag = $key;
                                     $indicator++;
+                                    //echo $this->tag_name;
 									$this->alloc_work($start_tag);
 								}
 							}
@@ -161,7 +162,6 @@ session_start();
 
 					// After start and end tag found return new array accordingly Snew array equal one tag (open and close)
 					public function single_tag($start_tag, $end_tag){
-
 						$single_tag_arr = array();
 						for ($n = $start_tag; $n < count($this->all_array); $n++) {
 							for ($i = $start_tag; $i <= $end_tag; $i++) {
@@ -171,7 +171,7 @@ session_start();
 						}
 						return $single_tag_arr;
 					}
-//======================= End of General function, custom library
+//======================= End of General function, custom library =======
 
 					//Work allocation here
 					public function alloc_work($start_tag){
@@ -199,16 +199,12 @@ session_start();
                                 $end_tag = $this->find_end_tag($start_tag);
                                 $next_open_tag = $this->is_end_tag($start_tag, $end_tag);
                                 $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
-                                $input_tag = $this->single_tag($start_tag, $end_tag);
-                                $this->write_to_file($input_tag, $start_tag);
-//                                if (!$is_end_true){
-//                                    echo "end tag not found";
-//                                } else {
-//                                    $this->input_alloc($this->single_tag($start_tag, $end_tag), $start_tag);
-//                                }
-//                                $myfile = fopen("tempindex.txt", "w") or die("Unable to open file!");
-//                                fwrite($myfile, $start_tag);
-//                                fclose($myfile);
+                                if (!$is_end_true){
+                                    echo "end tag not found";
+                                } else {
+                                    $input_tag = $this->single_tag($start_tag, $end_tag);
+                                    $this->input_alloc($input_tag, $start_tag);
+                                }
 								break;
 							default:
 								echo "Make sure u are input Html code";
@@ -256,8 +252,7 @@ session_start();
                                 case "type=&quot;url&quot;":
                                 case "type=&quot;week&quot;":
                                     $indicator = 1;
-                                    echo "further";
-                                    //$this->input_check($input_tag, $start_tag);
+                                    $this->input_check($input_tag, $start_tag);
                                     break;
                                 //below no need any action
                                 case "type=&quot;submit&quot;":
@@ -270,6 +265,35 @@ session_start();
                         }
                         if ($indicator==0){
 							echo "<br>You don't have proper type of input set<br>";
+                        }
+                    }
+
+                    public function input_check($input_tag, $start_tag){
+                        $indicator = 0;
+                        $input_tags = implode(" ", $input_tag);
+                        //Create new array based on double quote
+                        $input_tags = explode("&quot;", $input_tags);
+                        foreach ($input_tags as $key=>$input){
+                        //find aria-label for input tag
+                            $arial_sort = substr($input, 0, 11);
+                            similar_text($arial_sort," aria-label",$percent);
+                            if ($percent > 90){
+								$this->write_to_file($input_tag, $start_tag);
+                                $indicator=1;
+                                break;
+                            }
+                        }
+                        if ($indicator == 0){
+//						if arial-label not exist find id then
+                            $new_sort = $this->subarr($input_tag, 0, 2);
+                            $is_there = $this->is_exist('id', $start_tag, sizeof($input_tag), $new_sort);
+                            echo $new_sort[2];
+                            if (!$is_there){
+//								if ID not there than just set ID value to empty
+                                //$this->check_labelid($input_tag, $start_tag, "");
+                            } else {
+                                //$this->check_labelid($input_tag, $start_tag, $input_tags[$is_there+1]);
+                            }
                         }
                     }
 //===================   Process final array correcting and saving   ========================
@@ -286,15 +310,20 @@ session_start();
 
 					public function write_to_file($true_arr, $index){
 					    $this->array_ready[$index] = implode(" ", $true_arr);
+//                        debuging mode
+                        echo $this->array_ready[$index];
+//                        echo "<br>".sizeof($this->array_ready)." == ".$this->array_indicator."<br>";
+                        $myfile = fopen("newfile.html", "w") or die("Unable to open file!");
                         if (sizeof($this->array_ready) == $this->array_indicator){
-                            $myfile = fopen("newfile.html", "w") or die("Unable to open file!");
                             ksort($this->array_ready);
                             foreach ($this->array_ready as $index=>$items){
                                 echo $index."==>".$items."<br>";
                                 fwrite($myfile, htmlspecialchars_decode($items)." ");
                             }
-                            fclose($myfile);
+                        } elseif ($this->array_indicator < 1){
+                            fwrite($myfile, htmlspecialchars_decode($this->array_ready[$index]));
                         }
+                        fclose($myfile);
 					}
 				}
 //=============== End of class here  =======================================================
