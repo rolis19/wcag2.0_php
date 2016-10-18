@@ -1,13 +1,28 @@
-$(document).on('click','#save',function(e) {
-    var info = $('#correct').val();
-    var position = $('#position').val();
+
+// Save img tag
+$(document).on('click','#save_img',function(e) {
+    var info = $('#correct_img').val();
+    var position = $('#position_img').val();
     $.ajax({
         method: "POST",
         url: "action.php",
         data: {name: info, index: position},
         success: function(status) {
-            $('#correct').val('');
             $( ".img" ).remove();
+        }
+    });
+});
+
+// Save input tag
+$(document).on('click','#save_input',function(e) {
+    var info = $('#correct_input').val();
+    var position = $('#position_input').val();
+    $.ajax({
+        method: "POST",
+        url: "action.php",
+        data: {name: info, index: position},
+        success: function(status) {
+            $( ".input" ).remove();
         }
     });
 });

@@ -59,26 +59,30 @@ session_start();
                             $word = "<code>".htmlspecialchars('alt="..."')."</code>";
                             $a1 = array($tag_array[0], $word);
                             array_splice($tag_array, 0,1,$a1);
+                            echo "<p>";
                             foreach ($tag_array as $items){
                                 echo $items." ";
                             }
+                            echo "</p>";
                             break;
                         case 'input':
                             $desc = "Give arial-label value";
                             $word = "<code>".htmlspecialchars('aria-labelledby="..."')."</code>";
                             $a1 = array($tag_array[0], $word);
                             array_splice($tag_array, 0,1,$a1);
+                            echo "<p>";
                             foreach ($tag_array as $items){
                                 echo $items." ";
                             }
+                            echo "</p>";
                             break;
                     }
                     echo "<div class='form-group'>";
                     echo "<label for='correct'>$desc</label>";
-                    echo "<input type='text' class='form-control' id='correct' placeholder='your text'>";
-                    echo "<input type='hidden' class='form-control' id='position' value='$index'>";
-                    echo  "<input type='hidden' name='stage1' value='process'>";
-                    echo "<button class='btn btn-success btn-sm' id='save'>Correct</button>";
+                    echo "<input type='text' class='form-control' id='correct_$tag' placeholder='your text'>";
+                    echo "<input type='text' id='position_$tag' value='$index'>";
+                    echo "<input type='text' id='value' value='$tag'>";
+                    echo "<button class='btn btn-success btn-sm' id='save_$tag'>Correct</button>";
                     echo "</div>";
                     echo "</div>";
                 }
@@ -430,11 +434,6 @@ session_start();
                     $all_array = htmlspecialchars($_POST['cekode']);
                     $main_array = new mainArray($all_array);
 					$main_array->tag_check();
-                    $_SESSION["obj"] = serialize($main_array);
-                }
-                if (isset($_POST['stage1']) && ('process' == $_POST['stage1'])) {
-                    $var = unserialize($_SESSION["obj"]);
-                    $var->input_user_value($_POST['correct']);
                 }
 
                 ?>
