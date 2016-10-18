@@ -1,13 +1,12 @@
-$(document).on('click','#save',function(e) {
-    var info = $('#correct').val();
-    var position = $('#position').val();
+function savaAjax(tag) {
+    var info = $('#correct_'+tag).val();
+    var position = $('#position_'+tag).val();
     $.ajax({
         method: "POST",
         url: "action.php",
         data: {name: info, index: position},
-        success: function(status) {
-            $('#correct').val('');
-            $( ".img" ).remove();
+        success: function() {
+            $(".img").remove();
         }
     });
-});
+}
