@@ -80,9 +80,9 @@ session_start();
                     echo "<div class='form-group'>";
                     echo "<label for='correct'>$desc</label>";
                     echo "<input type='text' class='form-control' id='correct_$tag' placeholder='your text'>";
-                    echo "<input type='text' class='form-control' id='position_$tag' value='$index'>";
-                    echo"<script language='javascript'>var tag = '$tag'</script>";
-                    echo "<button class='btn btn-success btn-sm' onclick='savaAjax(tag)'>Correct</button>";
+                    echo "<input type='hidden' id='position_$tag' value='$index'>";
+                    echo "<input type='hidden' id='value' value='$tag'>";
+                    echo "<button class='btn btn-success btn-sm' id='save_$tag'>Correct</button>";
                     echo "</div>";
                     echo "</div>";
                 }
