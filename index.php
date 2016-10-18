@@ -50,21 +50,37 @@ session_start();
 				<h4>Your error code will be displayed here</h4>
 				<?php
                 //Form for correcting input from user
-                function form_correct($tag_array){
-                    $word = "<code>".htmlspecialchars('alt="..."')."</code>";
-                    $a1 = array($tag_array[0], $word);
-                    array_splice($tag_array, 0,1,$a1);
-                    foreach ($tag_array as $items){
-                        echo $items." ";
+                function form_correct($tag_array, $tag, $index){
+                    echo "<div class='$tag'>";
+                    $desc="";
+                    switch ($tag){
+                        case 'img':
+                            $desc = "Give alt value";
+                            $word = "<code>".htmlspecialchars('alt="..."')."</code>";
+                            $a1 = array($tag_array[0], $word);
+                            array_splice($tag_array, 0,1,$a1);
+                            foreach ($tag_array as $items){
+                                echo $items." ";
+                            }
+                            break;
+                        case 'input':
+                            $desc = "Give arial-label value";
+                            $word = "<code>".htmlspecialchars('aria-labelledby="..."')."</code>";
+                            $a1 = array($tag_array[0], $word);
+                            array_splice($tag_array, 0,1,$a1);
+                            foreach ($tag_array as $items){
+                                echo $items." ";
+                            }
+                            break;
                     }
-                    echo "<form action='' method='post' style='width: 50%'>";
                     echo "<div class='form-group'>";
-                    echo "<label for='correct'>Give Alt value</label>";
-                    echo "<input type='text' class='form-control' id='correct' name='correct' placeholder='your text'>";
+                    echo "<label for='correct'>$desc</label>";
+                    echo "<input type='text' class='form-control' id='correct' placeholder='your text'>";
+                    echo "<input type='hidden' class='form-control' id='position' value='$index'>";
                     echo  "<input type='hidden' name='stage1' value='process'>";
+                    echo "<button class='btn btn-success btn-sm' id='save'>Correct</button>";
                     echo "</div>";
-                    echo "<button class='btn btn-success btn-sm' type='submit' name='submit'>Correct</button>";
-                    echo "</form>";
+                    echo "</div>";
                 }
 
 
@@ -225,7 +241,7 @@ session_start();
                         if ($indicator >= 1){
                             $this->write_to_file($img_tag, $start_tag);
                         } else{
-                            form_correct($img_tag);
+                            form_correct($img_tag, 'img', $start_tag);
                         }
                     }
 //===================   Check input Tag Process    ==========================================
@@ -287,7 +303,6 @@ session_start();
 //						if arial-label not exist find id then
                             $new_sort = $this->subarr($input_tag, 0, 2);
                             $is_there = $this->is_exist('id', $start_tag, sizeof($input_tag), $new_sort);
-                            echo $new_sort[2];
                             if (!$is_there){
 //								if ID not there than just set ID value to empty
                                 $this->check_labelid($input_tag, $start_tag, "");
@@ -309,16 +324,13 @@ session_start();
                         if ($check_label == htmlspecialchars('</label>')){
                             $yes_label = 1;
                         } else {
-                            if (empty($id_name)){
-                                $myfile = fopen("tempindex.txt", "w") or die("Unable to open file!");
-                                fwrite($myfile, $start_tag." ");
-                                foreach ($input_tag as $items){
-                                    fwrite($myfile, htmlspecialchars_decode($items)." ");
-                                }
-                                fclose($myfile);
-                            } else {
-//                                $this->correcting_arr($start_tag+1, "aria-labelledby=&quot;".$id_name."&quot;");
+                            $myfile = fopen("tempindex.txt", "w") or die("Unable to open file!");
+                            fwrite($myfile, $start_tag." ");
+                            foreach ($input_tag as $items){
+                                fwrite($myfile, htmlspecialchars_decode($items)." ");
                             }
+                            fclose($myfile);
+                            form_correct($input_tag, 'input', $start_tag);
                         }
                         // When end equal to label do following
                         if ($yes_label == 1){
@@ -453,7 +465,7 @@ session_start();
 		echo " Peak Memory: ".convert(memory_get_peak_usage());
 		?>
 	</footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/ajax.js"></script>
 </body>
 </html>
