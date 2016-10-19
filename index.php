@@ -208,12 +208,6 @@ session_start();
                                     $img_tag = $this->single_tag($start_tag, $end_tag);
                                     $this->img_check($img_tag, $start_tag);
                                 }
-                                $myfile = fopen("tempindex.txt", "w") or die("Unable to open file!");
-                                fwrite($myfile, $start_tag." ");
-                                foreach ($img_tag as $items){
-                                    fwrite($myfile, htmlspecialchars_decode($items)." ");
-                                }
-                                fclose($myfile);
 								break;
 							case "&lt;input":
                                 $end_tag = $this->find_end_tag($start_tag);
@@ -241,9 +235,9 @@ session_start();
                                 $indicator++;
                             }
                         }
-//                        alt not found
                         if ($indicator >= 1){
-                            $this->write_to_file($img_tag, $start_tag);
+                            //alt found
+                            //no need further execution
                         } else{
                             form_correct($img_tag, 'img', $start_tag);
                         }
@@ -298,7 +292,7 @@ session_start();
                             $arial_sort = substr($input, 0, 11);
                             similar_text($arial_sort," aria-label",$percent);
                             if ($percent > 90){
-								$this->write_to_file($input_tag, $start_tag);
+								//arial-label found no need further execution
                                 $indicator=1;
                                 break;
                             }
@@ -326,14 +320,8 @@ session_start();
                         // Check if end is truly label, if not then add aria-label to input
                         $check_label = substr($this->all_array[$end_label], strlen($this->all_array[$end_label])-14, strlen($this->all_array[$end_label]));
                         if ($check_label == htmlspecialchars('</label>')){
-                            $yes_label = 1;
+                            $yes_label = 1; //if the previous is label then to the line 328
                         } else {
-                            $myfile = fopen("tempindex.txt", "w") or die("Unable to open file!");
-                            fwrite($myfile, $start_tag." ");
-                            foreach ($input_tag as $items){
-                                fwrite($myfile, htmlspecialchars_decode($items)." ");
-                            }
-                            fclose($myfile);
                             form_correct($input_tag, 'input', $start_tag);
                         }
                         // When end equal to label do following
@@ -358,7 +346,7 @@ session_start();
                             foreach ($label_tag as $item){
                                 if ($item == $id_name){
                                     $indicator++;
-//                                    $this->correcting_arr($start_tag+1); //Label already equal to ID
+//                                  //Label already equal to ID no need further excution
                                     break;
                                 }
                             }
@@ -390,42 +378,11 @@ session_start();
                                         }
                                     }
                                     echo "<p class='bg-primary'>We have corrected your label</p>";
-//									$this->correcting_arr($start_tag+1);
                                 }
                             }
                         }
                     }
 
-
-//===================   Process final array correcting and saving   ========================
-//                    public function input_user_value($word){
-//                        $one_tag = file_get_contents('tempindex.txt');
-//                        $one_tag_array = explode(" ", htmlspecialchars($one_tag));
-//                        $index = (int)$one_tag_array[0];
-//                        unset($one_tag_array[0]);
-//                        $word = htmlspecialchars('alt="').$word.htmlspecialchars('"');
-//                        $a1 = array($one_tag_array[1], $word);
-//                        array_splice($one_tag_array, 0,1,$a1);
-//                       $this->write_to_file($one_tag_array, $index);
-//                    }
-
-					public function write_to_file($true_arr, $index){
-					    $this->array_ready[$index] = implode(" ", $true_arr);
-//                        debuging mode
-//                        echo $this->array_ready[$index];
-//                        echo "<br>".sizeof($this->array_ready)." == ".$this->array_indicator."<br>";
-                        $myfile = fopen("newfile.html", "w") or die("Unable to open file!");
-                        if (sizeof($this->array_ready) == $this->array_indicator){
-                            ksort($this->array_ready);
-                            foreach ($this->array_ready as $index=>$items){
-                                echo $index."==>".$items."<br>"; //debuging purpose
-                                fwrite($myfile, htmlspecialchars_decode($items)." ");
-                            }
-                        } elseif ($this->array_indicator < 1){
-                            fwrite($myfile, htmlspecialchars_decode($this->array_ready[$index]));
-                        }
-                        fclose($myfile);
-					}
 				}
 //=============== End of class here  =======================================================
 
