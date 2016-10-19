@@ -1,8 +1,8 @@
 <?php
 $tag = $_POST['tag'];
-if (isset($_POST["name_$tag"])) {
-    $words = $_POST["name_$tag"];
-    $position = $_POST["index_$tag"];
+if (isset($_POST["name"])) {
+    $words = $_POST["name"];
+    $position = $_POST["index"];
     $one_tag = file_get_contents('cek-file.txt');
     $insert = new insertValue($one_tag, $tag, $position, $words);
     $insert->input_user_value();

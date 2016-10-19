@@ -51,9 +51,8 @@ session_start();
 				<?php
                 //Form for correcting input from user
                 function form_correct($tag_array, $tag, $index){
-                    $id =0;
-                    $class= $tag."".$index;
-                    echo "<div class='$class'>";
+                    $identifier= $tag."".$index;
+                    echo "<div class='$identifier'>";
                     $desc="";
                     switch ($tag){
                         case 'img':
@@ -68,7 +67,7 @@ session_start();
                             echo "</p>";
                             break;
                         case 'input':
-                            $desc = "Give arial-label value";
+                            $desc = "Give arial-label value ";
                             $word = "<code>".htmlspecialchars('aria-labelledby="..."')."</code>";
                             $a1 = array($tag_array[0], $word);
                             array_splice($tag_array, 0,1,$a1);
@@ -80,11 +79,11 @@ session_start();
                             break;
                     }
                     echo "<div class='form-group' style='width: 50%'>";
-                    echo "<label for='correct'>$desc</label>";
-                    echo "<input type='text' class='form-control' id='correct_$class' placeholder='your text'>";
-                    echo "<input type='hidden' id='position_$class' value='$index'>";
+                    echo "<label for='correct'>$desc <span id='identifier'>$identifier</span></label>";
+                    echo "<input type='text' class='form-control' id='correct_$identifier' placeholder='your text'>";
+                    echo "<input type='hidden' id='position_$identifier' value='$index'>";
                     echo "<input type='hidden' id='value' value='$tag'>";
-                    echo "<button class='btn btn-success btn-sm' id='save_$class'>Correct</button>";
+                    echo "<button class='btn btn-success btn-sm' onclick='runAjax()'>Correct</button>";
                     echo "</div>";
                     echo "</div>";
                 }
