@@ -32,7 +32,7 @@ session_start();
                             <label for="cek">Insert your code below.</label>
                             <textarea name="cekode" id="cek" cols="80" rows="8"></textarea>
                             <input type="hidden" name="stage" value="process">
-                            <button class="btn btn-success btn-lg" type="submit">CHECK</button>
+                            <button class="btn btn-success btn-lg" id="check" type="submit">CHECK</button>
                         </form>
                     </div>
                     <div id="menu1" class="tab-pane fade">
@@ -398,16 +398,16 @@ session_start();
 
 
 //===================   Process final array correcting and saving   ========================
-                    public function input_user_value($word){
-                        $one_tag = file_get_contents('tempindex.txt');
-                        $one_tag_array = explode(" ", htmlspecialchars($one_tag));
-                        $index = (int)$one_tag_array[0];
-                        unset($one_tag_array[0]);
-                        $word = htmlspecialchars('alt="').$word.htmlspecialchars('"');
-                        $a1 = array($one_tag_array[1], $word);
-                        array_splice($one_tag_array, 0,1,$a1);
-                       $this->write_to_file($one_tag_array, $index);
-                    }
+//                    public function input_user_value($word){
+//                        $one_tag = file_get_contents('tempindex.txt');
+//                        $one_tag_array = explode(" ", htmlspecialchars($one_tag));
+//                        $index = (int)$one_tag_array[0];
+//                        unset($one_tag_array[0]);
+//                        $word = htmlspecialchars('alt="').$word.htmlspecialchars('"');
+//                        $a1 = array($one_tag_array[1], $word);
+//                        array_splice($one_tag_array, 0,1,$a1);
+//                       $this->write_to_file($one_tag_array, $index);
+//                    }
 
 					public function write_to_file($true_arr, $index){
 					    $this->array_ready[$index] = implode(" ", $true_arr);
@@ -434,6 +434,9 @@ session_start();
                     $all_array = htmlspecialchars($_POST['cekode']);
                     $main_array = new mainArray($all_array);
 					$main_array->tag_check();
+                    $myfile = fopen("cek-file.txt", "w") or die("Unable to open file!");
+                    fwrite($myfile, $all_array." ");
+                    fclose($myfile);
                 }
 
                 ?>

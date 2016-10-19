@@ -1,4 +1,3 @@
-
 // Save img tag
 $(document).on('click','#save_img',function(e) {
     var info = $('#correct_img').val();
