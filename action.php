@@ -1,19 +1,24 @@
 <?php 
 $tag = $_POST['tag'];
 if (isset($_POST["name_$tag"])) {
-	mysql_connect("localhost","root","");
-	mysql_select_db("wcag_correct");
-	error_reporting(E_ALL && ~E_NOTICE);
+    $words = $_POST["name_$tag"];
+    $position = $_POST["index_$tag"];
+    $myfile = fopen("tesfile.html", "w") or die("Unable to open file!");
+    fwrite($myfile, $words);
+    fclose($myfile);
 
-	$words = $_POST["name_$tag"];
-	$position = $_POST["index_$tag"];
-	$sql="INSERT INTO user_value(position, value) VALUES ('$position', '$words')";
-	$result=mysql_query($sql);
-	if($result){
-		echo "data inserted.";
-	} else {
-		echo "gagal";
-	}
+//    $insert_val = new insertValue('asjbhavsjvb ashcbasb');
+//    $insert_val->write_file();
+}
+
+class insertValue extends mainArray {
+
+    public function write_file(){
+        $myfile = fopen("tesfile.html", "w") or die("Unable to open file!");
+        fwrite($myfile, $_POST["name"]." ");
+        fclose($myfile);
+    }
+
 }
 
 ?>
