@@ -77,16 +77,14 @@ session_start();
                             echo "</p>";
                             break;
                     }
-                    echo "<form action='' method='post' style='width: 50%'>";
                     echo "<div class='form-group'>";
                     echo "<label for='correct'>$desc</label>";
                     echo "<input type='text' class='form-control' id='correct_$tag' placeholder='your text'>";
                     echo "<input type='hidden' id='position_$tag' value='$index'>";
                     echo "<input type='hidden' id='value' value='$tag'>";
-                    echo "</div>";
                     echo "<button class='btn btn-success btn-sm' id='save_$tag'>Correct</button>";
-                    echo "</form>";
-                    echo "</div>"; //End of class
+                    echo "</div>";
+                    echo "</div>";
                 }
 
 
