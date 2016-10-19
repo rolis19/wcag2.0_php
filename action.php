@@ -24,7 +24,7 @@ class insertValue {
         $words = htmlspecialchars_decode('alt="').$this->words.htmlspecialchars_decode('"');
         $a1 = array($this->all_array[$this->position], $words);
         array_splice($this->all_array, $this->position,1,$a1);
-        $myfile = fopen("temp.txt", "w") or die("Unable to open file!");
+        $myfile = fopen("newfile.html", "w") or die("Unable to open file!");
         foreach ($this->all_array as $items){
             fwrite($myfile, htmlspecialchars_decode($items)." ");
         }

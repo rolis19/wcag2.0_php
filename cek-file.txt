@@ -1,0 +1,1 @@
+&lt;input type=&quot;text&quot; id=&quot;billing&quot;/&gt; &lt;img src=&quot;smiley.gif&quot; height=&quot;43&quot; width=&quot;44&quot;&gt; 
