@@ -51,7 +51,9 @@ session_start();
 				<?php
                 //Form for correcting input from user
                 function form_correct($tag_array, $tag, $index){
-                    echo "<div class='$tag'>";
+                    $id =0;
+                    $class= $tag."".$index;
+                    echo "<div class='$class'>";
                     $desc="";
                     switch ($tag){
                         case 'img':
@@ -77,12 +79,12 @@ session_start();
                             echo "</p>";
                             break;
                     }
-                    echo "<div class='form-group'>";
+                    echo "<div class='form-group' style='width: 50%'>";
                     echo "<label for='correct'>$desc</label>";
-                    echo "<input type='text' class='form-control' id='correct_$tag' placeholder='your text'>";
-                    echo "<input type='hidden' id='position_$tag' value='$index'>";
+                    echo "<input type='text' class='form-control' id='correct_$class' placeholder='your text'>";
+                    echo "<input type='hidden' id='position_$class' value='$index'>";
                     echo "<input type='hidden' id='value' value='$tag'>";
-                    echo "<button class='btn btn-success btn-sm' id='save_$tag'>Correct</button>";
+                    echo "<button class='btn btn-success btn-sm' id='save_$class'>Correct</button>";
                     echo "</div>";
                     echo "</div>";
                 }
@@ -401,7 +403,7 @@ session_start();
 			</div>
 		</div>
 	</div>
-	<div class="container">
+	<div class="container" style="height: 280px">
 		<div class="row">
 			<div class="col-md-12">
 
@@ -425,6 +427,7 @@ session_start();
 		?>
 	</footer>
     <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
     <script src="js/ajax.js"></script>
 </body>
 </html>
