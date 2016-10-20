@@ -434,7 +434,7 @@ session_start();
                     $all_array = htmlspecialchars($_POST['cekode']);
                     $main_array = new mainArray($all_array);
 					$main_array->tag_check();
-                    $myfile = fopen("cek-file.txt", "w") or die("Unable to open file!");
+                    $myfile = fopen("file-reference.txt", "w") or die("Unable to open file!");
                     fwrite($myfile, $all_array." ");
                     fclose($myfile);
                 }

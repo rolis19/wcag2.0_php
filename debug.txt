@@ -1,0 +1,1 @@
+<img alt="smile" src="smiley.gif" width="30"> <input alt="billing" type="text" id="billing">    

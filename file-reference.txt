@@ -1,0 +1,1 @@
+&lt;img*#+alt="jadi" src=&quot;smiley.gif&quot; width=&quot;30&quot;&gt; &lt;input*#+alt="cnta" type=&quot;text&quot; id=&quot;billing&quot;&gt;   

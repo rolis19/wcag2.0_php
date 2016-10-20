@@ -48,11 +48,12 @@ session_start();
 			</div>
 			<div class="col-md-6">
 				<h4>Your error code will be displayed here</h4>
+                <button class="btn btn-danger" id="selesai">Finish & Download</button>
 				<?php
                 //Form for correcting input from user
                 function form_correct($tag_array, $tag, $index){
                     $identifier= $tag."".$index;
-                    echo "<div class='$identifier'>";
+                    echo "<div class='$identifier nano'>";
                     $desc="";
                     switch ($tag){
                         case 'img':
@@ -83,7 +84,7 @@ session_start();
                     echo "<input type='text' class='form-control' id='correct_$identifier' placeholder='your text'>";
                     echo "<input type='hidden' id='position_$identifier' value='$index'>";
                     echo "<input type='hidden' id='value' value='$tag'>";
-                    echo "<button class='btn btn-success btn-sm' onclick='runAjax()'>Correct</button>";
+                    echo "<button class='btn btn-success btn-sm' id='tiger' onclick='runAjax()'>Correct</button>";
                     echo "</div>";
                     echo "</div>";
                 }
@@ -392,9 +393,12 @@ session_start();
                     $all_array = htmlspecialchars($_POST['cekode']);
                     $main_array = new mainArray($all_array);
 					$main_array->tag_check();
-                    $myfile = fopen("cek-file.txt", "w") or die("Unable to open file!");
+                    $myfile = fopen("file-reference.txt", "w") or die("Unable to open file!");
                     fwrite($myfile, $all_array." ");
                     fclose($myfile);
+                    $myfile_indicator = fopen("file-indicator.txt", "w") or die("Unable to open file!");
+                    fwrite($myfile_indicator, $all_array." ");
+                    fclose($myfile_indicator);
                 }
 
                 ?>
@@ -428,5 +432,21 @@ session_start();
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/ajax.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#selesai").click(function(){
+                var size = $('.col-md-6 .nano').length;
+                if (size == 0){
+                    $.ajax({
+                        type: "GET",
+                        url: "replace.php"
+                    });
+                } else {
+                    alert("Not done");
+                }
+
+            });
+        });
+    </script>
 </body>
 </html>
