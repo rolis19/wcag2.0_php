@@ -1,1 +1,1 @@
-&lt;img*#+alt="jadi" src=&quot;smiley.gif&quot; width=&quot;30&quot;&gt; &lt;input*#+alt="cnta" type=&quot;text&quot; id=&quot;billing&quot;&gt;   
+&lt;input type=&quot;text&quot; id=&quot;billing&quot;/&gt; &lt;img src=&quot;smiley.gif&quot; width=&quot;30&quot;/&gt; &lt;input type=&quot;text&quot; id=&quot;billing&quot; aria-labelledby=&quot;billing address&quot;/&gt; 

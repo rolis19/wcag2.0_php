@@ -5,7 +5,7 @@ if (isset($_POST["name"])) {
     $position = $_POST["index"];
     $one_tag = file_get_contents('file-reference.txt');
     $insert = new insertValue($one_tag, $tag, $position, $words);
-    $insert->input_user_value();
+    $insert->give_tag_desc();
 }
 
 class insertValue {
@@ -25,15 +25,23 @@ class insertValue {
 //        fwrite($test, $items);
 //        fclose($test);
     }
-    public function size_original_arr(){
-        $position_dynamic = file_get_contents('file-indicator.txt');
-        $dynamic_arr = explode(" ", $position_dynamic);
-        $items = sizeof($dynamic_arr);
-        return $items;
+    public function give_tag_desc(){
+        switch ($this->tag){
+            case 'img':
+                $tag_desc = htmlspecialchars('alt="');
+                $this->input_user_value($tag_desc);
+                break;
+            case 'input':
+                $tag_desc = htmlspecialchars('aria-labelledby="');
+                $this->input_user_value($tag_desc);
+                break;
+        }
     }
-    public function input_user_value(){
+
+    public function input_user_value($tag_desc){
         $position = $this->position;
-        $words = htmlspecialchars_decode('alt="').$this->words.htmlspecialchars_decode('"');
+        $words = $string_final = str_replace(" ","*#+", $this->words);
+        $words = $tag_desc.$words.htmlspecialchars('"');
         $a1 = array($this->all_array[$position].'*#+'.$words);
         array_splice($this->all_array, $position,1,$a1);
         $myfile_source = fopen("file-reference.txt", "w") or die("Unable to open file!");
@@ -44,7 +52,6 @@ class insertValue {
         }
         fclose($myfile_source);
         fclose($myfile);
-        $this->size_original_arr();
     }
 }
 ?>

@@ -48,7 +48,6 @@ session_start();
 			</div>
 			<div class="col-md-6">
 				<h4>Your error code will be displayed here</h4>
-                <button class="btn btn-danger" id="selesai">Finish & Download</button>
 				<?php
                 //Form for correcting input from user
                 function form_correct($tag_array, $tag, $index){
@@ -402,7 +401,7 @@ session_start();
                 }
 
                 ?>
-
+                <button class="btn btn-danger" id="selesai">Finish & Download</button>
 			</div>
 		</div>
 	</div>
