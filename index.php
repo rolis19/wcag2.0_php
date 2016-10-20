@@ -395,9 +395,6 @@ session_start();
                     $myfile = fopen("file-reference.txt", "w") or die("Unable to open file!");
                     fwrite($myfile, $all_array." ");
                     fclose($myfile);
-                    $myfile_indicator = fopen("file-indicator.txt", "w") or die("Unable to open file!");
-                    fwrite($myfile_indicator, $all_array." ");
-                    fclose($myfile_indicator);
                 }
 
                 ?>

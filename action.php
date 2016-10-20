@@ -20,11 +20,6 @@ class insertValue {
         $this->words = $words;
     }
 
-    public function debuging(){
-//        $test = fopen("debug.txt", "w") or die("Unable to open file!");
-//        fwrite($test, $items);
-//        fclose($test);
-    }
     public function give_tag_desc(){
         switch ($this->tag){
             case 'img':
