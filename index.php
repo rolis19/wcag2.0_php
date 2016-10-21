@@ -50,7 +50,7 @@ session_start();
 				<h4>Your error code will be displayed here</h4>
 				<?php
                 //Form for correcting input from user
-                function form_correct($tag_array, $tag, $index){
+                function form_correct($tag_array, $tag, $index, $index1=''){
                     $identifier= $tag."".$index;
                     echo "<div class='$identifier nano'>";
                     $desc="";
@@ -77,8 +77,21 @@ session_start();
                             }
                             echo "</p>";
                             break;
+                        case 'label':
+                            $desc = "Give label's for and input's id value";
+                            $word = htmlspecialchars('<label')."<code>".htmlspecialchars('for="..."')."</code>".substr($tag_array[0], 9, strlen($tag_array[0]));
+                            $a1 = array($word);
+                            array_splice($tag_array, 0,1,$a1);
+                            $id_index = $index1-$index;
+                            $tag_array[$id_index] = "<code>".$tag_array[$id_index]."</code>";
+                            echo "<p>";
+                            foreach ($tag_array as $items){
+                                echo $items." ";
+                            }
+                            echo "</p>";
+
                     }
-                    echo "<div class='form-group' style='width: 50%'>";
+                    echo "<div class='form-group' style='width: 60%'>";
                     echo "<label for='correct'>$desc <span id='identifier'>$identifier</span></label>";
                     echo "<input type='text' class='form-control' id='correct_$identifier' placeholder='your text'>";
                     echo "<input type='hidden' id='position_$identifier' value='$index'>";
@@ -99,8 +112,9 @@ session_start();
                     public $correct_words;
 					public $checker_list = array("&lt;img", "&lt;input");
 
-					public function __construct($all_text=""){
-						$this->all_array = explode(" ", $all_text);
+					public function __construct($all_text){
+                        $str = str_replace("\n", " ", $all_text);
+						$this->all_array = explode(" ", $str);
 					}
 //======================= General function, custom library
 //					Use this class every time we need to check the existence of certain word.
@@ -215,7 +229,7 @@ session_start();
                                 $next_open_tag = $this->is_end_tag($start_tag, $end_tag);
                                 $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
                                 if (!$is_end_true){
-                                    echo "end tag not found";
+                                    echo "end tag for input not found";
                                 } else {
                                     $input_tag = $this->single_tag($start_tag, $end_tag);
                                     $this->input_alloc($input_tag, $start_tag);
@@ -240,40 +254,44 @@ session_start();
                             //alt found
                             //no need further execution
                         } else{
-                            form_correct($img_tag, 'img', $start_tag);
+                            form_correct($img_tag, 'img', $start_tag, '');
                         }
                     }
 //===================   Check input Tag Process    ==========================================
                     public function input_alloc($input_tag, $start_tag){
                         $indicator = 0;
-                        foreach ($input_tag as $item) {
+                        $new_input_arr = implode(" ", $input_tag);
+                        // Create new array based on double quote
+                        $new_input_arr = explode("&quot;", $new_input_arr);
+
+                        foreach ($new_input_arr as $item) {
                             switch ($item){
-                                case "type=&quot;text&quot;":
-                                case "type=&quot;password&quot;":
-                                case "type=&quot;radio&quot;":
-                                case "type=&quot;checkbox&quot;":
+                                case "text":
+                                case "password":
+                                case "radio":
+                                case "checkbox":
                                     //Html5 new
-                                case "type=&quot;color&quot;":
-                                case "type=&quot;date&quot;":
-                                case "type=&quot;datetime&quot;":
-                                case "type=&quot;datetime-local&quot;":
-                                case "type=&quot;email&quot;":
-                                case "type=&quot;month&quot;":
-                                case "type=&quot;number&quot;":
-                                case "type=&quot;range&quot;":
-                                case "type=&quot;search&quot;":
-                                case "type=&quot;tel&quot;":
-                                case "type=&quot;time&quot;":
-                                case "type=&quot;url&quot;":
-                                case "type=&quot;week&quot;":
+                                case "color":
+                                case "date":
+                                case "datetime":
+                                case "datetime-local":
+                                case "email":
+                                case "month":
+                                case "number;":
+                                case "range":
+                                case "search":
+                                case "tel":
+                                case "time":
+                                case "url":
+                                case "week":
                                     $indicator = 1;
                                     $this->input_check($input_tag, $start_tag);
                                     break;
                                 //below no need any action
-                                case "type=&quot;submit&quot;":
-                                case "type=&quot;image&quot;":
-                                case "type=&quot;reset&quot;":
-                                case "type=&quot;button&quot;":
+                                case "submit":
+                                case "image":
+                                case "reset":
+                                case "button":
                                     $indicator = 2;
                                     break;
                             }
@@ -301,17 +319,20 @@ session_start();
                         if ($indicator == 0){
 //						if arial-label not exist find id then
                             $new_sort = $this->subarr($input_tag, 0, 2);
-                            $is_there = $this->is_exist('id', $start_tag, sizeof($input_tag), $new_sort);
+                            $is_there = $this->is_exist('id', 0, sizeof($input_tag), $new_sort);
+                            echo "<br>";
                             if (!$is_there){
 //								if ID not there than just set ID value to empty
-                                $this->check_labelid($input_tag, $start_tag, "");
+                                $this->check_labelid($input_tag, $start_tag, '');
                             } else {
-                                $this->check_labelid($input_tag, $start_tag, $input_tags[$is_there+1]);
+                                $this->check_labelid($input_tag, $start_tag, $input_tag[$is_there].$is_there);
                             }
                         }
                     }
 
-                    public function check_labelid($input_tag, $start_tag, $id_name){
+                    public function check_labelid($input_tag, $start_tag, $id_input){
+                        $id_name = substr($id_input, 0, strlen($id_input)-2);
+                        $id_index = $id_input[strlen($id_input)-1];
                         $yes_label = 0;
                         if ($start_tag == 0){
                             $end_label = $start_tag;
@@ -323,17 +344,17 @@ session_start();
                         if ($check_label == htmlspecialchars('</label>')){
                             $yes_label = 1; //if the previous is label then to the line 328
                         } else {
-                            form_correct($input_tag, 'input', $start_tag);
+                            form_correct($input_tag, 'input', $start_tag, '');
                         }
-                        // When end equal to label do following
+                        // When index end equal to label do following
                         if ($yes_label == 1){
                             $start_label = 0;
                             $indicator = 0;
                             $label_tag = array();
                             // Find the first index of label
-                            for ($i=$end_label-2; $i>=0; $i--){
-                                $new_label = substr($this->all_array[$i], 0, 4);
-                                if ($new_label == htmlspecialchars('<')){
+                            for ($i=$end_label; $i>=0; $i--){
+                                $new_label = substr($this->all_array[$i], 0, 7);
+                                if ($new_label == htmlspecialchars('<lab')){ // sort version of <label>
                                     $start_label = $i;
                                     break;
                                 }
@@ -341,7 +362,9 @@ session_start();
                             for ($j=$start_label; $j<=$end_label; $j++){
                                 array_push($label_tag, $this->all_array[$j]);
                             }
-                            $label_tag = implode(" ", $label_tag);
+                            $arr1 = $this->single_tag($start_label, $start_tag);
+                            array_splice($input_tag, 0, 1, $arr1);
+                            $label_tag = implode(" ", $label_tag); //New array join label and input tag together.
                             // Create new array based on double quote, check it one by one if it equal to ID
                             $label_tag = explode("&quot;", $label_tag);
                             foreach ($label_tag as $item){
@@ -354,31 +377,21 @@ session_start();
                             if ($indicator == 0){
                                 $new_sort = $this->subarr($this->all_array, 0, 3);
                                 $is_there = $this->is_exist('for', $start_label, $end_label, $new_sort);
-                                // When ID don't have value do
-                                if ($id_name == " "){
-                                    echo "disinyalir tak punya id";
-//									if (!$is_there){
-//										//When label don't have for
-//									} else {
-//										//When label have for
-//
-//									}
-                                }
-                                //When ID have value do
-                                else {
-                                    echo sizeof($label_tag);
-                                    if (!$is_there){ //When for doesn't exist
-                                        $this->all_array[0] = htmlspecialchars('<label for="').$id_name.htmlspecialchars('">');
-                                    } else{ //When for do exist
-                                        if (sizeof($label_tag)<=3){ // Check whether
-                                            echo "";
-                                            $this->all_array[$is_there] = htmlspecialchars('for="').$id_name.htmlspecialchars('">');
-                                        } elseif (sizeof($label_tag)>=4){
-                                            echo "2";
-                                            $this->all_array[$is_there] = htmlspecialchars('for="').$id_name.htmlspecialchars('"');
-                                        }
+                                if (!$is_there){ //When for doesn't exist
+                                    if ($id_input==''){
+                                        form_correct($input_tag, 'label', $start_label, '');
+                                    }else {
+                                        $id_index = $id_index+$start_tag;
+                                        form_correct($input_tag, 'label', $start_label, $id_index);
                                     }
-                                    echo "<p class='bg-primary'>We have corrected your label</p>";
+                                } else{ //When for do exist
+                                    if (sizeof($label_tag)<=3){ // Check whether
+                                        echo "";
+                                        $this->all_array[$is_there] = htmlspecialchars('for="').$id_input.htmlspecialchars('">');
+                                    } elseif (sizeof($label_tag)>=4){
+                                        echo "2";
+                                        $this->all_array[$is_there] = htmlspecialchars('for="').$id_input.htmlspecialchars('"');
+                                    }
                                 }
                             }
                         }

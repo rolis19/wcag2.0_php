@@ -1,1 +1,1 @@
-&lt;input type=&quot;text&quot; id=&quot;billing&quot;/&gt; &lt;img src=&quot;smiley.gif&quot; width=&quot;30&quot;/&gt; &lt;input type=&quot;text&quot; id=&quot;billing&quot; aria-labelledby=&quot;billing address&quot;/&gt; 
+&lt;img src=&quot;smiley.gif&quot; alt=&quot;Smiley face&quot; height=&quot;43&quot; width=&quot;44&quot;&gt; &lt;label id=&quot;teror&quot;&gt; Name &lt;/label&gt; &lt;input type=&quot;text&quot; id=&quot;billing&quot;/&gt; 
