@@ -29,17 +29,20 @@ session_start();
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
                         <form action="" method="post">
-                            <label for="cek">Insert your code below.</label>
-                            <textarea name="cekode" id="cek" cols="80" rows="8"></textarea>
-                            <input type="hidden" name="stage" value="process">
+                            <div class="form-group">
+                                <label for="cek">Insert your code below.</label>
+                                <textarea class="form-control" name="cekode" id="cek" cols="80" rows="8"></textarea>
+                                <input type="hidden" name="stage" value="process">
+                            </div>
                             <button class="btn btn-success btn-lg" id="check" type="submit">CHECK</button>
                         </form>
                     </div>
                     <div id="menu1" class="tab-pane fade">
                         <form action="" method="post">
                             <div class="form-group">
-                                <label for="exampl">Input your URL</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="url">
+                                <label for="url">Input your URL</label>
+                                <input type="text" class="form-control" id="url" name="cekodeurl" placeholder="url">
+                                <input type="hidden" name="stageurl" value="process">
                             </div>
                             <button class="btn btn-success btn-lg" type="submit">CHECK</button>
                         </form>
@@ -50,7 +53,7 @@ session_start();
 				<h4>Your error code will be displayed here</h4>
 				<?php
                 //Form for correcting input from user
-                function form_correct($tag_array, $tag, $index, $index1=''){
+                function form_correct($tag_array, $tag, $index, $index1){
                     $identifier= $tag."".$index;
                     echo "<div class='$identifier nano'>";
                     $desc="";
@@ -83,7 +86,13 @@ session_start();
                             $a1 = array($word);
                             array_splice($tag_array, 0,1,$a1);
                             $id_index = $index1-$index;
-                            $tag_array[$id_index] = "<code>".$tag_array[$id_index]."</code>";
+                            if (substr($tag_array[$id_index], 0, 2) == 'id'){
+                                $tag_array[$id_index] = "<code>".$tag_array[$id_index]."</code>";
+                            } else {
+                                $word = "<code>".htmlspecialchars('id="..."')."</code>";
+                                $a2 = array($tag_array[$id_index], $word);
+                                array_splice($tag_array, $id_index,1,$a2);
+                            }
                             echo "<p>";
                             foreach ($tag_array as $items){
                                 echo $items." ";
@@ -95,6 +104,7 @@ session_start();
                     echo "<label for='correct'>$desc <span id='identifier'>$identifier</span></label>";
                     echo "<input type='text' class='form-control' id='correct_$identifier' placeholder='your text'>";
                     echo "<input type='hidden' id='position_$identifier' value='$index'>";
+                    echo "<input type='hidden' id='otherindex' value='$index1'>";
                     echo "<input type='hidden' id='value' value='$tag'>";
                     echo "<button class='btn btn-success btn-sm' id='tiger' onclick='runAjax()'>Correct</button>";
                     echo "</div>";
@@ -113,7 +123,7 @@ session_start();
 					public $checker_list = array("&lt;img", "&lt;input");
 
 					public function __construct($all_text){
-                        $str = str_replace("\n", " ", $all_text);
+                        $str = trim(preg_replace('/\s+/', ' ', $all_text));
 						$this->all_array = explode(" ", $str);
 					}
 //======================= General function, custom library
@@ -332,7 +342,9 @@ session_start();
 
                     public function check_labelid($input_tag, $start_tag, $id_input){
                         $id_name = substr($id_input, 0, strlen($id_input)-2);
-                        $id_index = $id_input[strlen($id_input)-1];
+                        if (!empty($id_input)){
+                            $id_index = $id_input[strlen($id_input)-1];
+                        }
                         $yes_label = 0;
                         if ($start_tag == 0){
                             $end_label = $start_tag;
@@ -377,21 +389,17 @@ session_start();
                             if ($indicator == 0){
                                 $new_sort = $this->subarr($this->all_array, 0, 3);
                                 $is_there = $this->is_exist('for', $start_label, $end_label, $new_sort);
+                                //Check whether id for input there,
+                                if ($id_input==''){
+                                    $id_index = $start_tag;
+                                }else {
+                                    $id_index = $id_index+$start_tag;
+                                }
                                 if (!$is_there){ //When for doesn't exist
-                                    if ($id_input==''){
-                                        form_correct($input_tag, 'label', $start_label, '');
-                                    }else {
-                                        $id_index = $id_index+$start_tag;
-                                        form_correct($input_tag, 'label', $start_label, $id_index);
-                                    }
-                                } else{ //When for do exist
-                                    if (sizeof($label_tag)<=3){ // Check whether
-                                        echo "";
-                                        $this->all_array[$is_there] = htmlspecialchars('for="').$id_input.htmlspecialchars('">');
-                                    } elseif (sizeof($label_tag)>=4){
-                                        echo "2";
-                                        $this->all_array[$is_there] = htmlspecialchars('for="').$id_input.htmlspecialchars('"');
-                                    }
+                                    form_correct($input_tag, 'label', $start_label, $id_index);
+                                } else{
+                                    //When for do exist and it's equally not same as id input
+                                    form_correct($input_tag, 'label', $is_there,$id_index);
                                 }
                             }
                         }
@@ -400,11 +408,29 @@ session_start();
 				}
 //=============== End of class here  =======================================================
 
-                //Run Code start here
+                //Program start here for insert code
                 if (isset($_POST['stage']) && ('process' == $_POST['stage'])) {
                     $all_array = htmlspecialchars($_POST['cekode']);
                     $main_array = new mainArray($all_array);
 					$main_array->tag_check();
+                    $myfile = fopen("file-reference.txt", "w") or die("Unable to open file!");
+                    fwrite($myfile, $all_array." ");
+                    fclose($myfile);
+                }
+                //Program start here for insert url
+                if (isset($_POST['stageurl']) && ('process' == $_POST['stageurl'])) {
+                    function datafeed($url){
+                        $ch = curl_init();
+                        curl_setopt($ch, CURLOPT_URL, $url);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                        $a = curl_exec($ch);
+                        curl_close($ch);
+                        return $a;
+                    }
+                    $dataraw=datafeed($_POST['cekodeurl']);//raw data tag code
+                    $all_array = htmlspecialchars($dataraw);
+                    $main_array = new mainArray($all_array);
+                    $main_array->tag_check();
                     $myfile = fopen("file-reference.txt", "w") or die("Unable to open file!");
                     fwrite($myfile, $all_array." ");
                     fclose($myfile);
@@ -451,7 +477,7 @@ session_start();
                         url: "replace.php"
                     });
                 } else {
-                    alert("Not done");
+                    alert("There are still "+size+" shit to take care");
                 }
 
             });

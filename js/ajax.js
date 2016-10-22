@@ -5,7 +5,8 @@ function runAjax() {
     var values = {
         'name': $('#correct_'+identifier).val(),
         'index': $('#position_'+identifier).val(),
-        'tag': $('#value').val()
+        'otherIndex':$('#otherindex').val(),
+        'tag':$('#value').val(),
     };
     $.ajax({
         method: "POST",
