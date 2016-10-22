@@ -123,7 +123,8 @@ session_start();
 					public $checker_list = array("&lt;img", "&lt;input");
 
 					public function __construct($all_text){
-                        $str = trim(preg_replace('/\s+/', ' ', $all_text));
+                        $str1 = trim(preg_replace('/\s+/', ' ', $all_text));
+                        $str = trim(preg_replace('/&gt;./', '&gt; ', $str1));
 						$this->all_array = explode(" ", $str);
 					}
 //======================= General function, custom library
@@ -341,10 +342,6 @@ session_start();
                     }
 
                     public function check_labelid($input_tag, $start_tag, $id_input){
-                        $id_name = substr($id_input, 0, strlen($id_input)-2);
-                        if (!empty($id_input)){
-                            $id_index = $id_input[strlen($id_input)-1];
-                        }
                         $yes_label = 0;
                         if ($start_tag == 0){
                             $end_label = $start_tag;
@@ -375,31 +372,35 @@ session_start();
                                 array_push($label_tag, $this->all_array[$j]);
                             }
                             $arr1 = $this->single_tag($start_label, $start_tag);
-                            array_splice($input_tag, 0, 1, $arr1);
-                            $label_tag = implode(" ", $label_tag); //New array join label and input tag together.
-                            // Create new array based on double quote, check it one by one if it equal to ID
-                            $label_tag = explode("&quot;", $label_tag);
-                            foreach ($label_tag as $item){
-                                if ($item == $id_name){
-                                    $indicator++;
-//                                  //Label already equal to ID no need further excution
-                                    break;
-                                }
-                            }
-                            if ($indicator == 0){
-                                $new_sort = $this->subarr($this->all_array, 0, 3);
-                                $is_there = $this->is_exist('for', $start_label, $end_label, $new_sort);
-                                //Check whether id for input there,
-                                if ($id_input==''){
-                                    $id_index = $start_tag;
-                                }else {
-                                    $id_index = $id_index+$start_tag;
-                                }
-                                if (!$is_there){ //When for doesn't exist
+                            array_splice($input_tag, 0, 1, $arr1); //New array join label and input tag together.
+                            $new_sort = $this->subarr($this->all_array, 0, 3);
+                            $is_there = $this->is_exist('for', $start_label, $end_label, $new_sort); //check if for exist
+                            if ($id_input==''){
+                                $id_index = $start_tag;
+                                if (!$is_there){ //When for doesn't exist but id exist
                                     form_correct($input_tag, 'label', $start_label, $id_index);
                                 } else{
-                                    //When for do exist and it's equally not same as id input
-                                    form_correct($input_tag, 'label', $is_there,$id_index);
+                                    echo "No ID but FOR there --- not yet to solve <br/>";
+                                }
+                            } else {
+                                //When ID have value
+                                $label_tag = implode(" ", $label_tag);
+                                $label_tag = explode("&quot;", $label_tag);
+                                $id_name = explode("&quot;", $id_input);
+                                foreach ($label_tag as $item){
+                                    if ($item == $id_name[1]){
+                                        $indicator++; //for equal to id no need further execution
+                                        break;
+                                    }
+                                }
+                                $id_index = $id_input[strlen($id_input)-1];
+                                $id_index = $id_index+$start_tag;
+                                if ($indicator == 0){
+                                    if (!$is_there){ //When for doesn't exist but id exist
+                                        form_correct($input_tag, 'label', $start_label, $id_index);
+                                    } else{
+                                        echo "ID there and For there, but both not same --- not yet to solve <br/>";
+                                    }
                                 }
                             }
                         }
