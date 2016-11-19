@@ -8,8 +8,8 @@ if (isset($_POST["name"])) {
     $myfile = fopen("debug.txt", "w") or die("Unable to open file!");
     fwrite($myfile, $other_index." ");
     fclose($myfile);
-    $one_tag = file_get_contents('file-reference.txt');
-    $insert = new insertValue($one_tag, $tag, $position, $other_index, $words);
+    $all_tag = file_get_contents('file-reference.txt');
+    $insert = new insertValue($all_tag, $tag, $position, $other_index, $words);
     $insert->give_tag_desc();
 }
 class insertValue {
@@ -47,7 +47,7 @@ class insertValue {
 
     public function input_user_value($tag_desc){
         $position = $this->position;
-        $words = $string_final = str_replace(" ","*#+", $this->words);
+        $words = str_replace(" ","*#+", $this->words);
         $words = $tag_desc.$words.htmlspecialchars('"');
         $a1 = array($this->all_array[$position].'*#+'.$words);
         array_splice($this->all_array, $position,1,$a1);

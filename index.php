@@ -8,73 +8,112 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Php file handling</title>
+	<title>Php Web Accessibility</title>
 	<link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
 	<style>
-		header{height: 120px}
+		header{height: 60px}
+        .btn {border-radius: 0}
+        form .btn {
+            height: 40px;
+        }
+        .correct-close-tag {
+            background-color: #F2EDE3;
+            border-radius: 4px;
+            color: #767C89;
+            font-size: 85%;
+            padding: 2px 4px;
+            font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+        }
+        .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+            background-color: #888888;
+            color: #fff;
+        }
+
+        .nav-pills > li > a {  border-radius: 0;  }
+        .container-fluid {background-color: #F1F1F1; }
+        textarea.form-control, .content-correct {
+            background-color: #FFFFFF;
+            height: 480px;
+            border-radius: 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            overflow: auto;
+        }
+        .content-correct{
+            margin-top: 40px;
+            padding: 0 30px;
+        }
+        textarea.form-control:focus{  box-shadow: none;  }
+        #tiger {margin-left: 16px}
+        .tag-info, .form-inline {
+            font-size: 90%;
+            font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+        }
+        #selesai {margin-bottom: 30px}
+        #identifier {color: #FFFFFF}
 	</style>
 </head>
 <body>
 	<header>
 	</header>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-6">
-                <ul class="nav nav-pills">
-                    <li class="active"><a data-toggle="pill" href="#home">Html tag</a></li>
+			<div class="col-md-6 top">
+                <ul class="nav nav-pills pull-left" style="width: 160px">
+                    <li class="active"><a data-toggle="pill" href="#home">HTML TAG</a></li>
                     <li><a data-toggle="pill" href="#menu1">URL</a></li>
                 </ul>
 
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
                         <form action="" method="post">
+                            <button class="btn btn-success" id="check" type="submit">CHECK >></button>
                             <div class="form-group">
-                                <label for="cek">Insert your code below.</label>
                                 <textarea class="form-control" name="cekode" id="cek" cols="80" rows="8"></textarea>
                                 <input type="hidden" name="stage" value="process">
                             </div>
-                            <button class="btn btn-success btn-lg" id="check" type="submit">CHECK</button>
+
                         </form>
                     </div>
                     <div id="menu1" class="tab-pane fade">
                         <form action="" method="post">
+                            <button class="btn btn-success" type="submit">CHECK >></button>
                             <div class="form-group">
-                                <label for="url">Input your URL</label>
-                                <input type="text" class="form-control" id="url" name="cekodeurl" placeholder="url">
+                                <textarea class="form-control url" id="url" name="cekodeurl"></textarea>
                                 <input type="hidden" name="stageurl" value="process">
                             </div>
-                            <button class="btn btn-success btn-lg" type="submit">CHECK</button>
                         </form>
                     </div>
                 </div>
 			</div>
-			<div class="col-md-6">
-				<h4>Your error code will be displayed here</h4>
+			<div class="col-md-6 bottom">
+                <div class="content-correct">
 				<?php
                 //Form for correcting input from user
                 function form_correct($tag_array, $tag, $index, $index1){
                     $identifier= $tag."".$index;
-                    echo "<div class='$identifier nano'>";
+                    echo "<div class='$identifier form-container'>";
+                    echo "<hr />";
                     $desc="";
+                    $info ="Without double quote";
                     switch ($tag){
                         case 'img':
-                            $desc = "Give alt value";
+                            $desc = "Input alt value";
                             $word = "<code>".htmlspecialchars('alt="..."')."</code>";
                             $a1 = array($tag_array[0], $word);
                             array_splice($tag_array, 0,1,$a1);
-                            echo "<p>";
+                            echo "<p class='tag-info'>";
                             foreach ($tag_array as $items){
                                 echo $items." ";
                             }
                             echo "</p>";
                             break;
                         case 'input':
-                            $desc = "Give arial-label value ";
+                            $desc = "Input aria-label value ";
                             $word = "<code>".htmlspecialchars('aria-labelledby="..."')."</code>";
                             $a1 = array($tag_array[0], $word);
                             array_splice($tag_array, 0,1,$a1);
-                            echo "<p>";
+                            echo "<p class='tag-info'>";
                             foreach ($tag_array as $items){
                                 echo $items." ";
                             }
@@ -93,20 +132,23 @@ session_start();
                                 $a2 = array($tag_array[$id_index], $word);
                                 array_splice($tag_array, $id_index,1,$a2);
                             }
-                            echo "<p>";
+                            echo "<p class='tag-info'>";
                             foreach ($tag_array as $items){
                                 echo $items." ";
                             }
                             echo "</p>";
 
                     }
-                    echo "<div class='form-group' style='width: 60%'>";
-                    echo "<label for='correct'>$desc <span id='identifier'>$identifier</span></label>";
+
+                    echo "<label for='correct'>$desc</label> <small>$info</small> <span id='identifier'>$identifier</span>";
+                    echo "<div class='form-inline'>";
+                    echo "<div class='form-group'>";
                     echo "<input type='text' class='form-control' id='correct_$identifier' placeholder='your text'>";
                     echo "<input type='hidden' id='position_$identifier' value='$index'>";
                     echo "<input type='hidden' id='otherindex' value='$index1'>";
                     echo "<input type='hidden' id='value' value='$tag'>";
-                    echo "<button class='btn btn-success btn-sm' id='tiger' onclick='runAjax()'>Correct</button>";
+                    echo "<button class='btn btn-success' id='tiger' onclick='runAjax()'>Edit</button>";
+                    echo "</div>";
                     echo "</div>";
                     echo "</div>";
                 }
@@ -123,9 +165,7 @@ session_start();
 					public $checker_list = array("&lt;img", "&lt;input");
 
 					public function __construct($all_text){
-                        $str1 = trim(preg_replace('/\s+/', ' ', $all_text));
-                        $str = trim(preg_replace('/&gt;./', '&gt; ', $str1));
-						$this->all_array = explode(" ", $str);
+                        $this->all_array = explode(" ", $all_text); // Create arrray base on space
 					}
 //======================= General function, custom library
 //					Use this class every time we need to check the existence of certain word.
@@ -152,29 +192,24 @@ session_start();
                         return $new_sort;
                     }
 
-
 					//Find tag, also their index
 					public function tag_check(){
-					    $indicator =0;
 						foreach ($this->all_array as $key => $items) {
 							for ($i = 0; $i < count($this->checker_list); $i++) {
 								similar_text($items, $this->checker_list[$i], $percent);
 								if ($percent == 100) {
 									$this->tag_name = $items;
 									$start_tag = $key;
-                                    $indicator++;
-                                    //echo $this->tag_name;
-									$this->alloc_work($start_tag);
+									$this->alloc_work($start_tag); //work allocation
 								}
 							}
 						}
-                        $this->array_indicator = $indicator;
 					}
 					//Find end tag
-					public function find_end_tag($start_tag){
+					public function find_close_tag($start_tag){
 						$nd_tag = 0;
 						for ($n = $start_tag; $n < count($this->all_array); $n++) {
-							$new_line = substr($this->all_array[$n], strlen($this->all_array[$n]) - 4, strlen($this->all_array[$n]));
+							$new_line = substr($this->all_array[$n], strlen($this->all_array[$n]) - 4, strlen($this->all_array[$n])); // take 4 string in every end string
 							similar_text('&gt;', $new_line, $percent);
 							if ($percent == 100) {
 								$nd_tag = $n;
@@ -184,7 +219,7 @@ session_start();
 						return $nd_tag;
 					}
 					//Check whether end tag is true, by checking open tag for next element
-					public function is_end_tag($start_tag, $end_tag){
+					public function next_open_tag($start_tag, $end_tag){
 					    $new_sort = array();
                         foreach ($this->all_array as $items){
                             array_push($new_sort, substr($items, 0, 4));
@@ -222,22 +257,23 @@ session_start();
 					//Work allocation here
 					public function alloc_work($start_tag){
 						switch ($this->tag_name) {
-							case "&lt;img":
-								$end_tag = $this->find_end_tag($start_tag);
-                                $next_open_tag = $this->is_end_tag($start_tag, $end_tag);
+							case "&lt;img": //Img tag
+								$end_tag = $this->find_close_tag($start_tag); //Get end tag index
+                                $next_open_tag = $this->next_open_tag($start_tag, $end_tag);
                                 $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
                                 if (!$is_end_true){
                                     //When img doesn't have end tag
                                     $img_tag = $this->single_tag($start_tag, $next_open_tag-1);
-                                    $this->img_check($img_tag, $start_tag);
+                                    $this->correct_end_tag($img_tag);
+
                                 } else {
                                     $img_tag = $this->single_tag($start_tag, $end_tag);
                                     $this->img_check($img_tag, $start_tag);
                                 }
 								break;
-							case "&lt;input":
-                                $end_tag = $this->find_end_tag($start_tag);
-                                $next_open_tag = $this->is_end_tag($start_tag, $end_tag);
+							case "&lt;input": //Input tag
+                                $end_tag = $this->find_close_tag($start_tag);
+                                $next_open_tag = $this->next_open_tag($start_tag, $end_tag);
                                 $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
                                 if (!$is_end_true){
                                     echo "end tag for input not found";
@@ -246,11 +282,15 @@ session_start();
                                     $this->input_alloc($input_tag, $start_tag);
                                 }
 								break;
-							default:
-								echo "Make sure u are input Html code";
 						}
 					}
 
+					public function correct_end_tag($tag_array){
+					    echo "<hr />";
+                        foreach ($tag_array as $key=>$item){
+                            echo "<button id='$key' class='btn correct-close-tag'>".$item."</button> ";
+                        }
+                    }
 //===================   Check img Tag Process    ==========================================
                     public function img_check($img_tag, $start_tag){
                         $indicator = 0;
@@ -308,7 +348,7 @@ session_start();
                             }
                         }
                         if ($indicator==0){
-							echo "<br>You don't have proper type of input set<br>";
+							//echo "You don't have proper type of input set<br>";
                         }
                     }
 
@@ -331,7 +371,6 @@ session_start();
 //						if arial-label not exist find id then
                             $new_sort = $this->subarr($input_tag, 0, 2);
                             $is_there = $this->is_exist('id', 0, sizeof($input_tag), $new_sort);
-                            echo "<br>";
                             if (!$is_there){
 //								if ID not there than just set ID value to empty
                                 $this->check_labelid($input_tag, $start_tag, '');
@@ -412,44 +451,62 @@ session_start();
                 //Program start here for insert code
                 if (isset($_POST['stage']) && ('process' == $_POST['stage'])) {
                     $all_array = htmlspecialchars($_POST['cekode']);
-                    $main_array = new mainArray($all_array);
-					$main_array->tag_check();
+                    $str_final = sterilize_string($all_array);
+                    $main_array = new mainArray($str_final);
+					$main_array->tag_check(); //First function to run in class
+
                     $myfile = fopen("file-reference.txt", "w") or die("Unable to open file!");
-                    fwrite($myfile, $all_array." ");
+                    fwrite($myfile, $str_final." ");
                     fclose($myfile);
+                    download_btn();
                 }
                 //Program start here for insert url
                 if (isset($_POST['stageurl']) && ('process' == $_POST['stageurl'])) {
                     function datafeed($url){
-                        $ch = curl_init();
-                        curl_setopt($ch, CURLOPT_URL, $url);
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                        $a = curl_exec($ch);
-                        curl_close($ch);
-                        return $a;
+                        $text =  file_get_contents($url);
+                        return $text;
                     }
                     $dataraw=datafeed($_POST['cekodeurl']);//raw data tag code
                     $all_array = htmlspecialchars($dataraw);
-                    $main_array = new mainArray($all_array);
+                    $str_final = sterilize_string($all_array);
+                    $main_array = new mainArray($str_final);
                     $main_array->tag_check();
                     $myfile = fopen("file-reference.txt", "w") or die("Unable to open file!");
-                    fwrite($myfile, $all_array." ");
+                    if (empty($str_final)){
+                        fwrite($myfile, "Can't obtain any code from URL");
+                    } else {
+                        fwrite($myfile, $str_final." ");
+                    }
                     fclose($myfile);
+                    download_btn();
                 }
 
+                function sterilize_string($all_array){
+                    $str = str_replace("\n", "*#newline#*", $all_array); //Replace new line with *#newline#*
+                    $str_close = trim(preg_replace('/&gt;/', '&gt; ', $str)); //Create space after every close tag
+                    $str_open = trim(preg_replace('/&lt;/', ' &lt;', $str_close)); //Create space before every open tag
+                    $str_final = trim(preg_replace('!\s+!', ' ', $str_open)); //Remove any double space with single space
+                    return $str_final;
+                }
+                function download_btn(){ //to call download button only when code checked and displayed
+                    echo "<hr>";
+                    echo "<a id='selesai' class='btn btn-danger' href='newfile.html' download>";
+                    echo "Finish & Download";
+                    echo "</a>";
+                }
                 ?>
-                <button class="btn btn-danger" id="selesai">Finish & Download</button>
+                </div>
 			</div>
 		</div>
 	</div>
-	<div class="container" style="height: 280px">
+	<div class="container" style="height: 20px">
 		<div class="row">
 			<div class="col-md-12">
 
 			</div>
 		</div>
 	</div>
-	<footer style="color: #FFFFFF; padding: 40px; text-align: center; background-color: #262626; position: fixed; bottom: 0; width: 100%">
+	<footer style="color: #FFFFFF; padding: 40px; text-align: center; background-color: #262626; width: 100%">
 		<?php
 		function convert($size){
 			$unit=array('b','kb','mb','gb','tb','pb');
@@ -471,14 +528,14 @@ session_start();
     <script>
         $(document).ready(function(){
             $("#selesai").click(function(){
-                var size = $('.col-md-6 .nano').length;
+                var size = $('.col-md-6 .form-container').length;
                 if (size == 0){
                     $.ajax({
                         type: "GET",
                         url: "replace.php"
                     });
                 } else {
-                    alert("There are still "+size+" shit to take care");
+                    alert("There are still "+size+" faults to take care");
                 }
 
             });
