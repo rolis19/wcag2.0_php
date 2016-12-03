@@ -4,3 +4,86 @@ code.line{
     font-size: 95%;
     padding: 2px 4px;
 }
+.content-correct{
+    margin-top: 40px;
+    padding: 20px 30px;
+}
+.form-control{
+    border-radius: 0;
+    box-shadow: none;
+}
+.btn-default {
+    background: #F6F6F6;
+}
+.info-detail {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+.info-detail hr{
+    margin-top: -2px;
+    margin-bottom: 6px;
+}
+.btn-sm {padding: 1px 10px}
+.correct-text {
+    width: 75%;
+    margin-right: 12px;
+    float: left;
+}
+.col-md-6 .form-container{
+    padding: 10px 0;
+    line-height: 13px;
+}
+.form-group button{
+    margin-left: 5px;
+}
+p.tag-info {margin-bottom: 10px}
+.col-md-6 .form-container:nth-child(odd){
+    background: #F6F6F6;
+    margin: 0 -30px;
+    padding: 10px 30px;
+}
+header{height: 60px}
+.btn {border-radius: 0}
+form .btn {
+    height: 40px;
+}
+.correct-close-tag {
+    background-color: #F2EDE3;
+    border-radius: 4px;
+    color: #767C89;
+    font-size: 85%;
+    padding: 2px 4px;
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+}
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    background-color: #888888;
+    color: #fff;
+}
+
+.nav-pills > li > a {  border-radius: 0;  }
+.container-fluid {background-color: #F1F1F1; }
+textarea.form-control, .content-correct {
+    background-color: #FFFFFF;
+    height: 480px;
+    border-radius: 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    overflow: auto;
+}
+textarea.form-control:focus{  box-shadow: none;  }
+.tag-info, .form-inline {
+    font-size: 90%;
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+}
+#selesai {margin-bottom: 30px}
+#identifier {color: #FFFFFF}
+.show-code {
+    background-color: #ffffff;
+    border-radius: 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    height: 480px;
+    overflow: scroll;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    display: none;
+}
+pre {overflow: visible; background: #FFFFFF; border-color: #FFFFFF}

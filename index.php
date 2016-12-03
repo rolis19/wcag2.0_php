@@ -11,47 +11,6 @@ session_start();
 	<title>Php Web Accessibility</title>
 	<link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
-	<style>
-		header{height: 60px}
-        .btn {border-radius: 0}
-        form .btn {
-            height: 40px;
-        }
-        .correct-close-tag {
-            background-color: #F2EDE3;
-            border-radius: 4px;
-            color: #767C89;
-            font-size: 85%;
-            padding: 2px 4px;
-            font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
-        }
-        .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
-            background-color: #888888;
-            color: #fff;
-        }
-
-        .nav-pills > li > a {  border-radius: 0;  }
-        .container-fluid {background-color: #F1F1F1; }
-        textarea.form-control, .content-correct {
-            background-color: #FFFFFF;
-            height: 480px;
-            border-radius: 0;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-            overflow: auto;
-        }
-        .content-correct{
-            margin-top: 40px;
-            padding: 0 30px;
-        }
-        textarea.form-control:focus{  box-shadow: none;  }
-        #tiger {margin-left: 16px}
-        .tag-info, .form-inline {
-            font-size: 90%;
-            font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
-        }
-        #selesai {margin-bottom: 30px}
-        #identifier {color: #FFFFFF}
-	</style>
 </head>
 <body>
 	<header>
@@ -59,45 +18,56 @@ session_start();
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-6 top">
-                <ul class="nav nav-pills pull-left" style="width: 160px">
-                    <li class="active"><a data-toggle="pill" href="#home">HTML TAG</a></li>
-                    <li><a data-toggle="pill" href="#menu1">URL</a></li>
-                </ul>
+                <div class="all-form" id="allform">
+                    <ul class="nav nav-pills pull-left" style="width: 160px">
+                        <li class="active"><a data-toggle="pill" href="#home">HTML TAG</a></li>
+                        <li><a data-toggle="pill" href="#menu1">URL</a></li>
+                    </ul>
 
-                <div class="tab-content">
-                    <div id="home" class="tab-pane fade in active">
-                        <form action="" method="post">
-                            <button class="btn btn-success" id="check" type="submit">CHECK >></button>
-                            <div class="form-group">
-                                <textarea class="form-control" name="cekode" id="cek" cols="80" rows="8"></textarea>
-                                <input type="hidden" name="stage" value="process">
-                            </div>
+                    <div class="tab-content">
+                        <div id="home" class="tab-pane fade in active">
+                            <form action="" method="post">
+                                <button class="btn btn-success" id="check" type="submit">CHECK >></button>
+                                <div class="form-group">
+                                    <textarea class="form-control" name="cekode" id="cek" cols="80" rows="8"></textarea>
+                                    <input type="hidden" name="stage" value="process">
+                                </div>
 
-                        </form>
+                            </form>
+                        </div>
+                        <div id="menu1" class="tab-pane fade">
+                            <form action="" method="post">
+                                <button class="btn btn-success" type="submit">CHECK >></button>
+                                <div class="form-group">
+                                    <textarea class="form-control url" id="url" name="cekodeurl"></textarea>
+                                    <input type="hidden" name="stageurl" value="process">
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div id="menu1" class="tab-pane fade">
-                        <form action="" method="post">
-                            <button class="btn btn-success" type="submit">CHECK >></button>
-                            <div class="form-group">
-                                <textarea class="form-control url" id="url" name="cekodeurl"></textarea>
-                                <input type="hidden" name="stageurl" value="process">
-                            </div>
-                        </form>
-                    </div>
+                </div>
+                <div class="show-code" id="showcode">
+                    <?php
+                    $str_get= file_get_contents('tescode.html');
+                    echo '<pre>'.htmlspecialchars($str_get).'</pre>';
+                    ?>
                 </div>
 			</div>
 			<div class="col-md-6 bottom">
                 <div class="content-correct">
 				<?php
                 //Form for correcting input from user
-                function form_correct($tag_array, $tag, $index, $index1){
+                function form_correct($tag_array, $tag, $line, $index, $index1){
                     $identifier= $tag."".$index;
                     echo "<div class='$identifier form-container'>";
-                    echo "<hr />";
+                    echo "<div class='info-detail'>";
+                    echo "<p> Error in <a href='#'>line ".$line."</a></p>";
                     $desc="";
                     $info ="Without double quote";
                     switch ($tag){
                         case 'img':
+                            echo "<p>Img tag dosen't have 'alt' properties | WCAG 2.0 level A Percivable <a href='#' class='btn btn-sm btn-info'>More info</a></p>";
+                            echo "<hr>";
                             $desc = "Input alt value";
                             $word = "<code>".htmlspecialchars('alt="..."')."</code>";
                             $a1 = array($tag_array[0], $word);
@@ -139,23 +109,30 @@ session_start();
                             echo "</p>";
 
                     }
-
+                    echo "</div>";
                     echo "<label for='correct'>$desc</label> <small>$info</small> <span id='identifier'>$identifier</span>";
-                    echo "<div class='form-inline'>";
                     echo "<div class='form-group'>";
-                    echo "<input type='text' class='form-control' id='correct_$identifier' placeholder='your text'>";
+                    echo "<input type='text' class='form-control correct-text' id='correct_$identifier' placeholder='your text'>";
                     echo "<input type='hidden' id='position_$identifier' value='$index'>";
                     echo "<input type='hidden' id='otherindex' value='$index1'>";
                     echo "<input type='hidden' id='value' value='$tag'>";
-                    echo "<button class='btn btn-success' id='tiger' onclick='runAjax()'>Edit</button>";
-                    echo "</div>";
+                    echo "<button class='btn btn-default' id='tiger' onclick='runAjax()'>Edit</button>";
+                    echo "<button class='btn btn-default'>Ignore</button>";
                     echo "</div>";
                     echo "</div>";
                 }
 
+                function show_code(){
+                    echo '<script type="text/javascript">';
+                    echo 'document.getElementById("showcode").style.display = "block";';
+                    echo 'document.getElementById("allform").style.display ="none" ;';
+                    echo '</script>';
+                }
 
                 class mainArray{
 					public $all_array;
+                    public $arr_newline;
+                    public $all_checked_line;
 					public $correct_arr = array();
                     public $array_ready = array();
                     public $array_indicator;
@@ -165,7 +142,10 @@ session_start();
 					public $checker_list = array("&lt;img", "&lt;input");
 
 					public function __construct($all_text){
-                        $this->all_array = explode(" ", $all_text); // Create arrray base on space
+					    $this->arr_newline = preg_split("/\\r\\n|\\r|\\n/", $all_text);
+                        for ($i=0; $i<count($this->arr_newline); $i++){
+                            $this->all_array[$i] = explode(" ", $this->arr_newline[$i]);
+                        }
 					}
 //======================= General function, custom library
 //					Use this class every time we need to check the existence of certain word.
@@ -194,22 +174,30 @@ session_start();
 
 					//Find tag, also their index
 					public function tag_check(){
-						foreach ($this->all_array as $key => $items) {
-							for ($i = 0; $i < count($this->checker_list); $i++) {
-								similar_text($items, $this->checker_list[$i], $percent);
-								if ($percent == 100) {
-									$this->tag_name = $items;
-									$start_tag = $key;
-									$this->alloc_work($start_tag); //work allocation
-								}
-							}
+                        $j=-1;
+                        $arr_line = array();
+						foreach ($this->all_array as $line=>$lines) {
+						    foreach ($lines as $position=>$items){
+                                for ($i = 0; $i < count($this->checker_list); $i++) {
+                                    similar_text($items, $this->checker_list[$i], $percent);
+                                    if ($percent == 100) {
+                                        $this->tag_name = $items;
+                                        $this->alloc_work($line, $position); //work allocation
+                                        //Forming array
+                                        $j++;
+                                        $arr_line[$j] = $line+1;
+                                    }
+                                }
+                            }
 						}
+                        $count_arr = count($arr_line)-1;
+						$this->all_checked_line = $arr_line[$count_arr];
 					}
 					//Find end tag
-					public function find_close_tag($start_tag){
+					public function find_close_tag($line, $position){
 						$nd_tag = 0;
-						for ($n = $start_tag; $n < count($this->all_array); $n++) {
-							$new_line = substr($this->all_array[$n], strlen($this->all_array[$n]) - 4, strlen($this->all_array[$n])); // take 4 string in every end string
+						for ($n = $position; $n < count($this->all_array[$line]); $n++) {
+							$new_line = substr($this->all_array[$line][$n], strlen($this->all_array[$line][$n]) - 4, strlen($this->all_array[$line][$n])); // take 4 string in every end string
 							similar_text('&gt;', $new_line, $percent);
 							if ($percent == 100) {
 								$nd_tag = $n;
@@ -219,15 +207,15 @@ session_start();
 						return $nd_tag;
 					}
 					//Check whether end tag is true, by checking open tag for next element
-					public function next_open_tag($start_tag, $end_tag){
+					public function next_open_tag($line, $position){
 					    $new_sort = array();
-                        foreach ($this->all_array as $items){
+                        foreach ($this->all_array[$line] as $items){
                             array_push($new_sort, substr($items, 0, 4));
                         }
-                        $next_tag = $this->is_exist(htmlspecialchars('<'), $start_tag + 1, sizeof($new_sort), $new_sort);
+                        $next_tag = $this->is_exist(htmlspecialchars('<'), $position + 1, sizeof($new_sort), $new_sort);
                         if (!$next_tag) {
                             //In case this is end of file
-                            return sizeof($this->all_array);
+                            return sizeof($this->all_array[$line]);
                         } else {
                             return $next_tag;
                         }
@@ -242,11 +230,11 @@ session_start();
 					}
 
 					// After start and end tag found return new array accordingly Snew array equal one tag (open and close)
-					public function single_tag($start_tag, $end_tag){
+					public function single_tag($line, $start_tag, $end_tag){
 						$single_tag_arr = array();
-						for ($n = $start_tag; $n < count($this->all_array); $n++) {
+						for ($n = $start_tag; $n < count($this->all_array[$line]); $n++) {
 							for ($i = $start_tag; $i <= $end_tag; $i++) {
-								array_push($single_tag_arr, $this->all_array[$i]);
+								array_push($single_tag_arr, $this->all_array[$line][$i]);
 							}
 							break;
 						}
@@ -255,32 +243,31 @@ session_start();
 //======================= End of General function, custom library =======
 
 					//Work allocation here
-					public function alloc_work($start_tag){
+					public function alloc_work($line, $position){
 						switch ($this->tag_name) {
 							case "&lt;img": //Img tag
-								$end_tag = $this->find_close_tag($start_tag); //Get end tag index
-                                $next_open_tag = $this->next_open_tag($start_tag, $end_tag);
+								$end_tag = $this->find_close_tag($line, $position); //Get end tag index
+                                $next_open_tag = $this->next_open_tag($line, $position);
                                 $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
                                 if (!$is_end_true){
-                                    //When img doesn't have end tag
-                                    $img_tag = $this->single_tag($start_tag, $next_open_tag-1);
-                                    $this->correct_end_tag($img_tag);
+                                    echo "you are missing w3c tag validator checker";
 
                                 } else {
-                                    $img_tag = $this->single_tag($start_tag, $end_tag);
-                                    $this->img_check($img_tag, $start_tag);
+                                    $img_tag = $this->single_tag($line, $position, $end_tag);
+                                    $this->img_check($img_tag, $line, $position);
                                 }
 								break;
+
 							case "&lt;input": //Input tag
-                                $end_tag = $this->find_close_tag($start_tag);
-                                $next_open_tag = $this->next_open_tag($start_tag, $end_tag);
-                                $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
-                                if (!$is_end_true){
-                                    echo "end tag for input not found";
-                                } else {
-                                    $input_tag = $this->single_tag($start_tag, $end_tag);
-                                    $this->input_alloc($input_tag, $start_tag);
-                                }
+//                                $end_tag = $this->find_close_tag($position);
+//                                $next_open_tag = $this->next_open_tag($position, $end_tag);
+//                                $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
+//                                if (!$is_end_true){
+//                                    echo "end tag for input not found";
+//                                } else {
+//                                    $input_tag = $this->single_tag($position, $end_tag);
+//                                    $this->input_alloc($input_tag, $position);
+//                                }
 								break;
 						}
 					}
@@ -292,8 +279,11 @@ session_start();
                         }
                     }
 //===================   Check img Tag Process    ==========================================
-                    public function img_check($img_tag, $start_tag){
+                    public function img_check($img_tag, $line, $start_tag){
                         $indicator = 0;
+                        //show all code
+                        echo $line." === ";
+                        echo $this->all_checked_line;
                         foreach ($img_tag as $img){
                             $img_sort = substr($img, 0, 3);
                             similar_text($img_sort,"alt",$percent);
@@ -303,9 +293,8 @@ session_start();
                         }
                         if ($indicator >= 1){
                             //alt found
-                            //no need further execution
                         } else{
-                            form_correct($img_tag, 'img', $start_tag, '');
+                            form_correct($img_tag, 'img', $line+1, $start_tag, '');
                         }
                     }
 //===================   Check input Tag Process    ==========================================
@@ -451,12 +440,12 @@ session_start();
                 //Program start here for insert code
                 if (isset($_POST['stage']) && ('process' == $_POST['stage'])) {
                     $all_array = htmlspecialchars($_POST['cekode']);
-                    $str_final = sterilize_string($all_array);
-                    $main_array = new mainArray($str_final);
+                    //$str_final = sterilize_string($all_array);
+                    $main_array = new mainArray($all_array);
 					$main_array->tag_check(); //First function to run in class
 
                     $myfile = fopen("file-reference.txt", "w") or die("Unable to open file!");
-                    fwrite($myfile, $str_final." ");
+                    fwrite($myfile, $all_array." ");
                     fclose($myfile);
                     download_btn();
                 }
@@ -482,17 +471,16 @@ session_start();
                 }
 
                 function sterilize_string($all_array){
-                    $str = str_replace("\n", "*#newline#*", $all_array); //Replace new line with *#newline#*
-                    $str_close = trim(preg_replace('/&gt;/', '&gt; ', $str)); //Create space after every close tag
+                    $str_close = trim(preg_replace('/&gt;/', '&gt; ', $all_array)); //Create space after every close tag
                     $str_open = trim(preg_replace('/&lt;/', ' &lt;', $str_close)); //Create space before every open tag
                     $str_final = trim(preg_replace('!\s+!', ' ', $str_open)); //Remove any double space with single space
                     return $str_final;
                 }
                 function download_btn(){ //to call download button only when code checked and displayed
                     echo "<hr>";
-                    echo "<a id='selesai' class='btn btn-danger' href='newfile.html' download>";
+                    echo "<div id='selesai' class='btn btn-danger' href='newfile.html' download>";
                     echo "Finish & Download";
-                    echo "</a>";
+                    echo "</div>";
                 }
                 ?>
                 </div>
