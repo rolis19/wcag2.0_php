@@ -1,5 +1,5 @@
 <?php
-$str_get= file_get_contents('tescode.html');
+$str_get= file_get_contents('temp-html-file.html');
 $arr_one = preg_split("/\\r\\n|\\r|\\n/", htmlspecialchars($str_get));
 $array_all = array();
 

@@ -47,10 +47,23 @@ session_start();
                     </div>
                 </div>
                 <div class="show-code" id="showcode">
-                    <?php
-                    $str_get= file_get_contents('tescode.html');
-                    echo '<pre>'.htmlspecialchars($str_get).'</pre>';
-                    ?>
+                    <a href="http://localhost/learn" class="btn btn-success">New Check</a>
+                    <div class="showcode-container">
+                        <?php
+                        function show_code(){
+                            echo '<script type="text/javascript">';
+                            echo 'document.getElementById("showcode").style.display = "block";';
+                            echo 'document.getElementById("allform").style.display ="none" ;';
+                            echo '</script>';
+                        }
+                        $str_get= file_get_contents('temp-html-file.html');
+                        clearstatcache();
+                        $all_array = preg_split("/\\r\\n|\\r|\\n/", $str_get);
+                        for ($i=0; $i<count($all_array); $i++){
+                            echo '<pre id=line'.($i+1).'>'.($i+1).' '.$all_array[$i].'</pre>';
+                        }
+                        ?>
+                    </div>
                 </div>
 			</div>
 			<div class="col-md-6 bottom">
@@ -61,7 +74,7 @@ session_start();
                     $identifier= $tag."".$index;
                     echo "<div class='$identifier form-container'>";
                     echo "<div class='info-detail'>";
-                    echo "<p> Error in <a href='#'>line ".$line."</a></p>";
+                    echo "<p> Error in <a href='#line$line'>line ".$line."</a></p>";
                     $desc="";
                     $info ="Without double quote";
                     switch ($tag){
@@ -122,24 +135,17 @@ session_start();
                     echo "</div>";
                 }
 
-                function show_code(){
-                    echo '<script type="text/javascript">';
-                    echo 'document.getElementById("showcode").style.display = "block";';
-                    echo 'document.getElementById("allform").style.display ="none" ;';
-                    echo '</script>';
-                }
-
                 class mainArray{
 					public $all_array;
                     public $arr_newline;
-                    public $all_checked_line;
+                    public $all_checked_line = array();
 					public $correct_arr = array();
                     public $array_ready = array();
                     public $array_indicator;
 					public $tag_name;
 					public $end_tag;
                     public $correct_words;
-					public $checker_list = array("&lt;img", "&lt;input");
+					public $checker_list = array("&lt;img");
 
 					public function __construct($all_text){
 					    $this->arr_newline = preg_split("/\\r\\n|\\r|\\n/", $all_text);
@@ -175,23 +181,26 @@ session_start();
 					//Find tag, also their index
 					public function tag_check(){
                         $j=-1;
-                        $arr_line = array();
 						foreach ($this->all_array as $line=>$lines) {
 						    foreach ($lines as $position=>$items){
                                 for ($i = 0; $i < count($this->checker_list); $i++) {
                                     similar_text($items, $this->checker_list[$i], $percent);
                                     if ($percent == 100) {
                                         $this->tag_name = $items;
-                                        $this->alloc_work($line, $position); //work allocation
+                                        //$this->alloc_work($line, $position); //work allocation
                                         //Forming array
                                         $j++;
-                                        $arr_line[$j] = $line+1;
+                                        $this->all_checked_line[$j] = array('line'=> $line,
+                                            'position' => $position
+                                            );
                                     }
                                 }
                             }
 						}
-                        $count_arr = count($arr_line)-1;
-						$this->all_checked_line = $arr_line[$count_arr];
+//                        echo $this->all_checked_line[2]['line']." ====== ";
+//						echo $this->all_checked_line[2]['position']."<br>";
+//						echo count($this->all_checked_line);
+                        $this->alloc_work($this->all_checked_line); //work allocation
 					}
 					//Find end tag
 					public function find_close_tag($line, $position){
@@ -243,33 +252,37 @@ session_start();
 //======================= End of General function, custom library =======
 
 					//Work allocation here
-					public function alloc_work($line, $position){
-						switch ($this->tag_name) {
-							case "&lt;img": //Img tag
-								$end_tag = $this->find_close_tag($line, $position); //Get end tag index
-                                $next_open_tag = $this->next_open_tag($line, $position);
-                                $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
-                                if (!$is_end_true){
-                                    echo "you are missing w3c tag validator checker";
+					public function alloc_work($all_line){
+					    for ($i=0; $i<count($all_line); $i++){
+					        $line = $all_line[$i]['line'];
+					        $position = $all_line[$i]['position'];
+                            switch ($this->tag_name) {
+                                case "&lt;img": //Img tag
+                                    $end_tag = $this->find_close_tag($line, $position); //Get end tag index
+                                    $next_open_tag = $this->next_open_tag($line, $position);
+                                    $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
+                                    if (!$is_end_true){
+                                        echo "you are missing w3c tag validator checker";
 
-                                } else {
-                                    $img_tag = $this->single_tag($line, $position, $end_tag);
-                                    $this->img_check($img_tag, $line, $position);
-                                }
-								break;
+                                    } else {
+                                        $img_tag = $this->single_tag($line, $position, $end_tag);
+                                        $this->img_check($img_tag, $line, $position);
+                                    }
+                                    break;
 
-							case "&lt;input": //Input tag
-//                                $end_tag = $this->find_close_tag($position);
-//                                $next_open_tag = $this->next_open_tag($position, $end_tag);
-//                                $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
-//                                if (!$is_end_true){
-//                                    echo "end tag for input not found";
-//                                } else {
-//                                    $input_tag = $this->single_tag($position, $end_tag);
-//                                    $this->input_alloc($input_tag, $position);
-//                                }
-								break;
-						}
+//                                case "&lt;input": //Input tag
+    //                                $end_tag = $this->find_close_tag($position);
+    //                                $next_open_tag = $this->next_open_tag($position, $end_tag);
+    //                                $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
+    //                                if (!$is_end_true){
+    //                                    echo "end tag for input not found";
+    //                                } else {
+    //                                    $input_tag = $this->single_tag($position, $end_tag);
+    //                                    $this->input_alloc($input_tag, $position);
+    //                                }
+                                    break;
+                            }
+                        }
 					}
 
 					public function correct_end_tag($tag_array){
@@ -281,9 +294,10 @@ session_start();
 //===================   Check img Tag Process    ==========================================
                     public function img_check($img_tag, $line, $start_tag){
                         $indicator = 0;
-                        //show all code
-                        echo $line." === ";
-                        echo $this->all_checked_line;
+                        $last_checked_line = $this->all_checked_line[count($this->all_checked_line)-1]['line'];
+                        if ($line == $last_checked_line){
+                            show_code();
+                        }
                         foreach ($img_tag as $img){
                             $img_sort = substr($img, 0, 3);
                             similar_text($img_sort,"alt",$percent);
@@ -440,14 +454,12 @@ session_start();
                 //Program start here for insert code
                 if (isset($_POST['stage']) && ('process' == $_POST['stage'])) {
                     $all_array = htmlspecialchars($_POST['cekode']);
-                    //$str_final = sterilize_string($all_array);
-                    $main_array = new mainArray($all_array);
-					$main_array->tag_check(); //First function to run in class
-
-                    $myfile = fopen("file-reference.txt", "w") or die("Unable to open file!");
+                    $myfile = fopen("temp-html-file.html", "w") or die("Unable to open file!");
                     fwrite($myfile, $all_array." ");
                     fclose($myfile);
-                    download_btn();
+                    $main_array = new mainArray($all_array);
+                    $main_array->tag_check(); //First function to run in class
+                    //download_btn();
                 }
                 //Program start here for insert url
                 if (isset($_POST['stageurl']) && ('process' == $_POST['stageurl'])) {
