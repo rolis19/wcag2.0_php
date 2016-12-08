@@ -4,9 +4,7 @@ function runAjax() {
     var identifier = document.getElementById("identifier").innerHTML;
     var values = {
         'name': $('#correct_'+identifier).val(),
-        'index': $('#position_'+identifier).val(),
-        'otherIndex':$('#otherindex').val(),
-        'tag':$('#value').val(),
+        'index': $('#position_'+identifier).val()
     };
     $.ajax({
         method: "POST",

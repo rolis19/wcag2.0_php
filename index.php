@@ -11,6 +11,10 @@ session_start();
 	<title>Php Web Accessibility</title>
 	<link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/jquery.smooth-scroll.js"></script>
+    <script src="js/ajax.js"></script>
 </head>
 <body>
 	<header>
@@ -50,17 +54,13 @@ session_start();
                     <a href="http://localhost/learn" class="btn btn-success">New Check</a>
                     <div class="showcode-container">
                         <?php
-                        function show_code(){
-                            echo '<script type="text/javascript">';
-                            echo 'document.getElementById("showcode").style.display = "block";';
-                            echo 'document.getElementById("allform").style.display ="none" ;';
-                            echo '</script>';
-                        }
-                        $str_get= file_get_contents('temp-html-file.html');
-                        clearstatcache();
-                        $all_array = preg_split("/\\r\\n|\\r|\\n/", $str_get);
-                        for ($i=0; $i<count($all_array); $i++){
-                            echo '<pre id=line'.($i+1).'>'.($i+1).' '.$all_array[$i].'</pre>';
+                        function show_code($line){
+                            echo <<< END
+                            <script type="text/javascript">
+                                document.getElementById("showcode").style.display = "block";
+                                document.getElementById("allform").style.display ="none" ;
+                            </script>
+END;
                         }
                         ?>
                     </div>
@@ -68,72 +68,94 @@ session_start();
 			</div>
 			<div class="col-md-6 bottom">
                 <div class="content-correct">
-				<?php
-                //Form for correcting input from user
-                function form_correct($tag_array, $tag, $line, $index, $index1){
-                    $identifier= $tag."".$index;
-                    echo "<div class='$identifier form-container'>";
-                    echo "<div class='info-detail'>";
-                    echo "<p> Error in <a href='#line$line'>line ".$line."</a></p>";
-                    $desc="";
-                    $info ="Without double quote";
-                    switch ($tag){
-                        case 'img':
-                            echo "<p>Img tag dosen't have 'alt' properties | WCAG 2.0 level A Percivable <a href='#' class='btn btn-sm btn-info'>More info</a></p>";
-                            echo "<hr>";
-                            $desc = "Input alt value";
-                            $word = "<code>".htmlspecialchars('alt="..."')."</code>";
-                            $a1 = array($tag_array[0], $word);
-                            array_splice($tag_array, 0,1,$a1);
-                            echo "<p class='tag-info'>";
-                            foreach ($tag_array as $items){
-                                echo $items." ";
-                            }
-                            echo "</p>";
-                            break;
-                        case 'input':
-                            $desc = "Input aria-label value ";
-                            $word = "<code>".htmlspecialchars('aria-labelledby="..."')."</code>";
-                            $a1 = array($tag_array[0], $word);
-                            array_splice($tag_array, 0,1,$a1);
-                            echo "<p class='tag-info'>";
-                            foreach ($tag_array as $items){
-                                echo $items." ";
-                            }
-                            echo "</p>";
-                            break;
-                        case 'label':
-                            $desc = "Give label's for and input's id value";
-                            $word = htmlspecialchars('<label')."<code>".htmlspecialchars('for="..."')."</code>".substr($tag_array[0], 9, strlen($tag_array[0]));
-                            $a1 = array($word);
-                            array_splice($tag_array, 0,1,$a1);
-                            $id_index = $index1-$index;
-                            if (substr($tag_array[$id_index], 0, 2) == 'id'){
-                                $tag_array[$id_index] = "<code>".$tag_array[$id_index]."</code>";
-                            } else {
-                                $word = "<code>".htmlspecialchars('id="..."')."</code>";
-                                $a2 = array($tag_array[$id_index], $word);
-                                array_splice($tag_array, $id_index,1,$a2);
-                            }
-                            echo "<p class='tag-info'>";
-                            foreach ($tag_array as $items){
-                                echo $items." ";
-                            }
-                            echo "</p>";
+                <?php
+                    //Form for correcting input from user
+                    function form_correct($tag_array, $tag, $line, $index, $index1){
+                        echo <<< END
+                       <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('a.line$line').click(function() {
+                                    $.smoothScroll({
+                                        offset: -200,
+                                        scrollElement: $('div.showcode-container'),
+                                        scrollTarget: '#line$line',
+                                        beforeScroll: function(options) {
+                                            $('.line').removeClass("active");
+                                        },
+                                        afterScroll: function(options) {
+                                            $('#line$line').addClass("active");
+                                        }
+                                    });
+                                    return false;
+                                });
+                            });
+                        </script>
+END;
 
+                        $identifier= $tag."".$line.$index;
+                        echo "<div class='$identifier form-container'>";
+                        echo "<div class='info-detail'>";
+                        echo "<p> Error in <a href='#' class='line$line'>line ".$line."</a></p>";
+                        $desc="";
+                        $info ="Without double quote";
+                        switch ($tag){
+                            case 'img':
+                                echo "<p>Img tag dosen't have 'alt' properties | WCAG 2.0 level A Percivable <a href='#' class='btn btn-sm btn-info'>More info</a></p>";
+                                echo "<hr>";
+                                $desc = "Input alt value";
+                                $word = "<code>".htmlspecialchars('alt="..."')."</code>";
+                                $a1 = array($tag_array[0], $word);
+                                array_splice($tag_array, 0,1,$a1);
+                                echo "<p class='tag-info'>";
+                                foreach ($tag_array as $items){
+                                    echo $items." ";
+                                }
+                                echo "</p>";
+                                break;
+                            case 'input':
+                                $desc = "Input aria-label value ";
+                                $word = "<code>".htmlspecialchars('aria-labelledby="..."')."</code>";
+                                $a1 = array($tag_array[0], $word);
+                                array_splice($tag_array, 0,1,$a1);
+                                echo "<p class='tag-info'>";
+                                foreach ($tag_array as $items){
+                                    echo $items." ";
+                                }
+                                echo "</p>";
+                                break;
+                            case 'label':
+                                $desc = "Give label's for and input's id value";
+                                $word = htmlspecialchars('<label')."<code>".htmlspecialchars('for="..."')."</code>".substr($tag_array[0], 9, strlen($tag_array[0]));
+                                $a1 = array($word);
+                                array_splice($tag_array, 0,1,$a1);
+                                $id_index = $index1-$index;
+                                if (substr($tag_array[$id_index], 0, 2) == 'id'){
+                                    $tag_array[$id_index] = "<code>".$tag_array[$id_index]."</code>";
+                                } else {
+                                    $word = "<code>".htmlspecialchars('id="..."')."</code>";
+                                    $a2 = array($tag_array[$id_index], $word);
+                                    array_splice($tag_array, $id_index,1,$a2);
+                                }
+                                echo "<p class='tag-info'>";
+                                foreach ($tag_array as $items){
+                                    echo $items." ";
+                                }
+                                echo "</p>";
+
+                        }
+                        echo "</div>";
+                        echo "<label for='correct'>$desc</label> <small>$info</small> <span id='identifier'>$identifier</span>";
+                        echo "<div class='form-group'>";
+                        echo "<input type='text' class='form-control correct-text' id='correct_$identifier' placeholder='your text'>";
+                        echo "<input type='hidden' id='position_$identifier' value='$line $index $index1 $tag'>";
+                        echo "<button class='btn btn-default' id='tiger' onclick='runAjax()'>Edit</button>";
+                        echo "<button class='btn btn-default'>Ignore</button>";
+                        echo "</div>";
+                        echo "</div>";
                     }
-                    echo "</div>";
-                    echo "<label for='correct'>$desc</label> <small>$info</small> <span id='identifier'>$identifier</span>";
-                    echo "<div class='form-group'>";
-                    echo "<input type='text' class='form-control correct-text' id='correct_$identifier' placeholder='your text'>";
-                    echo "<input type='hidden' id='position_$identifier' value='$index'>";
-                    echo "<input type='hidden' id='otherindex' value='$index1'>";
-                    echo "<input type='hidden' id='value' value='$tag'>";
-                    echo "<button class='btn btn-default' id='tiger' onclick='runAjax()'>Edit</button>";
-                    echo "<button class='btn btn-default'>Ignore</button>";
-                    echo "</div>";
-                    echo "</div>";
-                }
+                ?>
+
+                <?php
 
                 class mainArray{
 					public $all_array;
@@ -149,10 +171,15 @@ session_start();
 
 					public function __construct($all_text){
 					    $this->arr_newline = preg_split("/\\r\\n|\\r|\\n/", $all_text);
+                        $my_file = fopen("file-reference.txt", "w") or die("Unable to open file!");
                         for ($i=0; $i<count($this->arr_newline); $i++){
-                            $this->all_array[$i] = explode(" ", $this->arr_newline[$i]);
+                            $arrnewline_sterile = sterile_string($this->arr_newline[$i]);
+                            $this->all_array[$i] = explode(" ", $arrnewline_sterile);
+                            fwrite($my_file, $arrnewline_sterile."\r\n");
                         }
+                        fclose($my_file);
 					}
+
 //======================= General function, custom library
 //					Use this class every time we need to check the existence of certain word.
                     public function is_exist($word, $start, $end, $array_of){
@@ -197,9 +224,6 @@ session_start();
                                 }
                             }
 						}
-//                        echo $this->all_checked_line[2]['line']." ====== ";
-//						echo $this->all_checked_line[2]['position']."<br>";
-//						echo count($this->all_checked_line);
                         $this->alloc_work($this->all_checked_line); //work allocation
 					}
 					//Find end tag
@@ -294,10 +318,6 @@ session_start();
 //===================   Check img Tag Process    ==========================================
                     public function img_check($img_tag, $line, $start_tag){
                         $indicator = 0;
-                        $last_checked_line = $this->all_checked_line[count($this->all_checked_line)-1]['line'];
-                        if ($line == $last_checked_line){
-                            show_code();
-                        }
                         foreach ($img_tag as $img){
                             $img_sort = substr($img, 0, 3);
                             similar_text($img_sort,"alt",$percent);
@@ -309,6 +329,10 @@ session_start();
                             //alt found
                         } else{
                             form_correct($img_tag, 'img', $line+1, $start_tag, '');
+                        }
+                        $last_checked_line = $this->all_checked_line[count($this->all_checked_line)-1]['line'];
+                        if ($line == $last_checked_line){
+                            show_code($line);
                         }
                     }
 //===================   Check input Tag Process    ==========================================
@@ -459,40 +483,53 @@ session_start();
                     fclose($myfile);
                     $main_array = new mainArray($all_array);
                     $main_array->tag_check(); //First function to run in class
-                    //download_btn();
-                }
-                //Program start here for insert url
-                if (isset($_POST['stageurl']) && ('process' == $_POST['stageurl'])) {
-                    function datafeed($url){
-                        $text =  file_get_contents($url);
-                        return $text;
-                    }
-                    $dataraw=datafeed($_POST['cekodeurl']);//raw data tag code
-                    $all_array = htmlspecialchars($dataraw);
-                    $str_final = sterilize_string($all_array);
-                    $main_array = new mainArray($str_final);
-                    $main_array->tag_check();
-                    $myfile = fopen("file-reference.txt", "w") or die("Unable to open file!");
-                    if (empty($str_final)){
-                        fwrite($myfile, "Can't obtain any code from URL");
-                    } else {
-                        fwrite($myfile, $str_final." ");
-                    }
-                    fclose($myfile);
-                    download_btn();
-                }
 
-                function sterilize_string($all_array){
-                    $str_close = trim(preg_replace('/&gt;/', '&gt; ', $all_array)); //Create space after every close tag
-                    $str_open = trim(preg_replace('/&lt;/', ' &lt;', $str_close)); //Create space before every open tag
-                    $str_final = trim(preg_replace('!\s+!', ' ', $str_open)); //Remove any double space with single space
-                    return $str_final;
+                    $str_get= file_get_contents('temp-html-file.html');
+                    $arr_line = preg_split("/\\r\\n|\\r|\\n/", $str_get);
+                    echo '<script type="text/javascript">';
+                    for ($i=0; $i<count($arr_line); $i++){
+                        echo '$(".showcode-container").append("<pre id=line'.($i+1).' class=line>'.($i+1).' '.$arr_line[$i].'</pre>");';
+                    }
+                    echo '</script>';
                 }
                 function download_btn(){ //to call download button only when code checked and displayed
                     echo "<hr>";
-                    echo "<div id='selesai' class='btn btn-danger' href='newfile.html' download>";
+                    echo "<div id='selesai' class='btn btn-danger' href='newfile.html'>";
                     echo "Finish & Download";
                     echo "</div>";
+                }
+                function sterile_string($line_string){
+                    $i = 0; $k = 0; $m = 0;
+                    if (strlen(trim($line_string)) != 0){
+                        $new_decode = htmlspecialchars_decode($line_string);
+                        do {
+                            $i++;
+                        } while ($new_decode[$i] == ' ');
+                        $start_fill = $i;
+                        for ($j = $start_fill + 1; $j < strlen($new_decode) - 1; $j++) {
+                            if ($new_decode[$j] === '<') {
+                                $k = $j;
+                            }
+                            if ($new_decode[$j] === '>') {
+                                if ($new_decode[$j + 1] !== '<') {
+                                    $m = $j;
+                                }
+                            }
+                        }
+                        if ($m != 0) {
+                            $fix_close = substr_replace($new_decode, "> ", $m, 1);
+                        } else {
+                            $fix_close = $new_decode;
+                        }
+                        if ($k != 0) {
+                            $fix_open = substr_replace($fix_close, " <", $k, 1);
+                        } else {
+                            $fix_open = $fix_close;
+                        }
+                        return htmlspecialchars($fix_open);
+                    } else {
+                        return $line_string;
+                    }
                 }
                 ?>
                 </div>
@@ -522,9 +559,6 @@ session_start();
 		echo " Peak Memory: ".convert(memory_get_peak_usage());
 		?>
 	</footer>
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/ajax.js"></script>
     <script>
         $(document).ready(function(){
             $("#selesai").click(function(){

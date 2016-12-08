@@ -37,10 +37,13 @@ code.line{
     margin-left: 5px;
 }
 p.tag-info {margin-bottom: 10px}
-.col-md-6 .form-container:nth-child(odd){
+.col-md-6 .form-container:nth-of-type(even){
     background: #F6F6F6;
     margin: 0 -30px;
     padding: 10px 30px;
+}
+.col-md-6 .form-container:nth-of-type(even) #identifier{
+    color: #F6F6F6;
 }
 header{height: 60px}
 .btn {border-radius: 0}
@@ -75,7 +78,7 @@ textarea.form-control:focus{  box-shadow: none;  }
     font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
 }
 #selesai {margin-bottom: 30px}
-#identifier {color: #FFFFFF}
+.col-md-6 .form-container #identifier {color: #FFFFFF}
 .show-code {
     border-radius: 0;
     height: 480px;
@@ -97,4 +100,10 @@ textarea.form-control:focus{  box-shadow: none;  }
 /*.all-form {*/
     /*display: none;*/
 /*}*/
-pre {overflow: visible; background: #FFFFFF; border-color: #FFFFFF; padding: 0; margin: 0}
+pre {overflow: visible; background: #FFFFFF; border-color: #FFFFFF; padding: 0; margin: 0; border-radius: 0;
+    display: inline-table;
+    width: 100%;
+}
+.line.active {
+    background: #FFEDBD;
+}

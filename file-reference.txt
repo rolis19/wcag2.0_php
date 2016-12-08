@@ -4,399 +4,531 @@
 &lt;head&gt;
     &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
     &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; /&gt;
-    &lt;title&gt;Lifespan-Australia Ebay&lt;/title&gt;
-    &lt;link href=&quot;http://ebay.lifespanfitness.com.au/css/std16.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
-    &lt;link href=&quot;ProgearAssets/css/style.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+    &lt;title&gt; Lifespan Kids-Australia Eba &lt;&lt;/title&gt;
+    &lt;link href=&quot;http://www.lifespankids.com.au/Assets/css/style.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
 &lt;/head&gt;
 
 &lt;body&gt;
-&lt;div id=&quot;body&quot;&gt;
-    &lt;script type=&quot;text/javascript&quot;&gt;
-        var a = 'src=&quot;http://ebay.lifespanfitness.com.au/js/jquery.min.js&quot;';
-        document.write('&lt;script type=&quot;text/javascript&quot; ' + a + ' &gt;');
-        document.write('&lt;/scr' + 'ipt&gt;');
-    &lt;/script&gt;
-    &lt;script type=&quot;text/javascript&quot;&gt;
-        var a = 'src=&quot;http://ebay.lifespanfitness.com.au/js/treadmill.js&quot;';
-        document.write('&lt;script type=&quot;text/javascript&quot; ' + a + ' &gt;');
-        document.write('&lt;/scr' + 'ipt&gt;');
-    &lt;/script&gt;
-    &lt;div id=&quot;wapper&quot;&gt;
-        &lt;div id=&quot;header&quot;&gt;
-            &lt;div class=&quot;logo&quot;&gt;&lt;/div&gt;
-            &lt;div class=&quot;h_r&quot;&gt;&lt;/div&gt;
-            &lt;div class=&quot;clear&quot;&gt;&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div id=&quot;banner&quot;&gt;&lt;/div&gt;
-        &lt;img src=&quot;http://ebay.lifespanfitness.com.au/PublicMessage/Public_Message_1D.jpg&quot; class=&quot;no_mobile&quot; alt=&quot;Public Message Desktop&quot; width=&quot;100%&quot;&gt;
-        &lt;img src=&quot;http://ebay.lifespanfitness.com.au/PublicMessage/Public_Message_1M.jpg&quot; class=&quot;mobile&quot; alt=&quot;Public Message Mobile&quot; width=&quot;100%&quot;&gt;
-        &lt;input type=&quot;hidden&quot; name=&quot;internalid&quot; id=&quot;internalId&quot; value=&quot;12596&quot; /&gt;
-        &lt;input type=&quot;hidden&quot; name=&quot;recordType&quot; value=&quot;inventoryItem&quot; id=&quot;recordType&quot; /&gt;
-        &lt;div class=&quot;pickup-locations-ebt pickup-locations-ebt-top&quot;&gt;
-            &lt;div class=&quot;pickup-locations-ebt-free&quot;&gt;
-                &lt;ul&gt;
-                    &lt;li class=&quot;heading&quot;&gt;
-                        &lt;span&gt;FREE Store Pick Up&lt;/span&gt;
-                        &lt;span&gt;(VIC and NSW only)&lt;/span&gt;
-                    &lt;/li&gt;
-                    &lt;li class=&quot;location vic&quot;&gt;
-                        Campbellfield, VIC
-                    &lt;/li&gt;
-                    &lt;li class=&quot;location nsw&quot;&gt;
-                        Leichhardt, NSW
-                    &lt;/li&gt;
-                &lt;/ul&gt;
+    &lt;div id=&quot;body&quot;&gt;
+        &lt;script type=&quot;text/javascript&quot;&gt;
+            var a = 'src=&quot;http://ebay.lifespanfitness.com.au/js/jquery.min.js&quot;';
+            document.write(' &lt;script type=&quot;text/javascript&quot; ' + a + ' &gt; ');
+            document.write(' &lt;/scr' + 'ipt&gt; ');
+        &lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot;&gt;
+            var a = 'src=&quot;http://ebay.lifespanfitness.com.au/js/treadmill.js&quot;';
+            document.write(' &lt;script type=&quot;text/javascript&quot; ' + a + ' &gt; ');
+            document.write(' &lt;/scr' + 'ipt&gt; ');
+        &lt;/script&gt;
+        &lt;div id=&quot;wapper&quot;&gt;
+            &lt;div id=&quot;header&quot;&gt;
+                &lt;div class=&quot;logo&quot;&gt; &lt;/div&gt;
+                &lt;div class=&quot;h_r&quot;&gt; &lt;/div&gt;
+                &lt;div class=&quot;clear&quot;&gt; &lt;/div&gt;
             &lt;/div&gt;
-            &lt;div class=&quot;pickup-locations-ebt-charges&quot;&gt;
-                &lt;ul&gt;
-                    &lt;li class=&quot;heading&quot;&gt;
-                        &lt;span&gt;Local DC Pick Up&lt;/span&gt;
-                        &lt;span&gt;(Charges Apply)&lt;/span&gt;
-                    &lt;/li&gt;
-                    &lt;li class=&quot;location qld&quot;&gt;
-                        &lt;span&gt;Parkinson, QLD&lt;/span&gt;
-                        &lt;span&gt;$20 fee&lt;/span&gt;
-                    &lt;/li&gt;
-                    &lt;li class=&quot;location wa&quot;&gt;
-                        &lt;span&gt;Canning Vale, WA&lt;/span&gt;
-                        &lt;span&gt;$20 fee&lt;/span&gt;
-                    &lt;/li&gt;
-                &lt;/ul&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;postage&quot;&gt;
-            &lt;div class=&quot;postcodearea&quot;&gt;
-                &lt;div class=&quot;p_t&quot;&gt;
-                    &lt;p&gt;Shipping Calculator&lt;/p&gt;
+            &lt;div id=&quot;banner&quot;&gt; &lt;/div&gt;
+            &lt;img src=&quot;http://ebay.lifespanfitness.com.au/PublicMessage/Public_Message_1D.jpg&quot; class=&quot;no_mobile&quot; alt=&quot;Public Message Desktop&quot; width=&quot;100%&quot;&gt;
+            &lt;img src=&quot;http://ebay.lifespanfitness.com.au/PublicMessage/Public_Message_1M.jpg&quot; class=&quot;mobile&quot; alt=&quot;Public Message Mobile&quot; width=&quot;100%&quot;&gt;
+            &lt;input type=&quot;hidden&quot; name=&quot;internalid&quot; id=&quot;internalId&quot; value=&quot;12599&quot; /&gt;
+            &lt;input type=&quot;hidden&quot; name=&quot;recordType&quot; value=&quot;inventoryItem&quot; id=&quot;recordType&quot; /&gt;
+            &lt;div class=&quot;pickup-locations-ebt pickup-locations-ebt-top&quot;&gt;
+                &lt;div class=&quot;pickup-locations-ebt-free&quot;&gt;
+                    &lt;ul&gt;
+                        &lt;li class=&quot;heading&quot;&gt;
+                            &lt;span&gt; FREE Store Pick U &lt;&lt;/span&gt;
+                            &lt;span&gt; (VIC and NSW only &lt;&lt;/span&gt;
+                        &lt;/li&gt;
+                        &lt;li class=&quot;location vic&quot;&gt;
+                            Campbellfield, VIC
+                        &lt;/li&gt;
+                        &lt;li class=&quot;location nsw&quot;&gt;
+                            Leichhardt, NSW
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
                 &lt;/div&gt;
-                &lt;div class=&quot;form-group&quot;&gt;
-                    &lt;input id=&quot;postcode1&quot; name=&quot;postcode&quot; class=&quot;postage_code&quot; value=&quot;Enter Postcode:&quot; onfocus=&quot;if(this.value=='Enter Postcode:'){this.value='';this.style.color='#000';}&quot;&gt;
-                    &lt;input value=&quot; &quot; class=&quot;postage_go&quot; type=&quot;submit&quot; onclick=&quot;getpostage(1);&quot;&gt;
-                    &lt;input name=&quot;model&quot; id=&quot;model&quot; value=&quot;HOMETRAINER-FLUX&quot; type=&quot;hidden&quot;&gt;
-                    &lt;input name=&quot;weight&quot; id=&quot;weight&quot; value=&quot;14&quot; type=&quot;hidden&quot;&gt;
-                    &lt;input name=&quot;table&quot; id=&quot;table&quot; value=&quot;&quot; type=&quot;hidden&quot;&gt;
+                &lt;div class=&quot;pickup-locations-ebt-charges&quot;&gt;
+                    &lt;ul&gt;
+                        &lt;li class=&quot;heading&quot;&gt;
+                            &lt;span&gt; Local DC Pick U &lt;&lt;/span&gt;
+                            &lt;span&gt; (Charges Apply &lt;&lt;/span&gt;
+                        &lt;/li&gt;
+                        &lt;li class=&quot;location qld&quot;&gt;
+                            &lt;span&gt; Parkinson, QL &lt;&lt;/span&gt;
+                            &lt;span&gt; $20 fe &lt;&lt;/span&gt;
+                        &lt;/li&gt;
+                        &lt;li class=&quot;location wa&quot;&gt;
+                            &lt;span&gt; Canning Vale, W &lt;&lt;/span&gt;
+                            &lt;span&gt; $20 fe &lt;&lt;/span&gt;
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
                 &lt;/div&gt;
-                &lt;div class=&quot;show&quot;&gt;
-                    &lt;span id=&quot;postage1&quot;&gt;&lt;/span&gt;
-                    &lt;span id=&quot;postArea1&quot;&gt;&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;postage&quot;&gt;
+                &lt;div class=&quot;postcodearea&quot;&gt;
+                    &lt;div class=&quot;p_t&quot;&gt;
+                        &lt;p&gt; Shipping Calculato &lt;&lt;/p&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;form-group&quot;&gt;
+                        &lt;input id=&quot;postcode1&quot; name=&quot;postcode&quot; class=&quot;postage_code&quot; value=&quot;Enter Postcode:&quot; onfocus=&quot;if(this.value=='Enter Postcode:'){this.value='';this.style.color='#000';}&quot;&gt;
+                        &lt;input value=&quot; &quot; class=&quot;postage_go&quot; type=&quot;submit&quot; onclick=&quot;getpostage(1);&quot;&gt;
+                        &lt;input name=&quot;model&quot; id=&quot;model&quot; value=&quot;PEMONASH2-SET-GRN&quot; type=&quot;hidden&quot;&gt;
+                        &lt;input name=&quot;weight&quot; id=&quot;weight&quot; value=&quot;134&quot; type=&quot;hidden&quot;&gt;
+                        &lt;input name=&quot;table&quot; id=&quot;table&quot; value=&quot;&quot; type=&quot;hidden&quot;&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;show&quot;&gt;
+                        &lt;span id=&quot;postage1&quot;&gt; &lt;/span&gt;
+                        &lt;span id=&quot;postArea1&quot;&gt; &lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;!--&lt;div class=&quot;vic&quot;&gt;&lt;img src=&quot;http://ebay.lifespanfitness.com.au/rower/images/vic_no1.jpg&quot; class=&quot;stock-checking&quot; id=&quot;campbellfield-stock-top&quot;&gt; &lt;/div&gt;
+                    &lt;div class=&quot;nsw&quot;&gt;&lt;img src=&quot;http://ebay.lifespanfitness.com.au/rower/images/nsw_ok1.jpg&quot; class=&quot;stock-checking&quot; id=&quot;leichhardt-stock-top&quot;&gt; &lt;/div&gt; --&gt;
                 &lt;/div&gt;
-                &lt;!--&lt;div class=&quot;vic&quot;&gt;&lt;img src=&quot;http://ebay.lifespanfitness.com.au/rower/images/vic_no1.jpg&quot; class=&quot;stock-checking&quot; id=&quot;campbellfield-stock-top&quot;&gt;&lt;/div&gt;
-               &lt;div class=&quot;nsw&quot;&gt;&lt;img src=&quot;http://ebay.lifespanfitness.com.au/rower/images/nsw_ok1.jpg&quot; class=&quot;stock-checking&quot; id=&quot;leichhardt-stock-top&quot;&gt;&lt;/div&gt;--&gt;
             &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;mobile&quot;&gt;
-            &lt;div class=&quot;block&quot; style=&quot;margin-top:0&quot;&gt;
-                &lt;img src=&quot;ProgearAssets/Images/HOMETRAINER-FLUX/Mobile/HOMETRAINER-FLUX_MainImage-Mob_01.jpg&quot; width=&quot;100%&quot; /&gt;
+            &lt;div class=&quot;mobile&quot;&gt;
+                &lt;div class=&quot;block&quot; style=&quot;margin-top:0&quot;&gt;
+                    &lt;img src=&quot;http://www.lifespankids.com.au/Product%20Images/CDN/MONASH/Mobile/PEMONASH2-SET-GRN_MainImage_01.jpg&quot; width=&quot;100%&quot; /&gt;
+                &lt;/div&gt;
+                &lt;!--  &lt;div class=&quot;buy&quot;&gt;
+                    &lt;a href=&quot;http://stores.ebay.com.au/Lifespan-Australia/&quot;&gt;
+                        &lt;img src=&quot;http://ebay.lifespanfitness.com.au/css/images/mobile_26.jpg&quot; width=&quot;100%&quot;/&gt;
+                    &lt;/a&gt;
+                &lt;/div&gt;  --&gt;
             &lt;/div&gt;
-            &lt;div class=&quot;buy&quot;&gt;
-                &lt;a href=&quot;http://stores.ebay.com.au/Lifespan-Australia/&quot;&gt;
-                    &lt;img src=&quot;http://ebay.lifespanfitness.com.au/css/images/mobile_26.jpg&quot; width=&quot;100%&quot; /&gt;
-                &lt;/a&gt;
+            &lt;div class=&quot;no_mobile&quot;&gt;
+                &lt;div class=&quot;mainimg&quot;&gt;
+                    &lt;img src=&quot;http://www.lifespankids.com.au/Product%20Images/CDN/MONASH/Desktop/PEMONASH2-SET-GRN_MainImage_01.jpg&quot; width=&quot;100%&quot; /&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;buy&quot;&gt;
+                    &lt;a href=&quot;http://stores.ebay.com.au/Lifespan-Australia/&quot;&gt;
+                        &lt;img src=&quot;http://www.lifespankids.com.au/Assets/images/eBay/stride_10.jpg&quot; width=&quot;100%&quot; alt=&quot;Buy now&quot; /&gt;
+                &lt;/div&gt;
             &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;no_mobile&quot;&gt;
-            &lt;div class=&quot;mainimg&quot;&gt;
-                &lt;img src=&quot;ProgearAssets/Images/HOMETRAINER-FLUX/Desktop/HOMETRAINER-FLUX_MainImage-Desktop_01.jpg&quot; width=&quot;100%&quot; /&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;buy&quot;&gt;
-                &lt;a href=&quot;http://stores.ebay.com.au/Lifespan-Australia/&quot;&gt;
-                    &lt;img src=&quot;http://ebay.lifespanfitness.com.au/css/images/stride_10.jpg&quot; width=&quot;100%&quot; /&gt;
-                &lt;/a&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;mobile&quot;&gt;
-            &lt;div id=&quot;scroll&quot;&gt;
-                &lt;a href=&quot;#header&quot;&gt;&lt;img src=&quot;ProgearAssets/eBay/Logo-Progear-Mob.jpg&quot; /&gt;
-                &lt;/a&gt;
-                &lt;a href=&quot;#fture&quot;&gt;Features&lt;/a&gt;
-                &lt;a href=&quot;#pt1&quot;&gt;Specs&lt;/a&gt;
-                &lt;a href=&quot;#mi_1&quot;&gt;Delivery&lt;/a&gt;
-                &lt;a href=&quot;http://stores.ebay.com.au/Lifespan-Australia/&quot; style=&quot;float:right; margin-right:5px;&quot;&gt;
-                    &lt;img src=&quot;ProgearAssets/eBay/Buy-Now-ScrollBtn.jpg&quot; /&gt;
-                &lt;/a&gt;
-            &lt;/div&gt;
-            &lt;script type=&quot;text/javascript&quot;&gt;
-                $(document).ready(function() {
-                    $(window).scroll(function() {
-                        if ($(window).scrollTop() &gt; 500) {
-                            $(&quot;#scroll&quot;).css(&quot;display&quot;, &quot;block&quot;);
-                        } else {
-                            $(&quot;#scroll&quot;).css(&quot;display&quot;, &quot;none&quot;);
-                        }
+            &lt;div class=&quot;mobile&quot;&gt;
+                &lt;div id=&quot;scrollkids&quot;&gt;
+                    &lt;a href=&quot;#header&quot;&gt; &lt;img src=&quot;http://www.lifespankids.com.au/Assets/images/eBay/kids-logo-small.jpg&quot; /&gt;
+                    &lt;/a&gt;
+                    &lt;a href=&quot;#fture&quot;&gt; Feature &lt;&lt;/a&gt;
+                    &lt;a href=&quot;#pt1&quot;&gt; Spec &lt;&lt;/a&gt;
+                    &lt;a href=&quot;#mi_1&quot;&gt; Deliver &lt;&lt;/a&gt;
+                    &lt;a href=&quot;http://stores.ebay.com.au/Lifespan-Australia/&quot; style=&quot;float:right; margin-right:5px;&quot;&gt;
+                        &lt;img src=&quot;http://www.lifespankids.com.au/Assets/images/eBay/buy-now-kids.jpg&quot; /&gt;
+                    &lt;/a&gt;
+                &lt;/div&gt;
+                &lt;script type=&quot;text/javascript&quot;&gt;
+                    $(document).ready(function() {
+                        $(window).scroll(function() {
+                            if ($(window).scrollTop() &gt;  500) {
+                                $(&quot;#scrollkids&quot;).css(&quot;display&quot;, &quot;block&quot;);
+                            } else {
+                                $(&quot;#scrollkids&quot;).css(&quot;display&quot;, &quot;none&quot;);
+                            }
+                        });
                     });
+                &lt;/script&gt;
+            &lt;/div&gt;
+            &lt;div id=&quot;fture&quot; style=&quot;visibility:hidden; height:0;&quot;&gt; &lt;/div&gt;
+            &lt;div class=&quot;block_img&quot; id=&quot;fture&quot;&gt;
+                &lt;img class=&quot;no_mobile&quot; src=&quot;http://www.lifespankids.com.au/Product%20Images/CDN/MONASH/Desktop/PEMONASH2-SET-GRN_Dimension_02.jpg&quot; /&gt;
+                &lt;img class=&quot;mobile&quot; src=&quot;http://www.lifespankids.com.au/Product%20Images/CDN/MONASH/Mobile/PEMONASH2-SET-GRN_Dimension_02.jpg&quot; /&gt;
+                &lt;div class=&quot;feature-description&quot;&gt;
+                    &lt;h1 class=&quot;title&quot;&gt; Feature Packe &lt;&lt;/h1&gt;
+                    &lt;div class=&quot;context no_mobile&quot;&gt;
+                        &lt;p class=&quot;normal&quot;&gt;
+                            Our Monash Play Center comes packed with heaps of features for a climb &amp; slide, swing and play experience!
+                        &lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;block_img&quot;&gt;
+                &lt;img class=&quot;no_mobile&quot; src=&quot;http://www.lifespankids.com.au/Product%20Images/CDN/MONASH/Desktop/PEMONASH2-SET-GRN_SwingSet_03.jpg&quot; /&gt;
+                &lt;img class=&quot;mobile&quot; src=&quot;http://www.lifespankids.com.au/Product%20Images/CDN/MONASH/Mobile/PEMONASH2-SET-GRN_SwingSet_03.jpg&quot; /&gt;
+                &lt;div class=&quot;feature-description&quot;&gt;
+                    &lt;h1 class=&quot;title&quot;&gt; Double Swings for Twice the fun &lt;&lt;/h1&gt;
+                    &lt;div class=&quot;context no_mobile&quot;&gt;
+                        &lt;p class=&quot;normal&quot;&gt;
+                            With 2 swing seats, your kids and their friends will be able to swing together for heaps of fun!
+                        &lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;block_img&quot;&gt;
+                &lt;img class=&quot;no_mobile&quot; src=&quot;http://www.lifespankids.com.au/Product%20Images/CDN/MONASH/Desktop/PEMONASH2-SET-GRN_Slide_04.jpg&quot; /&gt;
+                &lt;img class=&quot;mobile&quot; src=&quot;http://www.lifespankids.com.au/Product%20Images/CDN/MONASH/Mobile/PEMONASH2-SET-GRN_Slide_04.jpg&quot; /&gt;
+                &lt;div class=&quot;feature-description&quot;&gt;
+                    &lt;h1 class=&quot;title&quot;&gt; 2.2m Fun Slide in the Colour of Your Choic &lt;&lt;/h1&gt;
+                    &lt;div class=&quot;context no_mobile&quot;&gt;
+                        &lt;p class=&quot;normal&quot;&gt;
+                            With a fun, wavy 2.2m slide, you'll be able to satisfy the little thrill seekers with awesome climb and slide play.
+                            &lt;br&gt; Best of all, you can choose between Red, Green, Blue or Yellow for the slide.
+                        &lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;block_img&quot;&gt;
+                &lt;img class=&quot;no_mobile&quot; src=&quot;http://www.lifespankids.com.au/Product%20Images/CDN/MONASH/Desktop/PEMONASH2-SET-GRN_Lifestyle_05.jpg&quot; /&gt;
+                &lt;img class=&quot;mobile&quot; src=&quot;http://www.lifespankids.com.au/Product%20Images/CDN/MONASH/Mobile/PEMONASH2-SET-GRN_Lifestyle_05.jpg&quot; /&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;block_img&quot;&gt;
+                &lt;img class=&quot;no_mobile&quot; src=&quot;http://www.lifespankids.com.au/Product%20Images/CDN/MONASH/Desktop/PEMONASH2-SET-GRN_Attachment_06.jpg&quot; /&gt;
+                &lt;img class=&quot;mobile&quot; src=&quot;http://www.lifespankids.com.au/Product%20Images/CDN/MONASH/Mobile/PEMONASH2-SET-GRN_Attachment_06.jpg&quot; /&gt;
+                &lt;div class=&quot;feature-description&quot;&gt;
+                    &lt;h1 class=&quot;title&quot;&gt; Climbing Rope Attachmen &lt;&lt;/h1&gt;
+                    &lt;div class=&quot;context no_mobile&quot;&gt;
+                        &lt;p class=&quot;normal&quot;&gt;
+                            Give your kids more ways to swing with the climbing rope! Comes with soft ropes that are easy on hands.
+                        &lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;block_img&quot;&gt;
+                &lt;img class=&quot;no_mobile&quot; src=&quot;http://www.lifespankids.com.au/Assets/Images/eBay/SS_AdjustableSeat.jpg&quot; /&gt;
+                &lt;img class=&quot;mobile&quot; src=&quot;http://www.lifespankids.com.au/Assets/Images/eBay/SS_AdjustableSeat_Mob.jpg&quot; /&gt;
+                &lt;div class=&quot;feature-description&quot;&gt;
+                    &lt;h1 class=&quot;title&quot;&gt; Adjustable and Interchangable Seat &lt;&lt;/h1&gt;
+                    &lt;div class=&quot;context no_mobile&quot;&gt;
+                        &lt;p class=&quot;normal&quot;&gt;
+                            The seats on this swing are easily height adjustable so both big kids and little kids can enjoy it!
+                            &lt;br&gt; Not a fan of the stock standard plastic seat? We've got lots of different seat swings including a Baby seat for the little ones.
+                            &lt;br&gt; All are compatible with this swing set.
+                        &lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;block_img&quot;&gt;
+                &lt;img class=&quot;no_mobile&quot; src=&quot;http://www.lifespankids.com.au/Product%20Images/CDN/MONASH/Desktop/PEMONASH2-SET-GRN_UV-Resistant_07.jpg&quot; /&gt;
+                &lt;img class=&quot;mobile&quot; src=&quot;http://www.lifespankids.com.au/Product%20Images/CDN/MONASH/Mobile/PEMONASH2-SET-GRN_UV-Resistant_07.jpg&quot; /&gt;
+                &lt;div class=&quot;feature-description&quot;&gt;
+                    &lt;h1 class=&quot;title&quot;&gt; UV Stabilised &amp; Weather Protecte &lt;&lt;/h1&gt;
+                    &lt;div class=&quot;context no_mobile&quot;&gt;
+                        &lt;p class=&quot;normal&quot;&gt;
+                            Our durable timber, metal and plastic components have been UV-stabilised and weather-treated to withstand the harsh Aussie climate.
+                        &lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;block_img&quot; style=&quot;padding-bottom: 0&quot;&gt;
+                &lt;div class=&quot;feature-description other-feat&quot; style=&quot;text-align: left&quot;&gt;
+                    &lt;h1 class=&quot;title&quot;&gt; Other Feature &lt;&lt;/h1&gt;
+                    &lt;div class=&quot;context&quot;&gt;
+                        &lt;div class=&quot;feature-unit&quot;&gt;
+                            &lt;div class=&quot;feature-unit-image&quot;&gt;
+                                &lt;img src=&quot;http://www.lifespankids.com.au/Assets/Images/eBay/OF_NewZealandPine.jpg&quot; alt=&quot;New Zealand Pine&quot; /&gt;
+                            &lt;/div&gt;
+                            &lt;div class=&quot;feature-unit-descp&quot;&gt;
+                                &lt;h1 class=&quot;title&quot;&gt; New Zealand Pin &lt;&lt;/h1&gt;
+                                &lt;p&gt;
+                                    We've sourced top quality New Zealand Pine for 
+                                    this swing set, so you know you're getting strong, 
+                                    durable timber.
+                                &lt;/p&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;feature-unit&quot;&gt;
+                            &lt;div class=&quot;feature-unit-image&quot;&gt;
+                                &lt;img src=&quot;http://www.lifespankids.com.au/Assets/Images/eBay/OF_Heavy-Duty.jpg&quot; alt=&quot;Galvanised Steel&quot; /&gt;
+                            &lt;/div&gt;
+                            &lt;div class=&quot;feature-unit-descp&quot;&gt;
+                                &lt;h1 class=&quot;title&quot;&gt; Galvanised Steel Part &lt;&lt;/h1&gt;
+                                &lt;p&gt;
+                                    All steel parts such as the swing hooks are galvanised 
+                                    which will keep them rust-free, so that they'll last ages!
+                                &lt;/p&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;feature-unit&quot;&gt;
+                            &lt;div class=&quot;feature-unit-image&quot;&gt;
+                                &lt;img src=&quot;http://www.lifespankids.com.au/Assets/Images/eBay/OF-SP_EasyAssembly.jpg&quot; alt=&quot;Easy Assembly&quot; /&gt;
+                            &lt;/div&gt;
+                            &lt;div class=&quot;feature-unit-descp&quot;&gt;
+                                &lt;h1 class=&quot;title&quot;&gt; Easy Assembly with Picture Manua &lt;&lt;/h1&gt;
+                                &lt;p&gt;
+                                    All tools, hardware and instruction manuals are provided 
+                                    to assist you with the assembly process.
+                                &lt;/p&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;context&quot;&gt;
+                        &lt;div class=&quot;feature-unit&quot;&gt;
+                            &lt;div class=&quot;feature-unit-image&quot;&gt;
+                                &lt;img src=&quot;http://www.lifespankids.com.au/Assets/Images/eBay/OF_TreatedTimberACQ.jpg&quot; alt=&quot;Treated Timber with ACQ&quot; /&gt;
+                            &lt;/div&gt;
+                            &lt;div class=&quot;feature-unit-descp&quot;&gt;
+                                &lt;h1 class=&quot;title&quot;&gt; Treated Timber with Acrylic Lacquer Finis &lt;&lt;/h1&gt;
+                                &lt;p&gt;
+                                    We've added long term protection aganst rot, fungal decay and 
+                                    insect attack with a water based acrylic lacquer finish.
+                                &lt;/p&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;feature-unit&quot;&gt;
+                            &lt;div class=&quot;feature-unit-image&quot;&gt;
+                                &lt;img src=&quot;http://www.lifespankids.com.au/Assets/Images/eBay/OF_InternationalStandard.jpg&quot; alt=&quot;Passes International Standards&quot; /&gt;
+                            &lt;/div&gt;
+                            &lt;div class=&quot;feature-unit-descp&quot;&gt;
+                                &lt;h1 class=&quot;title&quot;&gt; Passes International Standard &lt;&lt;/h1&gt;
+                                &lt;p&gt;
+                                    We know how important safety is for your kids, our Deakin Swing Set 
+                                    passes International EN71 Safety Standards.
+                                &lt;/p&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;feature-unit&quot;&gt;
+                            &lt;div class=&quot;feature-unit-image&quot;&gt;
+                                &lt;img src=&quot;http://www.lifespankids.com.au/Assets/Images/eBay/OF_AnchorKit.jpg&quot; alt=&quot;Anchor Kit included&quot; /&gt;
+                            &lt;/div&gt;
+                            &lt;div class=&quot;feature-unit-descp&quot;&gt;
+                                &lt;h1 class=&quot;title&quot;&gt; Anchor Kit include &lt;&lt;/h1&gt;
+                                &lt;p&gt;
+                                    Anchor kits provided for easy anchoring in soil or cemented in.
+                                &lt;/p&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+             &lt;div class=&quot;block&quot;&gt;
+                &lt;div class=&quot;p_tab&quot;&gt;
+                    &lt;li id=&quot;pt_1&quot; class=&quot;on1&quot; onclick=&quot;ChangeDiv('1','pt',2)&quot;&gt; Technical Specification &lt;&lt;/li&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;clear&quot;&gt; &lt;/div&gt;
+                &lt;div id=&quot;pt1&quot; style=&quot;display:block&quot;&gt;
+                    &lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; align=&quot;center&quot; border=&quot;0&quot;&gt;
+                        &lt;tr&gt;
+                            &lt;td valign=&quot;top&quot; colspan=&quot;2&quot;&gt;
+                                &lt;h4&gt; Genera &lt;&lt;/h4&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td valign=&quot;top&quot; width=&quot;30%&quot;&gt;&lt;strong&gt; Structural&lt;/strong &lt;&lt;/td&gt;
+                            &lt;td valign=&quot;top&quot; width=&quot;70%&quot;&gt;
+                                · Timber is made from New Zealand Pine  &lt;br /&gt;
+                                · Injection molded seats, UV Treated  &lt;br /&gt;
+                                · 2 Swing Seats &amp; Climbing Rope  &lt;br /&gt;
+                                · Anchor kits provided for easy anchoring in soil or cemented in.  &lt;br /&gt;
+                                · Adjustable seat height and interchangeable seats.
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td valign=&quot;top&quot;&gt;&lt;strong&gt; Safety&lt;/strong &lt;&lt;/td&gt;
+                            &lt;td valign=&quot;top&quot;&gt; Meets EN71 European Safety Standard &lt;&lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td valign=&quot;top&quot;&gt;&lt;strong&gt; Safety Precautions&lt;/strong &lt;&lt;/td&gt;
+                            &lt;td valign=&quot;top&quot;&gt;
+                                · Adult supervision is required.  &lt;br /&gt;
+                                · Please allow a safety perimter of 2m on the sides &amp; 0.7m above The distance between swings and the ground should not be lower than 350mm  &lt;br /&gt;
+                                · Swing must not be installed on cement, asphalt, or any other hard surface.  &lt;br /&gt;
+                                · Outdoor domestic use only
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                    &lt;/table&gt;
+                    &lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; align=&quot;center&quot; border=&quot;0&quot;&gt;
+                        &lt;tr&gt;
+                            &lt;td valign=&quot;top&quot; colspan=&quot;2&quot;&gt;
+                                &lt;h4&gt; Technica &lt;&lt;/h4&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td valign=&quot;top&quot; width=&quot;30%&quot;&gt;&lt;strong&gt; Assembly Required&lt;/strong &lt;&lt;/td&gt;
+                            &lt;td valign=&quot;top&quot; width=&quot;70%&quot;&gt; This product comes partially assembled in a box with assembly instructions include &lt;&lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td valign=&quot;top&quot;&gt;&lt;strong&gt; Assembled Dimensions &lt;/strong &lt;&lt;/td&gt;
+                            &lt;td valign=&quot;top&quot;&gt; 340cm x 185cm x 234cm (L x W x H)  &lt;&lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td valign=&quot;top&quot;&gt;&lt;strong&gt; Carton Dimension&lt;/strong &lt;&lt;/td&gt;
+                            &lt;td valign=&quot;top&quot;&gt;
+                                Carton 1: 380cm x 10cm x 10cm (L x W x H)  &lt;br /&gt;
+                                Carton 2: 240cm x 25cm x 17cm (L x W x H)  &lt;br /&gt;
+                                Carton 3: 110cm x 40cm x 25cm (L x W x H)  &lt;br /&gt;
+                                Carton 4: 210cm x 47cm x 20cm (L x W x H)
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td valign=&quot;top&quot;&gt;&lt;strong&gt; Gross Weight&lt;/strong &lt;&lt;/td&gt;
+                            &lt;td valign=&quot;top&quot;&gt; 115k &lt;&lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td valign=&quot;top&quot;&gt;&lt;strong&gt; User Max Weight&lt;/strong &lt;&lt;/td&gt;
+                            &lt;td valign=&quot;top&quot;&gt; 50 kg per swing or glider sea &lt;&lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td valign=&quot;top&quot;&gt;&lt;strong&gt; Recommended Age Range&lt;/strong &lt;&lt;/td&gt;
+                            &lt;td valign=&quot;top&quot;&gt; 3 to 12 years &lt;&lt;/td&gt;
+                        &lt;/tr&gt;
+                    &lt;/table&gt;
+
+                    &lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; align=&quot;center&quot; border=&quot;0&quot;&gt;
+                        &lt;tr&gt;
+                            &lt;td valign=&quot;top&quot;&gt;
+                                &lt;h4&gt; Warranty Informatio &lt;&lt;/h4&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td valign=&quot;top&quot;&gt;
+                                This product is covered by the following warranty/warranties:
+                                &lt;br /&gt;  - 12 Months Parts replacement warranty
+                                &lt;br /&gt; *Please read our Warranty Terms &amp; Conditions by clicking &lt;a href=&quot;http://ebay.lifespanfitness.com.au/warranty.html&quot; target=&quot;_blank&quot;&gt; her &lt;&lt;/a&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                    &lt;/table&gt;
+                    &lt;div class=&quot;clear&quot;&gt; &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;buy&quot;&gt;
+                &lt;div class=&quot;buy_now&quot;&gt;
+                    &lt;a href=&quot;http://stores.ebay.com.au/Lifespan-Australia/&quot;&gt; &lt;/a&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;mobile&quot;&gt;
+                &lt;div class=&quot;buy&quot;&gt;
+                    &lt;a href=&quot;http://stores.ebay.com.au/Lifespan-Australia/&quot;&gt;
+                        &lt;img src=&quot;http://www.lifespankids.com.au/Assets/Images/eBay/stride_10-Mob.jpg&quot; width=&quot;100%&quot; /&gt;
+                    &lt;/a&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;script language=&quot;javascript&quot;&gt;
+                function ChangeDiv(divId, divName, zDivCount) {
+                    if (document.getElementById(divName + &quot;_&quot; + divId).getAttribute(&quot;class&quot;) == &quot;mi_on_&quot; + divId) {
+                        for (i = 1; i  &lt;= zDivCount; i++) {
+                            var ss = $(&quot;#&quot; + divName + &quot;_&quot; + i).text();
+                            document.getElementById(divName + &quot;_&quot; + i).className = &quot;mi_&quot; + i;
+                            document.getElementById(divName + i).style.display = &quot;none&quot;;
+                            document.getElementById(divName + &quot;_&quot; + i).innerHTML = ss + &quot;&lt;div class='add'&gt; &lt;/div&gt; &quot;;
+                        }
+                    } else {
+                        for (i = 1; i  &lt;= zDivCount; i++) {
+                            var ss = $(&quot;#&quot; + divName + &quot;_&quot; + i).text();
+                            document.getElementById(divName + &quot;_&quot; + i).className = &quot;mi_&quot; + i;
+                            document.getElementById(divName + i).style.display = &quot;none&quot;;
+                            document.getElementById(divName + &quot;_&quot; + i).innerHTML = ss + &quot;&lt;div class='add'&gt; &lt;/div&gt; &quot;;
+                        }
+                        document.getElementById(divName + &quot;_&quot; + divId).className = &quot;mi_on_&quot; + divId;
+                        document.getElementById(divName + divId).style.display = &quot;block&quot;;
+                        document.getElementById(divName + &quot;_&quot; + divId).innerHTML = $(&quot;#&quot; + divName + &quot;_&quot; + divId).text() + &quot;&lt;div class='sub'&gt; &lt;/div&gt; &quot;;
+                    }
+                }
+                $(function() {
+                    $(&quot;tr:nth-child(odd)&quot;).addClass(&quot;odd&quot;);
                 });
             &lt;/script&gt;
-        &lt;/div&gt;
-        &lt;div id=&quot;fture&quot; style=&quot;visibility:hidden; height:0;&quot;&gt;&lt;/div&gt;
-        &lt;div class=&quot;block_img&quot;&gt;
-            &lt;img class=&quot;no_mobile&quot; src=&quot;ProgearAssets/eBay/Why-FluidTrainer_Desktop.jpg&quot; /&gt;
-            &lt;img class=&quot;mobile&quot; src=&quot;ProgearAssets/eBay/Why-FluidTrainer_Mob.jpg&quot; /&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;block_img&quot;&gt;
-            &lt;img class=&quot;no_mobile&quot; src=&quot;ProgearAssets/Images/HOMETRAINER-FLUX/Desktop/HOMETRAINER-FLUX_Resistance-Desktop_02.jpg&quot; /&gt;
-            &lt;img class=&quot;mobile&quot; src=&quot;ProgearAssets/Images/HOMETRAINER-FLUX/Mobile/HOMETRAINER-FLUX_Resistance-Mob_02.jpg&quot; /&gt;
-            &lt;div class=&quot;feature-description&quot;&gt;
-                &lt;h1 class=&quot;title&quot;&gt;The Better Choice&lt;/h1&gt;
-                &lt;div class=&quot;context&quot;&gt;
-                    &lt;p class=&quot;normal no_mobile&quot;&gt;
-                        Our Progear Flux Trainer is designed to deliver smooth, quiet and realistic road riding.
-                        &lt;br&gt; Our fluid system delivers exceptional road-like resistance, and becomes harder to push through the harder you pedal.
-                    &lt;/p&gt;
-                    &lt;div class=&quot;mobile&quot; style=&quot;text-align: left;&quot;&gt;
-                        &lt;p&gt;Designed to deliver smooth, quiet and realistic road riding.  &lt;/p&gt;
-                        &lt;ul&gt;
-                            &lt;li&gt;&lt;strong&gt;1. Fluid System&lt;/strong&gt; - Filled with just the right amount of fluid to calibrate appropriate resistance. &lt;/li&gt;
-                            &lt;li&gt;&lt;strong&gt;2. Impeller / Rotor&lt;/strong&gt; - Connected to drive shaft which pushes the fluid around. Creates higher resistance per rpm.&lt;/li&gt;
-                            &lt;li&gt;&lt;strong&gt;3. Heatsink Fins&lt;/strong&gt; - Fins increase surface area to dissipate the heat created by pedalling.&lt;/li&gt;
-                            &lt;li&gt;&lt;strong&gt;4. Weighted Flywheel&lt;/strong&gt; - Appropriately weighted to generate momentum and simulates coasting&lt;/li&gt;
-                        &lt;/ul&gt;
+            &lt;div class=&quot;buy no_mobile&quot;&gt;
+                &lt;div class=&quot;buy_now&quot;&gt;
+                    &lt;a href=&quot;http://stores.ebay.com.au/Lifespan-Australia/&quot;&gt;
+                        &lt;img src=&quot;http://www.lifespankids.com.au/Assets/images/eBay/stride_10.jpg&quot; width=&quot;100%&quot; alt=&quot;Payment options&quot; /&gt;
+                    &lt;/a&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;clickontab&quot;&gt; &lt;img src=&quot;http://ebay.lifespanfitness.com.au/css/images/progear2015/Progear_28.png&quot; /&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;moreinfo&quot;&gt;
+                &lt;h2 class=&quot;headline&quot;&gt; More Informatio &lt;&lt;/h2&gt;
+                &lt;div class=&quot;clickontab&quot;&gt; &lt;img src=&quot;http://ebay.lifespanfitness.com.au/css/images/progear2015/Progear_28.png&quot; /&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;mi_menu&quot;&gt;
+                    &lt;li id=&quot;mi_1&quot; class=&quot;mi_on_1&quot; onClick=&quot;ChangeDiv('1','mi',9)&quot;&gt; Postage
+                        &lt;div class=&quot;sub&quot;&gt; &lt;/div&gt;
+                    &lt;/li&gt;
+                    &lt;div id=&quot;mi1&quot; style=&quot;display:block;&quot;&gt; &lt;img class=&quot;no_mobile&quot; src=&quot;http://ebay.lifespanfitness.com.au/css/images/kids2015/postage.png&quot; /&gt;
+                        &lt;img src=&quot;http://ebay.lifespanfitness.com.au/css/images/postage.jpg&quot; class=&quot;mobile&quot; width=&quot;304&quot; /&gt;
+                    &lt;/div&gt;
+                    &lt;li id=&quot;mi_2&quot; class=&quot;mi_2&quot; onClick=&quot;ChangeDiv('2','mi',9)&quot;&gt; Freight Insurance
+                        &lt;div class=&quot;add&quot;&gt; &lt;/div&gt;
+                    &lt;/li&gt;
+                    &lt;div id=&quot;mi2&quot; style=&quot;display:none&quot;&gt; &lt;img src=&quot;http://ebay.lifespanfitness.com.au/css/images/kids2015/freight.png&quot; class=&quot;no_mobile&quot; /&gt;
+                        &lt;img src=&quot;http://ebay.lifespanfitness.com.au/css/images/freight.jpg&quot; class=&quot;mobile&quot; width=&quot;304&quot; /&gt;
+                    &lt;/div&gt;
+                    &lt;li id=&quot;mi_3&quot; class=&quot;mi_3&quot; onClick=&quot;ChangeDiv('3','mi',9)&quot;&gt; Item Pick Up
+                        &lt;div class=&quot;add&quot;&gt; &lt;/div&gt;
+                    &lt;/li&gt;
+                    &lt;div id=&quot;mi3&quot; style=&quot;display:none&quot;&gt;
+                        &lt;h2&gt; Instructions &amp; Condition &lt;&lt;/h2&gt;
+                        &lt;p&gt; 1. At the completion of the sale, please send us a message with the specified time/date of pick up (click link above).
+                            &lt;br /&gt;  2. Payment can be made by Cash / Credit Card / EFTPOS
+                            &lt;br /&gt;  3. If you are making a payment before pick up then the payment must be cleared before item pick up. Please contact us to check.
+                            &lt;br /&gt;  4. Please bring photo identity and proof of purchase when picking up your item.
+                            &lt;br /&gt;  5. Pick up is available only if there is pick up stock available at the selected outlet.
+                            &lt;br /&gt;  6. If you wish to authorize a third party to pick up your purchase on your behalf, then you will be required to fill in a Letter of Authorisation form. &lt;&lt;/p&gt;
+                    &lt;/div&gt;
+                    &lt;li id=&quot;mi_4&quot; class=&quot;mi_4&quot; onClick=&quot;ChangeDiv('4','mi',9)&quot;&gt; Assembly / Installation
+                        &lt;div class=&quot;add&quot;&gt; &lt;/div&gt;
+                    &lt;/li&gt;
+                    &lt;div id=&quot;mi4&quot; style=&quot;display:none;&quot;&gt;
+                        &lt;p&gt; This product comes partially assembled in a box with assembly instructions included. For an additional fee, we can organise for a professional to assemble your product. For more information, please email us at &lt;&lt;/p&gt;
+                        &lt;p&gt;&lt;a href=&quot;mailto:lifespan_australia@hotmail.com&quot;&gt; lifespan_australia@hotmail.co &lt;&lt;/a&gt;
+                        &lt;/p&gt;
+                        &lt;p&gt;
+                            Please click here to read our Installation and service terms and conditions. &lt;/p&gt;
+                    &lt;/div&gt;
+                    &lt;li id=&quot;mi_5&quot; class=&quot;mi_5&quot; onClick=&quot;ChangeDiv('5','mi',9)&quot;&gt; Payment
+                        &lt;div class=&quot;add&quot;&gt; &lt;/div&gt;
+                    &lt;/li&gt;
+                    &lt;div id=&quot;mi5&quot; style=&quot;display:none;&quot;&gt;
+                        &lt;h2&gt; Accepted Payment Method &lt;&lt;/h2&gt;
+                        &lt;p&gt; &lt;img src=&quot;http://ebay.lifespanfitness.com.au/images/140303/paypal.png&quot;&gt;
+                        &lt;/p&gt;
+                        &lt;h2&gt; Paypa &lt;&lt;/h2&gt;
+                        &lt;p class=&quot;grey&quot;&gt; Simply the quickest and safest way to pay for online &lt;&lt;/p&gt;
+                        &lt;h2&gt; Money Orde &lt;&lt;/h2&gt;
+                        &lt;p class=&quot;grey&quot;&gt; Money orders should be made payable to Lifespan.Please post Money Orders to Lifespan PO BOX 335 Campbellfield Vic 3061. Be sure to note your eBay username.
+                        &lt;/p&gt;
+                        &lt;h2&gt; Electronic Funds Transfer(EFT &lt;&lt;/h2&gt;
+                        &lt;p class=&quot;grey&quot;&gt; Electronic Funds Transfers may only be completed online. Over-the-counter deposits cannot be accepted &lt;&lt;/p&gt;
+                        &lt;p class=&quot;grey&quot; style=&quot;padding-left:100px&quot;&gt;
+                            BSB:063000
+                            &lt;br&gt;  Account Number: 1109 6903
+                            &lt;br&gt;  Account Name:LIFESPA &lt;&lt;/p&gt;
+                        &lt;h2&gt; Eftpos/Mastercard/Visa (Pick Up Only &lt;&lt;/h2&gt;
+                        &lt;p class=&quot;grey&quot;&gt; These payment options are only available when an item is picked up.
+                            &lt;br /&gt;  Please refer to pick up conditions for pick up availablilit &lt;&lt;/p&gt;
+                        &lt;strong&gt; FULL PAYMENT IS REQUIRED WITHIN 4 DAYS, UNLESS OTHERWISE MUTUALLY AGREED TO AVOID ITEM BEING RELISTED AND NON-PAYMENT STRIKE FROM EBAY &lt;&lt;/strong&gt;
+                    &lt;/div&gt;
+                    &lt;li id=&quot;mi_6&quot; class=&quot;mi_6&quot; onClick=&quot;ChangeDiv('6','mi',9)&quot;&gt; Refund &amp; Returns Policy
+                        &lt;div class=&quot;add&quot;&gt; &lt;/div&gt;
+                    &lt;/li&gt;
+                    &lt;div id=&quot;mi6&quot; style=&quot;display:none;&quot;&gt;
+                        &lt;h2&gt; We will accept returns when &lt;&lt;/h2&gt;
+                        &lt;p class=&quot;grey&quot;&gt;
+                            · The product is faulty or the product is not fit for the purpose goods of that kind are commonly bought.
+                            &lt;br&gt;  · The product does not match the sample or description.
+                            &lt;br&gt;  · The proof of purchase requirements are met.
+                        &lt;/p&gt;
+                        &lt;h2&gt; Proof of purchase requirements &lt;&lt;/h2&gt;
+                        &lt;p class=&quot;grey&quot;&gt; A copy of a receipt or other acceptable forms of proof of purchase will be required to confirm the product was purchased at Lifespan. We will offer you an exchange, refund or repair upon return of the item &lt;&lt;/p&gt;
+                        &lt;h2&gt; Dead On Arriva &lt;&lt;/h2&gt;
+                        &lt;p class=&quot;grey&quot;&gt; A Lifespan product is considered DOA (dead on arrival) if it shows symptoms of a hardware failure, preventing basic operability, when you first use it after opening the box. If you believe that your product is DOA, please contact us within 7 days of receiving the product. Our technical support team will assist you to determine whether the product is DOA. &lt;&lt;/p&gt;
+                        &lt;p class=&quot;grey&quot;&gt; If the product is determined to be DOA we will need to determine whether a replacement product or replacement parts is to be issued. A new product will be issued if the original product is badly damaged beyond repair. If the original product is damaged but deemed repairable then replacement parts will be issued. If the product is not deemed DOA we will apply standard warranty policy to the product &lt;&lt;/p&gt;
+                        &lt;h2&gt; Return Shippin &lt;&lt;/h2&gt;
+                        &lt;p class=&quot;grey&quot;&gt; If your item arrives damaged, DOA or faulty and you return the item within 14 days, we will pay for the return shipping or reimburse you for any return shipping costs you reasonably incur. If the fault occurs after the first 14 days but within the warranty period, you will need to return the item to us at your own cost. We will of course send out your replacement item at no cost to you &lt;&lt;/p&gt;
+                    &lt;/div&gt;
+                    &lt;li id=&quot;mi_7&quot; class=&quot;mi_7&quot; onClick=&quot;ChangeDiv('7','mi',9)&quot;&gt; Contact Us / Our Locations
+                        &lt;div class=&quot;add&quot;&gt; &lt;/div&gt;
+                    &lt;/li&gt;
+                    &lt;div id=&quot;mi7&quot; style=&quot;display:none;text-align:center &quot;&gt; &lt;img src=&quot;http://ebay.lifespanfitness.com.au/css/images/201511.png&quot;&gt;
+                    &lt;/div&gt;
+                    &lt;li id=&quot;mi_8&quot; class=&quot;mi_8&quot; onClick=&quot;ChangeDiv('8','mi',9)&quot;&gt; Warranty
+                        &lt;div class=&quot;add&quot;&gt; &lt;/div&gt;
+                    &lt;/li&gt;
+                    &lt;div id=&quot;mi8&quot; style=&quot;display:none; text-align:left&quot;&gt;
+                        &lt;p&gt; All products are covered under a manufacturer's warranty.
+                            &lt;br&gt; See our Specifications table for general warranty terms.
+                            &lt;br&gt;
+                            &lt;a style=&quot;text-decoration:underline;&quot; href=&quot;http://www.lifespankids.com.au/warranty-info&quot;&gt; *Please read our Warranty Terms &amp; Conditions by clicking her &lt;&lt;/a&gt;
+                        &lt;/p&gt;
+
+                    &lt;/div&gt;
+                    &lt;li id=&quot;mi_9&quot; class=&quot;mi_9&quot; onClick=&quot;ChangeDiv('9','mi',9)&quot;&gt; After Sales Support
+                        &lt;div class=&quot;add&quot;&gt; &lt;/div&gt;
+                    &lt;/li&gt;
+                    &lt;div id=&quot;mi9&quot; style=&quot;display:none;&quot;&gt;
+                        &lt;p&gt; With over 10 years experience in the industry, we at Lifespan realise that the transaction does not end after you purchase your product. Should you need any help with your product, Lifespan are here to help. Our knowledgeable staff members are here to help you with any queries on 03 9357 2166. Our experienced technicians are also available to help, should your treadmill require any maintenance or repairs. &lt;&lt;/p&gt;
                     &lt;/div&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
         &lt;/div&gt;
-        &lt;div class=&quot;block_img&quot;&gt;
-            &lt;img class=&quot;no_mobile&quot; src=&quot;ProgearAssets/Images/HOMETRAINER-FLUX/Desktop/HOMETRAINER-FLUX_AlumuniumRollers-Desktop_03.jpg&quot; /&gt;
-            &lt;img class=&quot;mobile&quot; src=&quot;ProgearAssets/Images/HOMETRAINER-FLUX/Mobile/HOMETRAINER-FLUX_AlumuniumRollers-Mob_03.jpg&quot; /&gt;
-            &lt;div class=&quot;feature-description&quot;&gt;
-                &lt;h1 class=&quot;title&quot;&gt;Aluminium Rollers&lt;/h1&gt;
-                &lt;div class=&quot;context no_mobile&quot;&gt;
-                    &lt;p class=&quot;normal&quot;&gt;
-                        Our aluminum rollers are more consistent, quieter and requires less maintenance than gel rollers. Reduces noise and tyre wear by up to 50%.
-                    &lt;/p&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;block_img&quot;&gt;
-            &lt;img class=&quot;no_mobile&quot; src=&quot;ProgearAssets/Images/HOMETRAINER-FLUX/Desktop/HOMETRAINER-FLUX_Adjustments-Desktop_04.jpg&quot; /&gt;
-            &lt;img class=&quot;mobile&quot; src=&quot;ProgearAssets/Images/HOMETRAINER-FLUX/Mobile/HOMETRAINER-FLUX_Adjustments-Mob_04.jpg&quot; /&gt;
-            &lt;div class=&quot;feature-description&quot;&gt;
-                &lt;h1 class=&quot;title&quot;&gt;Adjustable Roller&lt;/h1&gt;
-                &lt;div class=&quot;context no_mobile&quot;&gt;
-                    &lt;p class=&quot;normal&quot;&gt;
-                        Our trainer can be adjusted to suit 700c, 26”, 27” wheel sizes.
-                    &lt;/p&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;block_img&quot;&gt;
-            &lt;img class=&quot;no_mobile&quot; src=&quot;ProgearAssets/Images/HOMETRAINER-FLUX/Desktop/HOMETRAINER-FLUX_WideBase-Desktop_05.jpg&quot; /&gt;
-            &lt;img class=&quot;mobile&quot; src=&quot;ProgearAssets/Images/HOMETRAINER-FLUX/Mobile/HOMETRAINER-FLUX_WideBase-Mob_05.jpg&quot; /&gt;
-            &lt;div class=&quot;feature-description&quot;&gt;
-                &lt;h1 class=&quot;title&quot;&gt;Wide base and anti-slip feet&lt;/h1&gt;
-                &lt;div class=&quot;context no_mobile&quot;&gt;
-                    &lt;p class=&quot;normal&quot;&gt;
-                        Our strong steel frame comes with a wide base and anti-slip feet for extra stability during hard workouts and pedalling.
-                    &lt;/p&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;block_img&quot;&gt;
-            &lt;img class=&quot;no_mobile&quot; src=&quot;ProgearAssets/Images/HOMETRAINER-FLUX/Desktop/HOMETRAINER-FLUX_QuickReleaseLever-Desktop_06.jpg&quot; /&gt;
-            &lt;img class=&quot;mobile&quot; src=&quot;ProgearAssets/Images/HOMETRAINER-FLUX/Mobile/HOMETRAINER-FLUX_QuickReleaseLever-Mob_06.jpg&quot; /&gt;
-            &lt;div class=&quot;feature-description&quot;&gt;
-                &lt;h1 class=&quot;title&quot;&gt;Quick Release Lever&lt;/h1&gt;
-                &lt;div class=&quot;context no_mobile&quot;&gt;
-                    &lt;p class=&quot;normal&quot;&gt;
-                        Designed to fit common road and mountain bike frames, and includes a steel quick release skewer to match our system.
-                        &lt;br&gt; Suitable for bicycles with an axle width between 150-210mm
-                    &lt;/p&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;block_img&quot;&gt;
-            &lt;img class=&quot;no_mobile&quot; src=&quot;ProgearAssets/Images/HOMETRAINER-FLUX/Desktop/HOMETRAINER-FLUX_Block-Desktop_07.jpg&quot; /&gt;
-            &lt;img class=&quot;mobile&quot; src=&quot;ProgearAssets/Images/HOMETRAINER-FLUX/Mobile/HOMETRAINER-FLUX_Block-Mob_07.jpg&quot; /&gt;
-            &lt;div class=&quot;feature-description&quot;&gt;
-                &lt;h1 class=&quot;title&quot;&gt;Quick Release Skewer &amp; Front Riser Block included&lt;/h1&gt;
-                &lt;div class=&quot;context no_mobile&quot;&gt;
-                    &lt;p class=&quot;normal&quot;&gt;
-                        Front Wheel Floor Riser block to stabilise your front wheel.
-                    &lt;/p&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;block_img&quot;&gt;
-            &lt;img class=&quot;no_mobile&quot; src=&quot;ProgearAssets/Images/HOMETRAINER-FLUX/Desktop/HOMETRAINER-FLUX_Foldable-Desktop_08.jpg&quot; /&gt;
-            &lt;img class=&quot;mobile&quot; src=&quot;ProgearAssets/Images/HOMETRAINER-FLUX/Mobile/HOMETRAINER-FLUX_Foldable-Mob_08.jpg&quot; /&gt;
-            &lt;div class=&quot;feature-description&quot;&gt;
-                &lt;h1 class=&quot;title&quot;&gt;Foldable&lt;/h1&gt;
-                &lt;div class=&quot;context no_mobile&quot;&gt;
-                    &lt;p class=&quot;normal&quot;&gt;
-                        Easily foldable with a low profile to save space and easy storage. Sets up in seconds when unfolding.
-                    &lt;/p&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;block_img&quot;&gt;
-            &lt;img class=&quot;no_mobile&quot; src=&quot;ProgearAssets/Images/HOMETRAINER-FLUX/Desktop/HOMETRAINER-FLUX_EassyAssembly-Desktop_09.jpg&quot; /&gt;
-            &lt;img class=&quot;mobile&quot; src=&quot;ProgearAssets/Images/HOMETRAINER-FLUX/Mobile/HOMETRAINER-FLUX_EassyAssembly-Mob_09.jpg&quot; /&gt;
-            &lt;div class=&quot;feature-description&quot;&gt;
-                &lt;h1 class=&quot;title&quot;&gt;Easy Assembly&lt;/h1&gt;
-                &lt;div class=&quot;context no_mobile&quot;&gt;
-                    &lt;p class=&quot;normal&quot;&gt;
-                        Instruction manual and tools are provided for a quick 10 minute assembly.
-                    &lt;/p&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;buy&quot;&gt;
-            &lt;div class=&quot;buy_now&quot;&gt;
-                &lt;a href=&quot;http://stores.ebay.com.au/Lifespan-Australia/&quot;&gt;&lt;/a&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;mobile&quot;&gt;
-            &lt;div class=&quot;buy&quot;&gt;
-                &lt;a href=&quot;http://stores.ebay.com.au/Lifespan-Australia/&quot;&gt;
-                    &lt;img src=&quot;http://www.lifespanfitness.com.au/Website%20Assets/Images/eBay/stride_10-Mob.jpg&quot; width=&quot;100%&quot; /&gt;
-                &lt;/a&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-
-        &lt;script language=&quot;javascript&quot;&gt;
-            function ChangeDiv(divId, divName, zDivCount) {
-                if (document.getElementById(divName + &quot;_&quot; + divId).getAttribute(&quot;class&quot;) == &quot;mi_on_&quot; + divId) {
-                    for (i = 1; i &lt;= zDivCount; i++) {
-                        var ss = $(&quot;#&quot; + divName + &quot;_&quot; + i).text();
-                        document.getElementById(divName + &quot;_&quot; + i).className = &quot;mi_&quot; + i;
-                        document.getElementById(divName + i).style.display = &quot;none&quot;;
-                        document.getElementById(divName + &quot;_&quot; + i).innerHTML = ss + &quot;&lt;div class='add'&gt;&lt;/div&gt;&quot;;
-                    }
-                } else {
-                    for (i = 1; i &lt;= zDivCount; i++) {
-                        var ss = $(&quot;#&quot; + divName + &quot;_&quot; + i).text();
-                        document.getElementById(divName + &quot;_&quot; + i).className = &quot;mi_&quot; + i;
-                        document.getElementById(divName + i).style.display = &quot;none&quot;;
-                        document.getElementById(divName + &quot;_&quot; + i).innerHTML = ss + &quot;&lt;div class='add'&gt;&lt;/div&gt;&quot;;
-                    }
-                    document.getElementById(divName + &quot;_&quot; + divId).className = &quot;mi_on_&quot; + divId;
-                    document.getElementById(divName + divId).style.display = &quot;block&quot;;
-                    document.getElementById(divName + &quot;_&quot; + divId).innerHTML = $(&quot;#&quot; + divName + &quot;_&quot; + divId).text() + &quot;&lt;div class='sub'&gt;&lt;/div&gt;&quot;;
-                }
-            }
-            $(function() {
-                $(&quot;tr:nth-child(odd)&quot;).addClass(&quot;odd&quot;);
-            });
-        &lt;/script&gt;
-        &lt;div class=&quot;buy no_mobile&quot;&gt;
-            &lt;div class=&quot;buy_now&quot;&gt;
-                &lt;a href=&quot;http://stores.ebay.com.au/Lifespan-Australia/&quot;&gt;
-                    &lt;img src=&quot;http://www.lifespanfitness.com.au/Website%20Assets/Images/eBay/stride_10.jpg&quot; width=&quot;100%&quot; alt=&quot;Payment options&quot; /&gt;
-                &lt;/a&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;block_img&quot;&gt;
-            &lt;img class=&quot;no_mobile&quot; src=&quot;http://www.lifespanfitness.com.au/Website%20Assets/Images/eBay/NeedHelp.jpg&quot; /&gt;
-            &lt;img class=&quot;mobile&quot; src=&quot;http://www.lifespanfitness.com.au/Website%20Assets/Images/eBay/NeedHelp-Mob.jpg&quot; /&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;block_img last-down&quot;&gt;
-            &lt;img class=&quot;no_mobile&quot; src=&quot;http://www.lifespanfitness.com.au/Website%20Assets/Images/eBay/Genuine.jpg&quot; /&gt;
-            &lt;img class=&quot;mobile&quot; src=&quot;http://www.lifespanfitness.com.au/Website%20Assets/Images/eBay/Genuine-Mob.jpg&quot; /&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;moreinfo&quot;&gt;
-            &lt;h2 class=&quot;headline&quot;&gt;More Information&lt;/h2&gt;
-            &lt;div class=&quot;clickontab&quot;&gt;&lt;img src=&quot;http://ebay.lifespanfitness.com.au/css/images/progear2015/Progear_28.png&quot; /&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;mi_menu&quot;&gt;
-                &lt;li id=&quot;mi_1&quot; class=&quot;mi_on_1&quot; onClick=&quot;ChangeDiv('1','mi',9)&quot;&gt;Postage
-                    &lt;div class=&quot;sub&quot;&gt;&lt;/div&gt;
-                &lt;/li&gt;
-                &lt;div id=&quot;mi1&quot; style=&quot;display:block;&quot;&gt;&lt;img class=&quot;no_mobile&quot; src=&quot;http://ebay.lifespanfitness.com.au/css/images/kids2015/postage.png&quot; /&gt;
-                    &lt;img src=&quot;http://ebay.lifespanfitness.com.au/css/images/postage.jpg&quot; class=&quot;mobile&quot; width=&quot;304&quot; /&gt;
-                &lt;/div&gt;
-                &lt;li id=&quot;mi_2&quot; class=&quot;mi_2&quot; onClick=&quot;ChangeDiv('2','mi',9)&quot;&gt;Freight Insurance
-                    &lt;div class=&quot;add&quot;&gt;&lt;/div&gt;
-                &lt;/li&gt;
-                &lt;div id=&quot;mi2&quot; style=&quot;display:none&quot;&gt;&lt;img src=&quot;http://ebay.lifespanfitness.com.au/css/images/kids2015/freight.png&quot; class=&quot;no_mobile&quot; /&gt;
-                    &lt;img src=&quot;http://ebay.lifespanfitness.com.au/css/images/freight.jpg&quot; class=&quot;mobile&quot; width=&quot;304&quot; /&gt;
-                &lt;/div&gt;
-                &lt;li id=&quot;mi_3&quot; class=&quot;mi_3&quot; onClick=&quot;ChangeDiv('3','mi',9)&quot;&gt;Item Pick Up
-                    &lt;div class=&quot;add&quot;&gt;&lt;/div&gt;
-                &lt;/li&gt;
-                &lt;div id=&quot;mi3&quot; style=&quot;display:none&quot;&gt;
-                    &lt;h2&gt;Instructions &amp; Conditions&lt;/h2&gt;
-                    &lt;p&gt;1. At the completion of the sale, please send us a message with the specified time/date of pick up (click link above).
-                        &lt;br /&gt; 2. Payment can be made by Cash / Credit Card / EFTPOS
-                        &lt;br /&gt; 3. If you are making a payment before pick up then the payment must be cleared before item pick up. Please contact us to check.
-                        &lt;br /&gt; 4. Please bring photo identity and proof of purchase when picking up your item.
-                        &lt;br /&gt; 5. Pick up is available only if there is pick up stock available at the selected outlet.
-                        &lt;br /&gt; 6. If you wish to authorize a third party to pick up your purchase on your behalf, then you will be required to fill in a Letter of Authorisation form. &lt;/p&gt;
-                &lt;/div&gt;
-                &lt;li id=&quot;mi_4&quot; class=&quot;mi_4&quot; onClick=&quot;ChangeDiv('4','mi',9)&quot;&gt;Assembly /Installation
-                    &lt;div class=&quot;add&quot;&gt;&lt;/div&gt;
-                &lt;/li&gt;
-                &lt;div id=&quot;mi4&quot; style=&quot;display:none;&quot;&gt;
-                    &lt;p&gt;This product comes partially assembled in a box with assembly instructions included. For an additional fee, we can organise for a professional to assemble your product. For more information, please email us at:&lt;/p&gt;
-                    &lt;p&gt;&lt;a href=&quot;mailto:lifespan_australia@hotmail.com&quot;&gt;lifespan_australia@hotmail.com&lt;/a&gt;
-                    &lt;/p&gt;
-                    &lt;p&gt;
-                        Please click here to read our Installation and service terms and conditions.&lt;/p&gt;
-                &lt;/div&gt;
-                &lt;li id=&quot;mi_5&quot; class=&quot;mi_5&quot; onClick=&quot;ChangeDiv('5','mi',9)&quot;&gt;Payment
-                    &lt;div class=&quot;add&quot;&gt;&lt;/div&gt;
-                &lt;/li&gt;
-                &lt;div id=&quot;mi5&quot; style=&quot;display:none;&quot;&gt;
-                    &lt;h2&gt;Accepted Payment Methods&lt;/h2&gt;
-                    &lt;p&gt;&lt;img src=&quot;http://ebay.lifespanfitness.com.au/images/140303/paypal.png&quot;&gt;
-                    &lt;/p&gt;
-                    &lt;h2&gt;Paypal&lt;/h2&gt;
-                    &lt;p class=&quot;grey&quot;&gt;Simply the quickest and safest way to pay for online.&lt;/p&gt;
-                    &lt;h2&gt;Money Order&lt;/h2&gt;
-                    &lt;p class=&quot;grey&quot;&gt;Money orders should be made payable to Lifespan.Please post Money Orders to Lifespan PO BOX 335 Campbellfield Vic 3061. Be sure to note your eBay username.
-                    &lt;/p&gt;
-                    &lt;h2&gt;Electronic Funds Transfer(EFT)&lt;/h2&gt;
-                    &lt;p class=&quot;grey&quot;&gt;Electronic Funds Transfers may only be completed online. Over-the-counter deposits cannot be accepted.&lt;/p&gt;
-                    &lt;p class=&quot;grey&quot; style=&quot;padding-left:100px&quot;&gt;
-                        BSB:063000
-                        &lt;br&gt; Account Number: 1109 6903
-                        &lt;br&gt; Account Name:LIFESPAN&lt;/p&gt;
-                    &lt;h2&gt;Eftpos/Mastercard/Visa (Pick Up Only)&lt;/h2&gt;
-                    &lt;p class=&quot;grey&quot;&gt;These payment options are only available when an item is picked up.
-                        &lt;br /&gt; Please refer to pick up conditions for pick up availablility&lt;/p&gt;
-                    &lt;strong&gt;FULL PAYMENT IS REQUIRED WITHIN 4 DAYS, UNLESS OTHERWISE MUTUALLY AGREED TO AVOID ITEM BEING RELISTED AND NON-PAYMENT STRIKE FROM EBAY.&lt;/strong&gt;
-                &lt;/div&gt;
-                &lt;li id=&quot;mi_6&quot; class=&quot;mi_6&quot; onClick=&quot;ChangeDiv('6','mi',9)&quot;&gt;Refund &amp; Returns Policy
-                    &lt;div class=&quot;add&quot;&gt;&lt;/div&gt;
-                &lt;/li&gt;
-                &lt;div id=&quot;mi6&quot; style=&quot;display:none;&quot;&gt;
-                    &lt;h2&gt;We will accept returns when:&lt;/h2&gt;
-                    &lt;p class=&quot;grey&quot;&gt;
-                        · The product is faulty or the product is not fit for the purpose goods of that kind are commonly bought.
-                        &lt;br&gt; · The product does not match the sample or description.
-                        &lt;br&gt; · The proof of purchase requirements are met.
-                    &lt;/p&gt;
-                    &lt;h2&gt;Proof of purchase requirements:&lt;/h2&gt;
-                    &lt;p class=&quot;grey&quot;&gt;A copy of a receipt or other acceptable forms of proof of purchase will be required to confirm the product was purchased at Lifespan. We will offer you an exchange, refund or repair upon return of the item.&lt;/p&gt;
-                    &lt;h2&gt;Dead On Arrival&lt;/h2&gt;
-                    &lt;p class=&quot;grey&quot;&gt;A Lifespan product is considered DOA (dead on arrival) if it shows symptoms of a hardware failure, preventing basic operability, when you first use it after opening the box. If you believe that your product is DOA, please contact us within 7 days of receiving the product. Our technical support team will assist you to determine whether the product is DOA. &lt;/p&gt;
-                    &lt;p class=&quot;grey&quot;&gt;If the product is determined to be DOA we will need to determine whether a replacement product or replacement parts is to be issued. A new product will be issued if the original product is badly damaged beyond repair. If the original product is damaged but deemed repairable then replacement parts will be issued. If the product is not deemed DOA we will apply standard warranty policy to the product.&lt;/p&gt;
-                    &lt;h2&gt;Return Shipping&lt;/h2&gt;
-                    &lt;p class=&quot;grey&quot;&gt;If your item arrives damaged, DOA or faulty and you return the item within 14 days, we will pay for the return shipping or reimburse you for any return shipping costs you reasonably incur. If the fault occurs after the first 14 days but within the warranty period, you will need to return the item to us at your own cost. We will of course send out your replacement item at no cost to you.&lt;/p&gt;
-                &lt;/div&gt;
-                &lt;li id=&quot;mi_7&quot; class=&quot;mi_7&quot; onClick=&quot;ChangeDiv('7','mi',9)&quot;&gt;Contact Us / Our Locations
-                    &lt;div class=&quot;add&quot;&gt;&lt;/div&gt;
-                &lt;/li&gt;
-                &lt;div id=&quot;mi7&quot; style=&quot;display:none;text-align:center &quot;&gt;&lt;img src=&quot;http://ebay.lifespanfitness.com.au/css/images/201511.png&quot;&gt;
-                &lt;/div&gt;
-                &lt;li id=&quot;mi_8&quot; class=&quot;mi_8&quot; onClick=&quot;ChangeDiv('8','mi',9)&quot;&gt;Warranty
-                    &lt;div class=&quot;add&quot;&gt;&lt;/div&gt;
-                &lt;/li&gt;
-                &lt;div id=&quot;mi8&quot; style=&quot;display:none; text-align:left&quot;&gt;
-                    &lt;p&gt;All products are covered under a manufacturer's warranty.
-                        &lt;br&gt;See our Specifications table for general warranty terms.
-                        &lt;br&gt;
-                        &lt;a style=&quot;text-decoration:underline;&quot; href=&quot;http://www.lifespanfitness.com.au/warranty&quot;&gt;*Please read our Warranty Terms &amp; Conditions by clicking here&lt;/a&gt;
-                    &lt;/p&gt;
-                &lt;/div&gt;
-                &lt;li id=&quot;mi_9&quot; class=&quot;mi_9&quot; onClick=&quot;ChangeDiv('9','mi',9)&quot;&gt;After Sales Support
-                    &lt;div class=&quot;add&quot;&gt;&lt;/div&gt;
-                &lt;/li&gt;
-                &lt;div id=&quot;mi9&quot; style=&quot;display:none;&quot;&gt;
-                    &lt;p&gt;With over 10 years experience in the industry, we at Lifespan realise that the transaction does not end after you purchase your product. Should you need any help with your product, Lifespan are here to help. Our knowledgeable staff members are here to help you with any queries on 03 9357 2166. Our experienced technicians are also available to help, should your treadmill require any maintenance or repairs. &lt;/p&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
     &lt;/div&gt;
-&lt;/div&gt;
 &lt;/body&gt;
 
-&lt;/html&gt; 
+&lt;/html&gt;
