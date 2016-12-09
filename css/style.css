@@ -45,7 +45,7 @@ p.tag-info {margin-bottom: 10px}
 .col-md-6 .form-container:nth-of-type(even) #identifier{
     color: #F6F6F6;
 }
-header{height: 60px}
+header{height: 10px}
 .btn {border-radius: 0}
 form .btn {
     height: 40px;
@@ -78,7 +78,7 @@ textarea.form-control:focus{  box-shadow: none;  }
     font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
 }
 #selesai {margin-bottom: 30px}
-.col-md-6 .form-container #identifier {color: #FFFFFF}
+.col-md-6 .form-container #identifier {color: #FFFFFF; visibility: hidden}
 .show-code {
     border-radius: 0;
     height: 480px;
@@ -106,4 +106,67 @@ pre {overflow: visible; background: #FFFFFF; border-color: #FFFFFF; padding: 0; 
 }
 .line.active {
     background: #FFEDBD;
+}
+
+footer {
+    color: #FFFFFF; padding: 20px; text-align: center; background-color: #262626; width: 100%;
+}
+/*Revealing fault info*/
+.menu-wrap {
+    background: #373a47 none repeat scroll 0 0;
+    font-size: 1.15em;
+    height: 100%;
+    padding: 2.5em 1.5em 0;
+    position: absolute;
+    transform: translate3d(-320px, 0px, 0px);
+    transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1) 0s;
+    width: 300px;
+    z-index: 1001;
+}
+
+.show-menu .content::before {
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0px);
+    transition: opacity 0.8s cubic-bezier(0.7, 0, 0.3, 1) 0s;
+}
+.content::before {
+    background: rgba(55, 58, 71, 0.1) none repeat scroll 0 0;
+    content: "";
+    height: 530px;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transform: translate3d(100%, 0px, 0px);
+    transition-delay: 0s, 0.4s;
+    transition-duration: 0.4s, 0s;
+    transition-property: opacity, transform;
+    transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+    width: 100%;
+    z-index: 10;
+}
+.content {
+    position: relative;
+}
+.content-wrap {
+    overflow-y: scroll;
+}
+html, body, .container, .content-wrap {
+    overflow: hidden;
+    width: 100%;
+}
+.show-menu .menu-wrap {
+    transform: translate3d(0px, 0px, 0px);
+    transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1) 0s;
+}
+.menu-wrap {
+    background: #716DE4;
+    font-size: 1.15em;
+    height: 530px;
+    padding: 2.5em 1.5em 0;
+    position: absolute;
+    transform: translate3d(-520px, 0px, 0px);
+    transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1) 0s;
+    width: 500px;
+    z-index: 1001;
 }
