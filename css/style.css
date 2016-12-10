@@ -7,6 +7,7 @@ code.line{
 .content-correct{
     margin-top: 40px;
     padding: 20px 30px;
+    margin-bottom: 15px;
 }
 .form-control{
     border-radius: 0;
@@ -25,7 +26,7 @@ code.line{
 }
 .btn-sm {padding: 1px 10px}
 .correct-text {
-    width: 75%;
+    width: 74%;
     margin-right: 12px;
     float: left;
 }
@@ -42,10 +43,7 @@ p.tag-info {margin-bottom: 10px}
     margin: 0 -30px;
     padding: 10px 30px;
 }
-.col-md-6 .form-container:nth-of-type(even) #identifier{
-    color: #F6F6F6;
-}
-header{height: 10px}
+header{height: 50px}
 .btn {border-radius: 0}
 form .btn {
     height: 40px;
@@ -64,7 +62,9 @@ form .btn {
 }
 
 .nav-pills > li > a {  border-radius: 0;  }
-.container-fluid {background-color: #F1F1F1; }
+.container-fluid {background-color: #F1F1F1;
+    padding-bottom: 15px;
+}
 textarea.form-control, .content-correct {
     background-color: #FFFFFF;
     height: 480px;
@@ -78,7 +78,6 @@ textarea.form-control:focus{  box-shadow: none;  }
     font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
 }
 #selesai {margin-bottom: 30px}
-.col-md-6 .form-container #identifier {color: #FFFFFF; visibility: hidden}
 .show-code {
     border-radius: 0;
     height: 480px;
@@ -109,22 +108,13 @@ pre {overflow: visible; background: #FFFFFF; border-color: #FFFFFF; padding: 0; 
 }
 
 footer {
-    color: #FFFFFF; padding: 20px; text-align: center; background-color: #262626; width: 100%;
+    color: #FFFFFF; padding: 15px; text-align: center; background-color: #262626; width: 100%;
+    position: relative;
+    bottom: 0;
 }
 /*Revealing fault info*/
-.menu-wrap {
-    background: #373a47 none repeat scroll 0 0;
-    font-size: 1.15em;
-    height: 100%;
-    padding: 2.5em 1.5em 0;
-    position: absolute;
-    transform: translate3d(-320px, 0px, 0px);
-    transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1) 0s;
-    width: 300px;
-    z-index: 1001;
-}
-
 .show-menu .content::before {
+    position: absolute;
     opacity: 1;
     transform: translate3d(0px, 0px, 0px);
     transition: opacity 0.8s cubic-bezier(0.7, 0, 0.3, 1) 0s;
@@ -132,10 +122,9 @@ footer {
 .content::before {
     background: rgba(55, 58, 71, 0.1) none repeat scroll 0 0;
     content: "";
-    height: 530px;
+    height: 550px;
     left: 0;
     opacity: 0;
-    position: absolute;
     top: 0;
     transform: translate3d(100%, 0px, 0px);
     transition-delay: 0s, 0.4s;
@@ -148,11 +137,11 @@ footer {
 .content {
     position: relative;
 }
-.content-wrap {
-    overflow-y: scroll;
-}
+/*.content-wrap {*/
+    /*overflow-y: scroll;*/
+/*}*/
 html, body, .container, .content-wrap {
-    overflow: hidden;
+    /*overflow: hidden;*/
     width: 100%;
 }
 .show-menu .menu-wrap {
@@ -162,11 +151,16 @@ html, body, .container, .content-wrap {
 .menu-wrap {
     background: #716DE4;
     font-size: 1.15em;
-    height: 530px;
-    padding: 2.5em 1.5em 0;
+    height: 550px;
+    padding: 8px;
     position: absolute;
     transform: translate3d(-520px, 0px, 0px);
     transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1) 0s;
     width: 500px;
     z-index: 1001;
+}
+.menu-wrap .btn {color: #ffffff; border: none}
+.info-container{
+    padding: 2.5em 1.5em 0;
+    color: #FFFFFF;
 }

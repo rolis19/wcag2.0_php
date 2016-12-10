@@ -21,9 +21,10 @@ session_start();
 	</header>
     <!--        More info with fault-->
     <div class="menu-wrap">
-        <nav class="menu">
-        </nav>
-        <a class="close-button btn btn-danger" id="close-button">Close Menu</a>
+        <a class="close-button btn btn-sm btn-warning pull-right" id="close-button">Close</a>
+        <div class="info-container">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae labore quam quas. Aspernatur atque culpa cum dicta dignissimos enim ex magnam, modi perferendis quisquam repellat sit suscipit ullam, veritatis voluptas!</p>
+        </div>
     </div>
     <div class="content-wrap">
         <div class="content">
@@ -103,7 +104,7 @@ END;
                             $identifier= $tag."".$line.$index;
                             echo "<div class='$identifier form-container'>";
                             echo "<div class='info-detail'>";
-                            echo "<p> Error in <a href='#' class='line$line'>line ".$line."</a></p>";
+                            echo "<p> Fault in <a href='#' class='line$line'>line ".$line."</a></p>";
                             $desc="";
                             $info ="Without double quote";
                             switch ($tag){
@@ -158,11 +159,10 @@ END;
                             echo <<< END
                             </div>
                                 <label for='correct'>$desc</label> <small>$info</small> 
-                                <span id='identifier'>$identifier</span>
                                 <div class='form-group'>
-                                    <input type='text' class='form-control correct-text' id='correct_$identifier' placeholder='your text'>
+                                    <input type='text' class='form-control correct-text' id='correct_$identifier' placeholder='your text' required>
                                     <input type='hidden' id='position_$identifier' value='$line $index $index1 $tag'>
-                                    <button class='btn btn-default' id='tiger' onclick='runAjax()'>Edit</button>
+                                    <button class='btn btn-default' id='tiger' onclick='runAjax("$identifier")'>Edit</button>
                                     <button class='btn btn-default'>Ignore</button>
                                 </div>
                             </div>
@@ -559,48 +559,39 @@ END;
         </div>
     </div>
     </div>
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="container-fluid">
-                <div class="row">
-                    <footer>
-                        <?php
-                        function convert($size){
-                            $unit=array('b','kb','mb','gb','tb','pb');
-                            return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
-                        }
-                        $time = microtime();
-                        $time = explode(' ', $time);
-                        $time = $time[1] + $time[0];
-                        $finish = $time;
-                        $total_time = round(($finish - $start), 4);
-                        echo 'Page generated in '.$total_time.' seconds.<br>';
-                        echo "Memory: ".convert(memory_get_usage());
-                        echo " Peak Memory: ".convert(memory_get_peak_usage());
-                        ?>
-                    </footer>
-                </div>
-            </div>
-        </div>
-    </div>
+    <footer>
+        <?php
+        function convert($size){
+            $unit=array('b','kb','mb','gb','tb','pb');
+            return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
+        }
+        $time = microtime();
+        $time = explode(' ', $time);
+        $time = $time[1] + $time[0];
+        $finish = $time;
+        $total_time = round(($finish - $start), 4);
+        echo 'Page generated in '.$total_time.' seconds.<br>';
+        echo "Memory: ".convert(memory_get_usage());
+        echo " Peak Memory: ".convert(memory_get_peak_usage());
+        ?>
+    </footer>
 
     <script src="js/main.js"></script>
-    <script>
-        $(document).ready(function(){
-            $("#selesai").click(function(){
-                var size = $('.col-md-6 .form-container').length;
-                if (size == 0){
-                    $.ajax({
-                        type: "GET",
-                        url: "replace.php"
-                    });
-                } else {
-                    alert("There are still "+size+" faults to take care");
-                }
-
-            });
-        });
-    </script>
+<!--    <script>-->
+<!--        $(document).ready(function(){-->
+<!--            $("#selesai").click(function(){-->
+<!--                var size = $('.col-md-6 .form-container').length;-->
+<!--                if (size == 0){-->
+<!--                    $.ajax({-->
+<!--                        type: "GET",-->
+<!--                        url: "replace.php"-->
+<!--                    });-->
+<!--                } else {-->
+<!--                    alert("There are still "+size+" faults to take care");-->
+<!--                }-->
+<!---->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
 </body>
 </html>

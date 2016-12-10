@@ -1,19 +1,20 @@
 // Save img tag
 
-function runAjax() {
-    var identifier = document.getElementById("identifier").innerHTML;
+function runAjax(identify) {
     var values = {
-        'name': $('#correct_'+identifier).val(),
-        'index': $('#position_'+identifier).val()
+        'name': $('#correct_'+identify).val(),
+        'index': $('#position_'+identify).val()
     };
     $.ajax({
         method: "POST",
         url: "action.php",
         data: values,
         success: function(status) {
-            $( '.'+identifier ).remove();
+            $( '.'+identify ).remove();
         }
     });
+    console.log(identify);
+    return false;
 }
 
 function revealInfo(idset) {
@@ -21,7 +22,7 @@ function revealInfo(idset) {
     var content = document.querySelector( '.content-wrap' );
     var openbtn = document.getElementById(idset);
     var closebtn = document.getElementById( 'close-button' );
-        isOpen = false;
+    var isOpen = false;
     toggleMenu();
     function init() {
         initEvents();
