@@ -183,8 +183,8 @@ END;
                                     }
                                 }
                             }
-                            //$this->alloc_work(); //work allocation
-                            $this->debug_arr();
+                            $this->alloc_work(); //work allocation
+                            //$this->debug_arr();
                         }
                         public function debug_arr(){
                             foreach ($this->line_with_tag as $items){
