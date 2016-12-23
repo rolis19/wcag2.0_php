@@ -9,9 +9,10 @@ if (isset($_POST["name"])) {
     $all_tag = file_get_contents('file-reference.txt');
     $insert = new insertValue($all_tag);
     $insert->give_tag_desc($words, $line, $position, $position1, $tag);
+
     //Debuging bro
     $myfile = fopen("debung.txt", "w") or die("Unable to open file!");
-    fwrite($myfile, $line);
+    fwrite($myfile, $words);
     fclose($myfile);
 }
 class insertValue {
@@ -44,7 +45,11 @@ class insertValue {
     }
 
     public function input_user_value($tag_desc, $words, $line, $position){
-        $words = $tag_desc.$words.htmlspecialchars('"');
+        if ($words == 'Ignore'){
+            $words = $tag_desc.htmlspecialchars(' "');
+        } else {
+            $words = $tag_desc.$words.htmlspecialchars('"');
+        }
         for ($i= (count($this->all_array[$line-1])); $i>$position+1; $i--){
             $this->all_array[$line-1][$i] = $this->all_array[$line-1][$i-1];
         }

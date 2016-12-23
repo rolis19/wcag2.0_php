@@ -16,8 +16,24 @@ function runAjax(identify) {
     console.log(identify);
     return false;
 }
+function runIgnore(identify) {
+    var values = {
+        'name': "Ignore",
+        'index': $('#position_'+identify).val()
+    };
+    $.ajax({
+        method: "POST",
+        url: "action.php",
+        data: values,
+        success: function(status) {
+            $( '.'+identify ).remove();
+        }
+    });
+    console.log(identify);
+    return false;
+}
 
-function revealInfo(idset) {
+function revealInfo(idset, tag) {
     var bodyEl = document.body;
     var content = document.querySelector( '.content-wrap' );
     var openbtn = document.getElementById(idset);
@@ -32,6 +48,7 @@ function revealInfo(idset) {
             closebtn.addEventListener( 'click', toggleMenu );
         }
         content.addEventListener( 'click', function(ev) {
+            showInfo(tag);
             var target = ev.target;
             if( isOpen && target !== openbtn ) {
                 toggleMenu();

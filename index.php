@@ -1,4 +1,5 @@
 <?php
+include 'form-correct.php';
 $time = microtime();
 $time = explode(' ', $time);
 $time = $time[1] + $time[0];
@@ -21,9 +22,20 @@ session_start();
 	</header>
     <!--        More info with fault-->
     <div class="menu-wrap">
-        <a class="close-button btn btn-sm btn-warning pull-right" id="close-button">Close</a>
+        <a class="close-button btn btn-sm btn-warning pull-right" id="close-button">Close <i class="glyphicon glyphicon-remove"></i></a>
         <div class="info-container">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae labore quam quas. Aspernatur atque culpa cum dicta dignissimos enim ex magnam, modi perferendis quisquam repellat sit suscipit ullam, veritatis voluptas!</p>
+            <h3>Explanation</h3>
+            <div id="explanation">
+
+            </div>
+            <h3>Instruction</h3>
+            <div id="instruction">
+
+            </div>
+            <h3>WCAG 2.0 Technique</h3>
+            <div id="technique">
+
+            </div>
         </div>
     </div>
     <div class="content-wrap">
@@ -40,7 +52,7 @@ session_start();
                         <div class="tab-content">
                             <div id="home" class="tab-pane fade in active">
                                 <form action="" method="post">
-                                    <button class="btn btn-success" id="check" type="submit">CHECK >></button>
+                                    <button class="btn btn-success" id="check" type="submit"><strong>CHECK</strong> <i class=" glyphicon glyphicon-check"></i></button>
                                     <div class="form-group">
                                         <textarea class="form-control" name="cekode" id="cek" cols="80" rows="8"></textarea>
                                         <input type="hidden" name="stage" value="process">
@@ -50,7 +62,7 @@ session_start();
                             </div>
                             <div id="menu1" class="tab-pane fade">
                                 <form action="" method="post">
-                                    <button class="btn btn-success" type="submit">CHECK >></button>
+                                    <button class="btn btn-success" id="check" type="submit"><strong>CHECK</strong> <i class=" glyphicon glyphicon-check"></i></button>
                                     <div class="form-group">
                                         <textarea class="form-control url" id="url" name="cekodeurl"></textarea>
                                         <input type="hidden" name="stageurl" value="process">
@@ -63,13 +75,14 @@ session_start();
                         <a href="http://localhost/learn" class="btn btn-success">New Check</a>
                         <div class="showcode-container">
                             <?php
-                            function show_code($line){
+                            function show_code(){
                                 echo <<< END
-                                <script type="text/javascript">
-                                    document.getElementById("showcode").style.display = "block";
-                                    document.getElementById("allform").style.display ="none" ;
-                                </script>
+                                    <script type="text/javascript">
+                                        document.getElementById("showcode").style.display = "block";
+                                        document.getElementById("allform").style.display ="none" ;
+                                    </script>
 END;
+                                download_btn();
                             }
                             ?>
                         </div>
@@ -78,110 +91,43 @@ END;
                 <div class="col-md-6 bottom">
                     <div class="content-correct">
                     <?php
-                        //Form for correcting input from user
-                        function form_correct($tag_array, $tag, $line, $index, $index1){
-                            echo <<< END
-                           <script type="text/javascript">
-                                $(document).ready(function() {
-                                    $('a.line$line').click(function() {
-                                        $.smoothScroll({
-                                            offset: -200,
-                                            scrollElement: $('div.showcode-container'),
-                                            scrollTarget: '#line$line',
-                                            beforeScroll: function(options) {
-                                                $('.line').removeClass("active");
-                                            },
-                                            afterScroll: function(options) {
-                                                $('#line$line').addClass("active");
-                                            }
-                                        });
-                                        return false;
-                                    });
-                                });
-                            </script>
-END;
-
-                            $identifier= $tag."".$line.$index;
-                            echo "<div class='$identifier form-container'>";
-                            echo "<div class='info-detail'>";
-                            echo "<p> Fault in <a href='#' class='line$line'>line ".$line."</a></p>";
-                            $desc="";
-                            $info ="Without double quote";
-                            switch ($tag){
-                                case 'img':
-                                    echo <<< END
-                                    <p>Img tag dosen't have 'alt' properties | WCAG 2.0 level A Percivable 
-                                    <a href='#' id='open-button$line' class='btn btn-sm btn-info' onclick="revealInfo('open-button$line')">More info</a>
-                                    </p>
-                                    <hr />
-END;
-                                    $desc = "Input alt value";
-                                    $word = "<code>".htmlspecialchars('alt="..."')."</code>";
-                                    $a1 = array($tag_array[0], $word);
-                                    array_splice($tag_array, 0,1,$a1);
-                                    echo "<p class='tag-info'>";
-                                    foreach ($tag_array as $items){
-                                        echo $items." ";
+                    function sterile_string($line_string){
+                        $i = 0;
+                        if (strlen(trim($line_string)) != 0){
+                            $new_decode = str_split(htmlspecialchars_decode($line_string));
+                            do {
+                                $i++;
+                            } while ($new_decode[$i] == ' ');
+                            $start_fill = $i;
+                            for ($j = $start_fill + 1; $j < count($new_decode) - 1; $j++) {
+                                if ($new_decode[$j] === '<') {
+                                    $new_decode[$j] = ' <';
+                                }
+                                if ($new_decode[$j] === '>') {
+                                    $k = $j;
+                                    do {$k++;}
+                                    while($new_decode[$k] == ' ' && $k != count($new_decode)-1);
+                                    if ($new_decode[$k] !== '<') {
+                                        $new_decode[$j] = '> ';
                                     }
-                                    echo "</p>";
-                                    break;
-                                case 'input':
-                                    $desc = "Input aria-label value ";
-                                    $word = "<code>".htmlspecialchars('aria-labelledby="..."')."</code>";
-                                    $a1 = array($tag_array[0], $word);
-                                    array_splice($tag_array, 0,1,$a1);
-                                    echo "<p class='tag-info'>";
-                                    foreach ($tag_array as $items){
-                                        echo $items." ";
+                                    if ($k == count($new_decode)-1){
+                                        for ($m=$j+1; $m<=$k; $m++){
+                                            unset($new_decode[$m]);
+                                        }
                                     }
-                                    echo "</p>";
-                                    break;
-                                case 'label':
-                                    $desc = "Give label's for and input's id value";
-                                    $word = htmlspecialchars('<label')."<code>".htmlspecialchars('for="..."')."</code>".substr($tag_array[0], 9, strlen($tag_array[0]));
-                                    $a1 = array($word);
-                                    array_splice($tag_array, 0,1,$a1);
-                                    $id_index = $index1-$index;
-                                    if (substr($tag_array[$id_index], 0, 2) == 'id'){
-                                        $tag_array[$id_index] = "<code>".$tag_array[$id_index]."</code>";
-                                    } else {
-                                        $word = "<code>".htmlspecialchars('id="..."')."</code>";
-                                        $a2 = array($tag_array[$id_index], $word);
-                                        array_splice($tag_array, $id_index,1,$a2);
-                                    }
-                                    echo "<p class='tag-info'>";
-                                    foreach ($tag_array as $items){
-                                        echo $items." ";
-                                    }
-                                    echo "</p>";
-
+                                }
                             }
-                            echo <<< END
-                            </div>
-                                <label for='correct'>$desc</label> <small>$info</small> 
-                                <div class='form-group'>
-                                    <input type='text' class='form-control correct-text' id='correct_$identifier' placeholder='your text' required>
-                                    <input type='hidden' id='position_$identifier' value='$line $index $index1 $tag'>
-                                    <button class='btn btn-default' id='tiger' onclick='runAjax("$identifier")'>Edit</button>
-                                    <button class='btn btn-default'>Ignore</button>
-                                </div>
-                            </div>
-END;
+                            return htmlspecialchars(implode('', $new_decode));
+                        } else {
+                            return $line_string;
                         }
-                    ?>
-                    <?php
+                    }
 
                     class mainArray{
                         public $all_array;
                         public $arr_newline;
-                        public $all_checked_line = array();
-                        public $correct_arr = array();
-                        public $array_ready = array();
-                        public $array_indicator;
-                        public $tag_name;
-                        public $end_tag;
-                        public $correct_words;
-                        public $checker_list = array("&lt;img");
+                        public $line_with_tag = array();
+                        public $checker_list = array("&lt;img", "&lt;input");
 
                         public function __construct($all_text){
                             $this->arr_newline = preg_split("/\\r\\n|\\r|\\n/", $all_text);
@@ -227,18 +173,23 @@ END;
                                     for ($i = 0; $i < count($this->checker_list); $i++) {
                                         similar_text($items, $this->checker_list[$i], $percent);
                                         if ($percent == 100) {
-                                            $this->tag_name = $items;
-                                            //$this->alloc_work($line, $position); //work allocation
                                             //Forming array
                                             $j++;
-                                            $this->all_checked_line[$j] = array('line'=> $line,
-                                                'position' => $position
+                                            $this->line_with_tag[$j] = array('line'=> $line,
+                                                'position' => $position,
+                                                'tagname' => $items
                                                 );
                                         }
                                     }
                                 }
                             }
-                            $this->alloc_work($this->all_checked_line); //work allocation
+                            //$this->alloc_work(); //work allocation
+                            $this->debug_arr();
+                        }
+                        public function debug_arr(){
+                            foreach ($this->line_with_tag as $items){
+                               echo $items['tagname'];
+                            }
                         }
                         //Find end tag
                         public function find_close_tag($line, $position){
@@ -290,17 +241,19 @@ END;
     //======================= End of General function, custom library =======
 
                         //Work allocation here
-                        public function alloc_work($all_line){
-                            for ($i=0; $i<count($all_line); $i++){
-                                $line = $all_line[$i]['line'];
-                                $position = $all_line[$i]['position'];
-                                switch ($this->tag_name) {
+                        public function alloc_work(){
+                            $end_array = $this->line_with_tag[count($this->line_with_tag)-1]['line'];
+                            for ($i=0; $i<count($this->line_with_tag); $i++){
+                                $line = $this->line_with_tag[$i]['line'];
+                                $position = $this->line_with_tag[$i]['position'];
+                                $tag_name = $this->line_with_tag[$i]['tagname'];
+                                switch ($tag_name) {
                                     case "&lt;img": //Img tag
                                         $end_tag = $this->find_close_tag($line, $position); //Get end tag index
                                         $next_open_tag = $this->next_open_tag($line, $position);
                                         $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
                                         if (!$is_end_true){
-                                            echo "you are missing w3c tag validator checker";
+                                            echo "you are missing w3c tag validator checker".$line."<br>";
 
                                         } else {
                                             $img_tag = $this->single_tag($line, $position, $end_tag);
@@ -308,17 +261,20 @@ END;
                                         }
                                         break;
 
-    //                                case "&lt;input": //Input tag
-        //                                $end_tag = $this->find_close_tag($position);
-        //                                $next_open_tag = $this->next_open_tag($position, $end_tag);
-        //                                $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
-        //                                if (!$is_end_true){
-        //                                    echo "end tag for input not found";
-        //                                } else {
-        //                                    $input_tag = $this->single_tag($position, $end_tag);
-        //                                    $this->input_alloc($input_tag, $position);
-        //                                }
+                                    case "&lt;input": //Input tag
+                                        $end_tag = $this->find_close_tag($line, $position);
+                                        $next_open_tag = $this->next_open_tag($line, $position);
+                                        $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
+                                        if (!$is_end_true){
+                                            echo "you are missing w3c tag validator checker";
+                                        } else {
+                                            $input_tag = $this->single_tag($line, $position, $end_tag);
+                                            $this->input_alloc($input_tag, $line, $position);
+                                        }
                                         break;
+                                }
+                                if ($line == $end_array){
+                                    show_code(); //Show download button and inserted code
                                 }
                             }
                         }
@@ -342,22 +298,21 @@ END;
                             if ($indicator >= 1){
                                 //alt found
                             } else{
-                                form_correct($img_tag, 'img', $line+1, $start_tag, '');
-                            }
-                            $last_checked_line = $this->all_checked_line[count($this->all_checked_line)-1]['line'];
-                            if ($line == $last_checked_line){
-                                show_code($line);
+                               form_correct($img_tag, 'img', $line+1, $start_tag, '');
                             }
                         }
     //===================   Check input Tag Process    ==========================================
-                        public function input_alloc($input_tag, $start_tag){
-                            $indicator = 0;
-                            $new_input_arr = implode(" ", $input_tag);
-                            // Create new array based on double quote
-                            $new_input_arr = explode("&quot;", $new_input_arr);
-
-                            foreach ($new_input_arr as $item) {
-                                switch ($item){
+                        public function input_alloc($input_tag, $line, $start_tag){
+                            $label_type = '';
+                            $check_arr = $this->subarr($input_tag, 0, 5);
+                            foreach ($check_arr as $key=>$item){
+                                if ($item == 'type='){
+                                    $label_type = explode("&quot;", $input_tag[$key]);
+                                    $label_type = $label_type[1];
+                                }
+                            }
+                            if ($label_type != ''){
+                                switch ($label_type){
                                     case "text":
                                     case "password":
                                     case "radio":
@@ -376,24 +331,23 @@ END;
                                     case "time":
                                     case "url":
                                     case "week":
-                                        $indicator = 1;
-                                        $this->input_check($input_tag, $start_tag);
+                                        $this->input_check($input_tag, $line, $start_tag);
                                         break;
+
                                     //below no need any action
                                     case "submit":
                                     case "image":
                                     case "reset":
                                     case "button":
-                                        $indicator = 2;
+                                    case "hidden":
                                         break;
                                 }
-                            }
-                            if ($indicator==0){
-                                //echo "You don't have proper type of input set<br>";
+                            } else {
+                                echo '<p class="info-other">Undefinied input type in line '.($line+1).'</p>';
                             }
                         }
 
-                        public function input_check($input_tag, $start_tag){
+                        public function input_check($input_tag, $line, $start_tag){
                             $indicator = 0;
                             $input_tags = implode(" ", $input_tag);
                             //Create new array based on double quote
@@ -414,76 +368,93 @@ END;
                                 $is_there = $this->is_exist('id', 0, sizeof($input_tag), $new_sort);
                                 if (!$is_there){
     //								if ID not there than just set ID value to empty
-                                    $this->check_labelid($input_tag, $start_tag, '');
+                                    $this->check_labelid($input_tag, $line, $start_tag, '');
                                 } else {
-                                    $this->check_labelid($input_tag, $start_tag, $input_tag[$is_there].$is_there);
+                                    $this->check_labelid($input_tag, $line, $start_tag, $input_tag[$is_there].$is_there);
                                 }
                             }
                         }
 
-                        public function check_labelid($input_tag, $start_tag, $id_input){
-                            $yes_label = 0;
+                        public function check_labelid($input_tag, $line, $start_tag, $id_input){
+                            $indicator = 0;
                             if ($start_tag == 0){
                                 $end_label = $start_tag;
                             } else {
                                 $end_label = $start_tag-1;
                             }
-                            // Check if end is truly label, if not then add aria-label to input
-                            $check_label = substr($this->all_array[$end_label], strlen($this->all_array[$end_label])-14, strlen($this->all_array[$end_label]));
-                            if ($check_label == htmlspecialchars('</label>')){
-                                $yes_label = 1; //if the previous is label then to the line 328
-                            } else {
-                                form_correct($input_tag, 'input', $start_tag, '');
+                            $id_name = explode("&quot;", $id_input);
+                            $id_namefor = 'for="'.$id_name[1].'"';
+                            if ($line != 0){
+                                for ($i= $line; $i>=0; $i--) {
+                                    foreach ($this->all_array[$i] as $position=>$items){
+                                        similar_text(substr($items, 0, 10+strlen($id_namefor)), htmlspecialchars($id_namefor), $percent);
+                                        if ($percent >= 100) {
+                                            $indicator = 1;
+                                        }
+                                    }
+                                }
                             }
-                            // When index end equal to label do following
-                            if ($yes_label == 1){
-                                $start_label = 0;
-                                $indicator = 0;
-                                $label_tag = array();
-                                // Find the first index of label
-                                for ($i=$end_label; $i>=0; $i--){
-                                    $new_label = substr($this->all_array[$i], 0, 7);
-                                    if ($new_label == htmlspecialchars('<lab')){ // sort version of <label>
-                                        $start_label = $i;
-                                        break;
-                                    }
-                                }
-                                for ($j=$start_label; $j<=$end_label; $j++){
-                                    array_push($label_tag, $this->all_array[$j]);
-                                }
-                                $arr1 = $this->single_tag($start_label, $start_tag);
-                                array_splice($input_tag, 0, 1, $arr1); //New array join label and input tag together.
-                                $new_sort = $this->subarr($this->all_array, 0, 3);
-                                $is_there = $this->is_exist('for', $start_label, $end_label, $new_sort); //check if for exist
-                                if ($id_input==''){
-                                    $id_index = $start_tag;
-                                    if (!$is_there){ //When for doesn't exist but id exist
-                                        form_correct($input_tag, 'label', $start_label, $id_index);
-                                    } else{
-                                        echo "No ID but FOR there --- not yet to solve <br/>";
-                                    }
+
+                            if ($indicator != 1){ //Indicator -> is 'for' in label found and whether is match with 'id' in input
+                                $line_label = $line;
+                                $check_label = substr($this->all_array[$line][$end_label], strlen($this->all_array[$line][$end_label])-14, strlen($this->all_array[$line][$end_label]));
+                                if ($check_label == htmlspecialchars('</label>')){
+                                    $indicator = 1; //if the previous is label then to the line 328
                                 } else {
-                                    //When ID have value
-                                    $label_tag = implode(" ", $label_tag);
-                                    $label_tag = explode("&quot;", $label_tag);
-                                    $id_name = explode("&quot;", $id_input);
-                                    foreach ($label_tag as $item){
-                                        if ($item == $id_name[1]){
-                                            $indicator++; //for equal to id no need further execution
+                                   if ($line != 0){
+                                       foreach ($this->all_array[$line-1] as $keys=>$items){
+                                           if ($items == htmlspecialchars('</label>')){
+                                               $indicator =1;
+                                               $end_label = $keys;
+                                               $line_label = $line-1;
+                                           }
+                                       }
+                                   }
+                                }
+
+                                if ($indicator != 1){ // Indicator -> Is label found?
+                                    form_correct($input_tag, 'input', $line+1, $start_tag, ''); // Supposed label not found.
+                                } else {
+                                    $start_label = 0;
+                                    $label_tag = array();
+                                    // Find the first index of label
+                                    for ($i=$end_label; $i>=0; $i--){
+                                        $new_label = substr($this->all_array[$line_label][$i], 0, 7);
+                                        if ($new_label == htmlspecialchars('<lab')){ // sort version of <label>
+                                            $start_label = $i;
                                             break;
                                         }
                                     }
-                                    $id_index = $id_input[strlen($id_input)-1];
-                                    $id_index = $id_index+$start_tag;
-                                    if ($indicator == 0){
+                                    for ($j=$start_label; $j<=$end_label; $j++){
+                                        array_push($label_tag, $this->all_array[$line_label][$j]);
+                                    }
+                                    $arr1 = $this->single_tag($line, $start_label, $start_tag);
+                                    array_splice($input_tag, 0, 1, $arr1); //New array join label and input tag together.
+                                    $new_sort = $this->subarr($this->all_array[$line_label], 0, 3);
+                                    $is_there = $this->is_exist('for', $start_label, $end_label, $new_sort); //check if for exist
+                                    echo $is_there;
+                                    if ($id_input==''){
+                                        $id_index = $start_tag;
                                         if (!$is_there){ //When for doesn't exist but id exist
-                                            form_correct($input_tag, 'label', $start_label, $id_index);
+                                            form_correct($input_tag, 'label', $line+1, $start_label, $id_index);
+                                        } else{
+                                            echo "No ID but FOR there --- not yet to solve <br/>";
+                                        }
+                                    } else {
+                                        //When ID have value
+                                        $id_index = $id_input[strlen($id_input)-1];
+                                        $id_index = $id_index+$start_tag;
+                                        if (!$is_there){ //When for doesn't exist but id exist
+                                            form_correct($input_tag, 'label', $line+1, $start_label, $id_index);
+                                            echo 'musib label there ID there but no for line'.($line+1);
                                         } else{
                                             echo "ID there and For there, but both not same --- not yet to solve <br/>";
                                         }
                                     }
                                 }
+
                             }
+
                         }
 
                     }
@@ -497,7 +468,30 @@ END;
                         fclose($myfile);
                         $main_array = new mainArray($all_array);
                         $main_array->tag_check(); //First function to run in class
+                        display_code();
+                    }
 
+                    //Program start here for insert url
+                    if (isset($_POST['stageurl']) && ('process' == $_POST['stageurl'])) {
+                        function datafeed($url){
+                            $text =  file_get_contents($url);
+                            return $text;
+                        }
+                        $dataraw = datafeed($_POST['cekodeurl']);//raw data tag code
+                        $all_array = htmlspecialchars($dataraw);
+                        $myfile = fopen("temp-html-file.html", "w") or die("Unable to open file!");
+                        if (empty($all_array)){
+                            fwrite($myfile, "Can't obtain page from URL");
+                        } else {
+                            fwrite($myfile, $all_array." ");
+                        }
+                        fclose($myfile);
+                        $main_array = new mainArray($all_array);
+                        $main_array->tag_check();
+                        display_code();
+                    }
+
+                    function display_code(){
                         $str_get= file_get_contents('temp-html-file.html');
                         $arr_line = preg_split("/\\r\\n|\\r|\\n/", $str_get);
                         echo '<script type="text/javascript">';
@@ -508,42 +502,9 @@ END;
                     }
                     function download_btn(){ //to call download button only when code checked and displayed
                         echo "<hr>";
-                        echo "<div id='selesai' class='btn btn-danger' href='newfile.html'>";
-                        echo "Finish & Download";
-                        echo "</div>";
-                    }
-                    function sterile_string($line_string){
-                        $i = 0; $k = 0; $m = 0;
-                        if (strlen(trim($line_string)) != 0){
-                            $new_decode = htmlspecialchars_decode($line_string);
-                            do {
-                                $i++;
-                            } while ($new_decode[$i] == ' ');
-                            $start_fill = $i;
-                            for ($j = $start_fill + 1; $j < strlen($new_decode) - 1; $j++) {
-                                if ($new_decode[$j] === '<') {
-                                    $k = $j;
-                                }
-                                if ($new_decode[$j] === '>') {
-                                    if ($new_decode[$j + 1] !== '<') {
-                                        $m = $j;
-                                    }
-                                }
-                            }
-                            if ($m != 0) {
-                                $fix_close = substr_replace($new_decode, "> ", $m, 1);
-                            } else {
-                                $fix_close = $new_decode;
-                            }
-                            if ($k != 0) {
-                                $fix_open = substr_replace($fix_close, " <", $k, 1);
-                            } else {
-                                $fix_open = $fix_close;
-                            }
-                            return htmlspecialchars($fix_open);
-                        } else {
-                            return $line_string;
-                        }
+                        echo "<a id='selesai' class='btn btn-info'>";
+                        echo "<i class='glyphicon glyphicon-save-file'></i> Finish & Download";
+                        echo "</a>";
                     }
                     ?>
                     </div>
@@ -575,23 +536,20 @@ END;
         echo " Peak Memory: ".convert(memory_get_peak_usage());
         ?>
     </footer>
-
+    <script src="js/data-json.js"></script>
     <script src="js/main.js"></script>
-<!--    <script>-->
-<!--        $(document).ready(function(){-->
-<!--            $("#selesai").click(function(){-->
-<!--                var size = $('.col-md-6 .form-container').length;-->
-<!--                if (size == 0){-->
-<!--                    $.ajax({-->
-<!--                        type: "GET",-->
-<!--                        url: "replace.php"-->
-<!--                    });-->
-<!--                } else {-->
-<!--                    alert("There are still "+size+" faults to take care");-->
-<!--                }-->
-<!---->
-<!--            });-->
-<!--        });-->
-<!--    </script>-->
+    <script>
+        $(document).ready(function(){
+            $("#selesai").click(function(e){
+                var size = $('.col-md-6 .form-container').length;
+                if (size != 0){
+                    alert("There are still "+size+" faults to take care");
+                } else {
+                    $('a#selesai').attr({download: 'newfile.html',
+                        href  : 'http://localhost/learn/newfile.html'});
+                }
+            });
+        });
+    </script>
 </body>
 </html>

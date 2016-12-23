@@ -81,7 +81,6 @@ textarea.form-control:focus{  box-shadow: none;  }
 .show-code {
     border-radius: 0;
     height: 480px;
-    margin-bottom: 15px;
     display: none;
     margin-bottom: 15px;
 }
@@ -161,6 +160,30 @@ html, body, .container, .content-wrap {
 }
 .menu-wrap .btn {color: #ffffff; border: none}
 .info-container{
-    padding: 2.5em 1.5em 0;
+    padding: 22px;
     color: #FFFFFF;
 }
+#instruction {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 16px 18px 16px 35px;
+    color: #444444;
+}
+#instruction ul{
+    margin: 0;
+    padding: 0;
+}
+#technique ul {
+    margin: 0;
+    padding: 0;
+}
+#technique ul li {
+    list-style: none;
+}
+p.info-other{
+    background-color: #FFEEED;
+    color: #444;
+    padding: 6px 30px;
+    margin-left: -30px;
+    margin-right: -30px;
+}
+code {background-color: transparent}
