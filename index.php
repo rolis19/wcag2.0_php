@@ -193,21 +193,38 @@ END;
                         }
                         //Find end tag
                         public function find_close_tag($line, $position){
-                            $nd_tag = 0;
+                            $nd_tag = 0; $line_end=0;
+                            $nxt_opn_tag = 0; $line_nxt_open = 0;
+                            $single_tag_arr = array();
                             for ($n=$line; $n < (count($this->all_array)); $n++){
-                                if ($n == $line){
-                                    $length = $position;
-                                } else {
-                                    $length = 0;
-                                }
+                                if ($n == $line){$length = $position;} else {$length = 0;}
                                 for ($i = $length; $i < (count($this->all_array[$n])); $i++){
+                                    array_push($single_tag_arr, $this->all_array[$n][$i]);
                                     if (preg_match('/&gt;$/', $this->all_array[$n][$i])) {
                                         $nd_tag = $i;
+                                        $line_end = $n;
+                                        break;
+                                    }
+                                }
+                                for ($i = $length; $i < (count($this->all_array[$n])); $i++){
+                                    if (preg_match('/^&lt;/', $this->all_array[$n][$i])) {
+                                        $nxt_opn_tag = $i;
+                                        $line_nxt_open = $n;
                                         break;
                                     }
                                 }
                             }
-                            return $nd_tag;
+                            if ($line_nxt_open != 0){
+                                $post_nt = $line_end+$nd_tag;
+                                $post_npt = $line_nxt_open+$nxt_opn_tag;
+                                if ($post_nt < $post_npt){
+                                    return $single_tag_arr;
+                                } else {
+                                    return 0;
+                                }
+                            } else {
+                                return $single_tag_arr;
+                            }
                         }
                         //Check whether end tag is true, by checking open tag for next element
                         public function next_open_tag($line, $position){
@@ -254,15 +271,11 @@ END;
                                 $tag_name = $this->line_with_tag[$i]['tagname'];
                                 switch ($tag_name) {
                                     case "&lt;img": //Img tag
-                                        $end_tag = $this->find_close_tag($line, $position); //Get end tag index
-                                        $next_open_tag = $this->next_open_tag($line, $position);
-                                        $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
-                                        if (!$is_end_true){
-                                            echo "you are missing w3c tag validator checker".$line."<br>";
-
-                                        } else {
-                                            $img_tag = $this->single_tag($line, $position, $end_tag);
+                                        $img_tag = $this->find_close_tag($line, $position); //Get end tag index
+                                        if ($img_tag != 0){
                                             $this->img_check($img_tag, $line, $position);
+                                        }else {
+                                            echo "you are missing w3c tag validator checker ".$line."<br>";
                                         }
                                         break;
 
