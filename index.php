@@ -93,7 +93,7 @@ END;
                     <?php
                     function sterile_string($line_string){
                         $i = 0;
-                        if (strlen(trim($line_string)) != 0){
+                        if (strlen(trim($line_string)) != 0 && strlen($line_string) > 1){
                             $new_decode = str_split(htmlspecialchars_decode($line_string));
                             do {
                                 $i++;
@@ -298,7 +298,20 @@ END;
                             if ($indicator >= 1){
                                 //alt found
                             } else{
-                               form_correct($img_tag, 'img', $line+1, $start_tag, '');
+                                if (count($img_tag) <= 2){
+                                    $decode_html = htmlspecialchars_decode($img_tag[1]);
+                                    $words = '';
+                                    if (preg_match('/[^\/]>$/', $decode_html)) {
+                                        $words = preg_replace('/>$/', htmlspecialchars(' />'), $decode_html);
+                                    } else if (preg_match('/\/>$/', $decode_html)){
+                                        $words = preg_replace('/\/>$/', htmlspecialchars(' />'), $decode_html);
+                                    }
+                                    write_to_fref($line, $start_tag+1, $words);
+                                    $a2 = explode(' ', $words);
+                                    array_splice($img_tag, 1, 1, $a2);
+                                    print_r($img_tag);
+                                }
+                                form_correct($img_tag, 'img', $line+1, $start_tag+1, '');
                             }
                         }
     //===================   Check input Tag Process    ==========================================
@@ -376,24 +389,30 @@ END;
                         }
 
                         public function check_labelid($input_tag, $line, $start_tag, $id_input){
+                            if ($id_input === ''){
+
+                            } else {
+                                $id_name = explode("&quot;", $id_input);
+                                $id_namefor = 'for="'.$id_name[1].'"';
+                                if ($line != 0){
+                                    for ($i= $line; $i>=0; $i--) {
+                                        foreach ($this->all_array[$i] as $position=>$items){
+                                            similar_text(substr($items, 0, 10+strlen($id_namefor)), htmlspecialchars($id_namefor), $percent);
+                                            if ($percent >= 100) {
+                                                $indicator = 1;
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
                             $indicator = 0;
                             if ($start_tag == 0){
                                 $end_label = $start_tag;
                             } else {
                                 $end_label = $start_tag-1;
                             }
-                            $id_name = explode("&quot;", $id_input);
-                            $id_namefor = 'for="'.$id_name[1].'"';
-                            if ($line != 0){
-                                for ($i= $line; $i>=0; $i--) {
-                                    foreach ($this->all_array[$i] as $position=>$items){
-                                        similar_text(substr($items, 0, 10+strlen($id_namefor)), htmlspecialchars($id_namefor), $percent);
-                                        if ($percent >= 100) {
-                                            $indicator = 1;
-                                        }
-                                    }
-                                }
-                            }
+
 
                             if ($indicator != 1){ //Indicator -> is 'for' in label found and whether is match with 'id' in input
                                 $line_label = $line;

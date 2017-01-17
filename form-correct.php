@@ -1,5 +1,21 @@
 <?php
 //Form for correcting input from user
+function write_to_fref($line, $position, $word){
+    $all_array =array();
+    $all_tag = file_get_contents('file-reference.txt');
+    $arr_newline = preg_split("/\\r\\n|\\r|\\n/", $all_tag);
+    for ($i=0; $i<count($arr_newline); $i++){
+        $all_array[$i] = explode(" ", $arr_newline[$i]);
+    }
+    $all_array[$line][$position] = $word;
+    $myfile_source = fopen("file-reference.txt", "w") or die("Unable to open file!");
+    foreach ($all_array as $lines){
+        foreach ($lines as $items){
+            fwrite($myfile_source, $items." ");
+        }
+        fwrite($myfile_source, "\r\n");
+    }
+}
 function form_correct($tag_array, $tag, $line, $index, $index1){
     echo <<< END
    <script type="text/javascript">
@@ -31,7 +47,7 @@ END;
     switch ($tag){
         case 'img':
             echo <<< END
-            <p>Img tag dosen't have 'alt' properties | WCAG 2.0 level A Percivable 
+            <p>Img tag doesn't have 'alt' properties | WCAG 2.0 level A Perceivable 
             <a href='#' id='open-button$line' class='btn btn-sm btn-info' onclick="revealInfo('open-button$line', '$tag')">
             More info <i class='glyphicon glyphicon-info-sign'></i></a>
             </p>
@@ -40,18 +56,21 @@ END;
             $desc = "Give alt value";
             $word = "<code>".htmlspecialchars('alt="..."')."</code>";
             $a1 = array($tag_array[0], $word);
-            array_splice($tag_array, 0,1,$a1);
+            unset($tag_array[0]);
+            $tag_string = substr(htmlspecialchars_decode(join(' ', $tag_array)), 0 , 58);
             echo "<p class='tag-info'>";
-            echo substr(join(' ', $tag_array), 0, 117);
-            if (strlen(join(' ', $tag_array)) > 117){
+            echo join(' ', $a1);
+            echo htmlspecialchars($tag_string);
+            if (strlen(htmlspecialchars_decode(join(' ', $tag_array))) > 58){
                 echo "... ";
             }
+
             echo "</p>";
             break;
 
         case 'input':
             echo <<< END
-            <p>Input tag needs aria-label properties | WCAG 2.0 level A Percivable 
+            <p>Input tag needs aria-label properties | WCAG 2.0 level A Perceivable 
             <a href='#' id='open-button$line' class='btn btn-sm btn-info' onclick="revealInfo('open-button$line', '$tag')">
             More info <i class='glyphicon glyphicon-info-sign'></i></a>
             </p>
