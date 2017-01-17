@@ -1,2 +1,2 @@
-&lt;img src=&quot;/images/black_ribbon_top_left.png&quot; alt=&quot;boneeee&quot; /&gt; 
- 
+&lt;img src=&quot;/images/black_ribbon_top_left.png&quot; 
+class=&quot;black-ribbon stick-top stick-left&quot;/&gt;

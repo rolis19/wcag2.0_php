@@ -194,12 +194,17 @@ END;
                         //Find end tag
                         public function find_close_tag($line, $position){
                             $nd_tag = 0;
-                            for ($n = $position; $n < count($this->all_array[$line]); $n++) {
-                                $new_line = substr($this->all_array[$line][$n], strlen($this->all_array[$line][$n]) - 4, strlen($this->all_array[$line][$n])); // take 4 string in every end string
-                                similar_text('&gt;', $new_line, $percent);
-                                if ($percent == 100) {
-                                    $nd_tag = $n;
-                                    break;
+                            for ($n=$line; $n < (count($this->all_array)); $n++){
+                                if ($n == $line){
+                                    $length = $position;
+                                } else {
+                                    $length = 0;
+                                }
+                                for ($i = $length; $i < (count($this->all_array[$n])); $i++){
+                                    if (preg_match('/&gt;$/', $this->all_array[$n][$i])) {
+                                        $nd_tag = $i;
+                                        break;
+                                    }
                                 }
                             }
                             return $nd_tag;
