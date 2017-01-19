@@ -92,32 +92,17 @@ END;
                     <div class="content-correct">
                     <?php
                     function sterile_string($line_string){
-                        $i = 0;
                         if (strlen(trim($line_string)) != 0 && strlen($line_string) > 1){
-                            $new_decode = str_split(htmlspecialchars_decode($line_string));
-                            do {
-                                $i++;
-                            } while ($new_decode[$i] == ' ');
-                            $start_fill = $i;
-                            for ($j = $start_fill + 1; $j < count($new_decode) - 1; $j++) {
-                                if ($new_decode[$j] === '<') {
-                                    $new_decode[$j] = ' <';
+                            $new_decode = explode(' ', htmlspecialchars_decode($line_string));
+                            for ($n = 0; $n < count($new_decode); $n++){
+                                if (preg_match('/[^S]</', $new_decode[$n])){
+                                    $new_decode[$n] = preg_replace('/</', ' <', $new_decode[$n]);
                                 }
-                                if ($new_decode[$j] === '>') {
-                                    $k = $j;
-                                    do {$k++;}
-                                    while($new_decode[$k] == ' ' && $k != count($new_decode)-1);
-                                    if ($new_decode[$k] !== '<') {
-                                        $new_decode[$j] = '> ';
-                                    }
-                                    if ($k == count($new_decode)-1){
-                                        for ($m=$j+1; $m<=$k; $m++){
-                                            unset($new_decode[$m]);
-                                        }
-                                    }
+                                if (preg_match('/>[^S\r\n]/', $new_decode[$n])){
+                                    $new_decode[$n] = preg_replace('/>/', '> ', $new_decode[$n]);
                                 }
                             }
-                            return htmlspecialchars(implode('', $new_decode));
+                            return htmlspecialchars(implode(' ', $new_decode));
                         } else {
                             return $line_string;
                         }
@@ -135,7 +120,7 @@ END;
                             for ($i=0; $i<count($this->arr_newline); $i++){
                                 $arrnewline_sterile = sterile_string($this->arr_newline[$i]);
                                 $this->all_array[$i] = explode(" ", $arrnewline_sterile);
-                                fwrite($my_file, $arrnewline_sterile."\r\n");
+                                fwrite($my_file, htmlspecialchars_decode($arrnewline_sterile)."\r\n");
                             }
                             fclose($my_file);
                         }
@@ -194,50 +179,57 @@ END;
                         //Find end tag
                         public function find_close_tag($line, $position){
                             $nd_tag = 0; $line_end=0;
-                            $nxt_opn_tag = 0; $line_nxt_open = 0;
-                            $single_tag_arr = array();
+                            $next_open_tag = $this->next_open_tag($line, $position);
+                            $single_tag_arr = array($this->all_array[$line][$position]);
                             for ($n=$line; $n < (count($this->all_array)); $n++){
-                                if ($n == $line){$length = $position;} else {$length = 0;}
+                                if ($n == $line){$length = ($position+1);} else {$length = 0;}
                                 for ($i = $length; $i < (count($this->all_array[$n])); $i++){
-                                    array_push($single_tag_arr, $this->all_array[$n][$i]);
+                                    array_push($single_tag_arr, $this->all_array[$line][$position], $this->all_array[$n][$i]);
                                     if (preg_match('/&gt;$/', $this->all_array[$n][$i])) {
                                         $nd_tag = $i;
                                         $line_end = $n;
                                         break;
                                     }
                                 }
+                                if ($nd_tag != 0){
+                                    break;
+                                }
+
+                            }
+                            if ($nd_tag != 0){
+                                if ($next_open_tag != 0){
+                                    if ($next_open_tag > ($line_end+1).$nd_tag){
+                                        return $single_tag_arr;
+                                    } else {
+                                        return NULL;
+                                    }
+                                }else{
+                                    return $single_tag_arr;
+                                }
+                            }else {
+                                return NULL;
+                            }
+                        }
+                        //Check whether end tag is true, by checking open tag for next element
+                        public function next_open_tag($line, $position){
+                            $nxt_opn_tag = 0; $line_nxt_open = 0;
+                            for ($n=$line; $n < (count($this->all_array)); $n++){
+                                if ($n == $line){$length = ($position+1);} else {$length = 0;}
                                 for ($i = $length; $i < (count($this->all_array[$n])); $i++){
-                                    if (preg_match('/^&lt;/', $this->all_array[$n][$i])) {
+                                    if (preg_match('/&lt;/', $this->all_array[$n][$i])) {
                                         $nxt_opn_tag = $i;
                                         $line_nxt_open = $n;
                                         break;
                                     }
                                 }
-                            }
-                            if ($line_nxt_open != 0){
-                                $post_nt = $line_end+$nd_tag;
-                                $post_npt = $line_nxt_open+$nxt_opn_tag;
-                                if ($post_nt < $post_npt){
-                                    return $single_tag_arr;
-                                } else {
-                                    return 0;
+                                if ($nxt_opn_tag != 0){
+                                    break;
                                 }
-                            } else {
-                                return $single_tag_arr;
                             }
-                        }
-                        //Check whether end tag is true, by checking open tag for next element
-                        public function next_open_tag($line, $position){
-                            $new_sort = array();
-                            foreach ($this->all_array[$line] as $items){
-                                array_push($new_sort, substr($items, 0, 4));
-                            }
-                            $next_tag = $this->is_exist(htmlspecialchars('<'), $position + 1, sizeof($new_sort), $new_sort);
-                            if (!$next_tag) {
-                                //In case this is end of file
-                                return sizeof($this->all_array[$line]);
+                            if ($nxt_opn_tag == 0 && $line_nxt_open == 0){
+                                return 0;
                             } else {
-                                return $next_tag;
+                                return ($line_nxt_open+1).$nxt_opn_tag;
                             }
                         }
                         //If open tag for next element less than close tag for current element then false, else true
@@ -271,8 +263,8 @@ END;
                                 $tag_name = $this->line_with_tag[$i]['tagname'];
                                 switch ($tag_name) {
                                     case "&lt;img": //Img tag
-                                        $img_tag = $this->find_close_tag($line, $position); //Get end tag index
-                                        if ($img_tag != 0){
+                                        $img_tag = ($this->find_close_tag($line, $position)); //Get end tag index
+                                        if (!empty($img_tag)){
                                             $this->img_check($img_tag, $line, $position);
                                         }else {
                                             echo "you are missing w3c tag validator checker ".$line."<br>";
@@ -280,15 +272,15 @@ END;
                                         break;
 
                                     case "&lt;input": //Input tag
-                                        $end_tag = $this->find_close_tag($line, $position);
-                                        $next_open_tag = $this->next_open_tag($line, $position);
-                                        $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
-                                        if (!$is_end_true){
-                                            echo "you are missing w3c tag validator checker";
-                                        } else {
-                                            $input_tag = $this->single_tag($line, $position, $end_tag);
-                                            $this->input_alloc($input_tag, $line, $position);
-                                        }
+//                                        $end_tag = $this->find_close_tag($line, $position);
+//                                        $next_open_tag = $this->next_open_tag($line, $position);
+//                                        $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
+//                                        if (!$is_end_true){
+//                                            echo "you are missing w3c tag validator checker";
+//                                        } else {
+//                                            $input_tag = $this->single_tag($line, $position, $end_tag);
+//                                            $this->input_alloc($input_tag, $line, $position);
+//                                        }
                                         break;
                                 }
                                 if ($line == $end_array){
