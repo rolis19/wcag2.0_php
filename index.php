@@ -95,12 +95,9 @@ END;
                         if (strlen(trim($line_string)) != 0 && strlen($line_string) > 1){
                             $new_decode = explode(' ', htmlspecialchars_decode($line_string));
                             for ($n = 0; $n < count($new_decode); $n++){
-                                if (preg_match('/[^S]</', $new_decode[$n])){
-                                    $new_decode[$n] = preg_replace('/</', ' <', $new_decode[$n]);
-                                }
-                                if (preg_match('/>[^S\r\n]/', $new_decode[$n])){
-                                    $new_decode[$n] = preg_replace('/>/', '> ', $new_decode[$n]);
-                                }
+                                $new_decode_ft = preg_replace('/></', '> <', $new_decode[$n]);
+                                $new_decode_scd = preg_replace('/([^(>|\s)])(<)/', '$1 $2', $new_decode_ft);
+                                $new_decode[$n] = preg_replace('/(>)([^(<|\s)])/', '$1 $2', $new_decode_scd);
                             }
                             return htmlspecialchars(implode(' ', $new_decode));
                         } else {
