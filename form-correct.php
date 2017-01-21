@@ -1,20 +1,13 @@
 <?php
 //Form for correcting input from user
 function write_to_fref($line, $position, $word){
-    $all_array =array();
-    $all_tag = file_get_contents('file-reference.txt');
-    $arr_newline = preg_split("/\\r\\n|\\r|\\n/", $all_tag);
-    for ($i=0; $i<count($arr_newline); $i++){
-        $all_array[$i] = explode(" ", $arr_newline[$i]);
-    }
-    $all_array[$line][$position] = $word;
-    $myfile_source = fopen("file-reference.txt", "w") or die("Unable to open file!");
-    foreach ($all_array as $lines){
-        foreach ($lines as $items){
-            fwrite($myfile_source, $items." ");
-        }
-        fwrite($myfile_source, "\r\n");
-    }
+    $filename = getcwd() . "/file-reference.txt";
+    $line_looking_for = $line;
+    $lines = file( $filename , FILE_IGNORE_NEW_LINES );
+    $a1 = explode(' ', $lines[$line]);
+    array_splice($a1, $position, count($word)-1, $word);
+    $lines[$line_looking_for] = implode(' ', $a1);
+    file_put_contents( $filename , implode( "\n", $lines ) );
 }
 function form_correct($tag_array, $tag, $line, $index, $index1){
     echo <<< END

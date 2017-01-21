@@ -16,12 +16,5 @@
 //}
 ////print_r($array_all);
 //echo "<br>";
-$words = '<img src="/images/black_ribbon_top_left.png">';
-$wordss='';
-if (preg_match('/[^\/]>$/', $words)) {
-    $wordss = preg_replace('/>$/', ' />', $words);
-} else if (preg_match('/\/>$/', $words)){
-    $wordss = preg_replace('/\/>$/', ' />', $words);
-}
-echo htmlspecialchars($wordss);
+phpinfo();
 ?>

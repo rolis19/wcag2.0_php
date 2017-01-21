@@ -95,9 +95,9 @@ END;
                         if (strlen(trim($line_string)) != 0 && strlen($line_string) > 1){
                             $new_decode = explode(' ', htmlspecialchars_decode($line_string));
                             for ($n = 0; $n < count($new_decode); $n++){
-                                $new_decode_ft = preg_replace('/></', '> <', $new_decode[$n]);
-                                $new_decode_scd = preg_replace('/([^(>|\s)])(<)/', '$1 $2', $new_decode_ft);
-                                $new_decode[$n] = preg_replace('/(>)([^(<|\s)])/', '$1 $2', $new_decode_scd);
+                                $a1 = preg_replace('/></', '> <', $new_decode[$n]);
+                                $a2 = preg_replace('/([^(>|\s)])(<)/', '$1 $2', $a1);
+                                $new_decode[$n] = preg_replace('/(>)([^(<|\s)])/', '$1 $2', $a2);
                             }
                             return htmlspecialchars(implode(' ', $new_decode));
                         } else {
@@ -181,7 +181,7 @@ END;
                             for ($n=$line; $n < (count($this->all_array)); $n++){
                                 if ($n == $line){$length = ($position+1);} else {$length = 0;}
                                 for ($i = $length; $i < (count($this->all_array[$n])); $i++){
-                                    array_push($single_tag_arr, $this->all_array[$line][$position], $this->all_array[$n][$i]);
+                                    array_push($single_tag_arr, $this->all_array[$n][$i]);
                                     if (preg_match('/&gt;$/', $this->all_array[$n][$i])) {
                                         $nd_tag = $i;
                                         $line_end = $n;
@@ -264,20 +264,17 @@ END;
                                         if (!empty($img_tag)){
                                             $this->img_check($img_tag, $line, $position);
                                         }else {
-                                            echo "you are missing w3c tag validator checker ".$line."<br>";
+                                            echo "Unclosed img tag on line ".$line."<br>";
                                         }
                                         break;
 
                                     case "&lt;input": //Input tag
-//                                        $end_tag = $this->find_close_tag($line, $position);
-//                                        $next_open_tag = $this->next_open_tag($line, $position);
-//                                        $is_end_true = $this->is_end_true($end_tag, $next_open_tag);
-//                                        if (!$is_end_true){
-//                                            echo "you are missing w3c tag validator checker";
-//                                        } else {
-//                                            $input_tag = $this->single_tag($line, $position, $end_tag);
-//                                            $this->input_alloc($input_tag, $line, $position);
-//                                        }
+                                        $input_tag = ($this->find_close_tag($line, $position));
+                                        if (!empty($input_tag)){
+                                            $this->input_alloc($input_tag, $line, $position);
+                                        } else {
+                                            echo "Unclosed input tag on line ".$line."<br>";
+                                        }
                                         break;
                                 }
                                 if ($line == $end_array){
@@ -306,17 +303,10 @@ END;
                                 //alt found
                             } else{
                                 if (count($img_tag) <= 2){
-                                    $decode_html = htmlspecialchars_decode($img_tag[1]);
-                                    $words = '';
-                                    if (preg_match('/[^\/]>$/', $decode_html)) {
-                                        $words = preg_replace('/>$/', htmlspecialchars(' />'), $decode_html);
-                                    } else if (preg_match('/\/>$/', $decode_html)){
-                                        $words = preg_replace('/\/>$/', htmlspecialchars(' />'), $decode_html);
-                                    }
-                                    write_to_fref($line, $start_tag+1, $words);
+                                    $words = preg_replace('/(\/?&gt;$)/', ' /&gt;', $img_tag[count($img_tag)-1]);
                                     $a2 = explode(' ', $words);
                                     array_splice($img_tag, 1, 1, $a2);
-                                    print_r($img_tag);
+                                    write_to_fref($line, $start_tag, $img_tag);
                                 }
                                 form_correct($img_tag, 'img', $line+1, $start_tag+1, '');
                             }
