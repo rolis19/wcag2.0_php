@@ -6,14 +6,9 @@ if (isset($_POST["name"])) {
     $position = $tag_arr[1];
     $position1 = $tag_arr[2];
     $tag = $tag_arr[3];
-    $all_tag = file_get_contents('file-reference.txt');
+    $all_tag = file_get_contents('newfile.html');
     $insert = new insertValue($all_tag);
     $insert->give_tag_desc($words, $line, $position, $position1, $tag);
-
-    //Debuging bro
-    $myfile = fopen("debung.txt", "w") or die("Unable to open file!");
-    fwrite($myfile, $words);
-    fclose($myfile);
 }
 class insertValue {
     public $all_array;
@@ -54,17 +49,13 @@ class insertValue {
             $this->all_array[$line-1][$i] = $this->all_array[$line-1][$i-1];
         }
         $this->all_array[$line-1][$position+1] = $words;
-        $myfile_source = fopen("file-reference.txt", "w") or die("Unable to open file!");
         $myfile = fopen("newfile.html", "w") or die("Unable to open file!");
         foreach ($this->all_array as $lines){
             foreach ($lines as $items){
-                fwrite($myfile_source, $items." ");
                 fwrite($myfile, htmlspecialchars_decode($items)." ");
             }
-            fwrite($myfile_source, "\r\n");
             fwrite($myfile, "\r\n");
         }
-        fclose($myfile_source);
         fclose($myfile);
     }
 
@@ -90,7 +81,7 @@ class insertValue {
 //            $a2 = array($this->all_array[$position1].'*#+'.$words_input);
 //        }
 //        array_splice($this->all_array, $position1,1,$a2);
-//        $myfile_source = fopen("file-reference.txt", "w") or die("Unable to open file!");
+//        $myfile_source = fopen("newfile.html", "w") or die("Unable to open file!");
 //        $myfile = fopen("newfile.html", "w") or die("Unable to open file!");
 //        foreach ($this->all_array as $items){
 //            fwrite($myfile_source, $items." ");

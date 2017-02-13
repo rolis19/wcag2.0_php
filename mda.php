@@ -1,20 +1,16 @@
 <?php
-//$str_get= file_get_contents('temp-html-file.html');
-//$arr_one = preg_split("/\\r\\n|\\r|\\n/", htmlspecialchars($str_get));
-//$array_all = array();
-//
-//for ($i=0; $i<count($arr_one); $i++){
-//    $array_all[$i] = explode(" ", $arr_one[$i]);
-//}
-//foreach ($array_all as $keys=>$items){
-//    foreach ($items as $spec){
-//        if ($spec == htmlspecialchars('id="nama"')){
-//            echo "Terletak pada baris= ".$keys;
-//        }
-//    }
-//    echo "<br>";
-//}
-////print_r($array_all);
-//echo "<br>";
-phpinfo();
+$userinfo = "
+<h5 class=\"media-heading\">
+	<a class=\"media-left\" href=\"https://www.kku.ac.th/news/v.php?q=0013538&l=th\">
+		มูลนิธิโตโยต้าฯ มอบทุนการศึกษากว่า 3.9 ล้าน แก่ นร.นศ. ภาคอีสาน ปี2559</a>	
+</h5>
+";
+preg_match_all ("|<h[1-6]>(.*)</h[1-6]>|U", $userinfo, $pat_array);
+
+foreach ($pat_array as $keys=>$line){
+    echo "<br>".$keys." ";
+    foreach ($line as $key=>$position){
+        echo htmlspecialchars($position);
+    }
+}
 ?>
