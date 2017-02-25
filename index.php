@@ -9,6 +9,16 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes"/>
+    <meta property="og:image" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta name="description" content=""/>
+    <link rel="canonical" href=""/>
+    <meta property="og:type" content="article"/>
 	<title>Php Web Accessibility</title>
 	<link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
@@ -24,17 +34,21 @@ session_start();
     <div class="menu-wrap">
         <a class="close-button btn btn-sm btn-warning pull-right" id="close-button">Close <i class="glyphicon glyphicon-remove"></i></a>
         <div class="info-container">
-            <h3>Explanation</h3>
-            <div id="explanation">
-
-            </div>
-            <h3>Instruction</h3>
-            <div id="instruction">
-
-            </div>
-            <h3>WCAG 2.0 Technique</h3>
-            <div id="technique">
-
+            <div id="explanation"></div>
+            <div id="instruction"></div>
+            <div id="technique"></div>
+            <a href="#official" class="btn btn-info btn-tag" data-toggle="collapse">
+                Read Official Guideline <i class="glyphicon glyphicon-chevron-down"></i>
+            </a>
+            <div id="official" class="collapse">
+                <h2>4. Robust</h2>
+                <p class="subtitle">4.1.1 Parsing</p>
+                <p>
+                    In content implemented using markup languages, elements have complete start and end tags, elements are nested
+                    according to their specifications, elements do not contain duplicate attributes, and any IDs are unique,
+                    except where the specifications allow these features.
+                </p>
+                <a href="https://www.w3.org/WAI/WCAG20/quickref/?showtechniques=411" target="_blank" class="pull-right">Source</a>
             </div>
         </div>
     </div>
@@ -44,7 +58,7 @@ session_start();
             <div class="row">
                 <div class="col-md-6 top">
                     <div class="all-form" id="allform">
-                        <ul class="nav nav-pills pull-left" style="width: 160px">
+                        <ul class="nav nav-pills pull-left" style="width: 170px">
                             <li class="active"><a data-toggle="pill" href="#home">HTML TAG</a></li>
                             <li><a data-toggle="pill" href="#menu1">URL</a></li>
                         </ul>
@@ -99,10 +113,10 @@ END;
 
                     public function __construct($all_text){
                         $this->all_text = $all_text;
+                        doc_lang($all_text);
                         get_heading($all_text);
                         check_onchange($all_text);
                         check_orderedlist($all_text);
-                        doc_lang($all_text);
                         $fix_icon = fix_glyph_icon($all_text);
                         get_italic($fix_icon);
                         $this->arr_newline = preg_split("/\\r\\n|\\r|\\n/", $fix_icon);
@@ -179,7 +193,7 @@ END;
                                 }
                             }
                         }
-                        $this->alloc_work(); //work allocation
+                        //$this->alloc_work(); //work allocation
                         check_id($this->line_with_tag);
 
                     }
@@ -294,7 +308,6 @@ END;
                             $tag_name = $this->line_with_tag[$i]['tagname'];
                             switch ($tag_name) {
                                 case (preg_match('/&lt;img ?$/', $tag_name)? true : false): //Img tag
-
                                     $img_tag = ($this->find_close_tag($line, $position)); //Get end tag index
                                     if (!empty($img_tag)){
                                         $this->img_check($img_tag, $line, $position);
@@ -302,7 +315,6 @@ END;
                                         echo "Unclosed img tag on line ".$line."<br>";
                                     }
                                     break;
-
                                 case (preg_match('/^\t?&lt;input/', $tag_name)? true : false): //Input tag
                                     $input_tag = ($this->find_close_tag($line, $position));
                                     if (!empty($input_tag)){
@@ -324,6 +336,13 @@ END;
                         foreach ($tag_array as $key=>$item){
                             echo "<button id='$key' class='btn correct-close-tag'>".$item."</button> ";
                         }
+                    }
+
+                    public function img_check1(){
+                        // Ambil indicate position dan line
+                        // Form string baru dari indicate position sampe akhir
+                        // Cari satu img tag, jika tidak ketemu maka return close tag tidak ketemu
+                        // Jika ketemu do img check
                     }
                     //===================   Check img Tag Process    ==========================================
                     public function img_check($img_tag, $line, $start_tag){
@@ -526,6 +545,12 @@ END;
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="auto">
+                                <div id="info-auto" style="display:none;">
+                                    <p class="text-center info-other">
+                                        <span class="bg-danger">Note:</span> <br>What listed here are not absolute correct,<br> therefore we encourage you to press "more info" button
+                                    </p>
+                                </div>
+                                <ul id='basic-list'></ul>
                                 <ul id='auto-list'>
                                     <h3 id="info-intro" class="text-center" style="padding: 18px 12px; width: 80%; margin: 120px auto 0;">Your check's result soon <br> <small>will be apeared here <br> <i class="glyphicon glyphicon-flash"></i> </small></h3>
                                 </ul>

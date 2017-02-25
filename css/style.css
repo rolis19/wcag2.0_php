@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400');
 a, a:active, a:focus {
     outline: none;
 }
@@ -78,7 +79,8 @@ a, a:active, a:focus {
 .btn-4{background: #F55753}
 .btn-5{background: #FFDA92 }
 .btn-6{background: #FFA781}
-#auto {padding-top: 12px}
+#auto {margin-top: -18px}
+#outline {margin-top: -18px}
 #auto ul {
     padding-left: 11px;
 }
@@ -273,7 +275,7 @@ html, body, .container, .content-wrap {
     transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1) 0s;
 }
 .menu-wrap {
-    background: #716DE4;
+    background: #ffffff;
     font-size: 1.15em;
     height: 550px;
     padding: 8px;
@@ -282,27 +284,73 @@ html, body, .container, .content-wrap {
     transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1) 0s;
     width: 500px;
     z-index: 1001;
+    overflow: auto;
 }
-.menu-wrap .btn {color: #ffffff; border: none}
+.menu-wrap .btn {color: #ffffff; border: none; border-radius: 100px}
 .info-container{
     padding: 22px;
-    color: #FFFFFF;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+}
+.info-container a.pull-right{
+    text-decoration: underline;
+}
+.info-container h3 {
+    margin: 0;
+    border-bottom: 1px solid #67FCA6;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.50);
+    padding-bottom: 18px;
+}
+.info-container h3::before {
+    background-color: #67FCA6;
+    content: "";
+    height: 10px;
+    margin-top: 39px;
+    position: absolute;
+    width: 36px;
+}
+
+#explanation{
+    padding-bottom: 12px;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.58);
+}
+#explanation p{
+    margin-top: 12px;
 }
 #instruction {
     background-color: rgba(255, 255, 255, 0.6);
-    padding: 16px 18px 16px 35px;
+    padding-bottom: 16px;
     color: #444444;
 }
-#instruction ul{
-    margin: 0;
-    padding: 0;
+#instruction ul {
+    background: azure none repeat scroll 0 0;
+    margin-top: 10px;
+    padding: 20px 10px 20px 30px;
+    color: #8BA8A8;
 }
+#instruction ul code{
+    opacity: 0.78;
+}
+
+#technique {margin-bottom: 30px}
 #technique ul {
-    margin: 0;
+    margin: 12px 0 0 0;
     padding: 0;
 }
 #technique ul li {
     list-style: none;
+    font-weight: 300;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.58);
+}
+#official {
+    padding-bottom: 60px;
+    color: rgba(0, 0, 0, 0.76);
+}
+#official h2{
+    font-size: 26px;
 }
 p.info-other{
     background-color: #FFEEED;
@@ -314,19 +362,19 @@ p.info-other{
 code {background-color: transparent}
 #alert >ul {margin-left: 12px; padding: 0;margin-top: 12px;}
 
-#auto-list >li, #alert-list >li {
+#auto-list >li, #alert-list >li, #basic-list >li {
     list-style: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.07);
     padding: 14px 10px;
     color: rgba(0, 0, 0, 0.5);
 }
-#auto-list >li .btn, #alert-list >li .btn{
+#auto-list >li .btn, #alert-list >li .btn, #basic-list >li .btn{
     -webkit-border-radius: 50px;
     -moz-border-radius: 50px;
     border-radius: 50px;
     margin-left: 4px;
 }
-#auto-list >li .btn-info, #alert-list >li .btn-info{
+#auto-list >li .btn-info, #alert-list >li .btn-info, #basic-list >li .btn-info{
     margin-left: 20px;
 }
 ul li samp {
@@ -334,4 +382,26 @@ ul li samp {
 }
 #alert-list code {
     padding-left: 0;
+}
+.btn-tag {
+    background: transparent none repeat scroll 0 0;
+    border-radius: 100px;
+    color: rgba(0, 0, 0, 0.78) !important;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.btn-tag:hover, .btn-tag:active, .btn-tag.active {
+    color: #ffffff!important;
+}
+.btn-tag:hover i, .btn-tag:active i, .btn-tag.active i{
+    color: #ffffff!important;
+}
+.btn-warning.btn-tag {
+    border: 1px solid #FBBE25;
+}
+.btn-info.btn-tag {
+    border: 1px solid #57A0FC;
+}
+.btn-info.btn-tag i{
+    color: #57A0FC;
 }

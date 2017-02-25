@@ -124,14 +124,17 @@ function doc_lang($all_text){
     $a1 = count($arr_lang[1]);
     $message = 'HTML documents don\'t have specific language';
     if ($a1 == 0){
-        display_alert($message, 'lang-info');
+        display_alert($message, 'lang-info', 'langInfo');
     } else if ($a1 ==1){
         if (!(preg_match('/lang="(...?)"/', $arr_lang[1][0]))){
-            display_alert($message, 'lang-info');
+            display_alert($message, 'lang-info', 'langInfo');
         }else {
             $lang = 'Language = <strong> English</strong>';
-            display_auto($lang, 'lang-check');
+            display_auto($lang, 'basic-list','lang-check', 'langInfoTrue');
         }
+    } else {
+    	$lang = 'Language = <strong> English</strong>';
+        display_auto($lang, 'basic-list','lang-check', 'langInfoTrue');
     }
 }
 function check_onchange($all_text){
@@ -145,7 +148,7 @@ function check_onchange($all_text){
             array_push($onchange_txt, '<li><samp>'.htmlspecialchars($items).'</samp></li>');
         }
         $message = '<code>select</code> element may cause extreme change in context due to <samp>onchange()</samp> javascript function';
-        display_alert($message, $class);
+        display_alert($message, $class, 'onchangeInfo');
         if (count($arr_onchange[0]) <= 2){
             display_child_few(implode(' ', $onchange_txt), 'alert-list', $class, 'panel-warning', 'onchange-list');
         }
@@ -157,7 +160,6 @@ function check_orderedlist($all_text){
     $find = '/<ol(.*?)>(.*?)<\/ol>/s';
     preg_match_all($find, $text, $match);
     $a1 = htmlspecialchars('<ol>');
-    $message = 'Ordered list <code>'.$a1.'</code> probably misused';
     $class = 'orderlist_check';
     if (count($match[0]) != 0){
         foreach ($match[2] as $items){
@@ -168,7 +170,11 @@ function check_orderedlist($all_text){
 //            if (!empty($value))
 //                echo htmlspecialchars($item)."<br>";
         }
-        display_alert($message, $class);
+        $message = 'Ordered list <code>'.$a1.'</code> probably misused';
+        display_alert($message, $class, 'olInfo');
+    } else{
+        $message = 'No ordered list found';
+        display_auto($message, 'basic-list', $class, 'olInfoTrue');
     }
 }
 function check_id($line_with_tag){
@@ -188,21 +194,15 @@ function check_id($line_with_tag){
         }
     }
     if ($indicator == 0){
-        $message_no =  " <i class='glyphicon glyphicon-ok-sign'></i> No duplicate ID found";
-        display_auto($message_no, 'id-check');
+        $message_no =  "No duplicate ID found";
+        display_auto($message_no, 'basic-list','id-check', 'idInfoTrue');
     } else {
-        display_alert($message, 'id-check-empty');
+        display_alert($message, 'id-check-empty', 'idInfo');
     }
 }
 function fix_glyph_icon($all_text){
-    echo <<< END
-    <script type="text/javascript">
-    //        document.getElementById("info-intro").className += " coba";
-        document.getElementById("info-intro").style.display = "none";
-        document.getElementById("nav-tab").style.visibility = "visible";
-    </script>
-END;
     $arr_icon=array();
+    $class ='glyph-check';
     $text = htmlspecialchars_decode($all_text);
     $find = '/<(span|i) class="(glyph|fa|ico)(?!.*aria)(.+?)"> ?<\/(span|i)>/';
     $find1 ='/<(span|i) class="(glyph|fa)(.*)" (style=".+")> ?<\/(span|i)>/';
@@ -215,13 +215,21 @@ END;
     }
     if (count($icon_arr[0])==0){
         $message = "No icon found";
-        display_auto($message, 'glyph-info');
+        display_auto($message, 'basic-list',$class, 'glyphInfoTrue');
     } else {
         $a = count($icon_arr[0]);
         $message = $a." icon/s have been added accessibility features";
-        display_auto($message, 'glyph-info');
-        display_icon(implode(' ', $arr_icon));
+        display_auto($message, 'auto-list', $class, 'glyphInfo');
+        display_child_many(implode(' ',$arr_icon), 'auto-list', $class, 'panel-success', 'icon-list');
     }
+    echo <<< END
+    <script type="text/javascript">
+    //        document.getElementById("info-intro").className += " coba";
+        document.getElementById("info-intro").style.display = "none";
+        document.getElementById("nav-tab").style.visibility = "visible";
+        document.getElementById("info-auto").style.display = "block";
+    </script>
+END;
     return $item1;
 }
 function sterile_string($line_string){
@@ -268,32 +276,35 @@ function get_italic($all_text){
     $class = 'italic-info';
     if (count($italic_txt) >= 1){
         $message = "Found ".count($italic_txt)." word/s in italic format";
-        display_alert($message, $class);
+        display_alert($message, $class, 'italicInfo');
         if (count($italic_txt) <=2){
             display_child_few(implode(' ', $italic_txt), 'alert-list', $class, 'panel-warning', 'italic-list');
         }else {
             display_italic(implode(' ', $italic_txt));
         }
+    } else {
+        $message = 'No italic style found';
+        display_auto($message, 'basic-list',$class, 'italicInfoTrue');
     }
 }
-function display_auto($message, $type){
+function display_auto($message, $id_type, $type, $detail_info){
     echo <<< END
     <script type="text/javascript">
         $(document).ready(function(){
-            $("ul#auto-list").append("<li class='$type'>$message </li>");
-            $("ul#auto-list li.$type").append($('<a/>', 
-                {'text': "More info", 'class': 'btn btn-info btn-sm', 'id': '$type'}).on({'click': function() { revealInfo("$type", "input") }}));
+            $("ul#$id_type").append("<li class='$type'>$message </li>");
+            $("ul#$id_type li.$type").append($('<a/>', 
+                {'text': "More info", 'class': 'btn btn-info btn-sm', 'id': '$type'}).on({'click': function() { revealInfo("$type", "$detail_info") }}));
         });
     </script>
 END;
 }
-function display_alert($message, $type){
+function display_alert($message, $type, $detail_info){
     echo <<< END
     <script type="text/javascript">
         $(document).ready(function(){
             $("ul#alert-list").append("<li class='$type'>$message</li>");
             $("ul#alert-list li.$type").append($('<a/>', 
-                {'text': "More info", 'class': 'btn btn-info btn-sm', 'id': '$type'}).on({'click': function() { revealInfo("$type", "input") }}));
+                {'text': "More info", 'class': 'btn btn-info btn-sm', 'id': '$type'}).on({'click': function() { revealInfo("$type", "$detail_info") }}));
             var size = $("#alert-list >li").length;
             document.getElementById("b-alert").className = "bub-alert";
             document.getElementById("b-alert").innerHTML = size;
@@ -301,13 +312,13 @@ function display_alert($message, $type){
     </script>
 END;
 }
-function display_icon($message){
+function display_child_many($message, $id_container, $li_class, $level, $id_child){
     echo <<< END
     <script type="text/javascript">
         $(document).ready(function(){
-            $("ul#auto-list li.glyph-info").append("<a class='collapsed btn btn-success btn-sm' role='button' data-toggle='collapse' data-parent='#accordion' href='#collapseIco' aria-expanded='false' aria-controls='collapseThree'><i class=' glyphicon glyphicon-menu-down'></i></a> <br />");
-            $("ul#auto-list li.glyph-info").append("<div id='collapseIco' class='panel-collapse collapse' role='tabpanel' aria-labelledby='headingThree'><div class='panel-body panel-success'><ol id='icon-list'></ol></div></div>")
-            $("ol#icon-list").append("$message");
+            $("ul#$id_container li.$li_class").append("<a class='collapsed btn btn-success btn-sm' role='button' data-toggle='collapse' data-parent='#accordion' href='#collapseIco' aria-expanded='false' aria-controls='collapseThree'><i class=' glyphicon glyphicon-menu-down'></i></a> <br />");
+            $("ul#$id_container li.$li_class").append("<div id='collapseIco' class='panel-collapse collapse' role='tabpanel' aria-labelledby='headingThree'><div class='panel-body $level'><ol id='$id_child'></ol></div></div>")
+            $("ol#$id_child").append("$message");
         });
     </script>
 END;
@@ -327,8 +338,8 @@ function display_child_few($message, $id_container, $li_class, $level, $child_id
     echo <<< END
     <script type="text/javascript">
         $(document).ready(function(){
-            $("ul#$id_container li.$li_class").append("<div class='panel-body $level'><ul id='$child_id'></ul></div></div>")
-            $("ul#$child_id").append("$message");
+            $("ul#$id_container li.$li_class").append("<div class='panel-body $level'><ol id='$child_id'></ul></div></div>")
+            $("ol#$child_id").append("$message");
         });
     </script>
 END;
