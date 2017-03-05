@@ -5,6 +5,7 @@ $time = explode(' ', $time);
 $time = $time[1] + $time[0];
 $start = $time;
 session_start();
+ini_set('max_execution_time', 300);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -113,11 +114,13 @@ END;
 
                     public function __construct($all_text){
                         $this->all_text = $all_text;
+                        //test_par($all_text);
                         doc_lang($all_text);
                         get_heading($all_text);
                         check_onchange($all_text);
                         check_orderedlist($all_text);
                         $fix_icon = fix_glyph_icon($all_text);
+                        //check_contrast($all_text);
                         get_italic($fix_icon);
                         $this->arr_newline = preg_split("/\\r\\n|\\r|\\n/", $fix_icon);
                         $my_file = fopen("newfile.html", "w") or die("Unable to open file!");
@@ -193,7 +196,7 @@ END;
                                 }
                             }
                         }
-                        //$this->alloc_work(); //work allocation
+                        $this->alloc_work(); //work allocation
                         check_id($this->line_with_tag);
 
                     }
@@ -539,7 +542,8 @@ END;
                         <li role="presentation" id="li-error"><a href="#error" aria-controls="error" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-remove-circle"></i> Errors <span class="bubble" id="b-error"></span></a></li>
                         <li role="presentation" id="li-alert"><a href="#alert" aria-controls="alert" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-warning-sign"></i> Alert <span class="bubble" id="b-alert"></span></a></li>
                         <li role="presentation"><a href="#outline" aria-controls="outline" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-list-alt"></i> Outline</a></li>
-                        <li><a href="#" class="btn btn-download disabled"><i class="glyphicon glyphicon-file"></i> Download</a></li>
+                        <li role="presentation"><a href="#contrast" aria-controls="outline" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-eye-open"></i> Contrast</a></li>
+<!--                        <li><a href="#" class="btn btn-download disabled"><i class="glyphicon glyphicon-file"></i> Download</a></li>-->
                     </ul>
                     <div class="content-correct">
                         <!-- Tab panes -->
@@ -557,6 +561,10 @@ END;
                             </div>
                             <div role="tabpanel" class="tab-pane" id="alert">
                                 <ul id='alert-list'>
+                                </ul>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="contrast">
+                                <ul id='contrast-list'>
                                 </ul>
                             </div>
                             <?php

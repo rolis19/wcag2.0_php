@@ -1,5 +1,7 @@
 <?php
 //Form for correcting input from user
+require __DIR__ . '/vendor/autoload.php';
+//include 'mda.php';
 function write_to_fref($line, $position, $word){
     $filename = getcwd() . "/newfile.html";
     $line_looking_for = $line;
@@ -344,4 +346,47 @@ function display_child_few($message, $id_container, $li_class, $level, $child_id
     </script>
 END;
 }
+
+function check_contrast($all_text){
+    $findcss = '/href="(.+?styles?\.css)"/';
+    $text = htmlspecialchars_decode($all_text);
+    preg_match_all($findcss, $text, $arr_find);
+    if (!empty($arr_find[1][0])){
+        $cssurl = $arr_find[1][0];
+        $oCssParser = new Sabberworm\CSS\Parser(file_get_contents($cssurl));
+        $oCssDocument = $oCssParser->parse();
+        $find = '/(?=.+background-color: (.*?);)(?=.+;color: (.+?);).+/';
+        $find1 = '/(.+?){(.+?)}/';
+        $arr1 = array();
+        foreach ($oCssDocument->getAllDeclarationBlocks() as $key=>$items){
+            if (preg_match_all($find, $items, $arr)){
+                preg_match_all($find1, implode(' ', $arr[0]), $arra);
+                array_push($arr1, $arra[1][0].'*'.$arr[1][0].'*'.$arr[2][0]);
+            }
+
+        }
+       echo implode(' ', $arr1);
+    } else {
+        $message = 'Can\'t parse css file ';
+    }
+   // display_contrast($message, 'cont', 'contrastInfo');
+}
+function display_contrast($message, $type, $detail_info){
+    echo <<< END
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("ul#contrast-list").append("<li class='$type'>$message</li>");
+            $("ul#contrast-list li.$type").append($('<a/>', 
+                {'text': "More info", 'class': 'btn btn-info btn-sm', 'id': '$type'}).on({'click': function() { revealInfo("$type", "$detail_info") }}));
+        });
+    </script>
+END;
+}
+
+
+//function test_par($all_text){
+//    $text = htmlspecialchars_decode($all_text);
+//    $find = '/<([a-z]*)\b[^>]*>(.*?)</\1>/i';
+//    preg_match_all($find, $text, $matches);
+//}
 ?>

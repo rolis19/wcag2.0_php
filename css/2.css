@@ -224,9 +224,6 @@ textarea.form-control:focus{  box-shadow: none;  }
     height: 480px;
     overflow: scroll;
 }
-/*.all-form {*/
-    /*display: none;*/
-/*}*/
 pre {overflow: visible; background: #FFFFFF; border-color: #FFFFFF; padding: 0; margin: 0; border-radius: 0;
     display: inline-table;
     width: 100%;
@@ -266,7 +263,7 @@ footer {
     position: relative;
 }
 /*.content-wrap {*/
-    /*overflow-y: scroll;*/
+/*overflow-y: scroll;*/
 /*}*/
 html, body, .container, .content-wrap {
     /*overflow: hidden;*/
