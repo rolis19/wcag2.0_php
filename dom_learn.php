@@ -1,16 +1,5 @@
 <?php
-$css = file_get_contents('temp.css');
-//css_beautify($css);
-split_css($css);
-function split_css($css){
-    $find = '/(\S.*?) ?{(.*?)}/s';
-    preg_match_all($find, $css, $found);
-    $bg_color = find_bgcolor($found);
-    $color = find_color($found);
-    foreach ($bg_color as $key=>$itm){
-        echo $found[1][$key].'==>'.$itm."<br>";
-    }
-}
+
 function find_bgcolor($found){
     $with_bg = array();
     foreach ($found[2] as $key=>$item){

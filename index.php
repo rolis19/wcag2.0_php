@@ -188,7 +188,8 @@ END;
                                     if (preg_match($this->checker_list[$i], $items)){
                                         //Forming array
                                         $j++;
-                                        $this->line_with_tag[$j] = array('line'=> $line,
+                                        $this->line_with_tag[$j] = array(
+                                                'line'=> $line,
                                             'position' => $position,
                                             'tagname' => $items
                                         );

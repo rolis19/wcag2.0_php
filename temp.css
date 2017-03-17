@@ -4,7 +4,7 @@ a, a:active, a:focus{
 }
 .p-head{
 	margin-bottom: 8px;
-	 color: rgba(0, 0, 0, 0.6);
+	 color: rgb(0, 0, 0);
 }
 #outline .btn-sm{
 	 padding: 0!important;
@@ -16,7 +16,7 @@ a, a:active, a:focus{
 	 margin-left: -30px;
 	 margin-right: -30px;
 	 padding: 12px 30px;
-	 color: rgba(0,0,0, 0.67);
+	 color: blue;
 }
 .bub-danger{
 	 background-color: rgba(226, 32, 91, 0.77);
