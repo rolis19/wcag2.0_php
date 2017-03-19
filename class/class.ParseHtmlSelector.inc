@@ -40,6 +40,8 @@ class SelectorParser{
                         'class' => $node->getAttribute('class'),
                         'id' => $node->getAttribute('id'),
                         'style' => $node->getAttribute('style'),
+                        'allPath' => $this->real_path($this->parse_html(), $k),
+
                     );
                 }
             }

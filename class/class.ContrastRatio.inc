@@ -2,10 +2,12 @@
 class CssParser {
     public $css;
     public $cssColor = array();
+    public $cssBackground = array();
     public function __construct($css){
         $this->css_beautify($css);
         $this->css = file_get_contents('temp.css');
         $this->cssColor = $this->split_css('color');
+        $this->cssBackground = $this->split_css('background');
     }
     //Parsing start here, to get only selector which has
     // background and foreground color
@@ -49,6 +51,7 @@ class CssParser {
                 'selector' => $found[1][$key],
                 'value' => $itm,
                 'selectorType' => $this->setSelectorType($found[1][$key]),
+                'selectorDecType' => $this->setSelectorDecType($found[1][$key]),
                 'legalColorType' => $this->setLegalColorType($itm)
             );
         }
@@ -78,9 +81,19 @@ class CssParser {
         }
         return $with_color;
     }
-	
-	//Set selector types
-	public function setSelectorType($selector){
+
+    public function setSelectorType($selector){
+        if (preg_match('/^\./', $selector)){
+            $selectorType = 'class';
+        } else if (preg_match('/^#/', $selector)){
+            $selectorType = 'id';
+        }else {
+            $selectorType = 'selectorName';
+        }
+        return $selectorType;
+    }
+	//Set selector Declaration types
+	public function setSelectorDecType($selector){
 		if (!preg_match('/\s/', $selector)) {
 			//Basic selector
 			$selectorType = 'basic';
