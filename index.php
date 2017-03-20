@@ -1,5 +1,6 @@
 <?php
 include 'display-message.php';
+include 'class-check/class.CheckImg.inc';
 $time = microtime();
 $time = explode(' ', $time);
 $time = $time[1] + $time[0];
@@ -106,232 +107,40 @@ END;
 <!-- =============================================== Start Class-->
                 <?php
                 class mainArray{
+                    public $html;
                     public $all_text;
-                    public $all_array;
-                    public $arr_newline;
-                    public $line_with_tag = array();
-                    public $checker_list = array('/&lt;img/', '/&lt;input/', '/^id=&quot;(.*?)&quot;/');
 
                     public function __construct($all_text){
-                        $this->all_text = $all_text;
-                        //test_par($all_text);
-                        doc_lang($all_text);
-                        get_heading($all_text);
-                        check_onchange($all_text);
-                        check_orderedlist($all_text);
-                        $fix_icon = fix_glyph_icon($all_text);
-                        //check_contrast($all_text);
-                        get_italic($fix_icon);
-                        $this->arr_newline = preg_split("/\\r\\n|\\r|\\n/", $fix_icon);
+                        /***
+                         * Saving to newfile.html,
+                         * will be used for correcting
+                         */
                         $my_file = fopen("newfile.html", "w") or die("Unable to open file!");
-                        for ($i=0; $i<count($this->arr_newline); $i++){
-                            $arrnewline_sterile = sterile_string($this->arr_newline[$i]);
-                            $this->all_array[$i] = explode(" ", $arrnewline_sterile);
-                            fwrite($my_file, htmlspecialchars_decode($arrnewline_sterile)."\r\n");
-                        }
+                        fwrite($my_file, $all_text);
                         fclose($my_file);
+
+                        $this->html= htmlspecialchars_decode($all_text);
                     }
 
-                    //					Use this class every time we need to check the existence of certain word.
-                    public function is_exist($word, $start, $end, $array_of){
-                        $index = 0;
-                        for ($i=$start; $i<$end; $i++){
-                            if ($word == $array_of[$i]){
-                                $index = $i;
-                                //break;
-                            }
-                        }
-                        if ($index==0){
-                            return false;
-                        } else {
-                            return $index;
-                        }
-                    }
-                    //					For slicing every element in array
-                    public function subarr ($arrays_of, $start, $length ){
-                        $new_sort = array();
-                        foreach ($arrays_of as $items){
-                            array_push($new_sort, substr($items, $start, $length));
-                        }
-                        return $new_sort;
-                    }
-
-                    //Ignore comments
-                    public function get_ride_comment(){
-                        $li=0; $po=0;
-                        foreach ($this->all_array as $line=>$lines) {
-                            foreach ($lines as $position=>$items){
-                                if (preg_match('/^&lt;!--/', $items)){
-                                    $li = $line;
-                                    $po = $position;
-                                }
-                            }
-                        }
-                        $cls_comment = $this->next_open_tag($li, $po, '/--&gt;$/');
-                        return $this->single_multiline_tag($li, $po, $cls_comment[0], $cls_comment[1]);
-
-                    }
                     //Find tag, also their index
                     public function tag_check(){
-                        $j=-1;
-//                            $comment = $this->get_ride_comment();
-                        foreach ($this->all_array as $line=>$lines) {
-                            foreach ($lines as $position=>$items){
-//                                    if (in_array($line, $comment)){
-//                                        if (!in_array($position, $comment[1])){
-//                                            echo $this->all_array[$line][$position];
-//                                        }
-//                                    } else {
-//                                        echo $this->all_array[$line][$position];
-//                                    }
-                                for ($i = 0; $i < count($this->checker_list); $i++) {
-                                    if (preg_match($this->checker_list[$i], $items)){
-                                        //Forming array
-                                        $j++;
-                                        $this->line_with_tag[$j] = array(
-                                                'line'=> $line,
-                                            'position' => $position,
-                                            'tagname' => $items
-                                        );
-                                    }
-                                }
-                            }
-                        }
+                        //test_par($all_text);
+                        doc_lang($this->html);
+                        get_heading($this->html);
+                        check_onchange($this->html);
+                        check_orderedlist($this->html);
+                        $fix_icon = fix_glyph_icon($this->html);
+                        //check_contrast($all_text);
+                        get_italic($fix_icon);
+
                         $this->alloc_work(); //work allocation
-                        check_id($this->line_with_tag);
 
                     }
-                    public function debug(){
-                        $id_array = array();
-                        foreach ($this->line_with_tag as $line){
-                            if (preg_match('/id=&quot;(.*?)&quot;/', $line['tagname'])){
-                                $a1 = preg_replace('/id=&quot;(.*?)&quot;&gt;/', 'id=&quot;$1&quot;', $line['tagname']);
-                                array_push($id_array, $a1);
-                            }
-                        }
-                        //Check duplicate value
-                        foreach(array_count_values($id_array) as $key=>$items){
-                            if ($items > 1){
-                                echo "<code>".$key."</code> Was used for ".$items." times";
-                            }
-                        }
-                    }
-                    //Find end tag
-                    public function find_close_tag($line, $position){
-                        $nd_tag = 0; $line_end=0;
-                        $single_tag_arr = array($this->all_array[$line][$position]);
-                        for ($n=$line; $n < (count($this->all_array)); $n++){
-                            if ($n == $line){$length = ($position+1);} else {$length = 0;}
-                            for ($i = $length; $i < (count($this->all_array[$n])); $i++){
-                                array_push($single_tag_arr, $this->all_array[$n][$i]);
-                                if (preg_match('/&gt;$/', $this->all_array[$n][$i])) {
-                                    $nd_tag = $i;
-                                    $line_end = $n;
-                                    break;
-                                }
-                            }
-                            if ($nd_tag != 0){
-                                break;
-                            }
-
-                        }
-                        if (empty($this->next_open_tag($line, $position, '/&lt;$/'))){ //Suppose last line
-                            return $single_tag_arr;
-                        }else{
-                            $next_open_tag = $this->next_open_tag($line, $position, '/&lt;$/');
-                            $next_open_tag = ($next_open_tag[0]+1).$next_open_tag[1];
-                            if ($next_open_tag > ($line_end+1).$nd_tag){
-                                return $single_tag_arr;
-                            } else {
-                                return NULL;
-                            }
-                        }
-                    }
-                    //Check whether end tag is true, by checking open tag for next element
-                    public function next_open_tag($line, $position, $search){
-                        $nxt_opn_tag = 0; $line_nxt_open = 0;
-                        for ($n=$line; $n < (count($this->all_array)); $n++){
-                            if ($n == $line){$length = ($position+1);} else {$length = 0;}
-                            for ($i = $length; $i < (count($this->all_array[$n])); $i++){
-                                if (preg_match($search, $this->all_array[$n][$i])) {
-                                    $nxt_opn_tag = $i;
-                                    $line_nxt_open = $n;
-                                    break;
-                                }
-                            }
-                            if ($nxt_opn_tag != 0){
-                                break;
-                            }
-                        }
-                        if ($nxt_opn_tag == 0 && $line_nxt_open == 0){
-                            return 0;
-                        } else {
-                            return array($line_nxt_open, $nxt_opn_tag);
-                        }
-                    }
-
-                    public function single_multiline_tag($li1, $po1, $li2, $po2){
-                        $single_tag_arr = array();
-                        for ($n=$li1; $n < (count($this->all_array)); $n++){
-                            array_push($single_tag_arr, $n);
-                            $single_tag_arr[$n]= array();
-                            for ($i = $po1; $i < (count($this->all_array[$n])); $i++){
-                                array_push($single_tag_arr[$n], $i);
-                                if ($i == $po2) {
-                                    break;
-                                }
-                            }
-//                                $single_tag_arr[$n] = array(1, 2, 3);
-                            if ($n == $li2){
-                                break;
-                            }
-
-                        }
-                        return $single_tag_arr;
-                    }
-                    // After start and end tag found return new array accordingly Snew array equal one tag (open and close)
-                    public function single_tag($line, $start_tag, $end_tag){
-                        $single_tag_arr = array();
-                        for ($n = $start_tag; $n < count($this->all_array[$line]); $n++) {
-                            for ($i = $start_tag; $i <= $end_tag; $i++) {
-                                array_push($single_tag_arr, $this->all_array[$line][$i]);
-                            }
-                            break;
-                        }
-                        return $single_tag_arr;
-                    }
-                    //======================= End of General function, custom library =======
 
                     //Work allocation here
                     public function alloc_work(){
-                        $end_array = $this->line_with_tag[count($this->line_with_tag)-1]['line'];
                         echo '<div role="tabpanel" class="tab-pane" id="error">';
-                        for ($i=0; $i<count($this->line_with_tag); $i++){
-                            $line = $this->line_with_tag[$i]['line'];
-                            $position = $this->line_with_tag[$i]['position'];
-                            $tag_name = $this->line_with_tag[$i]['tagname'];
-                            switch ($tag_name) {
-                                case (preg_match('/&lt;img ?$/', $tag_name)? true : false): //Img tag
-                                    $img_tag = ($this->find_close_tag($line, $position)); //Get end tag index
-                                    if (!empty($img_tag)){
-                                        $this->img_check($img_tag, $line, $position);
-                                    }else {
-                                        echo "Unclosed img tag on line ".$line."<br>";
-                                    }
-                                    break;
-                                case (preg_match('/^\t?&lt;input/', $tag_name)? true : false): //Input tag
-                                    $input_tag = ($this->find_close_tag($line, $position));
-                                    if (!empty($input_tag)){
-                                        $this->input_alloc($input_tag, $line, $position);
-                                    } else {
-                                        echo "Unclosed input tag on line ".$line."<br>";
-                                    }
-                                    break;
-                            }
-                            if ($line == $end_array){
-                                show_code(); //Show download button and inserted code
-                            }
-                        }
+                        $this->img_check();
                         echo '<div>';
                     }
 
@@ -342,194 +151,22 @@ END;
                         }
                     }
 
-                    public function img_check1(){
-                        // Ambil indicate position dan line
-                        // Form string baru dari indicate position sampe akhir
-                        // Cari satu img tag, jika tidak ketemu maka return close tag tidak ketemu
-                        // Jika ketemu do img check
-                    }
                     //===================   Check img Tag Process    ==========================================
-                    public function img_check($img_tag, $line, $start_tag){
-                        $indicator = 0;
-                        foreach ($img_tag as $img){
-                            $img_sort = substr($img, 0, 3);
-                            similar_text($img_sort,"alt",$percent);
-                            if ($percent > 90){
-                                $indicator++;
+                    /***
+                     * For nw showing code and download button only trigerred from img check
+                     */
+                    public function img_check(){
+                        $img = new CheckingImg($this->html);
+                        $all = count($img->imgnoAlt);
+                        $count = 0;
+                        foreach ($img->imgnoAlt as $key=>$img){
+                            $count++;
+                            $img_tag = $img['imgTag'];
+                            $line = $img['line'];
+                            form_correct($img_tag, 'img', $line, $key, '');
+                            if ($count == $all){
+                                show_code(); //Show download button and inserted code
                             }
-                        }
-                        if ($indicator >= 1){
-                            //alt found
-                        } else{
-                            if (count($img_tag) <= 2){
-                                $words = preg_replace('/(\/?&gt;$)/', ' /&gt;', $img_tag[count($img_tag)-1]);
-                                $a2 = explode(' ', $words);
-                                array_splice($img_tag, 1, 1, $a2);
-                                write_to_fref($line, $start_tag, $img_tag);
-                            }
-                            form_correct($img_tag, 'img', $line+1, $start_tag+1, '');
-                        }
-                    }
-                    //===================   Check input Tag Process    ==========================================
-                    public function input_alloc($input_tag, $line, $start_tag){
-                        $label_type = '';
-                        $check_arr = $this->subarr($input_tag, 0, 5);
-                        foreach ($check_arr as $key=>$item){
-                            if ($item == 'type='){
-                                $label_type = explode("&quot;", $input_tag[$key]);
-                                $label_type = $label_type[1];
-                            }
-                        }
-                        if ($label_type != ''){
-                            switch ($label_type){
-                                case "text":
-                                case "password":
-                                case "radio":
-                                case "checkbox":
-                                    //Html5 new
-                                case "color":
-                                case "date":
-                                case "datetime":
-                                case "datetime-local":
-                                case "email":
-                                case "month":
-                                case "number;":
-                                case "range":
-                                case "search":
-                                case "tel":
-                                case "time":
-                                case "url":
-                                case "week":
-                                    $this->input_check($input_tag, $line, $start_tag);
-                                    break;
-
-                                //below no need any action
-                                case "submit":
-                                case "image":
-                                case "reset":
-                                case "button":
-                                case "hidden":
-                                    break;
-                            }
-                        } else {
-                            echo '<p class="info-other">Undefinied input type in line '.($line+1).'</p>';
-                        }
-                    }
-
-                    public function input_check($input_tag, $line, $start_tag){
-                        $indicator = 0;
-                        $input_tags = implode(" ", $input_tag);
-                        //Create new array based on double quote
-                        $input_tags = explode("&quot;", $input_tags);
-                        foreach ($input_tags as $key=>$input){
-                            //find aria-label for input tag
-                            $arial_sort = substr($input, 0, 11);
-                            similar_text($arial_sort," aria-label",$percent);
-                            if ($percent > 90){
-                                //arial-label found no need further execution
-                                $indicator=1;
-                                break;
-                            }
-                        }
-                        if ($indicator == 0){
-                            //						if arial-label not exist find id then
-                            $new_sort = $this->subarr($input_tag, 0, 2);
-                            $is_there = $this->is_exist('id', 0, sizeof($input_tag), $new_sort);
-                            if (!$is_there){
-                                //								if ID not there than just set ID value to empty
-                                $this->check_labelid($input_tag, $line, $start_tag, '');
-                            } else {
-                                $this->check_labelid($input_tag, $line, $start_tag, $input_tag[$is_there].$is_there);
-                            }
-                        }
-                    }
-
-                    public function check_labelid($input_tag, $line, $start_tag, $id_input){
-                        if ($id_input === ''){
-
-                        } else {
-                            $id_name = explode("&quot;", $id_input);
-                            $id_namefor = 'for="'.$id_name[1].'"';
-                            if ($line != 0){
-                                for ($i= $line; $i>=0; $i--) {
-                                    foreach ($this->all_array[$i] as $position=>$items){
-                                        similar_text(substr($items, 0, 10+strlen($id_namefor)), htmlspecialchars($id_namefor), $percent);
-                                        if ($percent >= 100) {
-                                            $indicator = 1;
-                                        }
-                                    }
-                                }
-                            }
-
-                        }
-                        $indicator = 0;
-                        if ($start_tag == 0){
-                            $end_label = $start_tag;
-                        } else {
-                            $end_label = $start_tag-1;
-                        }
-
-
-                        if ($indicator != 1){ //Indicator -> is 'for' in label found and whether is match with 'id' in input
-                            $line_label = $line;
-                            $check_label = substr($this->all_array[$line][$end_label], strlen($this->all_array[$line][$end_label])-14, strlen($this->all_array[$line][$end_label]));
-                            if ($check_label == htmlspecialchars('</label>')){
-                                $indicator = 1; //if the previous is label then to the line 328
-                            } else {
-                                if ($line != 0){
-                                    foreach ($this->all_array[$line-1] as $keys=>$items){
-                                        if ($items == htmlspecialchars('</label>')){
-                                            $indicator =1;
-                                            $end_label = $keys;
-                                            $line_label = $line-1;
-                                        }
-                                    }
-                                }
-                            }
-
-                            if ($indicator != 1){ // Indicator -> Is label found?
-                                //echo '<div role="tabpanel" class="tab-pane" id="messages">';
-                                form_correct($input_tag, 'input', $line+1, $start_tag, ''); // Supposed label not found.
-                                //echo '</div>';
-                            } else {
-                                $start_label = 0;
-                                $label_tag = array();
-                                // Find the first index of label
-                                for ($i=$end_label; $i>=0; $i--){
-                                    $new_label = substr($this->all_array[$line_label][$i], 0, 7);
-                                    if ($new_label == htmlspecialchars('<lab')){ // sort version of <label>
-                                        $start_label = $i;
-                                        break;
-                                    }
-                                }
-                                for ($j=$start_label; $j<=$end_label; $j++){
-                                    array_push($label_tag, $this->all_array[$line_label][$j]);
-                                }
-                                $arr1 = $this->single_tag($line, $start_label, $start_tag);
-                                array_splice($input_tag, 0, 1, $arr1); //New array join label and input tag together.
-                                $new_sort = $this->subarr($this->all_array[$line_label], 0, 3);
-                                $is_there = $this->is_exist('for', $start_label, $end_label, $new_sort); //check if for exist
-                                echo $is_there;
-                                if ($id_input==''){
-                                    $id_index = $start_tag;
-                                    if (!$is_there){ //When for doesn't exist but id exist
-                                        form_correct($input_tag, 'label', $line+1, $start_label, $id_index);
-                                    } else{
-                                        echo "No ID but FOR there --- not yet to solve <br/>";
-                                    }
-                                } else {
-                                    //When ID have value
-                                    $id_index = $id_input[strlen($id_input)-1];
-                                    $id_index = $id_index+$start_tag;
-                                    if (!$is_there){ //When for doesn't exist but id exist
-                                        form_correct($input_tag, 'label', $line+1, $start_label, $id_index);
-                                        echo 'musib label there ID there but no for line'.($line+1);
-                                    } else{
-                                        echo "ID there and For there, but both not same --- not yet to solve <br/>";
-                                    }
-                                }
-                            }
-
                         }
 
                     }
@@ -571,9 +208,9 @@ END;
                             <?php
                                 //Program start here for insert code
                                 if (isset($_POST['stage']) && ('process' == $_POST['stage'])) {
-                                    $all_array = htmlspecialchars($_POST['cekode']);
+                                    $all_array = $_POST['cekode'];
                                     $myfile = fopen("temp-html-file.html", "w") or die("Unable to open file!");
-                                    fwrite($myfile, $all_array." ");
+                                    fwrite($myfile, htmlspecialchars($all_array)." ");
                                     fclose($myfile);
                                     $main_array = new mainArray($all_array);
                                     $main_array->tag_check(); //First function to run in class

@@ -1,14 +1,13 @@
 <?php
-class SelectorParser{
-    public $DOMNodelist;
+include 'class.ParseHtml.inc';
+
+class SelectorParser extends HtmlParser {
     public $nodeWithValue;
+    public $DOMNodelist;
+
     public function __construct($html){
-        libxml_use_internal_errors(true);
-        $dom = new DOMDocument;
-        libxml_clear_errors();
-        /*** load the html into the object ***/
-        $dom->loadHTML($html);
-        $this->DOMNodelist = $dom->getElementsByTagName('*');
+        parent::__construct($html);
+        $this->DOMNodelist = $this->dom->getElementsByTagName('*');
         $this->nodeWithValue = $this->nodeValue();
     }
 
@@ -40,7 +39,7 @@ class SelectorParser{
                         'class' => $node->getAttribute('class'),
                         'id' => $node->getAttribute('id'),
                         'style' => $node->getAttribute('style'),
-                        'allPath' => $this->real_path($this->parse_html(), $k),
+                        'allPath' => $this->real_path($this->parse_html(), $k)  ,
 
                     );
                 }

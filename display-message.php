@@ -54,16 +54,8 @@ END;
 END;
             $desc = "Give alt value";
             $word = "<code>".htmlspecialchars('alt="..."')."</code>";
-            $a1 = array($tag_array[0], $word);
-            unset($tag_array[0]);
-            $tag_string = substr(htmlspecialchars_decode(join(' ', $tag_array)), 0 , 58);
             echo "<p class='tag-info'>";
-            echo join(' ', $a1);
-            echo htmlspecialchars($tag_string);
-            if (strlen(htmlspecialchars_decode(join(' ', $tag_array))) > 58){
-                echo "... ";
-            }
-
+            echo substr($tag_array, 0, 80).'...';
             echo "</p>";
             break;
 
@@ -226,26 +218,12 @@ function fix_glyph_icon($all_text){
     }
     echo <<< END
     <script type="text/javascript">
-    //        document.getElementById("info-intro").className += " coba";
         document.getElementById("info-intro").style.display = "none";
         document.getElementById("nav-tab").style.visibility = "visible";
         document.getElementById("info-auto").style.display = "block";
     </script>
 END;
     return $item1;
-}
-function sterile_string($line_string){
-    if (strlen(trim($line_string)) != 0 && strlen($line_string) > 1){
-        $new_decode = explode(' ', htmlspecialchars_decode($line_string));
-        for ($n = 0; $n < count($new_decode); $n++){
-            $a1 = preg_replace('/></', '> <', $new_decode[$n]);
-            $a2 = preg_replace('/([^(>|\s)])(<)/', '$1 $2', $a1);
-            $new_decode[$n] = preg_replace('/(>)([^(<|\s)])/', '$1 $2', $a2);
-        }
-        return htmlspecialchars(implode(' ', $new_decode));
-    } else {
-        return $line_string;
-    }
 }
 function get_heading($all_text){
     $heading = array();

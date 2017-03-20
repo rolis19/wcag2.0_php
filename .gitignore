@@ -6,6 +6,7 @@ npm-debug.log
 /bower_components
 /node_modules
 /vendor
+/backup
 newfile.html
 mda.php
 temp-html-file.html
