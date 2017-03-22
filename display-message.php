@@ -1,16 +1,4 @@
 <?php
-//Form for correcting input from user
-require __DIR__ . '/vendor/autoload.php';
-//include 'mda.php';
-function write_to_fref($line, $position, $word){
-    $filename = getcwd() . "/newfile.html";
-    $line_looking_for = $line;
-    $lines = file( $filename , FILE_IGNORE_NEW_LINES );
-    $a1 = explode(' ', $lines[$line]);
-    array_splice($a1, $position, count($word)-1, $word);
-    $lines[$line_looking_for] = implode(' ', $a1);
-    file_put_contents( $filename , implode( "\n", $lines ) );
-}
 
 function form_correct($tag_array, $tag, $line, $index, $index1){
     echo <<< END
@@ -40,20 +28,13 @@ END;
     $identifier= $tag."".$line.$index;
     echo "<div class='$identifier form-container'>";
     echo "<div class='info-detail'>";
-    echo "<p> Fault in <a href='#' class='line$line'>line ".$line."</a></p>";
+    echo "";
     $desc="";
     $info ="Without double quote";
     switch ($tag){
         case 'img':
-            echo <<< END
-            <p>Img tag doesn't have 'alt' properties | WCAG 2.0 level A Perceivable 
-            <a href='#' id='open-button$line' class='btn btn-sm btn-info' onclick="revealInfo('open-button$line', '$tag')">
-            More info <i class='glyphicon glyphicon-info-sign'></i></a>
-            </p>
-            <hr />
-END;
+            echo "<p> Fault in <a href='#' class='line$line'>line $line</a></p>";
             $desc = "Give alt value";
-            $word = "<code>".htmlspecialchars('alt="..."')."</code>";
             echo "<p class='tag-info'>";
             echo substr($tag_array, 0, 80).'...';
             echo "</p>";
@@ -111,7 +92,7 @@ END;
     </div>
 END;
 }
-function doc_lang($all_text){
+function docLang($all_text){
     $text = htmlspecialchars_decode($all_text);
     $find = '/<html (.*?)>/';
     preg_match_all($find, $text, $arr_lang);
@@ -220,7 +201,6 @@ function fix_glyph_icon($all_text){
     <script type="text/javascript">
         document.getElementById("info-intro").style.display = "none";
         document.getElementById("nav-tab").style.visibility = "visible";
-        document.getElementById("info-auto").style.display = "block";
     </script>
 END;
     return $item1;
@@ -267,6 +247,8 @@ function get_italic($all_text){
         display_auto($message, 'basic-list',$class, 'italicInfoTrue');
     }
 }
+
+
 function display_auto($message, $id_type, $type, $detail_info){
     echo <<< END
     <script type="text/javascript">
@@ -288,6 +270,17 @@ function display_alert($message, $type, $detail_info){
             var size = $("#alert-list >li").length;
             document.getElementById("b-alert").className = "bub-alert";
             document.getElementById("b-alert").innerHTML = size;
+        });
+    </script>
+END;
+}
+function display_error($message, $type, $detail_info){
+    echo <<< END
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("ul#error-list").append("<li class='$type'>$message</li>");
+            $("ul#error-list li.$type").append($('<a/>', 
+                {'text': "More info", 'class': 'btn btn-info btn-sm', 'id': '$type'}).on({'click': function() { revealInfo("$type", "$detail_info") }}));
         });
     </script>
 END;
@@ -324,31 +317,6 @@ function display_child_few($message, $id_container, $li_class, $level, $child_id
     </script>
 END;
 }
-
-function check_contrast($all_text){
-    $findcss = '/href="(.+?styles?\.css)"/';
-    $text = htmlspecialchars_decode($all_text);
-    preg_match_all($findcss, $text, $arr_find);
-    if (!empty($arr_find[1][0])){
-        $cssurl = $arr_find[1][0];
-        $oCssParser = new Sabberworm\CSS\Parser(file_get_contents($cssurl));
-        $oCssDocument = $oCssParser->parse();
-        $find = '/(?=.+background-color: (.*?);)(?=.+;color: (.+?);).+/';
-        $find1 = '/(.+?){(.+?)}/';
-        $arr1 = array();
-        foreach ($oCssDocument->getAllDeclarationBlocks() as $key=>$items){
-            if (preg_match_all($find, $items, $arr)){
-                preg_match_all($find1, implode(' ', $arr[0]), $arra);
-                array_push($arr1, $arra[1][0].'*'.$arr[1][0].'*'.$arr[2][0]);
-            }
-
-        }
-       echo implode(' ', $arr1);
-    } else {
-        $message = 'Can\'t parse css file ';
-    }
-   // display_contrast($message, 'cont', 'contrastInfo');
-}
 function display_contrast($message, $type, $detail_info){
     echo <<< END
     <script type="text/javascript">
@@ -361,10 +329,4 @@ function display_contrast($message, $type, $detail_info){
 END;
 }
 
-
-//function test_par($all_text){
-//    $text = htmlspecialchars_decode($all_text);
-//    $find = '/<([a-z]*)\b[^>]*>(.*?)</\1>/i';
-//    preg_match_all($find, $text, $matches);
-//}
 ?>

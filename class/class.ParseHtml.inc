@@ -11,4 +11,11 @@ class HtmlParser{
     }
 
 }
+
+/***
+ * Differentiate between attribute and namespace
+ * More about namespace
+ * https://www.w3.org/2002/12/namespace
+ * https://dev.w3.org/html5/spec-LC/namespaces.html
+ */
 ?>

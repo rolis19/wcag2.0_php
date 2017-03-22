@@ -1,6 +1,7 @@
 <?php
 include 'display-message.php';
 include 'class-check/class.CheckImg.inc';
+include 'class-check/class.DocLanguage.inc';
 $time = microtime();
 $time = explode(' ', $time);
 $time = $time[1] + $time[0];
@@ -116,16 +117,13 @@ END;
                          * will be used for correcting
                          */
                         $my_file = fopen("newfile.html", "w") or die("Unable to open file!");
-                        fwrite($my_file, $all_text);
+                        fwrite($my_file, htmlspecialchars_decode($all_text));
                         fclose($my_file);
-
                         $this->html= htmlspecialchars_decode($all_text);
                     }
 
                     //Find tag, also their index
                     public function tag_check(){
-                        //test_par($all_text);
-                        doc_lang($this->html);
                         get_heading($this->html);
                         check_onchange($this->html);
                         check_orderedlist($this->html);
@@ -133,29 +131,41 @@ END;
                         //check_contrast($all_text);
                         get_italic($fix_icon);
 
-                        $this->alloc_work(); //work allocation
+
+                        $this->docLangCheck();
+                        $this->errorGroup(); //work allocation
 
                     }
 
                     //Work allocation here
-                    public function alloc_work(){
-                        echo '<div role="tabpanel" class="tab-pane" id="error">';
-                        $this->img_check();
-                        echo '<div>';
-                    }
-
-                    public function correct_end_tag($tag_array){
-                        echo "<hr />";
-                        foreach ($tag_array as $key=>$item){
-                            echo "<button id='$key' class='btn correct-close-tag'>".$item."</button> ";
-                        }
+                    public function errorGroup(){
+                        echo <<< END
+                        <div role="tabpanel" class="tab-pane" id="error">
+                        <ul id="error-list">
+                        <li class="img-list-error">Img tag doesn't have 'alt' properties 
+                        <a href='#' id='open-button' class='btn btn-sm btn-info' onclick="revealInfo('open-button', 'img')">
+                        More info</a>
+                        <a class="btn btn-success btn-sm " role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseImg">
+                            <i class="glyphicon glyphicon-menu-down"></i>
+                        </a></li>
+            
+                        <div id="collapseImg" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" style="height: 0px;" aria-expanded="false">
+                        <div class="panel-body">
+END;
+                        $this->imgNoAlt();
+                        echo <<< END
+                        </div>
+                        </div>
+                        </ul>
+                        </div>
+END;
                     }
 
                     //===================   Check img Tag Process    ==========================================
                     /***
-                     * For nw showing code and download button only trigerred from img check
+                     * For now showing code and download button only trigerred from img check
                      */
-                    public function img_check(){
+                    public function imgNoAlt(){
                         $img = new CheckingImg($this->html);
                         $all = count($img->imgnoAlt);
                         $count = 0;
@@ -168,7 +178,30 @@ END;
                                 show_code(); //Show download button and inserted code
                             }
                         }
+                    }
 
+                    public function docLangCheck(){
+                        $lang = new CheckingLangDoc($this->html);
+                        /*** Suppose will always be only one HTML tag */
+                        $docType = $lang->nodeLang['docType'];
+                        $docLang = $lang->nodeLang['langVal'];
+                        if ($docType == 'html'){
+                            if (empty($docLang)){
+                                $message = 'HTML documents don\'t have specific language';
+                                echo "Masuk error bro";
+                            } else {
+                                $lang = 'Language defined as '.$docLang;
+                                display_auto($lang, 'basic-list','lang-check', 'langInfoTrue');
+                            }
+                        }else {
+                            $message = "Document language is not defined ";
+                            $xmlLang = $lang->nodeLang['xmlLangVal'];
+                            if (empty($docLang) || empty($xmlLang)){
+                                display_error($message, 'id-check-empty', 'idInfo');
+                            } else {
+                                echo 'Masuk Basic info bro';
+                            }
+                        }
                     }
 
                 }
@@ -187,11 +220,6 @@ END;
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="auto">
-                                <div id="info-auto" style="display:none;">
-                                    <p class="text-center info-other">
-                                        <span class="bg-danger">Note:</span> <br>What listed here are not absolute correct,<br> therefore we encourage you to press "more info" button
-                                    </p>
-                                </div>
                                 <ul id='basic-list'></ul>
                                 <ul id='auto-list'>
                                     <h3 id="info-intro" class="text-center" style="padding: 18px 12px; width: 80%; margin: 120px auto 0;">Your check's result soon <br> <small>will be apeared here <br> <i class="glyphicon glyphicon-flash"></i> </small></h3>

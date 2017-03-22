@@ -83,8 +83,11 @@ a, a:active, a:focus {
 .btn-6{background: #FFA781}
 #auto {margin-top: -18px}
 #outline {margin-top: -18px}
-#auto ul {
+#auto ul{
     padding-left: 11px;
+}
+#error >ul {
+    padding-left: 0;
 }
 .panel-body{
     margin-top: 4px;
@@ -160,6 +163,7 @@ p.tag-info {margin-bottom: 10px}
 }
 header{height: 50px}
 .btn {border-radius: 0}
+#open-button {border-radius: 50px}
 form .btn {
     height: 40px;
 }
@@ -366,7 +370,7 @@ p.info-other{
 code {background-color: transparent}
 #alert >ul {margin-left: 12px; padding: 0;margin-top: 12px;}
 
-#auto-list >li, #alert-list >li, #basic-list >li {
+#auto-list >li, #alert-list >li, #basic-list >li, #error-list >li {
     list-style: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.07);
     padding: 14px 10px;
@@ -381,12 +385,9 @@ code {background-color: transparent}
 #auto-list >li .btn-info, #alert-list >li .btn-info, #basic-list >li .btn-info{
     margin-left: 20px;
 }
-ul li samp {
-    font-size: 12px;
-}
-#alert-list code {
-    padding-left: 0;
-}
+ul li samp {  font-size: 12px;  }
+#alert-list code {  padding-left: 0;  }
+#error .btn-success, #error .btn-info{border-radius: 50px}
 .btn-tag {
     background: transparent none repeat scroll 0 0;
     border-radius: 100px;
@@ -409,3 +410,4 @@ ul li samp {
 .btn-info.btn-tag i{
     color: #57A0FC;
 }
+a#close-button{color: #FFFFFF}
