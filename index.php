@@ -191,7 +191,7 @@ END;
                                 echo "Masuk error bro";
                             } else {
                                 $lang = 'Language defined as '.$docLang;
-                                display_auto($lang, 'basic-list','lang-check', 'langInfoTrue');
+                                display_auto($lang, 'basic-list','lang-check', 'langInfo');
                             }
                         }else {
                             $message = "Document language is not defined ";
@@ -309,7 +309,8 @@ END;
         echo " Peak Memory: ".convert(memory_get_peak_usage());
         ?>
     </footer>
-    <script src="js/data-json.js"></script>
+    <?php include 'include-accessible-data.php' ?>
+    <script src="js/accessible-data-ctr.js"></script>
     <script src="js/main.js"></script>
     <script>
 //        $(document).ready(function(){
