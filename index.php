@@ -2,6 +2,7 @@
 include 'display-message.php';
 include 'class-check/class.CheckImg.inc';
 include 'class-check/class.DocLanguage.inc';
+include 'class-check/class.OnChange.inc';
 $time = microtime();
 $time = explode(' ', $time);
 $time = $time[1] + $time[0];
@@ -44,14 +45,7 @@ ini_set('max_execution_time', 300);
                 Read Official Guideline <i class="glyphicon glyphicon-chevron-down"></i>
             </a>
             <div id="official" class="collapse">
-                <h2>4. Robust</h2>
-                <p class="subtitle">4.1.1 Parsing</p>
-                <p>
-                    In content implemented using markup languages, elements have complete start and end tags, elements are nested
-                    according to their specifications, elements do not contain duplicate attributes, and any IDs are unique,
-                    except where the specifications allow these features.
-                </p>
-                <a href="https://www.w3.org/WAI/WCAG20/quickref/?showtechniques=411" target="_blank" class="pull-right">Source</a>
+
             </div>
         </div>
     </div>
@@ -125,10 +119,10 @@ END;
                     //Find tag, also their index
                     public function tag_check(){
                         get_heading($this->html);
-                        check_onchange($this->html);
+                        $this->onChangeCheck();
                         check_orderedlist($this->html);
                         $fix_icon = fix_glyph_icon($this->html);
-                        //check_contrast($all_text);
+
                         get_italic($fix_icon);
 
 
@@ -202,6 +196,23 @@ END;
                                 echo 'Masuk Basic info bro';
                             }
                         }
+                    }
+
+                    function onChangeCheck(){
+                        $onChange = new CheckingOnChange($this->html);
+                        if (!empty($onChange->selectOnChange)) {
+                            $class = 'onchange-check';
+                            $message = '<code>select</code> element may cause extreme change due to <samp>onchange()</samp>';
+                            display_alert($message, $class, 'onchangeInfo');
+                            $number=0;
+                            $onchange_txt = array();
+                            foreach ($onChange->selectOnChange as $item) {
+                                $number++;
+                                array_push($onchange_txt, "<li><samp>".$number.".Line <a href='#' onclick='toLine(".$item['line'].")'>".$item['line']."</a></samp></li>");
+                            }
+                            display_child_few(implode('', $onchange_txt), 'alert-list', $class, 'onchange-list');
+                        }
+
                     }
 
                 }

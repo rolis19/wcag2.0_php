@@ -21,4 +21,5 @@ function showInfo(tag) {
     for(var x in eval("JSON_"+tag_info +".technique")){
         $("ul#techq-list").append("<li>"+eval("JSON_"+tag_info +".technique")[x]+"</li>");
     }
+    document.getElementById("official").innerHTML = eval("JSON_"+tag_info +".official");
 }

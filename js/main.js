@@ -66,3 +66,18 @@ function revealInfo(idset, tag) {
     }
     init();
 }
+
+function toLine(ln) {
+    $.smoothScroll({
+        offset: -200,
+        scrollElement: $('div.showcode-container'),
+        scrollTarget: '#line'+ln,
+        beforeScroll: function(options) {
+            $('.line').removeClass("active");
+        },
+        afterScroll: function(options) {
+            $('#line'+ln).addClass("active");
+        }
+    });
+    return false;
+}

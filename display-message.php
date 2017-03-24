@@ -7,20 +7,6 @@ function form_correct($tag_array, $tag, $line, $index, $index1){
             document.getElementById("b-error").className = "bub-danger";
             var size = $('.col-md-6 .form-container').length;
             document.getElementById("b-error").innerHTML = size;
-            $('a.line$line').click(function() {
-                $.smoothScroll({
-                    offset: -200,
-                    scrollElement: $('div.showcode-container'),
-                    scrollTarget: '#line$line',
-                    beforeScroll: function(options) {
-                        $('.line').removeClass("active");
-                    },
-                    afterScroll: function(options) {
-                        $('#line$line').addClass("active");
-                    }
-                });
-            return false;
-            });
         });
     </script>
 END;
@@ -33,7 +19,7 @@ END;
     $info ="Without double quote";
     switch ($tag){
         case 'img':
-            echo "<p> Fault in <a href='#' class='line$line'>line $line</a></p>";
+            echo "<p> Fault in <a href='#' onclick='toLine(".$line.")'>line $line</a></p>";
             $desc = "Give alt value";
             echo "<p class='tag-info'>";
             echo substr($tag_array, 0, 80).'...';
@@ -112,23 +98,7 @@ function docLang($all_text){
         display_auto($lang, 'basic-list','lang-check', 'langInfoTrue');
     }
 }
-function check_onchange($all_text){
-    $onchange_txt = array();
-    $text = htmlspecialchars_decode($all_text);
-    $find = '/<select (.+)? onchange=(.+?) (.*)?>/';
-    preg_match_all($find, $text, $arr_onchange);
-    $class = 'onchange-check';
-    if (count($arr_onchange[0]) != 0){
-        foreach ($arr_onchange[0] as $items){
-            array_push($onchange_txt, '<li><samp>'.htmlspecialchars($items).'</samp></li>');
-        }
-        $message = '<code>select</code> element may cause extreme change in context due to <samp>onchange()</samp> javascript function';
-        display_alert($message, $class, 'onchangeInfo');
-        if (count($arr_onchange[0]) <= 2){
-            display_child_few(implode(' ', $onchange_txt), 'alert-list', $class, 'panel-warning', 'onchange-list');
-        }
-    }
-}
+
 function check_orderedlist($all_text){
     $item_li = array();
     $text = htmlspecialchars_decode($all_text);
@@ -307,11 +277,11 @@ function display_italic($message){
     </script>
 END;
 }
-function display_child_few($message, $id_container, $li_class, $level, $child_id){
+function display_child_few($message, $id_container, $li_class, $child_id){
     echo <<< END
     <script type="text/javascript">
         $(document).ready(function(){
-            $("ul#$id_container li.$li_class").append("<div class='panel-body $level'><ol id='$child_id'></ul></div></div>")
+            $("ul#$id_container li.$li_class").append("<div class='few-kids'><ol id='$child_id'></ul></div></div>")
             $("ol#$child_id").append("$message");
         });
     </script>

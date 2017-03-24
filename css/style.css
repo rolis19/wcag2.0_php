@@ -411,3 +411,11 @@ ul li samp {  font-size: 12px;  }
     color: #57A0FC;
 }
 a#close-button{color: #FFFFFF}
+
+.few-kids ol{
+    padding-left: 0;
+    padding-top: 12px;
+}
+.few-kids ol li{
+    display: inline;
+}
