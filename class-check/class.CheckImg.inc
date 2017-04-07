@@ -1,5 +1,5 @@
 <?php
-include ('../class/class.ParseHtml.inc');
+include ('class/class.ParseHtml.inc');
 
 class CheckingImg extends HtmlParser{
     public $nodeImg;
