@@ -7,6 +7,7 @@ npm-debug.log
 /node_modules
 /vendor
 /backup
+/doc
 mda.php
 dom_learn.php
 html_dom.php
