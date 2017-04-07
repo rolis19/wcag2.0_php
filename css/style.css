@@ -420,3 +420,12 @@ a#close-button{color: #FFFFFF}
     display: inline;
     margin-right: 12px;
 }
+
+/* Language class check */
+/* Basic */
+ol#lang-form {
+    padding-left: 0;
+}
+ol#lang-form .btn {
+    border-radius: 0;
+}
