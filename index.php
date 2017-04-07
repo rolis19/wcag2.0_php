@@ -128,7 +128,7 @@ END;
                         $fix_icon = fix_glyph_icon($this->html);
                         $this->checkId();
 
-                        //$this->docLangCheck();
+                        $this->docLangCheck();
                         $this->errorGroup(); //work allocation
 
                     }
