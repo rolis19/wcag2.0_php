@@ -46,7 +46,7 @@ class insertValue {
         for ($i=0; $i<count($this->all_array); $i++){
             fwrite($myfile, htmlspecialchars_decode($this->all_array[$i])."\r\n");
         }
-//        fwrite($myfile, $this->all_array[$line-1]);
+        fwrite($myfile, $this->all_array[$line-1]);
         fclose($myfile);
     }
 

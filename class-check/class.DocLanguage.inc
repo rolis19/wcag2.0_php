@@ -59,7 +59,7 @@ PSEUDO CODE
 13. Using Php Dom setAttribute “alt” equal to $word and convert it to new object dom
 14. Replace the old dom to new object dom which have alt attribute.
 15. Open file newfile.html
-16. Write all the object Dom to file.
+16. Write new the object Dom to file.
 17. Close file.
 
  */

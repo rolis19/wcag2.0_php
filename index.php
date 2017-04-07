@@ -3,6 +3,9 @@ include 'display-message.php';
 include 'class-check/class.CheckImg.inc';
 include 'class-check/class.DocLanguage.inc';
 include 'class-check/class.OnChange.inc';
+include 'class-check/class.CheckItalic.inc';
+include 'class-check/class.CheckOl.inc';
+include 'class-check/class.CheckDuplicateID.inc';
 $time = microtime();
 $time = explode(' ', $time);
 $time = $time[1] + $time[0];
@@ -11,7 +14,7 @@ session_start();
 ini_set('max_execution_time', 300);
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
     <meta charset="utf-8"/>
     <meta name="format-detection" content="telephone=no"/>
@@ -120,18 +123,17 @@ END;
                     public function tag_check(){
                         get_heading($this->html);
                         $this->onChangeCheck();
-                        check_orderedlist($this->html);
+                        $this->italicCheck();
+                        $this->ordListCheck();
                         $fix_icon = fix_glyph_icon($this->html);
-
-                        get_italic($fix_icon);
-
+                        $this->checkId();
 
                         $this->docLangCheck();
                         $this->errorGroup(); //work allocation
 
                     }
 
-                    //Work allocation here
+                    //Work allocation heree
                     public function errorGroup(){
                         echo <<< END
                         <div role="tabpanel" class="tab-pane" id="error">
@@ -179,13 +181,20 @@ END;
                         /*** Suppose will always be only one HTML tag */
                         $docType = $lang->nodeLang['docType'];
                         $docLang = $lang->nodeLang['langVal'];
+                        $ln = $lang->nodeLang['line'];
+
                         if ($docType == 'html'){
                             if (empty($docLang)){
                                 $message = 'HTML documents don\'t have specific language';
                                 echo "Masuk error bro";
                             } else {
-                                $lang = 'Language defined as '.$docLang;
+                                $str = file_get_contents('class-check/language.txt');
+                                $find = '/Subtag: '.$docLang.' Description:(.+?)\n/';
+                                preg_match_all($find, $str, $matches);
+                                $langName = trim(preg_replace('/\s\s+/', ' ', $matches[1][0]));
+                                $lang = "Language defined as ".$langName;
                                 display_auto($lang, 'basic-list','lang-check', 'langInfo');
+                                display_child_form('basic-list', 'lang-check','lang-form',$ln,'html');
                             }
                         }else {
                             $message = "Document language is not defined ";
@@ -193,26 +202,82 @@ END;
                             if (empty($docLang) || empty($xmlLang)){
                                 display_error($message, 'id-check-empty', 'idInfo');
                             } else {
-                                echo 'Masuk Basic info bro';
+                                echo 'To be included inside basic group';
                             }
                         }
                     }
 
-                    function onChangeCheck(){
+                    public function onChangeCheck(){
                         $onChange = new CheckingOnChange($this->html);
                         if (!empty($onChange->selectOnChange)) {
                             $class = 'onchange-check';
-                            $message = '<code>select</code> element may cause extreme change due to <samp>onchange()</samp>';
+                            $message = '<code>select</code> tag may cause extreme modification due to <samp>onchange()</samp> function';
                             display_alert($message, $class, 'onchangeInfo');
-                            $number=0;
-                            $onchange_txt = array();
+                            $onchange_txt="";
+                            $onchange_txt .="<li><samp>Line</samp></li>";
                             foreach ($onChange->selectOnChange as $item) {
-                                $number++;
-                                array_push($onchange_txt, "<li><samp>".$number.".Line <a href='#' onclick='toLine(".$item['line'].")'>".$item['line']."</a></samp></li>");
+                                $onchange_txt .= "<li><samp><a href='#' onclick='toLine(".$item['line'].")'>".$item['line']."</a></samp></li>";
                             }
-                            display_child_few(implode('', $onchange_txt), 'alert-list', $class, 'onchange-list');
+                            display_child_few($onchange_txt, 'alert-list', $class, 'onchange-list');
                         }
 
+                    }
+
+                    public function italicCheck(){
+                        $italic_txt = new CheckingItalic($this->html);
+                        $class = 'italic-info';
+                        $italic_line="";
+                        if (!empty($italic_txt->italic)){
+                            $message = "Italic format known problem for some people with Dyslexia";
+                            display_alert($message, $class, 'italicInfo');
+                            $italic_line .= "<li><samp>Line</samp></li>";
+                            foreach ($italic_txt->italic as $item) {
+                                $italic_line .= "<li><samp><a href='#' onclick='toLine(".$item['line'].")'>".$item['line']."</a></samp></li>";
+                            }
+                            display_child_few($italic_line, 'alert-list', $class, 'italicInfo');
+                        }else {
+                            $message = 'No italic style found';
+                            display_auto($message, 'basic-list',$class, 'italicInfoTrue');
+                        }
+                    }
+
+                    public function ordListCheck(){
+                        $ordered = new CheckingOl($this->html);
+                        $orderedLine="";
+                        $class = 'orderlist_check';
+                        if (!empty($ordered->ordList)){
+                            $message = 'Ordered list <code>&lt;ol&gt;</code> probably misused';
+                            display_alert($message, $class, 'olInfo');
+                            $orderedLine .= "<li><samp>Line</samp></li>";
+                            foreach ($ordered->ordList as $item) {
+                                $orderedLine .= "<li><samp><a href='#' onclick='toLine(".$item['line'].")'>".$item['line']."</a></samp></li>";
+                            }
+                            display_child_few($orderedLine, 'alert-list', $class, 'olInfo');
+                        }else {
+                            $message = 'No ordered list found';
+                            display_auto($message, 'basic-list', $class, 'olInfoTrue');
+                        }
+                    }
+
+                    public function checkId(){
+                        $id = new CheckingDupID($this->html);
+                        if (!empty($id->duplicateId)){
+                            $message = "";
+                            $message1 = "Duplicate ID found";
+                            display_alert($message1, 'id-check-empty', 'idInfo');
+                            foreach ($id->duplicateId as $item=>$key){
+                                $message .= '<li><samp>'.$item.'</samp></li>';
+                                foreach ($key as $line){
+                                    $message .= "<li><samp><a href='#' onclick='toLine(".$line.")'>".$line."</a></samp></li>";
+                                }
+                                $message .= '<br>';
+                            }
+                            display_child_few($message, 'alert-list', 'id-check-empty', 'idInfo');
+
+                        } else {
+                            $message_no =  "No duplicate ID found";
+                            display_auto($message_no, 'basic-list','id-check', 'idInfoTrue');
+                        }
                     }
 
                 }
@@ -224,7 +289,7 @@ END;
                         <li role="presentation" id="li-error"><a href="#error" aria-controls="error" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-remove-circle"></i> Errors <span class="bubble" id="b-error"></span></a></li>
                         <li role="presentation" id="li-alert"><a href="#alert" aria-controls="alert" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-warning-sign"></i> Alert <span class="bubble" id="b-alert"></span></a></li>
                         <li role="presentation"><a href="#outline" aria-controls="outline" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-list-alt"></i> Outline</a></li>
-                        <li role="presentation"><a href="#contrast" aria-controls="outline" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-eye-open"></i> Contrast</a></li>
+<!--                        <li role="presentation"><a href="#contrast" aria-controls="outline" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-eye-open"></i> Contrast</a></li>-->
 <!--                        <li><a href="#" class="btn btn-download disabled"><i class="glyphicon glyphicon-file"></i> Download</a></li>-->
                     </ul>
                     <div class="content-correct">

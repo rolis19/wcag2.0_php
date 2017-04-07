@@ -418,4 +418,5 @@ a#close-button{color: #FFFFFF}
 }
 .few-kids ol li{
     display: inline;
+    margin-right: 12px;
 }

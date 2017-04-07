@@ -78,6 +78,7 @@ END;
     </div>
 END;
 }
+
 function docLang($all_text){
     $text = htmlspecialchars_decode($all_text);
     $find = '/<html (.*?)>/';
@@ -96,53 +97,6 @@ function docLang($all_text){
     } else {
     	$lang = 'Language = <strong> English</strong>';
         display_auto($lang, 'basic-list','lang-check', 'langInfoTrue');
-    }
-}
-
-function check_orderedlist($all_text){
-    $item_li = array();
-    $text = htmlspecialchars_decode($all_text);
-    $find = '/<ol(.*?)>(.*?)<\/ol>/s';
-    preg_match_all($find, $text, $match);
-    $a1 = htmlspecialchars('<ol>');
-    $class = 'orderlist_check';
-    if (count($match[0]) != 0){
-        foreach ($match[2] as $items){
-            $item_li = preg_split("/\\r\\n|\\r|\\n/", $items);
-        }
-        foreach ($item_li as $key=>$item){
-            $value = trim($item);
-//            if (!empty($value))
-//                echo htmlspecialchars($item)."<br>";
-        }
-        $message = 'Ordered list <code>'.$a1.'</code> probably misused';
-        display_alert($message, $class, 'olInfo');
-    } else{
-        $message = 'No ordered list found';
-        display_auto($message, 'basic-list', $class, 'olInfoTrue');
-    }
-}
-function check_id($line_with_tag){
-    $id_array = array();
-    $indicator=0; $message='';
-    foreach ($line_with_tag as $line){
-        if (preg_match('/id=&quot;(.*?)&quot;/', $line['tagname'])){
-            $a1 = preg_replace('/id=&quot;(.*?)&quot;&gt;/', 'id=&quot;$1&quot;', $line['tagname']);
-            array_push($id_array, $a1);
-        }
-    }
-    //Check duplicate id
-    foreach(array_count_values($id_array) as $key=>$items){
-        if ($items > 1){
-            $message = "<code>".$key."</code> Was used for ".$items." times";
-            $indicator = 1;
-        }
-    }
-    if ($indicator == 0){
-        $message_no =  "No duplicate ID found";
-        display_auto($message_no, 'basic-list','id-check', 'idInfoTrue');
-    } else {
-        display_alert($message, 'id-check-empty', 'idInfo');
     }
 }
 function fix_glyph_icon($all_text){
@@ -191,31 +145,6 @@ function get_heading($all_text){
         echo '<p class="p-head p-'.$heading[$i][0].'"><span class="btn btn-head btn-sm btn-'.$heading[$i][0].'">H'.$heading[$i][0].'</span>'.substr($heading[$i], 1).'</p>';
     }
     echo '</div>';
-}
-function get_italic($all_text){
-    $italic_txt = array();
-    $find = '/<(i|em)(.*?)>(.*?)<\/(i|em)>/';
-    $find1 = '/<(i|em)(.*?)>(.+)<\/(i|em)>/';
-    $text = htmlspecialchars_decode($all_text);
-    preg_match_all($find, $text, $italic_arr);
-    foreach ($italic_arr[0] as $items){
-        if (preg_match($find1, $items)){
-            array_push($italic_txt, '<li><samp>'.htmlspecialchars($items).'</samp></li>');
-        }
-    }
-    $class = 'italic-info';
-    if (count($italic_txt) >= 1){
-        $message = "Found ".count($italic_txt)." word/s in italic format";
-        display_alert($message, $class, 'italicInfo');
-        if (count($italic_txt) <=2){
-            display_child_few(implode(' ', $italic_txt), 'alert-list', $class, 'panel-warning', 'italic-list');
-        }else {
-            display_italic(implode(' ', $italic_txt));
-        }
-    } else {
-        $message = 'No italic style found';
-        display_auto($message, 'basic-list',$class, 'italicInfoTrue');
-    }
 }
 
 
@@ -266,17 +195,6 @@ function display_child_many($message, $id_container, $li_class, $level, $id_chil
     </script>
 END;
 }
-function display_italic($message){
-    echo <<< END
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $("ul#alert-list li.italic-info").append("<a class='collapsed btn btn-success btn-sm' role='button' data-toggle='collapse' data-parent='#accordion' href='#collapseItalic' aria-expanded='false' aria-controls='collapseThree'><i class=' glyphicon glyphicon-menu-down'></i></a> <br />");
-            $("ul#alert-list li.italic-info").append("<div id='collapseItalic' class='panel-collapse collapse' role='tabpanel' aria-labelledby='headingThree'><div class='panel-body panel-warning'><ul id='italic-list'></ul></div></div>")
-            $("ul#italic-list").append("$message");
-        });
-    </script>
-END;
-}
 function display_child_few($message, $id_container, $li_class, $child_id){
     echo <<< END
     <script type="text/javascript">
@@ -294,6 +212,24 @@ function display_contrast($message, $type, $detail_info){
             $("ul#contrast-list").append("<li class='$type'>$message</li>");
             $("ul#contrast-list li.$type").append($('<a/>', 
                 {'text': "More info", 'class': 'btn btn-info btn-sm', 'id': '$type'}).on({'click': function() { revealInfo("$type", "$detail_info") }}));
+        });
+    </script>
+END;
+}
+function display_child_form($id_container, $li_class, $id_child, $line, $tag){
+    $identifier = $tag.$line;
+    echo <<< END
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("ul#$id_container li.$li_class").append("<a class='collapsed btn btn-success btn-sm' role='button' data-toggle='collapse' data-parent='#accordion' href='#collapseForm' aria-expanded='false' aria-controls='collapseThree'>Change Language</a> <br />");
+            $("ul#$id_container li.$li_class").append("<div id='collapseForm' class='panel-collapse collapse' role='tabpanel' aria-labelledby='headingThree'><div class='panel-body'><ol id='$id_child'></ol></div></div>")
+            $("ol#$id_child").append("<div class='$identifier'>" +
+             "<div class='form-group'>" +
+             "<input type='text' class='form-control correct-text' placeholder='your text' required>" +
+             "<input type='hidden' value='$line $tag'>" +
+             "<button class='btn btn-default' id='tiger' onclick=runAjax($identifier)>Edit</button>" +
+             "</div>" +
+             "</div>");
         });
     </script>
 END;
