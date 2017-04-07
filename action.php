@@ -41,7 +41,7 @@ class insertValue {
     }
     public function replaceNew($oldHtml, $newHtml, $line){
         $this->all_array[$line-1] = str_replace($oldHtml, $newHtml, $this->all_array[$line-1]);
-        $myfile_backup = fopen("temp.html", "w") or die("Unable to open file!");
+        $myfile_backup = fopen("temp1.html", "w") or die("Unable to open file!");
         $myfile = fopen("newfile.html", "w") or die("Unable to open file!");
         for ($i=0; $i<count($this->all_array); $i++){
             fwrite($myfile, htmlspecialchars_decode($this->all_array[$i])."\r\n");

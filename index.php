@@ -313,7 +313,7 @@ END;
                                 //Program start here for insert code
                                 if (isset($_POST['stage']) && ('process' == $_POST['stage'])) {
                                     $all_array = $_POST['cekode'];
-                                    $myfile = fopen("temp-html-file.html", "w") or die("Unable to open file!");
+                                    $myfile = fopen("temp2.html", "w") or die("Unable to open file!");
                                     fwrite($myfile, htmlspecialchars($all_array)." ");
                                     fclose($myfile);
                                     $main_array = new mainArray($all_array);
@@ -328,7 +328,7 @@ END;
                                     }
                                     $dataraw = datafeed($_POST['cekodeurl']);//raw data tag code
                                     $all_array = htmlspecialchars($dataraw);
-                                    $myfile = fopen("temp-html-file.html", "w") or die("Unable to open file!");
+                                    $myfile = fopen("temp2.html", "w") or die("Unable to open file!");
                                     if (empty($all_array)){
                                         fwrite($myfile, "Can't obtain page from URL");
                                     } else {
@@ -340,7 +340,7 @@ END;
                                     display_code();
                                 }
                                 function display_code(){
-                                    $str_get= file_get_contents('temp-html-file.html');
+                                    $str_get= file_get_contents('temp2.html');
                                     $arr_line = preg_split("/\\r\\n|\\r|\\n/", $str_get);
                                     echo '<script type="text/javascript">';
                                     for ($i=0; $i<count($arr_line); $i++){

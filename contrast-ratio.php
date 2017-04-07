@@ -5,7 +5,7 @@ include 'class/class.ParseHtmlSelector.inc';
 
 //var_dump($cssBgColor->cssColor);
 
-$html= file_get_contents('temp-html-file.html');
+$html= file_get_contents('temp2.html');
 $css = file_get_contents('css/2.css');
 
 $contrast = new ContrastMerge($html, $css);
