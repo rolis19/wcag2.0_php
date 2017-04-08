@@ -217,17 +217,28 @@ function display_contrast($message, $type, $detail_info){
 END;
 }
 function display_child_form($id_container, $li_class, $id_child, $line, $tag){
-    $identifier = $tag.$line;
+    $identifier= $tag.$line.'3';
+    $languages = file_get_contents('class-check/language.txt');
+    $languages_all = preg_split("/\\r\\n|\\r|\\n/", $languages);
     echo <<< END
     <script type="text/javascript">
         $(document).ready(function(){
             $("ul#$id_container li.$li_class").append("<a class='collapsed btn btn-success btn-sm' role='button' data-toggle='collapse' data-parent='#accordion' href='#collapseForm' aria-expanded='false' aria-controls='collapseThree'>Change Language</a> <br />");
-            $("ul#$id_container li.$li_class").append("<div id='collapseForm' class='panel-collapse collapse' role='tabpanel' aria-labelledby='headingThree'><div class='panel-body'><ol id='$id_child'></ol></div></div>")
-            $("ol#$id_child").append("<div class='$identifier'>" +
+            $("ul#$id_container li.$li_class").append("<div id='collapseForm' class='$identifier panel-collapse collapse' role='tabpanel' aria-labelledby='headingThree'><div class='panel-body'><ol id='$id_child'></ol></div></div>")
+            $("ol#$id_child").append("<div>" +
              "<div class='form-group'>" +
-             "<input type='text' class='form-control correct-text' placeholder='your text' required>" +
-             "<input type='hidden' value='$line $tag'>" +
-             "<button class='btn btn-default' id='tiger' onclick=runAjax($identifier)>Edit</button>" +
+             "<input type='hidden' id='position_$identifier' value='$line 3 3 $tag'>"+
+             "<select class='form-control' id='correct_$identifier'>"+
+END;
+    foreach ($languages_all as $lang){
+        $lang = substr($lang, 24);
+        echo <<<END
+        "<option>$lang</option>"+
+END;
+    }
+    echo <<< END
+             "</select>" +
+             "<button class='btn btn-default' id='tiger' onclick=runAjax('$identifier')>Edit</button>" +
              "</div>" +
              "</div>");
         });

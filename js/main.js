@@ -16,6 +16,7 @@ function runAjax(identify) {
     console.log(identify);
     return false;
 }
+
 function runIgnore(identify) {
     var values = {
         'name': "Ignore",

@@ -21,6 +21,11 @@ a, a:active, a:focus {
 .bub-alert{
     background-color: rgba(248, 208, 102, 0.87);
 }
+.form-control:focus {
+    border-color: #66afe9;
+    box-shadow: none;
+    outline: 0 none;
+}
 .nav-tabs li a span {
     border-radius: 100%;
     color: #ffffff;
@@ -428,4 +433,12 @@ ol#lang-form {
 }
 ol#lang-form .btn {
     border-radius: 0;
+}
+ol#lang-form .form-control {
+    float: left;
+    margin-right: 12px;
+    width: 74%;
+}
+ol#lang-form .form-group {
+    margin-bottom: 0;
 }

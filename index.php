@@ -121,12 +121,12 @@ END;
 
                     //Find tag, also their index
                     public function tag_check(){
-                        get_heading($this->html);
-                        $this->onChangeCheck();
-                        $this->italicCheck();
-                        $this->ordListCheck();
-                        $fix_icon = fix_glyph_icon($this->html);
-                        $this->checkId();
+                       get_heading($this->html);
+                       $this->onChangeCheck();
+                       $this->italicCheck();
+                       $this->ordListCheck();
+                       $fix_icon = fix_glyph_icon($this->html);
+                       $this->checkId();
 
                         $this->docLangCheck();
                         $this->errorGroup(); //work allocation
@@ -170,8 +170,9 @@ END;
                             $img_tag = $img['imgTag'];
                             $line = $img['line'];
                             form_correct($img_tag, 'img', $line, $key, '');
+
                             if ($count == $all){
-                                show_code(); //Show download button and inserted code
+                                show_code(); //Show download button code insertion
                             }
                         }
                     }

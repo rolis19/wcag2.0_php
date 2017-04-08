@@ -7,6 +7,7 @@ class CheckingImg extends HtmlParser{
 
     public function __construct($html){
         parent::__construct($html);
+        // $this->dom is variable from HtmlParser
         $this->nodeImg = $this->dom->getElementsByTagName('img');
         $this->imgnoAlt = $this->setImgWithoutAlt();
     }
