@@ -25,6 +25,7 @@ ini_set('max_execution_time', 300);
     <meta property="og:description" content=""/>
     <meta name="description" content=""/>
     <link rel="canonical" href=""/>
+    <link rel="shortcut icon" href="favicon.png">
     <meta property="og:type" content="article"/>
 	<title>Php Web Accessibility</title>
 	<link rel="stylesheet" href="css/bootstrap.css">
