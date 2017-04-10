@@ -139,8 +139,7 @@ END;
                         <div role="tabpanel" class="tab-pane" id="error">
                         <ul id="error-list">
                         <li class="img-list-error">Img tag doesn't have 'alt' properties 
-                        <a href='#' id='img-info' class='btn btn-sm btn-info'>
-                        More info</a>
+                        <a href='#' id='img-info' class='btn btn-sm btn-info' onclick="revealInfo('img-info', 'img')">More info</a>
                         <a class="btn btn-success btn-sm " role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseImg">
                             <i class="glyphicon glyphicon-menu-down"></i>
                         </a></li>
@@ -183,7 +182,7 @@ END;
                         if (!empty($img->imgBlankAlt)){
                             $message1="";
                             $message = "Image with blank alt properties";
-                            display_alert($message, $class, 'italicInfo');
+                            display_alert($message, $class, 'img');
                             foreach ($img->imgBlankAlt as $key=>$img){
 //                                $img_tag = $img['imgTag'];
                                 $line = $img['line'];

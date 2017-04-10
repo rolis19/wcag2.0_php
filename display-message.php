@@ -141,14 +141,13 @@ function get_heading($all_text){
     }
     echo ' <div role="tabpanel" class="tab-pane" id="outline">';
     echo '<ul>';
-    echo '<li>The structure of the page <a href="#" id="open-button" class="btn btn-sm btn-info">More info</a></li>';
+    echo '<li>The structure of the page <a href="#" id="outline-info" class="btn btn-sm btn-info" onclick="revealInfo(\'outline-info\', \'outlineInfo\')">More info</a></li>';
     echo '</ul>';
     for ($i=0; $i<count($heading); $i++){
         echo '<p class="p-head p-'.$heading[$i][0].'"><span class="btn btn-head btn-sm btn-'.$heading[$i][0].'">H'.$heading[$i][0].'</span>'.substr($heading[$i], 1).'</p>';
     }
     echo '</div>';
 }
-
 
 function display_auto($message, $id_type, $type, $detail_info){
     echo <<< END

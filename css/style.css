@@ -393,7 +393,7 @@ code {background-color: transparent}
     margin-left: 4px;
 }
 #auto-list >li .btn-info, #alert-list >li .btn-info, #basic-list >li .btn-info{
-    margin-left: 20px;
+    margin-left: 15px;
 }
 ul li samp {  font-size: 12px;  }
 #alert-list code {  padding-left: 0;  }
