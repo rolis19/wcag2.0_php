@@ -27,7 +27,7 @@ ini_set('max_execution_time', 300);
     <link rel="canonical" href=""/>
     <link rel="shortcut icon" href="favicon.png">
     <meta property="og:type" content="article"/>
-	<title>Php Web Accessibility</title>
+	<title>Web Accessibility</title>
 	<link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/jquery.js"></script>
@@ -97,7 +97,6 @@ ini_set('max_execution_time', 300);
                                         document.getElementById("allform").style.display ="none" ;
                                     </script>
 END;
-                                download_btn();
                             }
                             ?>
                         </div>
@@ -126,11 +125,11 @@ END;
                        $this->onChangeCheck();
                        $this->italicCheck();
                        $this->ordListCheck();
-                       $fix_icon = fix_glyph_icon($this->html);
+                       fix_glyph_icon($this->html);
                        $this->checkId();
-
-                        $this->docLangCheck();
-                        $this->errorGroup(); //work allocation
+                       $this->imgBlankAlt();
+                       $this->docLangCheck();
+                       $this->errorGroup(); //work allocation
 
                     }
 
@@ -140,7 +139,7 @@ END;
                         <div role="tabpanel" class="tab-pane" id="error">
                         <ul id="error-list">
                         <li class="img-list-error">Img tag doesn't have 'alt' properties 
-                        <a href='#' id='open-button' class='btn btn-sm btn-info' onclick="revealInfo('open-button', 'img')">
+                        <a href='#' id='img-info' class='btn btn-sm btn-info'>
                         More info</a>
                         <a class="btn btn-success btn-sm " role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseImg">
                             <i class="glyphicon glyphicon-menu-down"></i>
@@ -173,8 +172,26 @@ END;
                             form_correct($img_tag, 'img', $line, $key, '');
 
                             if ($count == $all){
-                                show_code(); //Show download button code insertion
+                                show_code();
                             }
+                        }
+                    }
+
+                    public function imgBlankAlt(){
+                        $img = new CheckingImg($this->html);
+                        $class = 'blank-img-info';
+                        if (!empty($img->imgBlankAlt)){
+                            $message1="";
+                            $message = "Image with blank alt properties";
+                            display_alert($message, $class, 'italicInfo');
+                            foreach ($img->imgBlankAlt as $key=>$img){
+//                                $img_tag = $img['imgTag'];
+                                $line = $img['line'];
+                                $src = $img['src'];
+                                $message1 .= "<li><samp>$src <a href='#' onclick='toLine(".$line.")'>".$line."</a></samp></li>";
+//                                form_correct($img_tag, 'img', $line, $key, '');
+                            }
+                            display_child_few($message1, 'alert-list', 'blank-img-info', 'imgInfo');
                         }
                     }
 
@@ -292,7 +309,7 @@ END;
                         <li role="presentation" id="li-alert"><a href="#alert" aria-controls="alert" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-warning-sign"></i> Alert <span class="bubble" id="b-alert"></span></a></li>
                         <li role="presentation"><a href="#outline" aria-controls="outline" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-list-alt"></i> Outline</a></li>
 <!--                        <li role="presentation"><a href="#contrast" aria-controls="outline" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-eye-open"></i> Contrast</a></li>-->
-<!--                        <li><a href="#" class="btn btn-download disabled"><i class="glyphicon glyphicon-file"></i> Download</a></li>-->
+                        <li><a href="newfile.html" download id="download" class="btn btn-download disabled"><i class="glyphicon glyphicon-file"></i> Download</a></li>
                     </ul>
                     <div class="content-correct">
                         <!-- Tab panes -->
@@ -350,12 +367,7 @@ END;
                                     }
                                     echo '</script>';
                                 }
-                                function download_btn(){ //to call download button only when code checked and displayed
-                                    echo "<hr>";
-                                    echo "<a id='selesai' class='btn btn-info'>";
-                                    echo "<i class='glyphicon glyphicon-save-file'></i> Finish & Download";
-                                    echo "</a>";
-                                }
+
                             ?>
                         </div>
                     </div>

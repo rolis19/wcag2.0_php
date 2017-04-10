@@ -2,7 +2,11 @@
 a, a:active, a:focus {
     outline: none;
 }
-.p-head {margin-bottom: 8px; color: rgba(0, 0, 0, 0.6);}
+.p-head {
+    margin-bottom: 8px; color: rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    white-space: nowrap;
+}
 #outline .btn-sm {
     padding: 0!important;
     margin: 0!important;
@@ -160,7 +164,8 @@ code.line{
 .form-group button{
     margin-left: 5px;
 }
-p.tag-info {margin-bottom: 10px}
+p.tag-info {margin-bottom: 10px;overflow: hidden;
+    white-space: nowrap; line-height: 14px}
 .col-md-6 .form-container:nth-of-type(even){
     background: #F6F6F6;
     margin: 0 -30px;
@@ -375,7 +380,7 @@ p.info-other{
 code {background-color: transparent}
 #alert >ul {margin-left: 12px; padding: 0;margin-top: 12px;}
 
-#auto-list >li, #alert-list >li, #basic-list >li, #error-list >li {
+#auto-list >li, #alert-list >li, #basic-list >li, #error-list >li, #outline ul li {
     list-style: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.07);
     padding: 14px 10px;
@@ -441,4 +446,19 @@ ol#lang-form .form-control {
 }
 ol#lang-form .form-group {
     margin-bottom: 0;
+}
+/* Outline style */
+#outline ul {
+    padding-left: 0;
+    margin: 12px 0 18px 0;
+}
+#outline ul li .btn-sm {
+    padding: 2px 5px !important;
+    width: 72px;
+}
+
+/* Image tag check */
+/* Alert */
+.blank-img-info .few-kids ol li {
+    display: block;
 }

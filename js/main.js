@@ -11,6 +11,11 @@ function runAjax(identify) {
         data: values,
         success: function(status) {
             $( '.'+identify ).remove();
+            var size = $('.col-md-6 .form-container').length;
+            if (size === 0) {
+                alert("Download button just get activated");
+                $("#download").removeClass("disabled");
+            }
         }
     });
     console.log(identify);

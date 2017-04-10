@@ -22,7 +22,7 @@ END;
             echo "<p> Fault in <a href='#' onclick='toLine(".$line.")'>line $line</a></p>";
             $desc = "Give alt value";
             echo "<p class='tag-info'>";
-            echo substr($tag_array, 0, 80).'...';
+            echo $tag_array;
             echo "</p>";
             break;
 
@@ -140,7 +140,9 @@ function get_heading($all_text){
         array_push($heading, $item2);
     }
     echo ' <div role="tabpanel" class="tab-pane" id="outline">';
-    echo '<p class="bg-info">This is the structure of the content\'s header that understand by screen reader</p>';
+    echo '<ul>';
+    echo '<li>The structure of the page <a href="#" id="open-button" class="btn btn-sm btn-info">More info</a></li>';
+    echo '</ul>';
     for ($i=0; $i<count($heading); $i++){
         echo '<p class="p-head p-'.$heading[$i][0].'"><span class="btn btn-head btn-sm btn-'.$heading[$i][0].'">H'.$heading[$i][0].'</span>'.substr($heading[$i], 1).'</p>';
     }
@@ -241,6 +243,16 @@ END;
              "<button class='btn btn-default' id='tiger' onclick=runAjax('$identifier')>Edit</button>" +
              "</div>" +
              "</div>");
+        });
+    </script>
+END;
+}
+function display_child_img($message, $id_container, $li_class, $child_id){
+    echo <<< END
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("ul#$id_container li.$li_class").append("<div class='few-kids'><ol id='$child_id'></ul></div></div>")
+            $("ol#$child_id").append("$message");
         });
     </script>
 END;

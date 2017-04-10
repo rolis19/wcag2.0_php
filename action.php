@@ -51,7 +51,7 @@ class insertValue {
         $newTag = $img->dom->saveXML($img->nodeImg[$index]);
 
         /*** Modify array to be matched with php DOM ***/
-        $re = '/<img (.+?)(\/?>)/';
+        $re = '/<img (.+?)( ?\/?>)/';
         //add backslash
         $this->all_array[$line-1] = preg_replace($re, '<img $1/>', $this->all_array[$line-1]);
         //Remove double space if occured
@@ -65,6 +65,8 @@ class insertValue {
         for ($i=0; $i<count($this->all_array); $i++){
             fwrite($myfile, htmlspecialchars_decode($this->all_array[$i])."\r\n");
         }
+//        fwrite($myfile, $oldHtml."\r\n");
+//        fwrite($myfile, $this->all_array[$line-1]);
         fclose($myfile);
     }
 
