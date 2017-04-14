@@ -1,84 +1,4 @@
 <?php
-
-function form_correct($tag_array, $tag, $line, $index, $index1){
-    echo <<< END
-   <script type="text/javascript">
-        $(document).ready(function() {
-            document.getElementById("b-error").className = "bub-danger";
-            var size = $('.col-md-6 .form-container').length;
-            document.getElementById("b-error").innerHTML = size;
-        });
-    </script>
-END;
-
-    $identifier= $tag."".$line.$index;
-    echo "<div class='$identifier form-container'>";
-    echo "<div class='info-detail'>";
-    echo "";
-    $desc="";
-    $info ="Without double quote";
-    switch ($tag){
-        case 'img':
-            echo "<p> Fault in <a href='#' onclick='toLine(".$line.")'>line $line</a></p>";
-            $desc = "Give alt value";
-            echo "<p class='tag-info'>";
-            echo $tag_array;
-            echo "</p>";
-            break;
-
-        case 'input':
-            echo <<< END
-            <p>Input tag needs aria-label properties | WCAG 2.0 level A Perceivable 
-            <a href='#' id='open-button$line' class='btn btn-sm btn-info' onclick="revealInfo('open-button$line', '$tag')">
-            More info <i class='glyphicon glyphicon-info-sign'></i></a>
-            </p>
-            <hr />
-END;
-            $desc = "Give aria-label value ";
-            $word = "<code>".htmlspecialchars('aria-label="..."')."</code>";
-            $a1 = array($tag_array[0], $word);
-            array_splice($tag_array, 0,1,$a1);
-            echo "<p class='tag-info'>";
-            echo substr(join(' ', $tag_array), 0, 117);
-            if (strlen(join(' ', $tag_array)) > 117){
-                echo "... ";
-            }
-            echo "</p>";
-            break;
-
-        case 'label':
-            $desc = "Give label's for and input's id value";
-            $word = htmlspecialchars('<label')."<code>".htmlspecialchars('for="..."')."</code>".substr($tag_array[0], 9, strlen($tag_array[0]));
-            $a1 = array($word);
-            array_splice($tag_array, 0,1,$a1);
-            $id_index = $index1-$index;
-            if (substr($tag_array[$id_index], 0, 2) == 'id'){
-                $tag_array[$id_index] = "<code>".$tag_array[$id_index]."</code>";
-            } else {
-                $word = "<code>".htmlspecialchars('id="..."')."</code>";
-                $a2 = array($tag_array[$id_index], $word);
-                array_splice($tag_array, $id_index,1,$a2);
-            }
-            echo "<p class='tag-info'>";
-            foreach ($tag_array as $items){
-                echo $items." ";
-            }
-            echo "</p>";
-
-    }
-    echo <<< END
-    </div>
-        <label for='correct'>$desc</label> <small>$info</small> 
-        <div class='form-group'>
-            <input type='text' class='form-control correct-text' id='correct_$identifier' placeholder='your text' required>
-            <input type='hidden' id='position_$identifier' value='$line $index $index1 $tag'>
-            <button class='btn btn-default' id='tiger' onclick='runAjax("$identifier")'>Edit</button>   
-            <button class='btn btn-default' onclick='runIgnore("$identifier")'>Ignore</button>
-        </div>
-    </div>
-END;
-}
-
 function docLang($all_text){
     $text = htmlspecialchars_decode($all_text);
     $find = '/<html (.*?)>/';
@@ -167,20 +87,20 @@ function display_alert($message, $type, $detail_info){
             $("ul#alert-list").append("<li class='$type'>$message</li>");
             $("ul#alert-list li.$type").append($('<a/>', 
                 {'text': "More info", 'class': 'btn btn-info btn-sm', 'id': '$type'}).on({'click': function() { revealInfo("$type", "$detail_info") }}));
-            var size = $("#alert-list >li").length;
-            document.getElementById("b-alert").className = "bub-alert";
-            document.getElementById("b-alert").innerHTML = size;
         });
     </script>
 END;
 }
-function display_error($message, $type, $detail_info){
+function display_error($message, $type, $detail_info, $id_panel, $panel_btn){
     echo <<< END
     <script type="text/javascript">
         $(document).ready(function(){
-            $("ul#error-list").append("<li class='$type'>$message</li>");
-            $("ul#error-list li.$type").append($('<a/>', 
-                {'text': "More info", 'class': 'btn btn-info btn-sm', 'id': '$type'}).on({'click': function() { revealInfo("$type", "$detail_info") }}));
+            $("ul#error-list").append("<li class='$type'>$message " +
+             "<a id='$type' class='btn btn-info btn-sm' onclick='revealInfo(&quot;$type&quot;, &quot;$detail_info&quot;)'> Detail Info</a></li>" +
+             "<div id='$id_panel' class='panel-collapse collapse' role='tabpanel'>" +
+             "<div class='panel-body'></div>"+
+             "</div>");
+            $("ul#error-list li.$type").append(" <a class='collapsed btn btn-success btn-sm' data-toggle='collapse' href='#$id_panel'>$panel_btn</a><br />");
         });
     </script>
 END;
@@ -217,7 +137,7 @@ function display_contrast($message, $type, $detail_info){
     </script>
 END;
 }
-function display_child_form($id_container, $li_class, $id_child, $line, $tag){
+function displayChangeLang($id_container, $li_class, $id_child, $line, $tag){
     $identifier= $tag.$line.'3';
     $languages = file_get_contents('class-check/language.txt');
     $languages_all = preg_split("/\\r\\n|\\r|\\n/", $languages);
@@ -252,6 +172,25 @@ function display_child_img($message, $id_container, $li_class, $child_id){
         $(document).ready(function(){
             $("ul#$id_container li.$li_class").append("<div class='few-kids'><ol id='$child_id'></ul></div></div>")
             $("ol#$child_id").append("$message");
+        });
+    </script>
+END;
+}
+function displayInput($id_panel, $tag_full, $line1, $index, $tag){
+    $identifier= $tag.$line1;
+    echo <<< END
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("div#$id_panel .panel-body").append("<div class='$identifier form-container'>" +
+            "<div class='info-detail'><p>Fault in <a href='#' onclick='toLine(&quot;$line1&quot;)'>line $line1</a></p><p class='tag-info'>$tag_full</p></div>"+
+            "<label for=correct_$identifier>Insert Value of Aria-label</label>"+
+            "<div class='form-group'>" +
+            "<input class='form-control correct-text' id='correct_$identifier' placeholder='your text' type='text'>"+
+            "<input id='position_$identifier' value='$line1 $index 0 $tag' type='hidden'>"+
+            "<button class='btn btn-default' onclick='runAjax(&quot;$identifier&quot;)'>Edit</button>"+
+            "<button class='btn btn-default' onclick='runIgnore(&quot;$identifier&quot;)'>Ignore</button>"+
+            "</div>"+
+            "</div>");
         });
     </script>
 END;

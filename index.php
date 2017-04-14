@@ -6,6 +6,7 @@ include 'class-check/class.OnChange.inc';
 include 'class-check/class.CheckItalic.inc';
 include 'class-check/class.CheckOl.inc';
 include 'class-check/class.CheckDuplicateID.inc';
+include 'class-check/class.CheckInput.inc';
 $time = microtime();
 $time = explode(' ', $time);
 $time = $time[1] + $time[0];
@@ -35,7 +36,7 @@ ini_set('max_execution_time', 300);
     <script src="js/jquery.smooth-scroll.js"></script>
     <script src="js/classie.js"></script>
 </head>
-<body>
+<body onload="showNotif()">
 	<header>
 	</header>
     <!--        More info with fault-->
@@ -129,53 +130,75 @@ END;
                        $this->checkId();
                        $this->imgBlankAlt();
                        $this->docLangCheck();
-                       $this->errorGroup(); //work allocation
-
-                    }
-
-                    //Work allocation heree
-                    public function errorGroup(){
-                        echo <<< END
-                        <div role="tabpanel" class="tab-pane" id="error">
-                        <ul id="error-list">
-                        <li class="img-list-error">Img tag doesn't have 'alt' properties 
-                        <a href='#' id='img-info' class='btn btn-sm btn-info' onclick="revealInfo('img-info', 'img')">More info</a>
-                        <a class="btn btn-success btn-sm " role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseImg">
-                            <i class="glyphicon glyphicon-menu-down"></i>
-                        </a></li>
-            
-                        <div id="collapseImg" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" style="height: 0px;" aria-expanded="false">
-                        <div class="panel-body">
-END;
-                        $this->imgNoAlt();
-                        echo <<< END
-                        </div>
-                        </div>
-                        </ul>
-                        </div>
-END;
+                       $this->imgNoAlt();
+                       $this->checkInput();
                     }
 
                     //===================   Check img Tag Process    ==========================================
                     /***
-                     * For now showing code and download button only trigerred from img check
+                     * For now showing code only trigerred from img check
                      */
                     public function imgNoAlt(){
                         $img = new CheckingImg($this->html);
                         $all = count($img->imgnoAlt);
+                        $message = 'Img tag doesn\'t have \'alt\' properties';
                         $count = 0;
-                        foreach ($img->imgnoAlt as $key=>$img){
-                            $count++;
-                            $img_tag = $img['imgTag'];
-                            $line = $img['line'];
-                            form_correct($img_tag, 'img', $line, $key, '');
+                        $class = 'img-list-error';
+                        $id_panel = 'panel_imgerror';
+                        if (!empty($img->imgnoAlt)){
+                            display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            foreach ($img->imgnoAlt as $key=>$img){
+                                $count++;
+                                $tag_full = $img['imgTag'];
+                                $ln = $img['line'];
+                                //form_correct($tag_full, 'img', $ln, $key, '');
+                                displayInput($id_panel, $tag_full, $ln, $key,'img');
 
-                            if ($count == $all){
-                                show_code();
+                                if ($count == $all){
+                                    show_code();
+                                }
                             }
                         }
                     }
 
+                    public function checkInput(){
+                        $input = new CheckingForm($this->html);
+                        $message='';
+                        $class='';
+                        if (!empty($input->getLabel())){
+                            foreach ($input->getLabel() as $nl){
+                                foreach ($input->inputWithFault as $ni){
+                                    if ($ni->getLineNo()-1 == $nl->getLineNo()) {
+                                        //Procced with label
+                                        echo 'sa';
+                                        $message = 'Input to be processed with label';
+                                        $class = 'input-label-error';
+                                    }else {
+                                        echo 'du';
+                                        $ln = $ni->getLineNo();
+                                        $message = 'Input to be proceseed alone';
+                                        $class='input-error';
+                                    }
+                                }
+                            }
+                        } else {
+                            foreach ($input->inputWithFault as $key=>$ni) {
+                                //No Label found bro
+                                $tag_full = htmlspecialchars($input->dom->saveXML($ni));
+                                $ln = $ni->getLineNo();
+                                $class = 'input-error';
+                                $id_panel = 'panel_input';
+                                $message = 'Input to be proceseed alone';
+
+                                //WARNING KALO ADA BANYAK INPUT IKI RUSAK
+                                display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                                displayInput($id_panel, $tag_full, $ln, $key, 'input');
+                            }
+                        }
+                        //is line before equal to label tag
+                        //if yes work to make both sync
+                        //if no work to make input accessible
+                    }
                     public function imgBlankAlt(){
                         $img = new CheckingImg($this->html);
                         $class = 'blank-img-info';
@@ -204,7 +227,8 @@ END;
                         if ($docType == 'html'){
                             if (empty($docLang)){
                                 $message = 'HTML documents don\'t have specific language';
-                                echo "Masuk error bro";
+                                display_error($message, 'lang-error', 'idInfo', 'panel_lang', "Change Language");
+                                displayChangeLang('error-list', 'lang-error','lang-form',$ln,'html');
                             } else {
                                 $str = file_get_contents('class-check/language.txt');
                                 $find = '/Subtag: '.$docLang.' Description:(.+?)\n/';
@@ -212,13 +236,13 @@ END;
                                 $langName = trim(preg_replace('/\s\s+/', ' ', $matches[1][0]));
                                 $lang = "Language defined as ".$langName;
                                 display_auto($lang, 'basic-list','lang-check', 'langInfo');
-                                display_child_form('basic-list', 'lang-check','lang-form',$ln,'html');
+                                displayChangeLang('basic-list', 'lang-check','lang-form',$ln,'html');
                             }
                         }else {
                             $message = "Document language is not defined ";
                             $xmlLang = $lang->nodeLang['xmlLangVal'];
                             if (empty($docLang) || empty($xmlLang)){
-                                display_error($message, 'id-check-empty', 'idInfo');
+                                display_error($message, 'id-check-empty', 'idInfo', 'panel_lang', "Change Language");
                             } else {
                                 echo 'To be included inside basic group';
                             }
@@ -327,6 +351,10 @@ END;
                                 <ul id='contrast-list'>
                                 </ul>
                             </div>
+                            <div role="tabpanel" class="tab-pane" id="error">
+                                <ul id="error-list">
+                                </ul>
+                            </div>
                             <?php
                                 //Program start here for insert code
                                 if (isset($_POST['stage']) && ('process' == $_POST['stage'])) {
@@ -401,13 +429,8 @@ END;
     <?php include 'include-accessible-data.php' ?>
     <script src="js/accessible-data-ctr.js"></script>
     <script src="js/main.js"></script>
-    <script>
-//        $(document).ready(function(){
-//            $(window).load(function(){
-//                var size = $('.col-md-6 .form-container').length;
-//                document.getElementById("b-alert").innerHTML = +size+;
-//            })
-//        });
-    </script>
 </body>
+<!--Track -->
+<!--- Selesaikan Input-->
+<!--- Bersihkan display message ketika slow, minimalizir script-->
 </html>

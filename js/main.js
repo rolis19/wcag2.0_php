@@ -87,3 +87,14 @@ function toLine(ln) {
     });
     return false;
 }
+
+function showNotif() {
+    $(document).ready(function() {
+        document.getElementById("b-error").className = "bub-danger";
+        var sizeError = $('.col-md-6 .form-container').length;
+        document.getElementById("b-error").innerHTML = sizeError;
+        var size = $("#alert-list >li").length;
+        document.getElementById("b-alert").className = "bub-alert";
+        document.getElementById("b-alert").innerHTML = size;
+    });
+}

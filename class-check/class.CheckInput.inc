@@ -1,32 +1,90 @@
 <?php
-include ($_SERVER['DOCUMENT_ROOT'].'/learn/class/class.ParseHtml.inc');
 
 class CheckingForm extends HtmlParser{
-    public $nodeForm;
-    public $formChild = array();
+    public $input;
+    public $inputWithFault;
 
     public function __construct($html){
         parent::__construct($html);
-        $this->nodeForm = $this->dom->getElementsByTagName('form')[0];
-        //$this->formChild = $this->setImgWithoutAlt();
+        $this->input = $this->dom->getElementsByTagName('input');
+        $this->inputWithFault = $this->getAccessibility();
     }
 
-    public function setImgWithoutAlt(){
-        $imgnoAlt = array();
-        //foreach ($this->nodeForm as $key=>$node){
-//            $imgnoAlt[$key] = array(
-//                'imgTag' => htmlspecialchars($this->dom->saveXML($node)),
-//                'line' => $node->getLineNo(),
-//            );
-        //}
-        var_dump($this->nodeForm->childNodes);
-        foreach($this->nodeForm->childNodes as $node){
-//                print $node->nodeName.' - '.$node->nodeValue;
-            if ($node->nodeName == 'input' || $node->nodeName == 'textarea' || $node->nodeName == 'select' || $node->nodeName == 'button'){
-                echo $node->nodeName.' = '.$node->getLineNo().'<br>';
+//    public function setChildForm(){
+//        $child = array();
+//        foreach($this->nodeForm->childNodes as $key=>$node){
+//            $tag = $node->nodeName;
+//            switch ($tag){
+//                case 'input':
+//                    $node = $this->getChildInput($node);
+//                case 'textarea':
+//                case 'select':
+//                    $child[$key] = $node;
+//                    break;
+//            }
+//        }
+//        return $child;
+//    }
+    public function  getInputAccess(){
+        $inputAcc = array();
+        foreach ($this->input as $key=>$node){
+            $type = $node->getAttribute('type');
+            switch ($type) {
+                case "text":
+                case "password":
+                case "radio":
+                case "checkbox":
+                    //Html5 new
+                case "color":
+                case "date":
+                case "datetime":
+                case "datetime-local":
+                case "email":
+                case "month":
+                case "number;":
+                case "range":
+                case "search":
+                case "tel":
+                case "time":
+                case "url":
+                case "week":
+                    if (!$node->hasAttribute('aria-label'))
+                        $inputAcc[$key] = $node;
+                    break;
             }
         }
-        return $imgnoAlt;
+        return $inputAcc;
+    }
+
+    public function getAccessibility(){
+        $newInput = array();
+        if (empty($this->getLabel())){
+            return $this->getInputAccess();
+        }else {
+            foreach ($this->getInputAccess() as $k=>$node){
+                if (!$node->hasAttribute('id'))
+                    $newInput[$k] = $node;
+                else
+                    foreach ($this->getLabel() as $nl){
+                        if (!$nl->getAttribute('for') == $node->getAttribute('id'))
+                            $newInput[$k] = $node;
+                    }
+            }
+            return $newInput;
+        }
+    }
+
+    public function getLabel(){
+        $label = $this->dom->getElementsByTagName('label');
+        $labelChek=array();
+        foreach ($label as $k=>$node){
+            $labelChek[$k]= $node->getLineNo();
+        }
+        if (!empty($labelChek)){
+            return $label;
+        }else {
+            return '';
+        }
     }
 
 }
