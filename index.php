@@ -7,6 +7,8 @@ include 'class-check/class.CheckItalic.inc';
 include 'class-check/class.CheckOl.inc';
 include 'class-check/class.CheckDuplicateID.inc';
 include 'class-check/class.CheckInput.inc';
+include 'class-check/class.CheckButton.inc';
+include 'class-check/class.CheckFrame.inc';
 $time = microtime();
 $time = explode(' ', $time);
 $time = $time[1] + $time[0];
@@ -122,16 +124,18 @@ END;
 
                     //Find tag, also their index
                     public function tag_check(){
-                       get_heading($this->html);
-                       $this->onChangeCheck();
-                       $this->italicCheck();
-                       $this->ordListCheck();
-                       fix_glyph_icon($this->html);
-                       $this->checkId();
-                       $this->imgBlankAlt();
-                       $this->docLangCheck();
-                       $this->imgNoAlt();
-                       $this->checkInput();
+                        get_heading($this->html);
+                        $this->onChangeCheck();
+                        $this->italicCheck();
+                        $this->olCheck();
+                        fix_glyph_icon($this->html);
+                        $this->checkId();
+                        $this->imgBlankAlt();
+                        $this->docLangCheck();
+                        $this->imgNoAlt();
+                        $this->checkInput();
+                        $this->checkButton();
+                        $this->checkFrame();
                     }
 
                     //===================   Check img Tag Process    ==========================================
@@ -139,7 +143,7 @@ END;
                      * For now showing code only trigerred from img check
                      */
                     public function imgNoAlt(){
-                        $img = new CheckingImg($this->html);
+                        $img = new CheckImg($this->html);
                         $all = count($img->imgnoAlt);
                         $message = 'Img tag doesn\'t have \'alt\' properties';
                         $count = 0;
@@ -152,7 +156,7 @@ END;
                                 $tag_full = $img['imgTag'];
                                 $ln = $img['line'];
                                 //form_correct($tag_full, 'img', $ln, $key, '');
-                                displayInput($id_panel, $tag_full, $ln, $key,'img');
+                                displayChildError($id_panel, $tag_full, $ln, $key,'img');
 
                                 if ($count == $all){
                                     show_code();
@@ -162,7 +166,7 @@ END;
                     }
 
                     public function checkInput(){
-                        $input = new CheckingForm($this->html);
+                        $input = new CheckInput($this->html);
                         $message='';
                         $class='';
                         if (!empty($input->getLabel())){
@@ -192,33 +196,67 @@ END;
 
                                 //WARNING KALO ADA BANYAK INPUT IKI RUSAK
                                 display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
-                                displayInput($id_panel, $tag_full, $ln, $key, 'input');
+                                displayChildError($id_panel, $tag_full, $ln, $key, 'input');
                             }
                         }
                         //is line before equal to label tag
                         //if yes work to make both sync
                         //if no work to make input accessible
                     }
+
+                    public function checkButton(){
+                        $button = new CheckButton($this->html);
+                        $button->getButton();
+                        if (!empty($button->btnWithEnt)){
+                            $message = 'Button infromation contain HTML entity';
+                            $class = 'btn-list-error';
+                            $id_panel = 'panel_btnerror';
+                            display_error($message, $class, 'langInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            foreach ($button->btnWithEnt as $key=>$node){
+                                $tag_full = htmlspecialchars($button->dom->saveXML($node));
+                                $ln = $node->getLineNo();
+                                displayChildError($id_panel, $tag_full, $ln, $key,'input');
+                            }
+                        }
+                        if(!empty($button->btnWithLessInfo)){
+                            $message = 'Button contain short infromation';
+                            $class = 'btn-list-alert';
+                            $id_panel = 'panel_btnalert';
+                            $msgChild="";
+                            if (count($button->btnWithLessInfo) <= 3){
+                                display_alert($message, $class, 'langInfo', $id_panel, 'no-collapse', "");
+                            } else {
+                                display_alert($message, $class, 'langInfo', $id_panel, 'collapse', "<i class='glyphicon glyphicon-menu-down'></i>");
+                            }
+                            foreach ($button->btnWithLessInfo as $key=>$node){
+                                $value = $node->nodeValue;
+                                $tag_full = htmlspecialchars("<button> $value </button>");
+                                $line = $node->getLineNo();
+                                $msgChild .= "<li><samp>Line <a href='#' onclick='toLine(".$line.")'>".$line."</a> $tag_full</samp></li>";
+                            }
+                            displayChildAlert($msgChild, $id_panel);
+                        }
+                    }
+
                     public function imgBlankAlt(){
-                        $img = new CheckingImg($this->html);
+                        $img = new CheckImg($this->html);
                         $class = 'blank-img-info';
                         if (!empty($img->imgBlankAlt)){
-                            $message1="";
+                            $msgChild="";
                             $message = "Image with blank alt properties";
-                            display_alert($message, $class, 'img');
+                            $id_panel = 'panel_imgalert';
+                            display_alert($message, $class, 'img', $id_panel, 'collapse', "<i class='glyphicon glyphicon-menu-down'></i>");
                             foreach ($img->imgBlankAlt as $key=>$img){
-//                                $img_tag = $img['imgTag'];
                                 $line = $img['line'];
                                 $src = $img['src'];
-                                $message1 .= "<li><samp>$src <a href='#' onclick='toLine(".$line.")'>".$line."</a></samp></li>";
-//                                form_correct($img_tag, 'img', $line, $key, '');
+                                $msgChild .= "<li><samp>Line <a href='#' onclick='toLine(".$line.")'>".$line."</a> $src</samp></li>";
                             }
-                            display_child_few($message1, 'alert-list', 'blank-img-info', 'imgInfo');
+                            displayChildAlert($msgChild, $id_panel);
                         }
                     }
 
                     public function docLangCheck(){
-                        $lang = new CheckingLangDoc($this->html);
+                        $lang = new DocLanguage($this->html);
                         /*** Suppose will always be only one HTML tag */
                         $docType = $lang->nodeLang['docType'];
                         $docLang = $lang->nodeLang['langVal'];
@@ -250,51 +288,59 @@ END;
                     }
 
                     public function onChangeCheck(){
-                        $onChange = new CheckingOnChange($this->html);
+                        $onChange = new OnChange($this->html);
                         if (!empty($onChange->selectOnChange)) {
                             $class = 'onchange-check';
-                            $message = '<code>select</code> tag may cause extreme modification due to <samp>onchange()</samp> function';
-                            display_alert($message, $class, 'onchangeInfo');
+                            $id_panel = 'panel_onchgalert';
+                            $message = '<code>select</code> tag may cause extreme modification due to <samp>onchange()</samp>';
+                            display_alert($message, $class, 'onchangeInfo', $id_panel, 'no-collapse', '');
                             $onchange_txt="";
                             $onchange_txt .="<li><samp>Line</samp></li>";
                             foreach ($onChange->selectOnChange as $item) {
                                 $onchange_txt .= "<li><samp><a href='#' onclick='toLine(".$item['line'].")'>".$item['line']."</a></samp></li>";
                             }
-                            display_child_few($onchange_txt, 'alert-list', $class, 'onchange-list');
+                            displayChildAlert($onchange_txt, $id_panel);
                         }
 
                     }
 
                     public function italicCheck(){
-                        $italic_txt = new CheckingItalic($this->html);
+                        $italic_txt = new CheckItalic($this->html);
                         $class = 'italic-info';
                         $italic_line="";
-                        if (!empty($italic_txt->italic)){
+                        if (!empty($italic_txt->nodeItalic->length)){
+                            $id_panel = 'panel_italicalert';
                             $message = "Italic format known problem for some people with Dyslexia";
-                            display_alert($message, $class, 'italicInfo');
-                            $italic_line .= "<li><samp>Line</samp></li>";
-                            foreach ($italic_txt->italic as $item) {
-                                $italic_line .= "<li><samp><a href='#' onclick='toLine(".$item['line'].")'>".$item['line']."</a></samp></li>";
+                            if ($italic_txt->nodeItalic->length >= 3){
+                                display_alert($message, $class, 'italicInfo', $id_panel, 'collapse', "<i class='glyphicon glyphicon-menu-down'></i>");
+                            } else {
+                                display_alert($message, $class, 'italicInfo', $id_panel, 'no-collapse', '');
                             }
-                            display_child_few($italic_line, 'alert-list', $class, 'italicInfo');
+                            foreach ($italic_txt->nodeItalic as $item) {
+                                $tag = htmlspecialchars(" <em>$item->nodeValue</em> ");
+                                $ln = $item->getLineNo();
+                                $italic_line .= "<li><samp>Line <a href='#' onclick='toLine(".$ln.")'>".$ln."</a> $tag</samp></li>";
+                            }
+                            displayChildAlert($italic_line, $id_panel);
                         }else {
                             $message = 'No italic style found';
                             display_auto($message, 'basic-list',$class, 'italicInfoTrue');
                         }
                     }
 
-                    public function ordListCheck(){
-                        $ordered = new CheckingOl($this->html);
+                    public function olCheck(){
+                        $ordered = new CheckOl($this->html);
                         $orderedLine="";
                         $class = 'orderlist_check';
                         if (!empty($ordered->ordList)){
                             $message = 'Ordered list <code>&lt;ol&gt;</code> probably misused';
-                            display_alert($message, $class, 'olInfo');
+                            $id_panel = 'panel_ordlstalert';
+                            display_alert($message, $class, 'olInfo', $id_panel,'no-collapse', '');
                             $orderedLine .= "<li><samp>Line</samp></li>";
                             foreach ($ordered->ordList as $item) {
                                 $orderedLine .= "<li><samp><a href='#' onclick='toLine(".$item['line'].")'>".$item['line']."</a></samp></li>";
                             }
-                            display_child_few($orderedLine, 'alert-list', $class, 'olInfo');
+                            displayChildAlert($orderedLine, $id_panel);
                         }else {
                             $message = 'No ordered list found';
                             display_auto($message, 'basic-list', $class, 'olInfoTrue');
@@ -302,23 +348,60 @@ END;
                     }
 
                     public function checkId(){
-                        $id = new CheckingDupID($this->html);
+                        $id = new CheckDuplicateID($this->html);
                         if (!empty($id->duplicateId)){
-                            $message = "";
+                            $message = "er";
+                            $class= 'idalert';
                             $message1 = "Duplicate ID found";
-                            display_alert($message1, 'id-check-empty', 'idInfo');
+                            $id_panel='panel_idalert';
+                            display_alert($message1, $class, 'idInfo', $id_panel,'no-collapse', '');
+
                             foreach ($id->duplicateId as $item=>$key){
-                                $message .= '<li><samp>'.$item.'</samp></li>';
+                                $message = '<li><samp>'.$item.'</samp></li>';
                                 foreach ($key as $line){
                                     $message .= "<li><samp><a href='#' onclick='toLine(".$line.")'>".$line."</a></samp></li>";
                                 }
                                 $message .= '<br>';
                             }
-                            display_child_few($message, 'alert-list', 'id-check-empty', 'idInfo');
+                            //display_child_few($message, 'alert-list', 'id-check-empty', 'idInfo');
+                            displayChildAlert($message, $id_panel);
 
                         } else {
                             $message_no =  "No duplicate ID found";
                             display_auto($message_no, 'basic-list','id-check', 'idInfoTrue');
+                        }
+                    }
+
+                    public function checkFrame(){
+                        $frame = new CheckFrame($this->html);
+                        $frame->getFrame();
+                        if (!empty($frame->allFrame)){
+                            $class = 'frame-error';
+                            $id_panel = 'panel_frameerror';
+                            $message = 'Frame need title attribute';
+
+                            display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+
+                            foreach ($frame->allFrame as $key=>$nf){
+                                $ln = $nf->getLineNo();
+                                $tag_full = htmlspecialchars($frame->dom->saveXML($nf));
+                                displayChildError($id_panel, $tag_full, $ln, $key, 'input');
+                            }
+                        }
+
+                        if (!empty($frame->frameShortTitle)){
+                            $class = 'frame-alert';
+                            $id_panel = 'panel_framealert';
+                            $message = 'Frame contain short title';
+
+                            display_alert($message, $class, 'idInfo', $id_panel, 'no-collapse', '');
+                            $msgChild="";
+                            foreach ($frame->frameShortTitle as $key=>$nf){
+                                $ln = $nf->getLineNo();
+                                $tag = htmlspecialchars($frame->dom->saveHTML($nf));
+                                $msgChild .= "<li><samp>Line <a href='#' onclick='toLine(".$ln.")'>".$ln."</a> $tag</samp></li>";
+                            }
+                            displayChildAlert($msgChild, $id_panel);
                         }
                     }
 

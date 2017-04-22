@@ -1,6 +1,6 @@
 <?php
 
-class CheckingOl extends HtmlParser{
+class CheckOl extends ParseHtml{
     public $nodeOl;
     public $ordList = array();
 

@@ -2,7 +2,7 @@
 
 include ('class/class.ParseHtml.inc');
 
-class getHeading extends HtmlParser{
+class getHeading extends ParseHtml{
     public $headingList;
 
     public function __construct($html){

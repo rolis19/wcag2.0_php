@@ -1,7 +1,7 @@
 <?php
 
 
-class CheckingOnChange extends HtmlParser{
+class OnChange extends ParseHtml{
     public $nodeSelect;
     public $selectOnChange = array();
 

@@ -80,18 +80,22 @@ function display_auto($message, $id_type, $type, $detail_info){
     </script>
 END;
 }
-function display_alert($message, $type, $detail_info){
+function display_alert($message, $type, $detail_info, $id_panel, $is_collapse, $panel_txt){
     echo <<< END
     <script type="text/javascript">
         $(document).ready(function(){
-            $("ul#alert-list").append("<li class='$type'>$message</li>");
-            $("ul#alert-list li.$type").append($('<a/>', 
-                {'text': "More info", 'class': 'btn btn-info btn-sm', 'id': '$type'}).on({'click': function() { revealInfo("$type", "$detail_info") }}));
+            $("ul#alert-list").append("<li class='$type $is_collapse'>$message" +
+            "<a id='$type' class='btn btn-info btn-sm' onclick='revealInfo(&quot;$type&quot;, &quot;$detail_info&quot;)'> Detail Info</a></li>" +
+            "<div id='$id_panel' class='panel-collapse $is_collapse' role='tabpanel'>" +
+            "<div class='panel-body'></div>"+
+            "</div>"+
+            "<div class='border-btm'></div>");
+            $("ul#alert-list li.$type").append(" <a class='collapsed btn btn-success btn-sm $is_collapse' data-toggle='collapse' href='#$id_panel'>$panel_txt</a><br />");
         });
     </script>
 END;
 }
-function display_error($message, $type, $detail_info, $id_panel, $panel_btn){
+function display_error($message, $type, $detail_info, $id_panel, $panel_txt){
     echo <<< END
     <script type="text/javascript">
         $(document).ready(function(){
@@ -100,7 +104,7 @@ function display_error($message, $type, $detail_info, $id_panel, $panel_btn){
              "<div id='$id_panel' class='panel-collapse collapse' role='tabpanel'>" +
              "<div class='panel-body'></div>"+
              "</div>");
-            $("ul#error-list li.$type").append(" <a class='collapsed btn btn-success btn-sm' data-toggle='collapse' href='#$id_panel'>$panel_btn</a><br />");
+            $("ul#error-list li.$type").append(" <a class='collapsed btn btn-success btn-sm' data-toggle='collapse' href='#$id_panel'>$panel_txt</a><br />");
         });
     </script>
 END;
@@ -112,16 +116,6 @@ function display_child_many($message, $id_container, $li_class, $level, $id_chil
             $("ul#$id_container li.$li_class").append("<a class='collapsed btn btn-success btn-sm' role='button' data-toggle='collapse' data-parent='#accordion' href='#collapseIco' aria-expanded='false' aria-controls='collapseThree'><i class=' glyphicon glyphicon-menu-down'></i></a> <br />");
             $("ul#$id_container li.$li_class").append("<div id='collapseIco' class='panel-collapse collapse' role='tabpanel' aria-labelledby='headingThree'><div class='panel-body $level'><ol id='$id_child'></ol></div></div>")
             $("ol#$id_child").append("$message");
-        });
-    </script>
-END;
-}
-function display_child_few($message, $id_container, $li_class, $child_id){
-    echo <<< END
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $("ul#$id_container li.$li_class").append("<div class='few-kids'><ol id='$child_id'></ul></div></div>")
-            $("ol#$child_id").append("$message");
         });
     </script>
 END;
@@ -176,7 +170,7 @@ function display_child_img($message, $id_container, $li_class, $child_id){
     </script>
 END;
 }
-function displayInput($id_panel, $tag_full, $line1, $index, $tag){
+function displayChildError($id_panel, $tag_full, $line1, $index, $tag){
     $identifier= $tag.$line1;
     echo <<< END
     <script type="text/javascript">
@@ -191,6 +185,17 @@ function displayInput($id_panel, $tag_full, $line1, $index, $tag){
             "<button class='btn btn-default' onclick='runIgnore(&quot;$identifier&quot;)'>Ignore</button>"+
             "</div>"+
             "</div>");
+        });
+    </script>
+END;
+}
+function displayChildAlert($message, $id_panel){
+    echo <<< END
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("div#$id_panel .panel-body").append("<ol>" +
+             "$message" +
+             "</ol>");
         });
     </script>
 END;

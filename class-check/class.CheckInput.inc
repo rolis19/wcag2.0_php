@@ -1,6 +1,6 @@
 <?php
 
-class CheckingForm extends HtmlParser{
+class CheckInput extends ParseHtml{
     public $input;
     public $inputWithFault;
 

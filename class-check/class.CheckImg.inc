@@ -1,7 +1,7 @@
 <?php
 include ('class/class.ParseHtml.inc');
 
-class CheckingImg extends HtmlParser{
+class CheckImg extends ParseHtml{
     public $nodeImg;
     public $imgnoAlt = array();
     public $imgBlankAlt = array();

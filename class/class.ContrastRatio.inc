@@ -1,5 +1,5 @@
 <?php
-class CssParser {
+class ContrastRatio {
     public $css;
     public $cssColor = array();
     public $cssBackground = array();

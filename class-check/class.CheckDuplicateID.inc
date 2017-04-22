@@ -1,7 +1,7 @@
 <?php
 
 
-class CheckingDupID extends HtmlParser{
+class CheckDuplicateID extends ParseHtml{
     public $nodeAll;
     public $idList= array();
     public $duplicateId = array();

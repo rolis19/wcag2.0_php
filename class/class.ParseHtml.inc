@@ -1,5 +1,5 @@
 <?php
-class HtmlParser{
+class ParseHtml{
     public $dom;
     public function __construct($html){
         /*** Ignore warning from php dom ***/

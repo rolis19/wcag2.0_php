@@ -1,7 +1,7 @@
 <?php
 include 'class.ParseHtml.inc';
 
-class SelectorParser extends HtmlParser {
+class ParseHtmlSelector extends ParseHtml {
     public $nodeWithValue;
     public $DOMNodelist;
 

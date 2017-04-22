@@ -6,6 +6,7 @@ a, a:active, a:focus {
     margin-bottom: 8px; color: rgba(0, 0, 0, 0.6);
     overflow: hidden;
     white-space: nowrap;
+    text-overflow: ellipsis;
 }
 #outline .btn-sm {
     padding: 0!important;
@@ -164,7 +165,7 @@ code.line{
 .form-group button{
     margin-left: 5px;
 }
-p.tag-info {margin-bottom: 10px;overflow: hidden;
+p.tag-info {margin-bottom: 10px;overflow: hidden; text-overflow: ellipsis;
     white-space: nowrap; line-height: 14px}
 .col-md-6 .form-container:nth-of-type(even){
     background: #F6F6F6;
@@ -422,11 +423,11 @@ ul li samp {  font-size: 12px;  }
 }
 a#close-button{color: #FFFFFF}
 
-.few-kids ol{
-    padding-left: 0;
+#alert .panel-body ol{
+    padding-left: 12px;
     padding-top: 12px;
 }
-.few-kids ol li{
+#alert .panel-body ol li{
     display: inline;
     margin-right: 12px;
 }
@@ -459,6 +460,46 @@ ol#lang-form .form-group {
 
 /* Image tag check */
 /* Alert */
-.blank-img-info .few-kids ol li {
+#panel_btnalert .panel-body ol li, #panel_italicalert .panel-body ol li, #panel_imgalert .panel-body ol li {
     display: block;
+}
+
+
+#alert a.collapse{
+    display: inline;
+}
+#alert a.no-collapse {
+    display: none;
+}
+#alert li.collapse{
+    display: block;
+}
+#alert li.no-collapse, li.collapse{
+    border-bottom: none!important;
+}
+#alert .panel-body ol >li {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.border-btm{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+#alert li.no-collapse{padding-bottom: 0!important;}
+
+#alert .panel-collapse .panel-body {
+    padding: 0;
+}
+#alert .no-collapse .panel-body ol{
+    padding-top: 5px;
+    padding-bottom: 12px;
+}
+#alert .collapse .panel-body ol{
+    margin-top: -20px;
+}
+.btn.btn-success.btn-sm i.glyphicon-menu-down::before{
+    content:"\e260";
+}
+.btn.btn-success.btn-sm.collapsed i.glyphicon-menu-down::before{
+    content:"\e259";
 }

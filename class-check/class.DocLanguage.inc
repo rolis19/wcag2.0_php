@@ -1,5 +1,5 @@
 <?php
-class CheckingLangDoc extends HtmlParser{
+class DocLanguage extends ParseHtml{
     public $nodeHtml;
     public $nodeLang;
 
