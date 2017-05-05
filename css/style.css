@@ -381,11 +381,37 @@ p.info-other{
 code {background-color: transparent}
 #alert >ul {margin-left: 12px; padding: 0;margin-top: 12px;}
 
-#auto-list >li, #alert-list >li, #basic-list >li, #error-list >li, #outline ul li {
+#alert-list >li, #error-list >li, #outline ul li {
     list-style: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.07);
     padding: 14px 10px;
     color: rgba(0, 0, 0, 0.5);
+}
+#basic-list{
+    padding-top: 35px;
+}
+#auto-list{
+    padding-top: 17px;
+}
+#basic-list >li, #auto-list >li {
+    list-style: none;
+    padding: 5px 10px;
+    color: rgba(0, 0, 0, 0.5);
+    clear: both;
+}
+#basic-list >li:nth-last-child(1), #auto-list >li:nth-last-child(1) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    padding-bottom: 30px;
+}
+#basic-list a.btn-info, #auto-list a.btn-info{
+    font-weight: bold;
+    padding: 0 8px;
+    margin-left: 10px!important;
+}
+#basic-list strong{
+    display: block;
+    width: 75px;
+    float: left;
 }
 #auto-list >li .btn, #alert-list >li .btn, #basic-list >li .btn{
     -webkit-border-radius: 50px;
@@ -434,6 +460,7 @@ a#close-button{color: #FFFFFF}
 
 /* Language class check */
 /* Basic */
+
 ol#lang-form {
     padding-left: 0;
 }
@@ -502,4 +529,59 @@ ol#lang-form .form-group {
 }
 .btn.btn-success.btn-sm.collapsed i.glyphicon-menu-down::before{
     content:"\e259";
+}
+
+
+/* Title tag check */
+/* Auto */
+li.ttl-check span{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 430px;
+    display: block;
+    float: left;
+}
+
+
+
+/* CHART style */
+.ct-series-d .ct-area, .ct-series-d .ct-slice-donut-solid, .ct-series-d .ct-slice-pie {
+    fill: #50C5AB;
+}
+.ct-series-a .ct-area, .ct-series-a .ct-slice-donut-solid, .ct-series-a .ct-slice-pie {
+    fill: #64B3DE;
+}
+.ct-series-b .ct-area, .ct-series-b .ct-slice-donut-solid, .ct-series-b .ct-slice-pie {
+    fill: #fec632;
+}
+.ct-series-c .ct-area, .ct-series-c .ct-slice-donut-solid, .ct-series-c .ct-slice-pie {
+    fill: #EC6C61;
+}
+.ct-label {
+    color: rgba(0, 0, 0, 0.4);
+    fill: rgba(0, 0, 0, 0.4);
+    font-size: 10px;
+    font-weight: bold;
+}
+.ct-chart{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.summ-info h3{
+    color: rgba(0, 0, 0, .5);
+    font-weight: bold;
+}
+.summ-info ul li{
+    list-style: none;
+    margin-left: 25px;
+    margin-right: 50px;
+    color: rgba(0, 0, 0, .5);
+    font-weight: bold;
+    clear: both;
+}
+.summ-info ul li strong{
+    display: block;
+    width: 80px;
+    float: left;
 }

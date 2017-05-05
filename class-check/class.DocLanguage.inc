@@ -1,33 +1,46 @@
 <?php
+//include ('class/class.ParseHtml.inc');
+
 class DocLanguage extends ParseHtml{
     public $nodeHtml;
-    public $nodeLang;
+    public $doc;
 
     public function __construct($html){
         parent::__construct($html);
         $this->nodeHtml = $this->dom->getElementsByTagName('html')[0];
-        $this->nodeLang = $this->setLangDoc();
+
+    }
+    public function setLang(){
+        if ($this->nodeHtml != null){
+            $checkXml = $this->dom->saveHTML($this->nodeHtml);
+            $re = '/<html(.+?)xmlns="(.+?)>/';
+            if (preg_match($re, $checkXml)){
+                $this->doc = 'xml';
+            } else {
+                $this->doc = 'html';
+            }
+        }
     }
 
-    public function setLangDoc(){
-        $checkXml = $this->dom->saveHTML($this->nodeHtml);
-        $re = '/<html(.+?)xmlns="(.+?)>/';
-        if (preg_match($re, $checkXml)){
-            $langNode = array(
-                'docType' =>'xml',
-                'line' => $this->nodeHtml->getLineNo(),
-                'langVal' => $this->nodeHtml->getAttribute('lang'),
-                'xmlLangVal' => $this->nodeHtml->getAttribute('xml:lang'),
-            );
-        } else {
-            $langNode = array(
-                'docType' => 'html',
-                'line' => $this->nodeHtml->getLineNo(),
-                'langVal' => $this->nodeHtml->getAttribute('lang'),
-            );
-        }
-        return $langNode;
-    }
+//    public function setLangDoc(){
+//        $checkXml = $this->dom->saveHTML($this->nodeHtml);
+//        $re = '/<html(.+?)xmlns="(.+?)>/';
+//        if (preg_match($re, $checkXml)){
+//            $langNode = array(
+//                'docType' =>'xml',
+//                'line' => $this->nodeHtml->getLineNo(),
+//                'langVal' => $this->nodeHtml->getAttribute('lang'),
+//                'xmlLangVal' => $this->nodeHtml->getAttribute('xml:lang'),
+//            );
+//        } else {
+//            $langNode = array(
+//                'docType' => 'html',
+//                'line' => $this->nodeHtml->getLineNo(),
+//                'langVal' => $this->nodeHtml->getAttribute('lang'),
+//            );
+//        }
+//        return $langNode;
+//    }
 
 }
 

@@ -9,6 +9,7 @@ include 'class-check/class.CheckDuplicateID.inc';
 include 'class-check/class.CheckInput.inc';
 include 'class-check/class.CheckButton.inc';
 include 'class-check/class.CheckFrame.inc';
+include 'class-check/class.CheckTitle.inc';
 $time = microtime();
 $time = explode(' ', $time);
 $time = $time[1] + $time[0];
@@ -32,11 +33,13 @@ ini_set('max_execution_time', 300);
     <meta property="og:type" content="article"/>
 	<title>Web Accessibility</title>
 	<link rel="stylesheet" href="css/bootstrap.css">
+    <link href="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/style.css">
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/jquery.smooth-scroll.js"></script>
     <script src="js/classie.js"></script>
+    <script src="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 </head>
 <body onload="showNotif()">
 	<header>
@@ -124,6 +127,8 @@ END;
 
                     //Find tag, also their index
                     public function tag_check(){
+                        $this->docLangCheck();
+                        $this->checkTitle();
                         get_heading($this->html);
                         $this->onChangeCheck();
                         $this->italicCheck();
@@ -131,11 +136,11 @@ END;
                         fix_glyph_icon($this->html);
                         $this->checkId();
                         $this->imgBlankAlt();
-                        $this->docLangCheck();
                         $this->imgNoAlt();
                         $this->checkInput();
                         $this->checkButton();
                         $this->checkFrame();
+                        displayPie(20, 60, 10, 15);
                     }
 
                     //===================   Check img Tag Process    ==========================================
@@ -256,35 +261,60 @@ END;
                     }
 
                     public function docLangCheck(){
-                        $lang = new DocLanguage($this->html);
-                        /*** Suppose will always be only one HTML tag */
-                        $docType = $lang->nodeLang['docType'];
-                        $docLang = $lang->nodeLang['langVal'];
-                        $ln = $lang->nodeLang['line'];
 
-                        if ($docType == 'html'){
-                            if (empty($docLang)){
-                                $message = 'HTML documents don\'t have specific language';
-                                display_error($message, 'lang-error', 'idInfo', 'panel_lang', "Change Language");
-                                displayChangeLang('error-list', 'lang-error','lang-form',$ln,'html');
-                            } else {
-                                $str = file_get_contents('class-check/language.txt');
-                                $find = '/Subtag: '.$docLang.' Description:(.+?)\n/';
-                                preg_match_all($find, $str, $matches);
-                                $langName = trim(preg_replace('/\s\s+/', ' ', $matches[1][0]));
-                                $lang = "Language defined as ".$langName;
-                                display_auto($lang, 'basic-list','lang-check', 'langInfo');
-                                displayChangeLang('basic-list', 'lang-check','lang-form',$ln,'html');
+                        $lang = new DocLanguage($this->html);
+                        if ($lang->nodeHtml != null){
+                            $lang->setLang();
+                            $ln = $lang->nodeHtml->getLineNo();
+                            if ($lang->doc == 'html'){
+                                if ($lang->nodeHtml->hasAttribute('lang')){
+                                    $docLang = $lang->nodeHtml->getAttribute('lang');
+                                    $str = file_get_contents('class-check/language.txt');
+                                    $find = '/Subtag: '.$docLang.' Description:(.+?)\n/';
+                                    preg_match_all($find, $str, $matches);
+                                    $langName = trim(preg_replace('/\s\s+/', ' ', $matches[1][0]));
+                                    $lang = "<strong>Language</strong>: ".$langName;
+                                    display_auto($lang, 'basic-list','lang-check', 'langInfo');
+                                    displayChangeLang('basic-list', 'lang-check','lang-form',$ln,'html');
+                                }else {
+                                    $message = 'HTML documents don\'t have specific language';
+                                    display_error($message, 'lang-error', 'idInfo', 'panel_lang', "Change Language");
+                                    displayChangeLang('error-list', 'lang-error','lang-form',$ln,'html');
+                                }
+                            }else {
+                                // Language defined as xml
                             }
                         }else {
-                            $message = "Document language is not defined ";
-                            $xmlLang = $lang->nodeLang['xmlLangVal'];
-                            if (empty($docLang) || empty($xmlLang)){
-                                display_error($message, 'id-check-empty', 'idInfo', 'panel_lang', "Change Language");
-                            } else {
-                                echo 'To be included inside basic group';
-                            }
+                            //HTML tag not found
+                            $message = 'HTML documents don\'t have specific language';
+                            display_error($message, 'lang-error', 'langInfo', 'panel_lang', "Change Language");
+                            $ttl = "<strong>Language</strong>: Not Declared";
+                            display_auto($ttl, 'basic-list','lang-check', 'langInfo');
                         }
+
+//                        if ($docType == 'html'){
+//                            if (empty($docLang)){
+//                                $message = 'HTML documents don\'t have specific language';
+//                                display_error($message, 'lang-error', 'idInfo', 'panel_lang', "Change Language");
+//                                displayChangeLang('error-list', 'lang-error','lang-form',$ln,'html');
+//                            } else {
+//                                $str = file_get_contents('class-check/language.txt');
+//                                $find = '/Subtag: '.$docLang.' Description:(.+?)\n/';
+//                                preg_match_all($find, $str, $matches);
+//                                $langName = trim(preg_replace('/\s\s+/', ' ', $matches[1][0]));
+//                                $lang = "Language defined as ".$langName;
+//                                display_auto($lang, 'basic-list','lang-check', 'langInfo');
+//                                displayChangeLang('basic-list', 'lang-check','lang-form',$ln,'html');
+//                            }
+//                        }else {
+//                            $message = "Document language is not defined ";
+//                            $xmlLang = $lang->nodeLang['xmlLangVal'];
+//                            if (empty($docLang) || empty($xmlLang)){
+//                                display_error($message, 'id-check-empty', 'idInfo', 'panel_lang', "Change Language");
+//                            } else {
+//                                echo 'To be included inside basic group';
+//                            }
+//                        }
                     }
 
                     public function onChangeCheck(){
@@ -324,7 +354,7 @@ END;
                             displayChildAlert($italic_line, $id_panel);
                         }else {
                             $message = 'No italic style found';
-                            display_auto($message, 'basic-list',$class, 'italicInfoTrue');
+                            display_auto($message, 'auto-list',$class, 'italicInfoTrue');
                         }
                     }
 
@@ -343,7 +373,7 @@ END;
                             displayChildAlert($orderedLine, $id_panel);
                         }else {
                             $message = 'No ordered list found';
-                            display_auto($message, 'basic-list', $class, 'olInfoTrue');
+                            display_auto($message, 'auto-list', $class, 'olInfoTrue');
                         }
                     }
 
@@ -368,7 +398,7 @@ END;
 
                         } else {
                             $message_no =  "No duplicate ID found";
-                            display_auto($message_no, 'basic-list','id-check', 'idInfoTrue');
+                            display_auto($message_no, 'auto-list','id-check', 'idInfoTrue');
                         }
                     }
 
@@ -405,12 +435,35 @@ END;
                         }
                     }
 
+                    public function checkTitle(){
+                        $title = new checkTitle($this->html);
+
+                        if ($title->title != null){
+                            $title->getTitle();
+                            $ttl = "<strong>Title</strong><span>: ".$title->title->nodeValue."</span>";
+                            display_auto($ttl, 'basic-list','ttl-check', 'langInfo');
+                            if ($title->titleFault != null){
+                                $class = 'title-alert';
+                                $id_panel = 'panel_ttlalert';
+                                $line = $title->titleFault->getLineNo();
+                                $txt = $title->titleFault->nodeValue;
+                                $message = 'Title conain sort information';
+                                $msgChild = "<li><samp>Line <a href='#' onclick='toLine(".$line.")'>".$line."</a>: $txt</samp></li>";
+                                display_alert($message, $class, 'langInfo', $id_panel, 'no-collapse', "");
+                                displayChildAlert($msgChild, $id_panel);
+                            }
+                        }else {
+                            $ttl = "<strong>Title</strong>: Not Declared";
+                            display_auto($ttl, 'basic-list','ttl-check', 'langInfo');
+                        }
+                    }
+
                 }
                 ?>
                 <div class="col-md-6 bottom">
                     <!-- Nav tabs -->
                     <ul id="nav-tab" class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#auto" aria-controls="home" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-ok-circle"></i> Basic & Autocorrect</a></li>
+                        <li role="presentation" class="active"><a href="#auto" aria-controls="home" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-ok-circle"></i> Summary</a></li>
                         <li role="presentation" id="li-error"><a href="#error" aria-controls="error" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-remove-circle"></i> Errors <span class="bubble" id="b-error"></span></a></li>
                         <li role="presentation" id="li-alert"><a href="#alert" aria-controls="alert" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-warning-sign"></i> Alert <span class="bubble" id="b-alert"></span></a></li>
                         <li role="presentation"><a href="#outline" aria-controls="outline" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-list-alt"></i> Outline</a></li>
@@ -425,6 +478,18 @@ END;
                                 <ul id='auto-list'>
                                     <h3 id="info-intro" class="text-center" style="padding: 18px 12px; width: 80%; margin: 120px auto 0;">Your check's result soon <br> <small>will be apeared here <br> <i class="glyphicon glyphicon-flash"></i> </small></h3>
                                 </ul>
+                                <div class="summ-info">
+                                    <h3 class="text-center">Report</h3>
+                                    <div class="ct-chart" style="width: 100%; height: 300px"></div>
+                                    <ul class="col-md-6">
+                                        <li><strong>Level A</strong>: 70</li>
+                                        <li><strong>Level AA</strong>: 32</li>
+                                        <li><strong>Level AAA</strong>: 22</li>
+                                    </ul>
+                                    <div class="col-md-6" style="padding-top: 12px">
+                                        <a href="#" class="btn btn-primary">Download report</a>
+                                    </div>
+                                </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="alert">
                                 <ul id='alert-list'>

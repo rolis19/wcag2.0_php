@@ -29,17 +29,17 @@ function fix_glyph_icon($all_text){
     $item1 = preg_replace($find, '<$1 class="$2$3" aria-hidden="true"></$4>', $text);
     foreach ($icon_arr[0] as $items){
         $a1 = preg_replace($find1, '<$1 class="$2$3"></$5>', $items);
-        $a2 = preg_replace($find, '<$1 class="$2$3" aria-hidden="true"></$4>', $a1);
+        $a2 = preg_replace($find, '<$1 class="$2$3" aria-hidden="true">', $a1);
         array_push($arr_icon, "<li>".htmlspecialchars($a2)."</li>");
     }
     if (count($icon_arr[0])==0){
         $message = "No icon found";
-        display_auto($message, 'basic-list',$class, 'glyphInfoTrue');
+        display_auto($message, 'auto-list',$class, 'glyphInfoTrue');
     } else {
         $a = count($icon_arr[0]);
-        $message = $a." icon/s have been added accessibility features";
-        display_auto($message, 'auto-list', $class, 'glyphInfo');
-        display_child_many(implode(' ',$arr_icon), 'auto-list', $class, 'panel-success', 'icon-list');
+        $message ="<strong>icon/s</strong>: ".$a;
+        display_auto($message, 'basic-list', $class, 'glyphInfo');
+        display_child_many(implode(' ',$arr_icon), 'basic-list', $class, 'panel-success', 'icon-list');
     }
     echo <<< END
     <script type="text/javascript">
@@ -75,7 +75,7 @@ function display_auto($message, $id_type, $type, $detail_info){
         $(document).ready(function(){
             $("ul#$id_type").append("<li class='$type'>$message </li>");
             $("ul#$id_type li.$type").append($('<a/>', 
-                {'text': "More info", 'class': 'btn btn-info btn-sm', 'id': '$type'}).on({'click': function() { revealInfo("$type", "$detail_info") }}));
+                {'text': "i", 'class': 'btn btn-info btn-sm', 'id': '$type'}).on({'click': function() { revealInfo("$type", "$detail_info") }}));
         });
     </script>
 END;
@@ -138,7 +138,7 @@ function displayChangeLang($id_container, $li_class, $id_child, $line, $tag){
     echo <<< END
     <script type="text/javascript">
         $(document).ready(function(){
-            $("ul#$id_container li.$li_class").append("<a class='collapsed btn btn-success btn-sm' role='button' data-toggle='collapse' data-parent='#accordion' href='#collapseForm' aria-expanded='false' aria-controls='collapseThree'>Change Language</a> <br />");
+            $("ul#$id_container li.$li_class").append("<a class='collapsed btn btn-success btn-sm' role='button' data-toggle='collapse' data-parent='#accordion' href='#collapseForm' aria-expanded='false' aria-controls='collapseThree'>Change</a> <br />");
             $("ul#$id_container li.$li_class").append("<div id='collapseForm' class='$identifier panel-collapse collapse' role='tabpanel' aria-labelledby='headingThree'><div class='panel-body'><ol id='$id_child'></ol></div></div>")
             $("ol#$id_child").append("<div>" +
              "<div class='form-group'>" +
@@ -197,6 +197,40 @@ function displayChildAlert($message, $id_panel){
              "$message" +
              "</ol>");
         });
+    </script>
+END;
+}
+
+
+
+function displayPie($p, $o, $u, $r){
+    echo <<< END
+    <script type="text/javascript">
+        var data = {
+            labels: ['PERCIVABLE', 'OPERABLE', 'UNDERSTANDBLE', 'ROBUST'],
+            series: [$p, $o, $u, $r]
+        };
+        var options = {
+            labelInterpolationFnc: function(value) {
+                return value[0]
+            }
+        };
+        var responsiveOptions = [
+            ['screen and (min-width: 640px)', {
+                chartPadding: 30,
+                labelOffset: 100,
+                labelDirection: 'explode',
+                labelInterpolationFnc: function(value) {
+                    return value;
+                }
+            }],
+            ['screen and (min-width: 1024px)', {
+                labelOffset: 80,
+                chartPadding: 20
+            }]
+        ];
+
+        new Chartist.Pie('.ct-chart', data, options, responsiveOptions);
     </script>
 END;
 }
