@@ -155,9 +155,13 @@ END;
                             $this->checkTable();
                             show_code();
                             $p = array_sum($this->p);
+                            $o = array_sum($this->o);
+                            $u = array_sum($this->u);
                             $r = array_sum($this->r);
                             $a = array_sum($this->a);
-                            displayPie($p, 60, 10, $r, $a, 30, 40);
+                            $aa = array_sum($this->aa);
+                            $aaa = array_sum($this->aaa);
+                            displayPie($p, $o, $u, $r, $a, $aa, $aaa);
                         } else {
                             // Jika gagal parsing html
                         }
@@ -298,6 +302,7 @@ END;
                                     $message = 'HTML documents don\'t have specific language';
                                     display_error($message, 'id-check-empty', 'idInfo', 'panel_lang', "Change Language");
                                     displayChangeLang('error-list', 'lang-error','lang-form',$ln,'html');
+                                    array_push($this->a, 1); array_push($this->aaa, 1); array_push($this->u, 1);
                                 }
                             }else {
                                 // Language defined as xml
@@ -308,6 +313,7 @@ END;
                             display_error($message, 'lang-error', 'langInfo', 'panel_lang', "Change Language");
                             $ttl = "<strong>Language</strong>: Not Declared";
                             display_auto($ttl, 'basic-list','lang-check', 'langInfo');
+                            array_push($this->a, 1); array_push($this->aaa, 1); array_push($this->u, 1);
                         }
 
 //                        if ($docType == 'html'){
@@ -347,6 +353,8 @@ END;
                             foreach ($onChange->selectOnChange as $item) {
                                 $onchange_txt .= "<li><samp><a href='#' onclick='toLine(".$item['line'].")'>".$item['line']."</a></samp></li>";
                             }
+                            array_push($this->aaa, count($onChange->selectOnChange));
+                            array_push($this->u, count($onChange->selectOnChange));
                             displayChildAlert($onchange_txt, $id_panel);
                         }
 
@@ -369,6 +377,8 @@ END;
                                 $ln = $item->getLineNo();
                                 $italic_line .= "<li><samp>Line <a href='#' onclick='toLine(".$ln.")'>".$ln."</a> $tag</samp></li>";
                             }
+                            array_push($this->aaa, $italic_txt->nodeItalic->length);
+                            array_push($this->u, $italic_txt->nodeItalic->length);
                             displayChildAlert($italic_line, $id_panel);
                         }else {
                             $message = 'No italic style found';
@@ -389,6 +399,8 @@ END;
                                 $orderedLine .= "<li><samp><a href='#' onclick='toLine(".$item['line'].")'>".$item['line']."</a></samp></li>";
                             }
                             displayChildAlert($orderedLine, $id_panel);
+                            array_push($this->p, count($ordered->ordList));
+                            array_push($this->a, count($ordered->ordList));
                         }else {
                             $message = 'No ordered list found';
                             display_auto($message, 'auto-list', $class, 'olInfoTrue');
@@ -472,10 +484,17 @@ END;
                                 $msgChild = "<li><samp>Line <a href='#' onclick='toLine(".$line.")'>".$line."</a>: $txt</samp></li>";
                                 display_alert($message, $class, 'langInfo', $id_panel, 'no-collapse', "");
                                 displayChildAlert($msgChild, $id_panel);
+                                array_push($this->a, 1);
+                                array_push($this->aaa, 1);
+                                array_push($this->o, 1);
                             }
                         }else {
+                            //title tag not present
                             $ttl = "<strong>Title</strong>: Not Declared";
                             display_auto($ttl, 'basic-list','ttl-check', 'langInfo');
+                            array_push($this->a, 1);
+                            array_push($this->aaa, 1);
+                            array_push($this->o, 1);
                         }
                     }
 

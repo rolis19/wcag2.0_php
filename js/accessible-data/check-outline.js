@@ -9,6 +9,7 @@ var JSON_outlineInfo = {
         '<a href="https://www.w3.org/TR/WCAG20-TECHS/H42.html" target="_blank">H42</a>:Using h1-h6 to identify headings ',
         '<a href="https://www.w3.org/TR/WCAG20-TECHS/G141.html" target="_blank">G141</a>:Organizing a page using headings '
     ],
+    tag:'<a class="btn btn-default btn-tag" href="#">Level A</a> <a class="btn btn-danger btn-tag" href="#">Level AAA</a> <a class="btn btn-primary btn-tag" href="#">Perceivable</a> <a class="btn btn-success btn-tag" href="#">Operable</a>',
     official: '<h2>4. Robust</h2>'+
         '<p class="subtitle">4.1.1 Parsing</p>'+
         '<p>'+

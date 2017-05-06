@@ -8,6 +8,7 @@ var JSON_italicInfo = {
     technique:[
         'No specific WCAG 2.0 technique for italic, please refer to the guideline below'
     ],
+    tag:'<a class="btn btn-danger btn-tag" href="#">Level AAA</a> <a class="btn btn-info btn-tag" href="#">Understandable</a>',
     official: '<h2>4. Icons</h2>'+
     '<p class="subtitle">4.1.1 Parsing</p>'+
     '<p>'+

@@ -10,6 +10,7 @@ var JSON_olInfo = {
         '<a href="https://www.w3.org/TR/WCAG20-TECHS/T2.html" target="_blank">T2</a>: Using standard text formatting conventions for lists',
         '<a href="https://www.w3.org/TR/WCAG20-TECHS/H48.html" target="_blank">H48</a>: Using ol, ul and dl for lists or groups of links'
     ],
+    tag:'<a class="btn btn-default btn-tag" href="#">Level A</a> <a class="btn btn-primary btn-tag" href="#">Perceivable</a>',
     official: '<h2>4. Icons</h2>'+
     '<p class="subtitle">4.1.1 Parsing</p>'+
     '<p>'+

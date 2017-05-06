@@ -9,6 +9,7 @@ var JSON_onchangeInfo = {
     technique:[
         '<a href="https://www.w3.org/TR/WCAG20-TECHS/SCR19.html" target="_blank">SCR19</a>: Using an onchange event on a select element without causing a change of context'
     ],
+    tag:'<a class="btn btn-danger btn-tag" href="#">Level AAA</a> <a class="btn btn-info btn-tag" href="#">Understandable</a>',
     official: '<h2>4. Icons</h2>'+
     '<p class="subtitle">4.1.1 Parsing</p>'+
     '<p>'+
