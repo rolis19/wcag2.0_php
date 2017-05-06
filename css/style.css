@@ -161,6 +161,7 @@ code.line{
 .col-md-6 .form-container{
     padding: 10px 0;
     line-height: 13px;
+    min-height: 75px;
 }
 .form-group button{
     margin-left: 5px;
@@ -304,9 +305,7 @@ html, body, .container, .content-wrap {
     overflow: auto;
 }
 .menu-wrap .btn {
-    color: #ffffff;
-    border: none; border-radius: 100px;
-    color: blue;
+    border-radius: 100px;
 }
 .info-container{
     padding: 22px;
@@ -438,12 +437,7 @@ ul li samp {  font-size: 12px;  }
 .btn-tag:hover i, .btn-tag:active i, .btn-tag.active i{
     color: #ffffff!important;
 }
-.btn-warning.btn-tag {
-    border: 1px solid #FBBE25;
-}
-.btn-info.btn-tag {
-    border: 1px solid #57A0FC;
-}
+
 .btn-info.btn-tag i{
     color: #57A0FC;
 }
@@ -487,7 +481,9 @@ ol#lang-form .form-group {
 
 /* Image tag check */
 /* Alert */
-#panel_btnalert .panel-body ol li, #panel_italicalert .panel-body ol li, #panel_imgalert .panel-body ol li {
+#panel_btnalert .panel-body ol li, #panel_italicalert .panel-body ol li, #panel_linkalert .panel-body ol li,
+#panel_imgalert .panel-body ol li
+{
     display: block;
 }
 
@@ -538,7 +534,7 @@ li.ttl-check span{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 430px;
+    max-width: 430px;
     display: block;
     float: left;
 }
@@ -547,7 +543,7 @@ li.ttl-check span{
 
 /* CHART style */
 .ct-series-d .ct-area, .ct-series-d .ct-slice-donut-solid, .ct-series-d .ct-slice-pie {
-    fill: #50C5AB;
+    fill: #5ECDA2;
 }
 .ct-series-a .ct-area, .ct-series-a .ct-slice-donut-solid, .ct-series-a .ct-slice-pie {
     fill: #64B3DE;
@@ -567,6 +563,9 @@ li.ttl-check span{
 .ct-chart{
     margin-top: 20px;
     margin-bottom: 20px;
+}
+#report{
+    display: none;
 }
 .summ-info h3{
     color: rgba(0, 0, 0, .5);

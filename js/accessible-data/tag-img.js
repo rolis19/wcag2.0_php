@@ -10,6 +10,7 @@ var JSON_img = {
         'H67: Using null alt text and no title attribute on img elements for images that AT should ignore',
         'H36: Using alt attributes on images used as submit button'
     ],
+    tag:'<a class="btn btn-default btn-tag" href="#">Level A</a> <a class="btn btn-primary btn-tag" href="#">Perceivable</a>',
     official: '<h2>4. Icons</h2>'+
     '<p class="subtitle">4.1.1 Parsing</p>'+
     '<p>'+

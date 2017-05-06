@@ -10,6 +10,9 @@ include 'class-check/class.CheckInput.inc';
 include 'class-check/class.CheckButton.inc';
 include 'class-check/class.CheckFrame.inc';
 include 'class-check/class.CheckTitle.inc';
+include 'class-check/class.CheckLink.inc';
+include 'class-check/class.CheckTable.inc';
+
 $time = microtime();
 $time = explode(' ', $time);
 $time = $time[1] + $time[0];
@@ -113,6 +116,13 @@ END;
                 class mainArray{
                     public $html;
                     public $all_text;
+                    public $p = array();
+                    public $o = array();
+                    public $u = array();
+                    public $r = array();
+                    public $a = array();
+                    public $aa = array();
+                    public $aaa = array();
 
                     public function __construct($all_text){
                         /***
@@ -127,20 +137,30 @@ END;
 
                     //Find tag, also their index
                     public function tag_check(){
-                        $this->docLangCheck();
-                        $this->checkTitle();
-                        get_heading($this->html);
-                        $this->onChangeCheck();
-                        $this->italicCheck();
-                        $this->olCheck();
-                        fix_glyph_icon($this->html);
-                        $this->checkId();
-                        $this->imgBlankAlt();
-                        $this->imgNoAlt();
-                        $this->checkInput();
-                        $this->checkButton();
-                        $this->checkFrame();
-                        displayPie(20, 60, 10, 15);
+                        if(filesize("newfile.html") != 0){
+                            $this->docLangCheck();
+                            $this->checkTitle();
+                            get_heading($this->html);
+                            $this->onChangeCheck();
+                            $this->italicCheck();
+                            $this->olCheck();
+                            fix_glyph_icon($this->html);
+                            $this->checkId();
+                            $this->imgBlankAlt();
+                            $this->imgNoAlt();
+                            $this->checkInput();
+                            $this->checkButton();
+                            $this->checkFrame();
+                            $this->checkLink();
+                            $this->checkTable();
+                            show_code();
+                            $p = array_sum($this->p);
+                            $r = array_sum($this->r);
+                            $a = array_sum($this->a);
+                            displayPie($p, 60, 10, $r, $a, 30, 40);
+                        } else {
+                            // Jika gagal parsing html
+                        }
                     }
 
                     //===================   Check img Tag Process    ==========================================
@@ -149,23 +169,17 @@ END;
                      */
                     public function imgNoAlt(){
                         $img = new CheckImg($this->html);
-                        $all = count($img->imgnoAlt);
+                        array_push($this->p, count($img->imgnoAlt));
+                        array_push($this->a, count($img->imgnoAlt));
                         $message = 'Img tag doesn\'t have \'alt\' properties';
-                        $count = 0;
                         $class = 'img-list-error';
                         $id_panel = 'panel_imgerror';
                         if (!empty($img->imgnoAlt)){
-                            display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            display_error($message, $class, 'img', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
                             foreach ($img->imgnoAlt as $key=>$img){
-                                $count++;
                                 $tag_full = $img['imgTag'];
                                 $ln = $img['line'];
-                                //form_correct($tag_full, 'img', $ln, $key, '');
                                 displayChildError($id_panel, $tag_full, $ln, $key,'img');
-
-                                if ($count == $all){
-                                    show_code();
-                                }
                             }
                         }
                     }
@@ -246,6 +260,8 @@ END;
                     public function imgBlankAlt(){
                         $img = new CheckImg($this->html);
                         $class = 'blank-img-info';
+                        array_push($this->p, count($img->imgBlankAlt));
+                        array_push($this->a, count($img->imgBlankAlt));
                         if (!empty($img->imgBlankAlt)){
                             $msgChild="";
                             $message = "Image with blank alt properties";
@@ -268,7 +284,8 @@ END;
                             $ln = $lang->nodeHtml->getLineNo();
                             if ($lang->doc == 'html'){
                                 if ($lang->nodeHtml->hasAttribute('lang')){
-                                    $docLang = $lang->nodeHtml->getAttribute('lang');
+                                    // If language is present to summary
+                                    $docLang = trim(preg_replace('/(.*?)-(...?)/', '$1', $lang->nodeHtml->getAttribute('lang'))); // Remove any specific country for now
                                     $str = file_get_contents('class-check/language.txt');
                                     $find = '/Subtag: '.$docLang.' Description:(.+?)\n/';
                                     preg_match_all($find, $str, $matches);
@@ -277,8 +294,9 @@ END;
                                     display_auto($lang, 'basic-list','lang-check', 'langInfo');
                                     displayChangeLang('basic-list', 'lang-check','lang-form',$ln,'html');
                                 }else {
+                                    //If language is not present to summary and error
                                     $message = 'HTML documents don\'t have specific language';
-                                    display_error($message, 'lang-error', 'idInfo', 'panel_lang', "Change Language");
+                                    display_error($message, 'id-check-empty', 'idInfo', 'panel_lang', "Change Language");
                                     displayChangeLang('error-list', 'lang-error','lang-form',$ln,'html');
                                 }
                             }else {
@@ -379,21 +397,24 @@ END;
 
                     public function checkId(){
                         $id = new CheckDuplicateID($this->html);
+                        $count = array();
                         if (!empty($id->duplicateId)){
-                            $message = "er";
+                            $message = "";
                             $class= 'idalert';
                             $message1 = "Duplicate ID found";
                             $id_panel='panel_idalert';
                             display_alert($message1, $class, 'idInfo', $id_panel,'no-collapse', '');
 
                             foreach ($id->duplicateId as $item=>$key){
-                                $message = '<li><samp>'.$item.'</samp></li>';
+                                $message .= '<li><samp>'.$item.'</samp></li>';
+                                $count[$item] = count($key);
                                 foreach ($key as $line){
                                     $message .= "<li><samp><a href='#' onclick='toLine(".$line.")'>".$line."</a></samp></li>";
                                 }
                                 $message .= '<br>';
                             }
-                            //display_child_few($message, 'alert-list', 'id-check-empty', 'idInfo');
+                            array_push($this->r, array_sum($count));
+                            array_push($this->a, array_sum($count));
                             displayChildAlert($message, $id_panel);
 
                         } else {
@@ -440,14 +461,14 @@ END;
 
                         if ($title->title != null){
                             $title->getTitle();
-                            $ttl = "<strong>Title</strong><span>: ".$title->title->nodeValue."</span>";
+                            $ttl = "<strong>Title</strong><span>: ".trim(preg_replace('/\s+/', ' ', $title->title->nodeValue))."</span>";
                             display_auto($ttl, 'basic-list','ttl-check', 'langInfo');
                             if ($title->titleFault != null){
                                 $class = 'title-alert';
                                 $id_panel = 'panel_ttlalert';
                                 $line = $title->titleFault->getLineNo();
                                 $txt = $title->titleFault->nodeValue;
-                                $message = 'Title conain sort information';
+                                $message = 'Title contain sort information';
                                 $msgChild = "<li><samp>Line <a href='#' onclick='toLine(".$line.")'>".$line."</a>: $txt</samp></li>";
                                 display_alert($message, $class, 'langInfo', $id_panel, 'no-collapse', "");
                                 displayChildAlert($msgChild, $id_panel);
@@ -458,6 +479,87 @@ END;
                         }
                     }
 
+                    public function checkLink(){
+                        $link = new checkLink($this->html);
+                        $link->setLink();
+                        if (count($link->blankLinkTxt) != 0){
+                            $message = 'Link contain no text description';
+                            $class = 'linka-list-error';
+                            $id_panel = 'panel_linkaerror';
+                            display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            foreach ($link->blankLinkTxt as $key=>$node){
+                                $tag_full = htmlspecialchars($link->dom->saveXML($node));
+                                $ln = $node->getLineNo();
+                                //form_correct($tag_full, 'img', $ln, $key, '');
+                                displayChildError($id_panel, $tag_full, $ln, $key,'img');
+                            }
+                        }
+                        if (count($link->blankLink) != 0){
+                            $message = 'Link contain no destination';
+                            $class = 'linkb-list-error';
+                            $id_panel = 'panel_linkberror';
+                            display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            foreach ($link->blankLink as $k=>$node){
+                                $tag_full = trim(preg_replace('/\s+/', ' ', htmlspecialchars($link->dom->saveXML($node))));
+                                $ln = $node->getLineNo();
+                                //form_correct($tag_full, 'img', $ln, $key, '');
+                                displayChildError($id_panel, $tag_full, $ln, $k,'img');
+                            }
+                        }
+                        if (count($link->sortLinktxt) != 0){
+                            $msgChild="";
+                            $class = 'short-link-info';
+                            $message = "Link contain sort description";
+                            $id_panel = 'panel_linkalert';
+                            display_alert($message, $class, 'img', $id_panel, 'collapse', "<i class='glyphicon glyphicon-menu-down'></i>");
+                            foreach ($link->sortLinktxt as $node){
+                                $line = $node->getLineNo();
+                                $tag = trim(preg_replace('/\s+/', ' ', $node->nodeValue));
+                                //$italic_li.= "<li><samp>Line <a href='#' onclick='toLine(".$ln.")'>".$ln."</a> $tag</samp></li>";
+                                $msgChild .= "<li><samp>Line <a href='#' onclick='toLine(".$line.")'>".$line."</a> $tag</samp></li>";
+                            }
+                            displayChildAlert($msgChild, $id_panel);
+                        }
+                    }
+
+                    public function checkTable(){
+                        $tbl = new checkTable($this->html);
+                        $tbl->setChildTbl();
+                        $tbl->setTh();
+                        if (count($tbl->tableDecor) != 0){
+                            $message = "table used for decorative purpose";
+                            $class = 'tbla-list-error';
+                            $id_panel = 'panel_tblaerror';
+                            display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            foreach ($tbl->tableDecor as $k=>$node){
+                                $tag_full = "Table should only used for data tabular, fix manually";
+                                $ln = $node->getLineNo();
+                                displayChildErrorManual($id_panel, $tag_full, $ln, $k,'tabel');
+                            }
+                        }
+                        if (count($tbl->tableNoTh) != 0){
+                            $message = "Table with no header (th)";
+                            $class = 'tblb-list-error';
+                            $id_panel = 'panel_tblberror';
+                            display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            foreach ($tbl->tableNoTh as $k=>$node){
+                                $tag_full = "Table should have header, fix manually";
+                                $ln = $node->getLineNo();
+                                displayChildErrorManual($id_panel, $tag_full, $ln, $k,'tabel');
+                            }
+                        }
+                        if (count($tbl->thNoScope) != 0){
+                            $message = "Table header does not have scope information";
+                            $class = 'tblc-list-error';
+                            $id_panel = 'panel_tblcerror';
+                            display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            foreach ($tbl->thNoScope as $k=>$node){
+                                $tag_full = trim(preg_replace('/\s+/', ' ', htmlspecialchars($tbl->dom->saveXML($node))));
+                                $ln = $node->getLineNo();
+                                displayChildError($id_panel, $tag_full, $ln, $k,'tabel');
+                            }
+                        }
+                    }
                 }
                 ?>
                 <div class="col-md-6 bottom">
@@ -478,13 +580,13 @@ END;
                                 <ul id='auto-list'>
                                     <h3 id="info-intro" class="text-center" style="padding: 18px 12px; width: 80%; margin: 120px auto 0;">Your check's result soon <br> <small>will be apeared here <br> <i class="glyphicon glyphicon-flash"></i> </small></h3>
                                 </ul>
-                                <div class="summ-info">
-                                    <h3 class="text-center">Report</h3>
+                                <div class="summ-info" id="report">
+                                    <h3 class="text-center">Fault Report</h3>
                                     <div class="ct-chart" style="width: 100%; height: 300px"></div>
                                     <ul class="col-md-6">
-                                        <li><strong>Level A</strong>: 70</li>
-                                        <li><strong>Level AA</strong>: 32</li>
-                                        <li><strong>Level AAA</strong>: 22</li>
+                                        <li><strong>Level A</strong>: <span id="a">70</span></li>
+                                        <li><strong>Level AA</strong>: <span id="aa">32</span></li>
+                                        <li><strong>Level AAA</strong>: <span id="aaa">22</span></li>
                                     </ul>
                                     <div class="col-md-6" style="padding-top: 12px">
                                         <a href="#" class="btn btn-primary">Download report</a>
@@ -524,7 +626,7 @@ END;
                                     $all_array = htmlspecialchars($dataraw);
                                     $myfile = fopen("temp2.html", "w") or die("Unable to open file!");
                                     if (empty($all_array)){
-                                        fwrite($myfile, "Can't obtain page from URL");
+                                        fwrite($myfile, "Can't exstract code from given URL");
                                     } else {
                                         fwrite($myfile, $all_array." ");
                                     }

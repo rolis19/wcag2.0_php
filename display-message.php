@@ -200,12 +200,30 @@ function displayChildAlert($message, $id_panel){
     </script>
 END;
 }
-
-
-
-function displayPie($p, $o, $u, $r){
+function displayChildErrorManual($id_panel, $tag_full, $line1, $index, $tag){
+    $identifier= $tag.$line1;
     echo <<< END
     <script type="text/javascript">
+        $(document).ready(function(){
+            $("div#$id_panel .panel-body").append("<div class='$identifier form-container'>" +
+            "<div class='col-md-9'><p>Fault in <a href='#' onclick='toLine(&quot;$line1&quot;)'>line $line1</a></p><p class='tag-info'>$tag_full</p></div>"+
+            "<div class='col-md-3'>" +
+            "<button class='btn btn-warning' onclick='runIgnore(&quot;$identifier&quot;)'>Allready fixed</button>"+
+            "</div>"+
+            "</div>");
+        });
+    </script>
+END;
+}
+
+
+function displayPie($p, $o, $u, $r, $a, $aa, $aaa){
+    echo <<< END
+    <script type="text/javascript">
+        $("#report").css("display","block");
+        document.getElementById("a").innerHTML = $a;
+        document.getElementById("aa").innerHTML = $aa;
+        document.getElementById("aaa").innerHTML = $aaa;
         var data = {
             labels: ['PERCIVABLE', 'OPERABLE', 'UNDERSTANDBLE', 'ROBUST'],
             series: [$p, $o, $u, $r]

@@ -12,6 +12,7 @@ var JSON_langInfo = {
         '<a href="https://www.w3.org/TR/WCAG20-TECHS/H57.html" target="_blank">H57</a>:Using language attributes on the html element ',
         '<a href="https://www.w3.org/TR/WCAG20-TECHS/H58.html" target="_blank">H58</a>:Using language attributes to identify changes in the human language '
     ],
+    tag:'<a class="btn btn-default btn-tag" href="#">Level A</a> <a class="btn btn-danger btn-tag" href="#">Level AAA</a> <a class="btn btn-info btn-tag" href="#">Understandable</a>',
     official: '<h2>4. Robust</h2>'+
         '<p class="subtitle">4.1.1 Parsing</p>'+
         '<p>'+

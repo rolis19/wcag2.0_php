@@ -9,6 +9,7 @@ var JSON_glyphInfo = {
         'If you\'re using an icon to convey meaning (rather than only as a decorative element), ensure that ' +
         'this meaning is also conveyed to assistive technologies'
     ],
+    tag:'<a class="btn btn-default btn-tag" href="#">Level A</a> <a class="btn btn-warning btn-tag" href="#">Level AA</a> <a class="btn btn-primary btn-tag" href="#">Perceivable</a>',
     technique:[
         '<a href="#">H93</a>: Ensuring that id attributes are unique on a web page'
     ],
