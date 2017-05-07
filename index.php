@@ -161,6 +161,7 @@ END;
                             $a = array_sum($this->a);
                             $aa = array_sum($this->aa);
                             $aaa = array_sum($this->aaa);
+                            //echo "Understandable final: ".$u.'<br>';
                             displayPie($p, $o, $u, $r, $a, $aa, $aaa);
                         } else {
                             // Jika gagal parsing html
@@ -295,7 +296,7 @@ END;
                                     preg_match_all($find, $str, $matches);
                                     $langName = trim(preg_replace('/\s\s+/', ' ', $matches[1][0]));
                                     $lang = "<strong>Language</strong>: ".$langName;
-                                    display_auto($lang, 'basic-list','lang-check', 'langInfo');
+                                    display_auto($lang, 'basic-list','lang-check', 'langInfoTrue');
                                     displayChangeLang('basic-list', 'lang-check','lang-form',$ln,'html');
                                 }else {
                                     //If language is not present to summary and error
@@ -474,7 +475,7 @@ END;
                         if ($title->title != null){
                             $title->getTitle();
                             $ttl = "<strong>Title</strong><span>: ".trim(preg_replace('/\s+/', ' ', $title->title->nodeValue))."</span>";
-                            display_auto($ttl, 'basic-list','ttl-check', 'langInfo');
+                            display_auto($ttl, 'basic-list','ttl-check', 'titleInfoTrue');
                             if ($title->titleFault != null){
                                 $class = 'title-alert';
                                 $id_panel = 'panel_ttlalert';
@@ -482,16 +483,16 @@ END;
                                 $txt = $title->titleFault->nodeValue;
                                 $message = 'Title contain sort information';
                                 $msgChild = "<li><samp>Line <a href='#' onclick='toLine(".$line.")'>".$line."</a>: $txt</samp></li>";
-                                display_alert($message, $class, 'langInfo', $id_panel, 'no-collapse', "");
+                                display_alert($message, $class, 'titleInfo', $id_panel, 'no-collapse', "");
                                 displayChildAlert($msgChild, $id_panel);
                                 array_push($this->a, 1);
                                 array_push($this->aaa, 1);
                                 array_push($this->o, 1);
                             }
                         }else {
-                            //title tag not present
+                            //title tag not present error
                             $ttl = "<strong>Title</strong>: Not Declared";
-                            display_auto($ttl, 'basic-list','ttl-check', 'langInfo');
+                            display_auto($ttl, 'basic-list','ttl-check', 'titleInfoTrue');
                             array_push($this->a, 1);
                             array_push($this->aaa, 1);
                             array_push($this->o, 1);
@@ -501,11 +502,16 @@ END;
                     public function checkLink(){
                         $link = new checkLink($this->html);
                         $link->setLink();
+                        $calc = count($link->sortLinktxt)+ count($link->blankLinkTxt)+ count($link->blankLink);
+                        array_push($this->a, $calc);
+                        array_push($this->aaa, $calc);
+                        array_push($this->p, $calc);
+                        array_push($this->o, $calc);
                         if (count($link->blankLinkTxt) != 0){
                             $message = 'Link contain no text description';
                             $class = 'linka-list-error';
                             $id_panel = 'panel_linkaerror';
-                            display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            display_error($message, $class, 'linkInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
                             foreach ($link->blankLinkTxt as $key=>$node){
                                 $tag_full = htmlspecialchars($link->dom->saveXML($node));
                                 $ln = $node->getLineNo();
@@ -517,7 +523,7 @@ END;
                             $message = 'Link contain no destination';
                             $class = 'linkb-list-error';
                             $id_panel = 'panel_linkberror';
-                            display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            display_error($message, $class, 'linkInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
                             foreach ($link->blankLink as $k=>$node){
                                 $tag_full = trim(preg_replace('/\s+/', ' ', htmlspecialchars($link->dom->saveXML($node))));
                                 $ln = $node->getLineNo();
@@ -545,11 +551,14 @@ END;
                         $tbl = new checkTable($this->html);
                         $tbl->setChildTbl();
                         $tbl->setTh();
+                        $calc = count($tbl->tableDecor)+count($tbl->tableNoTh)+count($tbl->thNoScope);
+                        array_push($this->a, $calc);
+                        array_push($this->o, $calc);
                         if (count($tbl->tableDecor) != 0){
                             $message = "table used for decorative purpose";
                             $class = 'tbla-list-error';
                             $id_panel = 'panel_tblaerror';
-                            display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            display_error($message, $class, 'tableInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
                             foreach ($tbl->tableDecor as $k=>$node){
                                 $tag_full = "Table should only used for data tabular, fix manually";
                                 $ln = $node->getLineNo();
@@ -560,7 +569,7 @@ END;
                             $message = "Table with no header (th)";
                             $class = 'tblb-list-error';
                             $id_panel = 'panel_tblberror';
-                            display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            display_error($message, $class, 'tableInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
                             foreach ($tbl->tableNoTh as $k=>$node){
                                 $tag_full = "Table should have header, fix manually";
                                 $ln = $node->getLineNo();
@@ -571,7 +580,7 @@ END;
                             $message = "Table header does not have scope information";
                             $class = 'tblc-list-error';
                             $id_panel = 'panel_tblcerror';
-                            display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            display_error($message, $class, 'tableInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
                             foreach ($tbl->thNoScope as $k=>$node){
                                 $tag_full = trim(preg_replace('/\s+/', ' ', htmlspecialchars($tbl->dom->saveXML($node))));
                                 $ln = $node->getLineNo();
@@ -600,16 +609,13 @@ END;
                                     <h3 id="info-intro" class="text-center" style="padding: 18px 12px; width: 80%; margin: 120px auto 0;">Your check's result soon <br> <small>will be apeared here <br> <i class="glyphicon glyphicon-flash"></i> </small></h3>
                                 </ul>
                                 <div class="summ-info" id="report">
-                                    <h3 class="text-center">Fault Report</h3>
+                                    <h3 class="text-center">Report</h3>
                                     <div class="ct-chart" style="width: 100%; height: 300px"></div>
                                     <ul class="col-md-6">
                                         <li><strong>Level A</strong>: <span id="a">70</span></li>
                                         <li><strong>Level AA</strong>: <span id="aa">32</span></li>
                                         <li><strong>Level AAA</strong>: <span id="aaa">22</span></li>
                                     </ul>
-                                    <div class="col-md-6" style="padding-top: 12px">
-                                        <a href="#" class="btn btn-primary">Download report</a>
-                                    </div>
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="alert">

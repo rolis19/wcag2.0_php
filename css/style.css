@@ -543,16 +543,16 @@ li.ttl-check span{
 
 /* CHART style */
 .ct-series-d .ct-area, .ct-series-d .ct-slice-donut-solid, .ct-series-d .ct-slice-pie {
-    fill: #5ECDA2;
+    fill: #8f65ff;
 }
 .ct-series-a .ct-area, .ct-series-a .ct-slice-donut-solid, .ct-series-a .ct-slice-pie {
-    fill: #64B3DE;
+    fill: #4fadff;
 }
 .ct-series-b .ct-area, .ct-series-b .ct-slice-donut-solid, .ct-series-b .ct-slice-pie {
-    fill: #fec632;
+    fill: #fff544;
 }
 .ct-series-c .ct-area, .ct-series-c .ct-slice-donut-solid, .ct-series-c .ct-slice-pie {
-    fill: #EC6C61;
+    fill: #ff4858;
 }
 .ct-label {
     color: rgba(0, 0, 0, 0.4);
