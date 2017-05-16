@@ -584,3 +584,6 @@ li.ttl-check span{
     width: 80px;
     float: left;
 }
+li.stacked{
+    background: #FFFFFF;
+}

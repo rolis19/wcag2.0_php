@@ -19,36 +19,6 @@ function docLang($all_text){
         display_auto($lang, 'basic-list','lang-check', 'langInfoTrue');
     }
 }
-function fix_glyph_icon($all_text){
-    $arr_icon=array();
-    $class ='glyph-check';
-    $text = htmlspecialchars_decode($all_text);
-    $find = '/<(span|i) class="(glyph|fa|ico)(?!.*aria)(.+?)"> ?<\/(span|i)>/';
-    $find1 ='/<(span|i) class="(glyph|fa)(.*)" (style=".+")> ?<\/(span|i)>/';
-    preg_match_all($find, $text, $icon_arr);
-    $item1 = preg_replace($find, '<$1 class="$2$3" aria-hidden="true"></$4>', $text);
-    foreach ($icon_arr[0] as $items){
-        $a1 = preg_replace($find1, '<$1 class="$2$3"></$5>', $items);
-        $a2 = preg_replace($find, '<$1 class="$2$3" aria-hidden="true">', $a1);
-        array_push($arr_icon, "<li>".htmlspecialchars($a2)."</li>");
-    }
-    if (count($icon_arr[0])==0){
-        $message = "No icon found";
-        display_auto($message, 'auto-list',$class, 'glyphInfoTrue');
-    } else {
-        $a = count($icon_arr[0]);
-        $message ="<strong>icon/s</strong>: ".$a;
-        display_auto($message, 'basic-list', $class, 'glyphInfo');
-        display_child_many(implode(' ',$arr_icon), 'basic-list', $class, 'panel-success', 'icon-list');
-    }
-    echo <<< END
-    <script type="text/javascript">
-        document.getElementById("info-intro").style.display = "none";
-        document.getElementById("nav-tab").style.visibility = "visible";
-    </script>
-END;
-    return $item1;
-}
 function get_heading($all_text){
     $heading = array();
     $text = htmlspecialchars_decode($all_text);
@@ -68,7 +38,6 @@ function get_heading($all_text){
     }
     echo '</div>';
 }
-
 function display_auto($message, $id_type, $type, $detail_info){
     echo <<< END
     <script type="text/javascript">
@@ -99,12 +68,12 @@ function display_error($message, $type, $detail_info, $id_panel, $panel_txt){
     echo <<< END
     <script type="text/javascript">
         $(document).ready(function(){
-            $("ul#error-list").append("<li class='$type'>$message " +
-             "<a id='$type' class='btn btn-info btn-sm' onclick='revealInfo(&quot;$type&quot;, &quot;$detail_info&quot;)'> Detail Info</a></li>" +
-             "<div id='$id_panel' class='panel-collapse collapse' role='tabpanel'>" +
+            $("ul#error-list").append("<li class='direct $type'>$message " +
+             "<a id='$type' class='btn btn-info btn-sm' onclick='revealInfo(&quot;$type&quot;, &quot;$detail_info&quot;)'> Detail Info</a></li>");
+            $("ul#error-list li.$type").append(" <a class='edit collapsed btn btn-success btn-sm' data-toggle='collapse' href='#$id_panel'>$panel_txt</a><br />" +
+            "<div id='$id_panel' class='panel-collapse collapse' role='tabpanel'>" +
              "<div class='panel-body'></div>"+
              "</div>");
-            $("ul#error-list li.$type").append(" <a class='collapsed btn btn-success btn-sm' data-toggle='collapse' href='#$id_panel'>$panel_txt</a><br />");
         });
     </script>
 END;
@@ -220,6 +189,8 @@ END;
 function displayPie($p, $o, $u, $r, $a, $aa, $aaa){
     echo <<< END
     <script type="text/javascript">
+        document.getElementById("info-intro").style.display = "none";
+        document.getElementById("nav-tab").style.visibility = "visible";
         $("#report").css("display","block");
         document.getElementById("a").innerHTML = $a;
         document.getElementById("aa").innerHTML = $aa;

@@ -98,3 +98,37 @@ function showNotif() {
         document.getElementById("b-alert").innerHTML = size;
     });
 }
+
+$(function() {                       //run when the DOM is ready
+    $(".edit").click(function() {  //use a class, since your ID gets mangled
+        if ($(this).hasClass("active")){
+            $(this).removeClass("active");
+        }else {
+            $(this).addClass("active");
+        }
+    });
+});
+
+
+jQuery(function() {
+    $('.content-correct').on('scroll', function () {
+        $('.direct').each(function () {
+            if(!$(this).find('a.edit').hasClass('collapsed')) {
+                var pos = $(this).find('a.active').parent()[0].getBoundingClientRect();
+                var pos1 = $(this).find('a.active').parent()[0].getBoundingClientRect();
+                console.log(pos1);
+                if(pos.top <= 100) {
+                    $(this).find('a.active').parent().addClass('stacked');
+                } else {
+                    $(this).find('a.active').parent().removeClass('stacked');
+                }
+            }
+        })
+    });
+    // $(document).on('scroll', function () {
+    //     var nav_tab = document.getElementById('nav-tab');
+    //     var nav_tabPos = nav_tab.getBoundingClientRect();
+    //     var nav_tabBottom = nav_tabPos.bottom;
+    //     console.log(nav_tabPos);
+    // });
+});

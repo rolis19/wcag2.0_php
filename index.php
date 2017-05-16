@@ -12,6 +12,7 @@ include 'class-check/class.CheckFrame.inc';
 include 'class-check/class.CheckTitle.inc';
 include 'class-check/class.CheckLink.inc';
 include 'class-check/class.CheckTable.inc';
+include 'class-check/class.CheckIcon.inc';
 
 $time = microtime();
 $time = explode(' ', $time);
@@ -43,6 +44,8 @@ ini_set('max_execution_time', 300);
     <script src="js/jquery.smooth-scroll.js"></script>
     <script src="js/classie.js"></script>
     <script src="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/shortcuts/inview.min.js"></script>
 </head>
 <body onload="showNotif()">
 	<header>
@@ -144,7 +147,8 @@ END;
                             $this->onChangeCheck();
                             $this->italicCheck();
                             $this->olCheck();
-                            fix_glyph_icon($this->html);
+                            //fix_glyph_icon($this->html);
+                            $this->checkIcon();
                             $this->checkId();
                             $this->imgBlankAlt();
                             $this->imgNoAlt();
@@ -191,35 +195,54 @@ END;
 
                     public function checkInput(){
                         $input = new CheckInput($this->html);
-                        $message='';
-                        $class='';
+                        $inputWithFault=array();
+                        $inputWithFaultLabel=array();
                         if (!empty($input->getLabel())){
+                            $k=0; $l=0;
                             foreach ($input->getLabel() as $nl){
-                                foreach ($input->inputWithFault as $ni){
+                                foreach ($input->inputWithFault as $key=>$ni){
                                     if ($ni->getLineNo()-1 == $nl->getLineNo()) {
-                                        //Procced with label
-                                        echo 'sa';
-                                        $message = 'Input to be processed with label';
-                                        $class = 'input-label-error';
+                                        $l++;
+                                        $inputWithFaultLabel[$l] = $ni;
                                     }else {
-                                        echo 'du';
-                                        $ln = $ni->getLineNo();
-                                        $message = 'Input to be proceseed alone';
-                                        $class='input-error';
+                                        $k++;
+                                        $inputWithFault[$k] = $ni;
                                     }
                                 }
                             }
                         } else {
-                            foreach ($input->inputWithFault as $key=>$ni) {
-                                //No Label found bro
-                                $tag_full = htmlspecialchars($input->dom->saveXML($ni));
-                                $ln = $ni->getLineNo();
+                            if (count($input->inputWithFault) != 0) {
                                 $class = 'input-error';
                                 $id_panel = 'panel_input';
-                                $message = 'Input to be proceseed alone';
-
-                                //WARNING KALO ADA BANYAK INPUT IKI RUSAK
+                                $message = 'Input with no label should add aria-label';
                                 display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                                foreach ($input->inputWithFault as $key => $ni) {
+                                    $tag_full = htmlspecialchars($input->dom->saveXML($ni));
+                                    $ln = $ni->getLineNo();
+                                    displayChildError($id_panel, $tag_full, $ln, $key, 'input');
+                                }
+                            }
+
+                        }
+                        if (count($inputWithFault) != 0){
+                            $class = 'input-error';
+                            $id_panel = 'panel_input';
+                            $message = 'Input with no label should add aria-label';
+                            display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            foreach ($inputWithFault as $key=>$ni) {
+                                $tag_full = htmlspecialchars($input->dom->saveXML($ni));
+                                $ln = $ni->getLineNo();
+                                displayChildError($id_panel, $tag_full, $ln, $key, 'input');
+                            }
+                        }
+                        if (count($inputWithFaultLabel) != 0){
+                            $message = 'Input to be processed with label';
+                            $class = 'input-label-error';
+                            $id_panel = 'panel_input-label';
+                            display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            foreach ($inputWithFaultLabel as $key=>$ni) {
+                                $tag_full = htmlspecialchars($input->dom->saveXML($ni));
+                                $ln = $ni->getLineNo();
                                 displayChildError($id_panel, $tag_full, $ln, $key, 'input');
                             }
                         }
@@ -300,6 +323,9 @@ END;
                                     displayChangeLang('basic-list', 'lang-check','lang-form',$ln,'html');
                                 }else {
                                     //If language is not present to summary and error
+                                    $ttl = "<strong>Language</strong>: Not Declared";
+                                    display_auto($ttl, 'basic-list','lang-check', 'langInfo');
+
                                     $message = 'HTML documents don\'t have specific language';
                                     display_error($message, 'id-check-empty', 'idInfo', 'panel_lang', "Change Language");
                                     displayChangeLang('error-list', 'lang-error','lang-form',$ln,'html');
@@ -307,6 +333,15 @@ END;
                                 }
                             }else {
                                 // Language defined as xml
+                                if (!$lang->nodeHtml->hasAttribute('lang')){
+                                    $ttl = "<strong>Language</strong>: Not Declared";
+                                    display_auto($ttl, 'basic-list','lang-check', 'langInfo');
+
+                                    $message = 'HTML documents don\'t have specific language';
+                                    display_error($message, 'id-check-empty', 'idInfo', 'panel_lang', "Change Language");
+                                    displayChangeLang('error-list', 'lang-error','lang-form',$ln,'html');
+                                    array_push($this->a, 1); array_push($this->aaa, 1); array_push($this->u, 1);
+                                }
                             }
                         }else {
                             //HTML tag not found
@@ -588,6 +623,28 @@ END;
                             }
                         }
                     }
+
+                    public function checkIcon(){
+                        $ico = new checkIcon($this->html);
+                        $class ='glyph-check';
+                        $ico->getIcon();
+                        array_push($this->a, count($ico->nodeIcon));
+                        array_push($this->aa, count($ico->nodeIcon));
+                        array_push($this->p, count($ico->nodeIcon));
+                        $messageChild="";
+                        if(count($ico->nodeIcon) != 0){
+                            foreach ($ico->nodeIcon as $node){
+                                $node->removeAttribute('style');
+                                $messageChild .= "<li>".trim(preg_replace('/\s\s+/', ' ',htmlspecialchars($ico->dom->saveHTML($node))))."</li>";
+                            }
+                            $message ="<strong>icon/s</strong>: ".count($ico->nodeIcon);
+                            display_auto($message, 'basic-list', $class, 'glyphInfo');
+                            display_child_many($messageChild, 'basic-list', $class, 'panel-success', 'icon-list');
+                        }else {
+                            $message = "<strong>icon/s</strong>: 0";
+                            display_auto($message, 'auto-list',$class, 'glyphInfoTrue');
+                        }
+                    }
                 }
                 ?>
                 <div class="col-md-6 bottom">
@@ -611,11 +668,27 @@ END;
                                 <div class="summ-info" id="report">
                                     <h3 class="text-center">Report</h3>
                                     <div class="ct-chart" style="width: 100%; height: 300px"></div>
-                                    <ul class="col-md-6">
+                                    <ul class="col-md-12">
                                         <li><strong>Level A</strong>: <span id="a">70</span></li>
                                         <li><strong>Level AA</strong>: <span id="aa">32</span></li>
                                         <li><strong>Level AAA</strong>: <span id="aaa">22</span></li>
                                     </ul>
+                                    <hr>
+                                    <div class="about-report" style="">
+
+                                        <ul>
+                                            <li><h3>WCAG 2.0 Guidelines</h3></li>
+                                            <li>Percivable: 22</li>
+                                            <li>Operable: 20</li>
+                                            <li>Understandable: 17</li>
+                                            <li>Robust: 2</li>
+                                        </ul>
+                                        <ul>
+                                            <li>Level A: 25 Guidelines</li>
+                                            <li>Level AA: 13 Guidelines</li>
+                                            <li>Level AAA: 23 Guidelines</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="alert">
