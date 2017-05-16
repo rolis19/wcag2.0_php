@@ -99,7 +99,7 @@ ini_set('max_execution_time', 300);
                         </div>
                     </div>
                     <div class="show-code" id="showcode">
-                        <a href="http://localhost/learn" class="btn btn-success">New Check</a>
+                        <a href="http://rolies.me/wcag/" class="btn btn-success">New Check</a>
                         <div class="showcode-container">
                             <?php
                             function show_code(){
@@ -716,8 +716,17 @@ END;
                                 }
                                 //Program start here for insert url
                                 if (isset($_POST['stageurl']) && ('process' == $_POST['stageurl'])) {
+
                                     function datafeed($url){
-                                        $text =  file_get_contents($url);
+                                        $context = stream_context_create(
+                                            array(
+                                                "http" => array(
+                                                    "header" => "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36"
+                                                )
+                                            )
+                                        );
+
+                                        $text =  file_get_contents($url, false, $context);
                                         return $text;
                                     }
                                     $dataraw = datafeed($_POST['cekodeurl']);//raw data tag code
