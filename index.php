@@ -718,16 +718,7 @@ END;
                                 if (isset($_POST['stageurl']) && ('process' == $_POST['stageurl'])) {
 
                                     function datafeed($url){
-                                        //Set user agent
-                                        $context = stream_context_create(
-                                            array(
-                                                "http" => array(
-                                                    "header" => "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36"
-                                                )
-                                            )
-                                        );
-
-                                        $text =  file_get_contents($url, false, $context);
+                                        $text =  file_get_contents($url);
                                         return $text;
                                     }
                                     $dataraw = datafeed($_POST['cekodeurl']);//raw data tag code
