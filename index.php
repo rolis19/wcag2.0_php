@@ -167,6 +167,17 @@ END;
                             $aaa = array_sum($this->aaa);
                             //echo "Understandable final: ".$u.'<br>';
                             displayPie($p, $o, $u, $r, $a, $aa, $aaa);
+
+                            //Freed memory
+                            $this->html = null;
+                            $this->p = null;
+                            $this->o = null;
+                            $this->u = null;
+                            $this->r = null;
+                            $this->a = null;
+                            $this->aa = null;
+                            $this->aaa =null;
+
                         } else {
                             // Jika gagal parsing html
                         }
@@ -191,6 +202,8 @@ END;
                                 displayChildError($id_panel, $tag_full, $ln, $key,'img');
                             }
                         }
+                        //Freed memory
+                        $img = null;
                     }
 
                     public function checkInput(){
@@ -249,6 +262,9 @@ END;
                         //is line before equal to label tag
                         //if yes work to make both sync
                         //if no work to make input accessible
+
+                        //Freed memory
+                        $input = null;
                     }
 
                     public function checkButton(){
@@ -283,6 +299,7 @@ END;
                             }
                             displayChildAlert($msgChild, $id_panel);
                         }
+                        $button = null;
                     }
 
                     public function imgBlankAlt(){
@@ -302,6 +319,7 @@ END;
                             }
                             displayChildAlert($msgChild, $id_panel);
                         }
+                        $img = null;
                     }
 
                     public function docLangCheck(){
@@ -351,7 +369,7 @@ END;
                             display_auto($ttl, 'basic-list','lang-check', 'langInfo');
                             array_push($this->a, 1); array_push($this->aaa, 1); array_push($this->u, 1);
                         }
-
+                        $lang = null;
 //                        if ($docType == 'html'){
 //                            if (empty($docLang)){
 //                                $message = 'HTML documents don\'t have specific language';
@@ -393,6 +411,7 @@ END;
                             array_push($this->u, count($onChange->selectOnChange));
                             displayChildAlert($onchange_txt, $id_panel);
                         }
+                        $onChange = null;
 
                     }
 
@@ -420,6 +439,7 @@ END;
                             $message = 'No italic style found';
                             display_auto($message, 'auto-list',$class, 'italicInfoTrue');
                         }
+                        $italic_txt = null;
                     }
 
                     public function olCheck(){
@@ -441,6 +461,7 @@ END;
                             $message = 'No ordered list found';
                             display_auto($message, 'auto-list', $class, 'olInfoTrue');
                         }
+                        $ordered = null;
                     }
 
                     public function checkId(){
@@ -469,6 +490,7 @@ END;
                             $message_no =  "No duplicate ID found";
                             display_auto($message_no, 'auto-list','id-check', 'idInfoTrue');
                         }
+                        $id = null;
                     }
 
                     public function checkFrame(){
@@ -502,6 +524,8 @@ END;
                             }
                             displayChildAlert($msgChild, $id_panel);
                         }
+
+                        $frame = null;
                     }
 
                     public function checkTitle(){
@@ -532,6 +556,7 @@ END;
                             array_push($this->aaa, 1);
                             array_push($this->o, 1);
                         }
+                        $title = null;
                     }
 
                     public function checkLink(){
@@ -580,6 +605,7 @@ END;
                             }
                             displayChildAlert($msgChild, $id_panel);
                         }
+                        $link = null;
                     }
 
                     public function checkTable(){
@@ -622,6 +648,7 @@ END;
                                 displayChildError($id_panel, $tag_full, $ln, $k,'tabel');
                             }
                         }
+                        $tbl = null;
                     }
 
                     public function checkIcon(){
@@ -644,7 +671,10 @@ END;
                             $message = "<strong>icon/s</strong>: 0";
                             display_auto($message, 'auto-list',$class, 'glyphInfoTrue');
                         }
+
+                        $ico = null;
                     }
+
                 }
                 ?>
                 <div class="col-md-6 bottom">
@@ -716,7 +746,6 @@ END;
                                 }
                                 //Program start here for insert url
                                 if (isset($_POST['stageurl']) && ('process' == $_POST['stageurl'])) {
-
                                     function datafeed($url){
                                         $text =  file_get_contents($url);
                                         return $text;
