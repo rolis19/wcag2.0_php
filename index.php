@@ -718,6 +718,7 @@ END;
                                 if (isset($_POST['stageurl']) && ('process' == $_POST['stageurl'])) {
 
                                     function datafeed($url){
+                                        //Set user agent
                                         $context = stream_context_create(
                                             array(
                                                 "http" => array(
