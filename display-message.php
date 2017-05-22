@@ -196,7 +196,7 @@ function displayPie($p, $o, $u, $r, $a, $aa, $aaa){
         document.getElementById("aa").innerHTML = $aa;
         document.getElementById("aaa").innerHTML = $aaa;
         var data = {
-            labels: ['PERCIVABLE', 'OPERABLE', 'UNDERSTANDBLE', 'ROBUST'],
+            labels: ['PERCIVABLE $p', 'OPERABLE $o', 'UNDERSTANDBLE $u', 'ROBUST $r'],
             series: [$p, $o, $u, $r]
         };
         var options = {

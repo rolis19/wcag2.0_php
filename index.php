@@ -57,8 +57,8 @@ ini_set('max_execution_time', 300);
             <div id="explanation"></div>
             <div id="instruction"></div>
             <div id="technique"></div>
-            <a href="#official" class="btn btn-info btn-tag" data-toggle="collapse">
-                Read Official Guideline <i class="glyphicon glyphicon-chevron-down"></i>
+            <a href="#official" class="btn btn-info btn-tag" data-toggle="collapse" style="display: none">
+                Read the Algorithm <i class="glyphicon glyphicon-chevron-down"></i>
             </a>
             <div id="official" class="collapse">
 
@@ -126,6 +126,8 @@ END;
                     public $a = array();
                     public $aa = array();
                     public $aaa = array();
+                    public $error = array();
+                    public $warn = array();
 
                     public function __construct($all_text){
                         /***
@@ -165,8 +167,11 @@ END;
                             $a = array_sum($this->a);
                             $aa = array_sum($this->aa);
                             $aaa = array_sum($this->aaa);
+
                             //echo "Understandable final: ".$u.'<br>';
                             displayPie($p, $o, $u, $r, $a, $aa, $aaa);
+                            echo strlen($this->html).'<br>';
+                            echo array_sum($this->error);
 
                             //Freed memory
                             $this->html = null;
@@ -189,8 +194,11 @@ END;
                      */
                     public function imgNoAlt(){
                         $img = new CheckImg($this->html);
+                        // REPORT
                         array_push($this->p, count($img->imgnoAlt));
                         array_push($this->a, count($img->imgnoAlt));
+                        array_push($this->error, strlen(implode(',', $img->imgnoAlt)));
+                        // END REPORT
                         $message = 'Img tag doesn\'t have \'alt\' properties';
                         $class = 'img-list-error';
                         $id_panel = 'panel_imgerror';
@@ -228,7 +236,7 @@ END;
                                 $class = 'input-error';
                                 $id_panel = 'panel_input';
                                 $message = 'Input with no label should add aria-label';
-                                display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                                display_error($message, $class, 'input', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
                                 foreach ($input->inputWithFault as $key => $ni) {
                                     $tag_full = htmlspecialchars($input->dom->saveXML($ni));
                                     $ln = $ni->getLineNo();
@@ -596,7 +604,7 @@ END;
                             $class = 'short-link-info';
                             $message = "Link contain sort description";
                             $id_panel = 'panel_linkalert';
-                            display_alert($message, $class, 'img', $id_panel, 'collapse', "<i class='glyphicon glyphicon-menu-down'></i>");
+                            display_alert($message, $class, 'linkInfo', $id_panel, 'collapse', "<i class='glyphicon glyphicon-menu-down'></i>");
                             foreach ($link->sortLinktxt as $node){
                                 $line = $node->getLineNo();
                                 $tag = trim(preg_replace('/\s+/', ' ', $node->nodeValue));
@@ -704,7 +712,7 @@ END;
                                         <li><strong>Level AAA</strong>: <span id="aaa">22</span></li>
                                     </ul>
                                     <hr>
-                                    <div class="about-report" style="">
+                                    <div class="about-report" style="display: none">
 
                                         <ul>
                                             <li><h3>WCAG 2.0 Guidelines</h3></li>

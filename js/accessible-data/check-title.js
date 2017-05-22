@@ -1,5 +1,6 @@
 var JSON_titleInfo = {
-    explanation:'Title of document',
+    explanation:'Title is the first item to be read by screen reader, clear and good written title help user with disability to better understand' +
+    ' for top level view of their current location',
     instruction: [
         '<h3>Instruction</h3>',
         'Use the lang attribute for pages served as HTML.',
@@ -7,8 +8,9 @@ var JSON_titleInfo = {
         'For XHTML 1.x and HTML5 polyglot documents, use both together.'
     ],
     technique:[
-        '<a href="https://www.w3.org/TR/WCAG20-TECHS/H57.html" target="_blank">H57</a>:Using language attributes on the html element ',
-        '<a href="https://www.w3.org/TR/WCAG20-TECHS/H58.html" target="_blank">H58</a>:Using language attributes to identify changes in the human language '
+        '<a href="https://www.w3.org/TR/WCAG20-TECHS/g88.html" target="_blank">G88</a>: Providing descriptive titles for Web pages ',
+        '<a href="https://www.w3.org/TR/WCAG20-TECHS/H25.html" target="_blank">H25</a>: Providing a title using the title element ',
+        '<a href="https://www.w3.org/TR/WCAG20-TECHS/g127.html" target="_blank">G127</a>: Identifying a Web page relationship to a larger collection of Web pages '
     ],
     tag:'<a class="btn btn-default btn-tag" href="#">Level A</a> <a class="btn btn-danger btn-tag" href="#">Level AAA</a> <a class="btn btn-success btn-tag" href="#">Operable</a>',
     official: '<h2>4. Robust</h2>'+

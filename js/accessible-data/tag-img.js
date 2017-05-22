@@ -6,17 +6,14 @@ var JSON_img = {
         'Incase image doesn\'t have any meaning to the user, then click "ignore".'
     ],
     technique:[
-        'H37: Using alt attributes on img elements',
-        'H67: Using null alt text and no title attribute on img elements for images that AT should ignore',
-        'H36: Using alt attributes on images used as submit button'
+        '<a href="https://www.w3.org/TR/WCAG20-TECHS/H37.html" target="_blank">H37</a>: Using alt attributes on img elements',
+        '<a href="https://www.w3.org/TR/WCAG20-TECHS/H67.html" target="_blank">H67</a>: Using null alt text and no title attribute on img elements for images that AT should ignore',
+        '<a href="https://www.w3.org/TR/WCAG20-TECHS/H36.html" target="_blank">H36</a>: Using alt attributes on images used as submit button'
     ],
     tag:'<a class="btn btn-default btn-tag" href="#">Level A</a> <a class="btn btn-primary btn-tag" href="#">Perceivable</a>',
-    official: '<h2>4. Icons</h2>'+
-    '<p class="subtitle">4.1.1 Parsing</p>'+
-    '<p>'+
-    'In content implemented using markup languages, elements have complete start and end tags, elements are nested'+
-    'according to their specifications, elements do not contain duplicate attributes, and any IDs are unique,'+
-    'except where the specifications allow these features.'+
-    '</p>'+
-    '<a href="https://www.w3.org/WAI/WCAG20/quickref/?showtechniques=411" target="_blank" class="pull-right">Source</a>'
+    official: '<h4 class="subtitle">Algorithm on how to check Images</h4>'+
+    '<ol>'+
+    '<li>Identifying informative non-text content (future link)</li>'+
+    '</ol>'+
+    '<a href="#" target="_blank">Accessibility for Image</a>'
 };

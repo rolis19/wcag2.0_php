@@ -9,16 +9,13 @@ var JSON_glyphInfo = {
         'If you\'re using an icon to convey meaning (rather than only as a decorative element), ensure that ' +
         'this meaning is also conveyed to assistive technologies'
     ],
-    tag:'<a class="btn btn-default btn-tag" href="#">Level A</a> <a class="btn btn-warning btn-tag" href="#">Level AA</a> <a class="btn btn-primary btn-tag" href="#">Perceivable</a>',
     technique:[
-        '<a href="#">H93</a>: Ensuring that id attributes are unique on a web page'
+        'Identifying informative non-text content (future link), Guideline 1.1.1 and 1.4.5'
     ],
-    official: '<h2>4. Icons</h2>'+
-            '<p class="subtitle">4.1.1 Parsing</p>'+
-            '<p>'+
-            'In content implemented using markup languages, elements have complete start and end tags, elements are nested'+
-            'according to their specifications, elements do not contain duplicate attributes, and any IDs are unique,'+
-            'except where the specifications allow these features.'+
-            '</p>'+
-            '<a href="https://www.w3.org/WAI/WCAG20/quickref/?showtechniques=411" target="_blank" class="pull-right">Source</a>'
+    tag:'<a class="btn btn-default btn-tag">Level A</a> <a class="btn btn-warning btn-tag">Level AA</a> <a class="btn btn-primary btn-tag">Perceivable</a>',
+    official: '<h4 class="subtitle">Algorithm on how to check Icon</h4>'+
+    '<ol>'+
+    '<li>Identifying informative non-text content (future link)</li>'+
+    '</ol>'+
+    '<a href="#" target="_blank">Accessibility for Icon</a>'
 };

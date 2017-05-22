@@ -1,21 +1,19 @@
 var JSON_input = {
-    explanation:'Input without label value.',
+    explanation:' Associating input label will help screen reader in refering input form, additional benefit is a larger clickable area for the control, since clicking on the label or the control will activate the control. This can be helpful for users with impaired motor control.',
     instruction: [
         '<h3>Instruction</h3>',
-        'Input value to represent the meaning of image (without "alt") and than click edit button.',
-        'Incase image doesn\'t have any meaning to the user, then click "ignore".'
+        'Associating done by setting both "for" in label and "id" in input to the same value.',
+        'If visible label cannot be used, add "aria-label" attribute to describe the use of input.'
     ],
     technique:[
-        'H37: Using alt attributes on img elements',
-        'H67: Using null alt text and no title attribute on img elements for images that AT should ignore',
-        'H36: Using alt attributes on images used as submit button'
+        '<a href="https://www.w3.org/TR/WCAG20-TECHS/H44.html" target="_blank">H44</a>: Using label elements to associate text labels with form controls',
+        '<a href="https://www.w3.org/TR/WCAG20-TECHS/aria14.html" target="_blank">ARIA14</a>: Using aria-label to provide an invisible label where a visible label cannot be used ',
+        '<a href="https://www.w3.org/TR/WCAG20-TECHS/aria6.html" target="_blank">ARIA6</a>: Using aria-label to provide labels for objects '
     ],
-    official: '<h2>4. Icons</h2>'+
-    '<p class="subtitle">4.1.1 Parsing</p>'+
-    '<p>'+
-    'In content implemented using markup languages, elements have complete start and end tags, elements are nested'+
-    'according to their specifications, elements do not contain duplicate attributes, and any IDs are unique,'+
-    'except where the specifications allow these features.'+
-    '</p>'+
-    '<a href="https://www.w3.org/WAI/WCAG20/quickref/?showtechniques=411" target="_blank" class="pull-right">Source</a>'
+    tag:'<a class="btn btn-default btn-tag">Level A</a> <a class="btn btn-primary btn-tag">Perceivable</a> <a class="btn btn-info btn-tag">Understandable</a> <a class="btn btn-danger btn-tag">Robust</a>',
+    official: '<h4 class="subtitle">Algorithm on how to check Input</h4>'+
+    '<ol>'+
+    '<li>Identifying informative non-text content (future link)</li>'+
+    '</ol>'+
+    '<a href="#" target="_blank">Accessibility for Input</a>'
 };

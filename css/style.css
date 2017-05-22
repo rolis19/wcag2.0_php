@@ -362,13 +362,21 @@ html, body, .container, .content-wrap {
     list-style: none;
     font-size: 16px;
     color: rgba(0, 0, 0, 0.58);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 #official {
-    padding-bottom: 60px;
+    padding-bottom: 40px;
+    padding-top: 12px;
     color: rgba(0, 0, 0, 0.76);
 }
-#official h2{
-    font-size: 26px;
+#official ol{
+    padding-left: 10px;
+    padding-bottom: 20px;
+}
+#official li{
+    font-size: 14px;
 }
 p.info-other{
     background-color: #FFEEED;
@@ -586,4 +594,10 @@ li.ttl-check span{
 }
 li.stacked{
     background: #FFFFFF;
+}
+.btn.focus, .btn:focus{
+    color: #FFF!important;
+}
+.btn.focus i, .btn:focus i{
+    color: #FFF!important;
 }
