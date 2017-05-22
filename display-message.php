@@ -186,7 +186,7 @@ END;
 }
 
 
-function displayPie($p, $o, $u, $r, $a, $aa, $aaa){
+function principleGraph($p, $o, $u, $r, $a, $aa, $aaa){
     echo <<< END
     <script type="text/javascript">
         document.getElementById("info-intro").style.display = "none";
@@ -257,6 +257,26 @@ function pieCode($all, $err, $warn){
         new Chartist.Pie('.ct-chart', data, options, responsiveOptions);
     </script>
 END;
+}
+
+function testGraph($arr){
+    $newarr = implode(', ', $arr);
+    $lbl = array();
+    foreach ($arr as $key=>$item){
+        array_push($lbl, "'T-".$key."'");
+    }
+    $label = implode(', ', $lbl);
+    echo <<< END
+    <script type="text/javascript">
+    new Chartist.Bar('.ct-chart1', {
+            labels: [$label],
+            series: [$newarr]
+        }, {
+            distributeSeries: true
+        });
+    </script>
+END;
+
 }
 
 ?>

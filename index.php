@@ -119,15 +119,9 @@ END;
                 class mainArray{
                     public $html;
                     public $all_text;
-                    public $p = array();
-                    public $o = array();
-                    public $u = array();
-                    public $r = array();
-                    public $a = array();
-                    public $aa = array();
-                    public $aaa = array();
                     public $error = array();
                     public $warn = array();
+                    public $testCount= array();
 
                     public function __construct($all_text){
                         /***
@@ -144,46 +138,24 @@ END;
                     public function tag_check(){
                         if(filesize("newfile.html") != 0){
                             $this->docLangCheck();
+                            $this->imgBlankAlt();
+                            $this->imgNoAlt();
+                            $this->checkInput();
+                            $this->checkLink();
                             $this->checkTitle();
                             get_heading($this->html);
                             $this->onChangeCheck();
                             $this->italicCheck();
                             $this->olCheck();
-                            //fix_glyph_icon($this->html);
                             $this->checkIcon();
                             $this->checkId();
-                            $this->imgBlankAlt();
-                            $this->imgNoAlt();
-                            $this->checkInput();
                             $this->checkButton();
                             $this->checkFrame();
-                            $this->checkLink();
                             $this->checkTable();
                             show_code();
-                            $p = array_sum($this->p);
-                            $o = array_sum($this->o);
-                            $u = array_sum($this->u);
-                            $r = array_sum($this->r);
-                            $a = array_sum($this->a);
-                            $aa = array_sum($this->aa);
-                            $aaa = array_sum($this->aaa);
 
-                            //echo "Understandable final: ".$u.'<br>';
-                            //displayPie($p, $o, $u, $r, $a, $aa, $aaa);
-//                            echo strlen($this->html).'<br>';
-//                            echo array_sum($this->error).'<br>';
-//                            echo array_sum($this->warn);
                             pieCode(strlen($this->html), array_sum($this->error), array_sum($this->warn));
-
-                            //Freed memory
-                            $this->html = null;
-                            $this->p = null;
-                            $this->o = null;
-                            $this->u = null;
-                            $this->r = null;
-                            $this->a = null;
-                            $this->aa = null;
-                            $this->aaa =null;
+                            testGraph($this->testCount);
 
                         } else {
                             // Jika gagal parsing html
@@ -197,9 +169,8 @@ END;
                     public function imgNoAlt(){
                         $img = new CheckImg($this->html);
                         // REPORT
-                        array_push($this->p, count($img->imgnoAlt));
-                        array_push($this->a, count($img->imgnoAlt));
                         array_push($this->error, $img->imgError);
+                        array_push($this->testCount, count($img->imgnoAlt));
                         // END REPORT
                         $message = 'Img tag doesn\'t have \'alt\' properties';
                         $class = 'img-list-error';
@@ -213,6 +184,26 @@ END;
                             }
                         }
                         //Freed memory
+                        $img = null;
+                    }
+
+                    public function imgBlankAlt(){
+                        $img = new CheckImg($this->html);
+                        $class = 'blank-img-info';
+                        array_push($this->testCount, count($img->imgBlankAlt));
+                        array_push($this->warn, $img->imgWarn);
+                        if (!empty($img->imgBlankAlt)){
+                            $msgChild="";
+                            $message = "Image with blank alt properties";
+                            $id_panel = 'panel_imgalert';
+                            display_alert($message, $class, 'img', $id_panel, 'collapse', "<i class='glyphicon glyphicon-menu-down'></i>");
+                            foreach ($img->imgBlankAlt as $key=>$img){
+                                $line = $img['line'];
+                                $src = $img['src'];
+                                $msgChild .= "<li><samp>Line <a href='#' onclick='toLine(".$line.")'>".$line."</a> $src</samp></li>";
+                            }
+                            displayChildAlert($msgChild, $id_panel);
+                        }
                         $img = null;
                     }
 
@@ -247,7 +238,7 @@ END;
                                     $ln = $ni->getLineNo();
                                     displayChildError($id_panel, $tag_full, $ln, $key, 'input');
                                 }
-
+                                array_push($this->testCount, count($input->inputWithFault));
                                 array_push($this->error, $countError);
                             }
 
@@ -289,329 +280,10 @@ END;
                         $input = null;
                     }
 
-                    public function checkButton(){
-                        $button = new CheckButton($this->html);
-                        $button->getButton();
-                        if (!empty($button->btnWithEnt)){
-                            $message = 'Button infromation contain HTML entity';
-                            $class = 'btn-list-error';
-                            $id_panel = 'panel_btnerror';
-                            display_error($message, $class, 'langInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
-                            $countError= 0;
-                            foreach ($button->btnWithEnt as $key=>$node){
-                                $countError += strlen($button->dom->saveXML($node));
-                                $tag_full = htmlspecialchars($button->dom->saveXML($node));
-                                $ln = $node->getLineNo();
-                                displayChildError($id_panel, $tag_full, $ln, $key,'input');
-                            }
-                            array_push($this->error, $countError);
-                        }
-
-                        if(!empty($button->btnWithLessInfo)){
-                            $message = 'Button contain short infromation';
-                            $class = 'btn-list-alert';
-                            $id_panel = 'panel_btnalert';
-                            $msgChild="";
-                            if (count($button->btnWithLessInfo) <= 3){
-                                display_alert($message, $class, 'langInfo', $id_panel, 'no-collapse', "");
-                            } else {
-                                display_alert($message, $class, 'langInfo', $id_panel, 'collapse', "<i class='glyphicon glyphicon-menu-down'></i>");
-                            }
-                            $countWarn =0;
-                            foreach ($button->btnWithLessInfo as $key=>$node){
-                                $countWarn += strlen($button->dom->saveXML($node));
-                                $value = $node->nodeValue;
-                                $tag_full = htmlspecialchars("<button> $value </button>");
-                                $line = $node->getLineNo();
-                                $msgChild .= "<li><samp>Line <a href='#' onclick='toLine(".$line.")'>".$line."</a> $tag_full</samp></li>";
-                            }
-                            array_push($this->warn, $countWarn);
-                            displayChildAlert($msgChild, $id_panel);
-                        }
-                        $button = null;
-                    }
-
-                    public function imgBlankAlt(){
-                        $img = new CheckImg($this->html);
-                        $class = 'blank-img-info';
-                        array_push($this->p, count($img->imgBlankAlt));
-                        array_push($this->a, count($img->imgBlankAlt));
-                        array_push($this->warn, $img->imgWarn);
-                        if (!empty($img->imgBlankAlt)){
-                            $msgChild="";
-                            $message = "Image with blank alt properties";
-                            $id_panel = 'panel_imgalert';
-                            display_alert($message, $class, 'img', $id_panel, 'collapse', "<i class='glyphicon glyphicon-menu-down'></i>");
-                            foreach ($img->imgBlankAlt as $key=>$img){
-                                $line = $img['line'];
-                                $src = $img['src'];
-                                $msgChild .= "<li><samp>Line <a href='#' onclick='toLine(".$line.")'>".$line."</a> $src</samp></li>";
-                            }
-                            displayChildAlert($msgChild, $id_panel);
-                        }
-                        $img = null;
-                    }
-
-                    //Left pie graph for now
-                    public function docLangCheck(){
-
-                        $lang = new DocLanguage($this->html);
-                        if ($lang->nodeHtml != null){
-                            $lang->setLang();
-                            $ln = $lang->nodeHtml->getLineNo();
-                            if ($lang->doc == 'html'){
-                                if ($lang->nodeHtml->hasAttribute('lang')){
-                                    // If language is present to summary
-                                    $docLang = trim(preg_replace('/(.*?)-(...?)/', '$1', $lang->nodeHtml->getAttribute('lang'))); // Remove any specific country for now
-                                    $str = file_get_contents('class-check/language.txt');
-                                    $find = '/Subtag: '.$docLang.' Description:(.+?)\n/';
-                                    preg_match_all($find, $str, $matches);
-                                    $langName = trim(preg_replace('/\s\s+/', ' ', $matches[1][0]));
-                                    $lang = "<strong>Language</strong>: ".$langName;
-                                    display_auto($lang, 'basic-list','lang-check', 'langInfoTrue');
-                                    displayChangeLang('basic-list', 'lang-check','lang-form',$ln,'html');
-                                }else {
-                                    //If language is not present to summary and error
-                                    $ttl = "<strong>Language</strong>: Not Declared";
-                                    display_auto($ttl, 'basic-list','lang-check', 'langInfo');
-
-                                    $message = 'HTML documents don\'t have specific language';
-                                    display_error($message, 'id-check-empty', 'idInfo', 'panel_lang', "Change Language");
-                                    displayChangeLang('error-list', 'lang-error','lang-form',$ln,'html');
-                                    array_push($this->a, 1); array_push($this->aaa, 1); array_push($this->u, 1);
-                                }
-                            }else {
-                                // Language defined as xml
-                                if (!$lang->nodeHtml->hasAttribute('lang')){
-                                    $ttl = "<strong>Language</strong>: Not Declared";
-                                    display_auto($ttl, 'basic-list','lang-check', 'langInfo');
-
-                                    $message = 'HTML documents don\'t have specific language';
-                                    display_error($message, 'id-check-empty', 'idInfo', 'panel_lang', "Change Language");
-                                    displayChangeLang('error-list', 'lang-error','lang-form',$ln,'html');
-                                    array_push($this->a, 1); array_push($this->aaa, 1); array_push($this->u, 1);
-                                }
-                            }
-                        }else {
-                            //HTML tag not found
-                            $message = 'HTML documents don\'t have specific language';
-                            display_error($message, 'lang-error', 'langInfo', 'panel_lang', "Change Language");
-                            $ttl = "<strong>Language</strong>: Not Declared";
-                            display_auto($ttl, 'basic-list','lang-check', 'langInfo');
-                            array_push($this->a, 1); array_push($this->aaa, 1); array_push($this->u, 1);
-                        }
-                        $lang = null;
-//                        if ($docType == 'html'){
-//                            if (empty($docLang)){
-//                                $message = 'HTML documents don\'t have specific language';
-//                                display_error($message, 'lang-error', 'idInfo', 'panel_lang', "Change Language");
-//                                displayChangeLang('error-list', 'lang-error','lang-form',$ln,'html');
-//                            } else {
-//                                $str = file_get_contents('class-check/language.txt');
-//                                $find = '/Subtag: '.$docLang.' Description:(.+?)\n/';
-//                                preg_match_all($find, $str, $matches);
-//                                $langName = trim(preg_replace('/\s\s+/', ' ', $matches[1][0]));
-//                                $lang = "Language defined as ".$langName;
-//                                display_auto($lang, 'basic-list','lang-check', 'langInfo');
-//                                displayChangeLang('basic-list', 'lang-check','lang-form',$ln,'html');
-//                            }
-//                        }else {
-//                            $message = "Document language is not defined ";
-//                            $xmlLang = $lang->nodeLang['xmlLangVal'];
-//                            if (empty($docLang) || empty($xmlLang)){
-//                                display_error($message, 'id-check-empty', 'idInfo', 'panel_lang', "Change Language");
-//                            } else {
-//                                echo 'To be included inside basic group';
-//                            }
-//                        }
-                    }
-
-                    public function onChangeCheck(){
-                        $onChange = new OnChange($this->html);
-                        if (!empty($onChange->selectOnChange)) {
-                            $class = 'onchange-check';
-                            $id_panel = 'panel_onchgalert';
-                            $message = '<code>select</code> tag may cause extreme modification due to <samp>onchange()</samp>';
-                            display_alert($message, $class, 'onchangeInfo', $id_panel, 'no-collapse', '');
-                            $onchange_txt="";
-                            $onchange_txt .="<li><samp>Line</samp></li>";
-                            foreach ($onChange->selectOnChange as $item) {
-                                $onchange_txt .= "<li><samp><a href='#' onclick='toLine(".$item['line'].")'>".$item['line']."</a></samp></li>";
-                            }
-                            array_push($this->aaa, count($onChange->selectOnChange));
-                            array_push($this->u, count($onChange->selectOnChange));
-                            array_push($this->warn, $onChange->countWarn);
-                            displayChildAlert($onchange_txt, $id_panel);
-                        }
-                        $onChange = null;
-
-                    }
-
-                    public function italicCheck(){
-                        $italic_txt = new CheckItalic($this->html);
-                        $class = 'italic-info';
-                        $italic_line="";
-                        if (!empty($italic_txt->nodeItalic->length)){
-                            $id_panel = 'panel_italicalert';
-                            $message = "Italic format known problem for some people with Dyslexia";
-                            if ($italic_txt->nodeItalic->length >= 3){
-                                display_alert($message, $class, 'italicInfo', $id_panel, 'collapse', "<i class='glyphicon glyphicon-menu-down'></i>");
-                            } else {
-                                display_alert($message, $class, 'italicInfo', $id_panel, 'no-collapse', '');
-                            }
-                            $countWarn =0;
-                            foreach ($italic_txt->nodeItalic as $item) {
-                                $countWarn += strlen($italic_txt->dom->saveXML($item));
-                                $tag = htmlspecialchars(" <em>$item->nodeValue</em> ");
-                                $ln = $item->getLineNo();
-                                $italic_line .= "<li><samp>Line <a href='#' onclick='toLine(".$ln.")'>".$ln."</a> $tag</samp></li>";
-                            }
-                            array_push($this->warn, $countWarn);
-                            array_push($this->aaa, $italic_txt->nodeItalic->length);
-                            array_push($this->u, $italic_txt->nodeItalic->length);
-                            displayChildAlert($italic_line, $id_panel);
-                        }else {
-                            $message = 'No italic style found';
-                            display_auto($message, 'auto-list',$class, 'italicInfoTrue');
-                        }
-                        $italic_txt = null;
-                    }
-
-                    public function olCheck(){
-                        $ordered = new CheckOl($this->html);
-                        $orderedLine="";
-                        $class = 'orderlist_check';
-                        if (!empty($ordered->ordList)){
-                            $message = 'Ordered list <code>&lt;ol&gt;</code> probably misused';
-                            $id_panel = 'panel_ordlstalert';
-                            display_alert($message, $class, 'olInfo', $id_panel,'no-collapse', '');
-                            $orderedLine .= "<li><samp>Line</samp></li>";
-                            foreach ($ordered->ordList as $item) {
-                                $orderedLine .= "<li><samp><a href='#' onclick='toLine(".$item['line'].")'>".$item['line']."</a></samp></li>";
-                            }
-                            displayChildAlert($orderedLine, $id_panel);
-                            array_push($this->p, count($ordered->ordList));
-                            array_push($this->a, count($ordered->ordList));
-                            array_push($this->warn, $ordered->countWarn);
-                        }else {
-                            $message = 'No ordered list found';
-                            display_auto($message, 'auto-list', $class, 'olInfoTrue');
-                        }
-                        $ordered = null;
-                    }
-
-                    public function checkId(){
-                        $id = new CheckDuplicateID($this->html);
-                        $count = array();
-                        if (!empty($id->duplicateId)){
-                            $message = "";
-                            $class= 'idalert';
-                            $message1 = "Duplicate ID found";
-                            $id_panel='panel_idalert';
-                            display_alert($message1, $class, 'idInfo', $id_panel,'no-collapse', '');
-                            $countWarn=0;
-                            foreach ($id->duplicateId as $item=>$key){
-                                $message .= '<li><samp>'.$item.'</samp></li>';
-                                $count[$item] = count($key);
-                                foreach ($key as $line){
-                                    $countWarn += strlen($item);
-                                    $message .= "<li><samp><a href='#' onclick='toLine(".$line.")'>".$line."</a></samp></li>";
-                                }
-                                $message .= '<br>';
-                            }
-                            array_push($this->warn, $countWarn);
-                            array_push($this->r, array_sum($count));
-                            array_push($this->a, array_sum($count));
-                            displayChildAlert($message, $id_panel);
-
-                        } else {
-                            $message_no =  "No duplicate ID found";
-                            display_auto($message_no, 'auto-list','id-check', 'idInfoTrue');
-                        }
-                        $id = null;
-                    }
-
-                    public function checkFrame(){
-                        $frame = new CheckFrame($this->html);
-                        $frame->getFrame();
-                        if (!empty($frame->allFrame)){
-                            $class = 'frame-error';
-                            $id_panel = 'panel_frameerror';
-                            $message = 'Frame need title attribute';
-                            display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
-
-                            $countErr =0;
-                            foreach ($frame->allFrame as $key=>$nf){
-                                $countErr += strlen($frame->dom->saveXML($nf));
-                                $ln = $nf->getLineNo();
-                                $tag_full = htmlspecialchars($frame->dom->saveXML($nf));
-                                displayChildError($id_panel, $tag_full, $ln, $key, 'input');
-                            }
-                            array_push($this->error, $countErr);
-                        }
-
-                        if (!empty($frame->frameShortTitle)){
-                            $class = 'frame-alert';
-                            $id_panel = 'panel_framealert';
-                            $message = 'Frame contain short title';
-
-                            display_alert($message, $class, 'idInfo', $id_panel, 'no-collapse', '');
-                            $msgChild="";
-                            $countWarn=0;
-                            foreach ($frame->frameShortTitle as $key=>$nf){
-                                $countWarn += strlen($frame->dom->saveXML($nf));
-                                $ln = $nf->getLineNo();
-                                $tag = htmlspecialchars($frame->dom->saveHTML($nf));
-                                $msgChild .= "<li><samp>Line <a href='#' onclick='toLine(".$ln.")'>".$ln."</a> $tag</samp></li>";
-                            }
-                            displayChildAlert($msgChild, $id_panel);
-                            array_push($this->warn, $countWarn);
-                        }
-
-                        $frame = null;
-                    }
-
-                    public function checkTitle(){
-                        $title = new checkTitle($this->html);
-
-                        if ($title->title != null){
-                            $title->getTitle();
-                            $ttl = "<strong>Title</strong><span>: ".trim(preg_replace('/\s+/', ' ', $title->title->nodeValue))."</span>";
-                            display_auto($ttl, 'basic-list','ttl-check', 'titleInfoTrue');
-                            if ($title->titleFault != null){
-                                $class = 'title-alert';
-                                $id_panel = 'panel_ttlalert';
-                                $line = $title->titleFault->getLineNo();
-                                $txt = $title->titleFault->nodeValue;
-                                $message = 'Title contain sort information';
-                                $msgChild = "<li><samp>Line <a href='#' onclick='toLine(".$line.")'>".$line."</a>: $txt</samp></li>";
-                                display_alert($message, $class, 'titleInfo', $id_panel, 'no-collapse', "");
-                                displayChildAlert($msgChild, $id_panel);
-                                array_push($this->a, 1);
-                                array_push($this->aaa, 1);
-                                array_push($this->o, 1);
-                                array_push($this->warn, strlen($title->dom->saveXML($title->title)));
-                            }
-                        }else {
-                            //title tag not present error
-                            $ttl = "<strong>Title</strong>: Not Declared";
-                            display_auto($ttl, 'basic-list','ttl-check', 'titleInfoTrue');
-                            array_push($this->a, 1);
-                            array_push($this->aaa, 1);
-                            array_push($this->o, 1);
-                            array_push($this->error, 10);
-                        }
-                        $title = null;
-                    }
-
                     public function checkLink(){
                         $link = new checkLink($this->html);
                         $link->setLink();
-                        $calc = count($link->sortLinktxt)+ count($link->blankLinkTxt)+ count($link->blankLink);
-                        array_push($this->a, $calc);
-                        array_push($this->aaa, $calc);
-                        array_push($this->p, $calc);
-                        array_push($this->o, $calc);
+                        array_push($this->testCount, count($link->blankLinkTxt), count($link->blankLink), count($link->sortLinktxt));
                         $countErr=0;
                         if (count($link->blankLinkTxt) != 0){
                             $message = 'Link contain no text description';
@@ -658,13 +330,295 @@ END;
                         $link = null;
                     }
 
+                    public function checkButton(){
+                        $button = new CheckButton($this->html);
+                        $button->getButton();
+                        if (!empty($button->btnWithEnt)){
+                            $message = 'Button infromation contain HTML entity';
+                            $class = 'btn-list-error';
+                            $id_panel = 'panel_btnerror';
+                            display_error($message, $class, 'langInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            $countError= 0;
+                            foreach ($button->btnWithEnt as $key=>$node){
+                                $countError += strlen($button->dom->saveXML($node));
+                                $tag_full = htmlspecialchars($button->dom->saveXML($node));
+                                $ln = $node->getLineNo();
+                                displayChildError($id_panel, $tag_full, $ln, $key,'input');
+                            }
+                            array_push($this->testCount, count($button->btnWithEnt));
+                            array_push($this->error, $countError);
+                        }
+
+                        if(!empty($button->btnWithLessInfo)){
+                            $message = 'Button contain short infromation';
+                            $class = 'btn-list-alert';
+                            $id_panel = 'panel_btnalert';
+                            $msgChild="";
+                            if (count($button->btnWithLessInfo) <= 3){
+                                display_alert($message, $class, 'langInfo', $id_panel, 'no-collapse', "");
+                            } else {
+                                display_alert($message, $class, 'langInfo', $id_panel, 'collapse', "<i class='glyphicon glyphicon-menu-down'></i>");
+                            }
+                            $countWarn =0;
+                            foreach ($button->btnWithLessInfo as $key=>$node){
+                                $countWarn += strlen($button->dom->saveXML($node));
+                                $value = $node->nodeValue;
+                                $tag_full = htmlspecialchars("<button> $value </button>");
+                                $line = $node->getLineNo();
+                                $msgChild .= "<li><samp>Line <a href='#' onclick='toLine(".$line.")'>".$line."</a> $tag_full</samp></li>";
+                            }
+                            array_push($this->testCount, count($button->btnWithLessInfo));
+                            array_push($this->warn, $countWarn);
+                            displayChildAlert($msgChild, $id_panel);
+                        }
+                        $button = null;
+                    }
+
+                    //Left pie graph for now
+                    public function docLangCheck(){
+
+                        $lang = new DocLanguage($this->html);
+                        if ($lang->nodeHtml != null){
+                            $lang->setLang();
+                            $ln = $lang->nodeHtml->getLineNo();
+                            if ($lang->doc == 'html'){
+                                if ($lang->nodeHtml->hasAttribute('lang')){
+                                    // If language is present to summary
+                                    $docLang = trim(preg_replace('/(.*?)-(...?)/', '$1', $lang->nodeHtml->getAttribute('lang'))); // Remove any specific country for now
+                                    $str = file_get_contents('class-check/language.txt');
+                                    $find = '/Subtag: '.$docLang.' Description:(.+?)\n/';
+                                    preg_match_all($find, $str, $matches);
+                                    $langName = trim(preg_replace('/\s\s+/', ' ', $matches[1][0]));
+                                    $lang = "<strong>Language</strong>: ".$langName;
+                                    display_auto($lang, 'basic-list','lang-check', 'langInfoTrue');
+                                    displayChangeLang('basic-list', 'lang-check','lang-form',$ln,'html');
+                                }else {
+                                    //If language is not present to summary and error
+                                    $ttl = "<strong>Language</strong>: Not Declared";
+                                    display_auto($ttl, 'basic-list','lang-check', 'langInfo');
+
+                                    $message = 'HTML documents don\'t have specific language';
+                                    display_error($message, 'id-check-empty', 'idInfo', 'panel_lang', "Change Language");
+                                    displayChangeLang('error-list', 'lang-error','lang-form',$ln,'html');
+                                }
+                            }else {
+                                // Language defined as xml
+                                if (!$lang->nodeHtml->hasAttribute('lang')){
+                                    $ttl = "<strong>Language</strong>: Not Declared";
+                                    display_auto($ttl, 'basic-list','lang-check', 'langInfo');
+
+                                    $message = 'HTML documents don\'t have specific language';
+                                    display_error($message, 'id-check-empty', 'idInfo', 'panel_lang', "Change Language");
+                                    displayChangeLang('error-list', 'lang-error','lang-form',$ln,'html');
+                                }
+                            }
+                        }else {
+                            //HTML tag not found
+                            $message = 'HTML documents don\'t have specific language';
+                            display_error($message, 'lang-error', 'langInfo', 'panel_lang', "Change Language");
+                            $ttl = "<strong>Language</strong>: Not Declared";
+                            display_auto($ttl, 'basic-list','lang-check', 'langInfo');
+                        }
+                        $lang = null;
+//                        if ($docType == 'html'){
+//                            if (empty($docLang)){
+//                                $message = 'HTML documents don\'t have specific language';
+//                                display_error($message, 'lang-error', 'idInfo', 'panel_lang', "Change Language");
+//                                displayChangeLang('error-list', 'lang-error','lang-form',$ln,'html');
+//                            } else {
+//                                $str = file_get_contents('class-check/language.txt');
+//                                $find = '/Subtag: '.$docLang.' Description:(.+?)\n/';
+//                                preg_match_all($find, $str, $matches);
+//                                $langName = trim(preg_replace('/\s\s+/', ' ', $matches[1][0]));
+//                                $lang = "Language defined as ".$langName;
+//                                display_auto($lang, 'basic-list','lang-check', 'langInfo');
+//                                displayChangeLang('basic-list', 'lang-check','lang-form',$ln,'html');
+//                            }
+//                        }else {
+//                            $message = "Document language is not defined ";
+//                            $xmlLang = $lang->nodeLang['xmlLangVal'];
+//                            if (empty($docLang) || empty($xmlLang)){
+//                                display_error($message, 'id-check-empty', 'idInfo', 'panel_lang', "Change Language");
+//                            } else {
+//                                echo 'To be included inside basic group';
+//                            }
+//                        }
+                    }
+
+                    public function onChangeCheck(){
+                        $onChange = new OnChange($this->html);
+                        if (!empty($onChange->selectOnChange)) {
+                            $class = 'onchange-check';
+                            $id_panel = 'panel_onchgalert';
+                            $message = '<code>select</code> tag may cause extreme modification due to <samp>onchange()</samp>';
+                            display_alert($message, $class, 'onchangeInfo', $id_panel, 'no-collapse', '');
+                            $onchange_txt="";
+                            $onchange_txt .="<li><samp>Line</samp></li>";
+                            foreach ($onChange->selectOnChange as $item) {
+                                $onchange_txt .= "<li><samp><a href='#' onclick='toLine(".$item['line'].")'>".$item['line']."</a></samp></li>";
+                            }
+                            array_push($this->warn, $onChange->countWarn);
+                            displayChildAlert($onchange_txt, $id_panel);
+                        }
+                        $onChange = null;
+
+                    }
+
+                    public function italicCheck(){
+                        $italic_txt = new CheckItalic($this->html);
+                        $class = 'italic-info';
+                        $italic_line="";
+                        if (!empty($italic_txt->nodeItalic->length)){
+                            $id_panel = 'panel_italicalert';
+                            $message = "Italic format known problem for some people with Dyslexia";
+                            if ($italic_txt->nodeItalic->length >= 3){
+                                display_alert($message, $class, 'italicInfo', $id_panel, 'collapse', "<i class='glyphicon glyphicon-menu-down'></i>");
+                            } else {
+                                display_alert($message, $class, 'italicInfo', $id_panel, 'no-collapse', '');
+                            }
+                            $countWarn =0;
+                            foreach ($italic_txt->nodeItalic as $item) {
+                                $countWarn += strlen($italic_txt->dom->saveXML($item));
+                                $tag = htmlspecialchars(" <em>$item->nodeValue</em> ");
+                                $ln = $item->getLineNo();
+                                $italic_line .= "<li><samp>Line <a href='#' onclick='toLine(".$ln.")'>".$ln."</a> $tag</samp></li>";
+                            }
+                            array_push($this->warn, $countWarn);
+                            displayChildAlert($italic_line, $id_panel);
+                        }else {
+                            $message = 'No italic style found';
+                            display_auto($message, 'auto-list',$class, 'italicInfoTrue');
+                        }
+                        $italic_txt = null;
+                    }
+
+                    public function olCheck(){
+                        $ordered = new CheckOl($this->html);
+                        $orderedLine="";
+                        $class = 'orderlist_check';
+                        if (!empty($ordered->ordList)){
+                            $message = 'Ordered list <code>&lt;ol&gt;</code> probably misused';
+                            $id_panel = 'panel_ordlstalert';
+                            display_alert($message, $class, 'olInfo', $id_panel,'no-collapse', '');
+                            $orderedLine .= "<li><samp>Line</samp></li>";
+                            foreach ($ordered->ordList as $item) {
+                                $orderedLine .= "<li><samp><a href='#' onclick='toLine(".$item['line'].")'>".$item['line']."</a></samp></li>";
+                            }
+                            displayChildAlert($orderedLine, $id_panel);
+                            array_push($this->warn, $ordered->countWarn);
+                        }else {
+                            $message = 'No ordered list found';
+                            display_auto($message, 'auto-list', $class, 'olInfoTrue');
+                        }
+                        $ordered = null;
+                    }
+
+                    public function checkId(){
+                        $id = new CheckDuplicateID($this->html);
+                        $count = array();
+                        if (!empty($id->duplicateId)){
+                            $message = "";
+                            $class= 'idalert';
+                            $message1 = "Duplicate ID found";
+                            $id_panel='panel_idalert';
+                            display_alert($message1, $class, 'idInfo', $id_panel,'no-collapse', '');
+                            $countWarn=0;
+                            $allid=0;
+                            foreach ($id->duplicateId as $item=>$key){
+                                $message .= '<li><samp>'.$item.'</samp></li>';
+                                $count[$item] = count($key);
+                                $allid += count($key);
+                                foreach ($key as $line){
+                                    $countWarn += strlen($item);
+                                    $message .= "<li><samp><a href='#' onclick='toLine(".$line.")'>".$line."</a></samp></li>";
+                                }
+                                $message .= '<br>';
+                            }
+                            array_push($this->warn, $countWarn);
+                            displayChildAlert($message, $id_panel);
+                            array_push($this->testCount, $allid);
+
+                        } else {
+                            $message_no =  "No duplicate ID found";
+                            display_auto($message_no, 'auto-list','id-check', 'idInfoTrue');
+                        }
+                        $id = null;
+                    }
+
+                    public function checkFrame(){
+                        $frame = new CheckFrame($this->html);
+                        $frame->getFrame();
+                        if (!empty($frame->allFrame)){
+                            $class = 'frame-error';
+                            $id_panel = 'panel_frameerror';
+                            $message = 'Frame need title attribute';
+                            display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+
+                            $countErr =0;
+                            foreach ($frame->allFrame as $key=>$nf){
+                                $countErr += strlen($frame->dom->saveXML($nf));
+                                $ln = $nf->getLineNo();
+                                $tag_full = htmlspecialchars($frame->dom->saveXML($nf));
+                                displayChildError($id_panel, $tag_full, $ln, $key, 'input');
+                            }
+                            array_push($this->error, $countErr);
+                            array_push($this->testCount, count($frame->allFrame));
+                        }
+
+                        if (!empty($frame->frameShortTitle)){
+                            $class = 'frame-alert';
+                            $id_panel = 'panel_framealert';
+                            $message = 'Frame contain short title';
+
+                            display_alert($message, $class, 'idInfo', $id_panel, 'no-collapse', '');
+                            $msgChild="";
+                            $countWarn=0;
+                            foreach ($frame->frameShortTitle as $key=>$nf){
+                                $countWarn += strlen($frame->dom->saveXML($nf));
+                                $ln = $nf->getLineNo();
+                                $tag = htmlspecialchars($frame->dom->saveHTML($nf));
+                                $msgChild .= "<li><samp>Line <a href='#' onclick='toLine(".$ln.")'>".$ln."</a> $tag</samp></li>";
+                            }
+                            displayChildAlert($msgChild, $id_panel);
+                            array_push($this->warn, $countWarn);
+                            array_push($this->testCount, count($frame->frameShortTitle));
+                        }
+
+                        $frame = null;
+                    }
+
+                    public function checkTitle(){
+                        $title = new checkTitle($this->html);
+
+                        if ($title->title != null){
+                            $title->getTitle();
+                            $ttl = "<strong>Title</strong><span>: ".trim(preg_replace('/\s+/', ' ', $title->title->nodeValue))."</span>";
+                            display_auto($ttl, 'basic-list','ttl-check', 'titleInfoTrue');
+                            if ($title->titleFault != null){
+                                $class = 'title-alert';
+                                $id_panel = 'panel_ttlalert';
+                                $line = $title->titleFault->getLineNo();
+                                $txt = $title->titleFault->nodeValue;
+                                $message = 'Title contain sort information';
+                                $msgChild = "<li><samp>Line <a href='#' onclick='toLine(".$line.")'>".$line."</a>: $txt</samp></li>";
+                                display_alert($message, $class, 'titleInfo', $id_panel, 'no-collapse', "");
+                                displayChildAlert($msgChild, $id_panel);
+                                array_push($this->warn, strlen($title->dom->saveXML($title->title)));
+                            }
+                        }else {
+                            //title tag not present error
+                            $ttl = "<strong>Title</strong>: Not Declared";
+                            display_auto($ttl, 'basic-list','ttl-check', 'titleInfoTrue');
+                            array_push($this->error, 10);
+                        }
+                        $title = null;
+                    }
+
                     public function checkTable(){
                         $tbl = new checkTable($this->html);
                         $tbl->setChildTbl();
                         $tbl->setTh();
-                        $calc = count($tbl->tableDecor)+count($tbl->tableNoTh)+count($tbl->thNoScope);
-                        array_push($this->a, $calc);
-                        array_push($this->o, $calc);
+                        array_push($this->testCount, count($tbl->tableDecor), count($tbl->tableNoTh), count($tbl->thNoScope));
                         $countErr =0;
                         if (count($tbl->tableDecor) != 0){
                             $message = "table used for decorative purpose";
@@ -710,9 +664,6 @@ END;
                         $ico = new checkIcon($this->html);
                         $class ='glyph-check';
                         $ico->getIcon();
-                        array_push($this->a, count($ico->nodeIcon));
-                        array_push($this->aa, count($ico->nodeIcon));
-                        array_push($this->p, count($ico->nodeIcon));
                         $messageChild="";
                         if(count($ico->nodeIcon) != 0){
                             $countWarn=0;
@@ -725,6 +676,7 @@ END;
                             $message ="<strong>icon/s</strong>: ".count($ico->nodeIcon);
                             display_auto($message, 'basic-list', $class, 'glyphInfo');
                             display_child_many($messageChild, 'basic-list', $class, 'panel-success', 'icon-list');
+                            array_push($this->testCount, count($ico->nodeIcon));
                         }else {
                             $message = "<strong>icon/s</strong>: 0";
                             display_auto($message, 'auto-list',$class, 'glyphInfoTrue');
@@ -756,27 +708,33 @@ END;
                                 <div class="summ-info" id="report">
                                     <h3 class="text-center">Report</h3>
                                     <div class="ct-chart" style="width: 100%; height: 300px"></div>
-                                    <ul class="col-md-12">
+                                    <ul class="col-md-12" style="display:none;">
                                         <li><strong>Level A</strong>: <span id="a">70</span></li>
                                         <li><strong>Level AA</strong>: <span id="aa">32</span></li>
                                         <li><strong>Level AAA</strong>: <span id="aaa">22</span></li>
                                     </ul>
-                                    <hr>
-                                    <div class="about-report" style="display: none">
 
+                                    <div class="ct-chart1" style="width: 100%; height: 300px"></div>
+                                    <br>
+                                    <hr>
+                                    <div class="about-report">
                                         <ul>
+                                            <li><h4><a href="http://rolies.me/wcag/doc/guide" target="_blank">Check out on what we cover!</a></h4></li>
+                                        </ul>
+                                        <ul style="display: none">
                                             <li><h3>WCAG 2.0 Guidelines</h3></li>
                                             <li>Percivable: 22</li>
                                             <li>Operable: 20</li>
                                             <li>Understandable: 17</li>
                                             <li>Robust: 2</li>
                                         </ul>
-                                        <ul>
+                                        <ul style="display: none">
                                             <li>Level A: 25 Guidelines</li>
                                             <li>Level AA: 13 Guidelines</li>
                                             <li>Level AAA: 23 Guidelines</li>
                                         </ul>
                                     </div>
+                                    <hr>
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="alert">
