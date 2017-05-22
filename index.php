@@ -169,9 +169,11 @@ END;
                             $aaa = array_sum($this->aaa);
 
                             //echo "Understandable final: ".$u.'<br>';
-                            displayPie($p, $o, $u, $r, $a, $aa, $aaa);
-                            echo strlen($this->html).'<br>';
-                            echo array_sum($this->error);
+                            //displayPie($p, $o, $u, $r, $a, $aa, $aaa);
+//                            echo strlen($this->html).'<br>';
+//                            echo array_sum($this->error).'<br>';
+//                            echo array_sum($this->warn);
+                            pieCode(strlen($this->html), array_sum($this->error), array_sum($this->warn));
 
                             //Freed memory
                             $this->html = null;
@@ -197,7 +199,7 @@ END;
                         // REPORT
                         array_push($this->p, count($img->imgnoAlt));
                         array_push($this->a, count($img->imgnoAlt));
-                        array_push($this->error, strlen(implode(',', $img->imgnoAlt)));
+                        array_push($this->error, $img->imgError);
                         // END REPORT
                         $message = 'Img tag doesn\'t have \'alt\' properties';
                         $class = 'img-list-error';
@@ -219,6 +221,7 @@ END;
                         $inputWithFault=array();
                         $inputWithFaultLabel=array();
                         if (!empty($input->getLabel())){
+                            //Check if label present in the code
                             $k=0; $l=0;
                             foreach ($input->getLabel() as $nl){
                                 foreach ($input->inputWithFault as $key=>$ni){
@@ -236,36 +239,47 @@ END;
                                 $class = 'input-error';
                                 $id_panel = 'panel_input';
                                 $message = 'Input with no label should add aria-label';
+                                $countError =0;
                                 display_error($message, $class, 'input', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
                                 foreach ($input->inputWithFault as $key => $ni) {
+                                    $countError += strlen($input->dom->saveXML($ni));
                                     $tag_full = htmlspecialchars($input->dom->saveXML($ni));
                                     $ln = $ni->getLineNo();
                                     displayChildError($id_panel, $tag_full, $ln, $key, 'input');
                                 }
+
+                                array_push($this->error, $countError);
                             }
 
                         }
+
                         if (count($inputWithFault) != 0){
                             $class = 'input-error';
                             $id_panel = 'panel_input';
                             $message = 'Input with no label should add aria-label';
                             display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            $countError =0;
                             foreach ($inputWithFault as $key=>$ni) {
+                                $countError += strlen($input->dom->saveXML($ni));
                                 $tag_full = htmlspecialchars($input->dom->saveXML($ni));
                                 $ln = $ni->getLineNo();
                                 displayChildError($id_panel, $tag_full, $ln, $key, 'input');
                             }
+                            array_push($this->error, $countError);
                         }
                         if (count($inputWithFaultLabel) != 0){
                             $message = 'Input to be processed with label';
                             $class = 'input-label-error';
                             $id_panel = 'panel_input-label';
                             display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            $countError =0;
                             foreach ($inputWithFaultLabel as $key=>$ni) {
+                                $countError += strlen($input->dom->saveXML($ni));
                                 $tag_full = htmlspecialchars($input->dom->saveXML($ni));
                                 $ln = $ni->getLineNo();
                                 displayChildError($id_panel, $tag_full, $ln, $key, 'input');
                             }
+                            array_push($this->error, $countError);
                         }
                         //is line before equal to label tag
                         //if yes work to make both sync
@@ -283,12 +297,16 @@ END;
                             $class = 'btn-list-error';
                             $id_panel = 'panel_btnerror';
                             display_error($message, $class, 'langInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
+                            $countError= 0;
                             foreach ($button->btnWithEnt as $key=>$node){
+                                $countError += strlen($button->dom->saveXML($node));
                                 $tag_full = htmlspecialchars($button->dom->saveXML($node));
                                 $ln = $node->getLineNo();
                                 displayChildError($id_panel, $tag_full, $ln, $key,'input');
                             }
+                            array_push($this->error, $countError);
                         }
+
                         if(!empty($button->btnWithLessInfo)){
                             $message = 'Button contain short infromation';
                             $class = 'btn-list-alert';
@@ -299,12 +317,15 @@ END;
                             } else {
                                 display_alert($message, $class, 'langInfo', $id_panel, 'collapse', "<i class='glyphicon glyphicon-menu-down'></i>");
                             }
+                            $countWarn =0;
                             foreach ($button->btnWithLessInfo as $key=>$node){
+                                $countWarn += strlen($button->dom->saveXML($node));
                                 $value = $node->nodeValue;
                                 $tag_full = htmlspecialchars("<button> $value </button>");
                                 $line = $node->getLineNo();
                                 $msgChild .= "<li><samp>Line <a href='#' onclick='toLine(".$line.")'>".$line."</a> $tag_full</samp></li>";
                             }
+                            array_push($this->warn, $countWarn);
                             displayChildAlert($msgChild, $id_panel);
                         }
                         $button = null;
@@ -315,6 +336,7 @@ END;
                         $class = 'blank-img-info';
                         array_push($this->p, count($img->imgBlankAlt));
                         array_push($this->a, count($img->imgBlankAlt));
+                        array_push($this->warn, $img->imgWarn);
                         if (!empty($img->imgBlankAlt)){
                             $msgChild="";
                             $message = "Image with blank alt properties";
@@ -330,6 +352,7 @@ END;
                         $img = null;
                     }
 
+                    //Left pie graph for now
                     public function docLangCheck(){
 
                         $lang = new DocLanguage($this->html);
@@ -417,6 +440,7 @@ END;
                             }
                             array_push($this->aaa, count($onChange->selectOnChange));
                             array_push($this->u, count($onChange->selectOnChange));
+                            array_push($this->warn, $onChange->countWarn);
                             displayChildAlert($onchange_txt, $id_panel);
                         }
                         $onChange = null;
@@ -435,11 +459,14 @@ END;
                             } else {
                                 display_alert($message, $class, 'italicInfo', $id_panel, 'no-collapse', '');
                             }
+                            $countWarn =0;
                             foreach ($italic_txt->nodeItalic as $item) {
+                                $countWarn += strlen($italic_txt->dom->saveXML($item));
                                 $tag = htmlspecialchars(" <em>$item->nodeValue</em> ");
                                 $ln = $item->getLineNo();
                                 $italic_line .= "<li><samp>Line <a href='#' onclick='toLine(".$ln.")'>".$ln."</a> $tag</samp></li>";
                             }
+                            array_push($this->warn, $countWarn);
                             array_push($this->aaa, $italic_txt->nodeItalic->length);
                             array_push($this->u, $italic_txt->nodeItalic->length);
                             displayChildAlert($italic_line, $id_panel);
@@ -465,6 +492,7 @@ END;
                             displayChildAlert($orderedLine, $id_panel);
                             array_push($this->p, count($ordered->ordList));
                             array_push($this->a, count($ordered->ordList));
+                            array_push($this->warn, $ordered->countWarn);
                         }else {
                             $message = 'No ordered list found';
                             display_auto($message, 'auto-list', $class, 'olInfoTrue');
@@ -481,15 +509,17 @@ END;
                             $message1 = "Duplicate ID found";
                             $id_panel='panel_idalert';
                             display_alert($message1, $class, 'idInfo', $id_panel,'no-collapse', '');
-
+                            $countWarn=0;
                             foreach ($id->duplicateId as $item=>$key){
                                 $message .= '<li><samp>'.$item.'</samp></li>';
                                 $count[$item] = count($key);
                                 foreach ($key as $line){
+                                    $countWarn += strlen($item);
                                     $message .= "<li><samp><a href='#' onclick='toLine(".$line.")'>".$line."</a></samp></li>";
                                 }
                                 $message .= '<br>';
                             }
+                            array_push($this->warn, $countWarn);
                             array_push($this->r, array_sum($count));
                             array_push($this->a, array_sum($count));
                             displayChildAlert($message, $id_panel);
@@ -508,14 +538,16 @@ END;
                             $class = 'frame-error';
                             $id_panel = 'panel_frameerror';
                             $message = 'Frame need title attribute';
-
                             display_error($message, $class, 'idInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
 
+                            $countErr =0;
                             foreach ($frame->allFrame as $key=>$nf){
+                                $countErr += strlen($frame->dom->saveXML($nf));
                                 $ln = $nf->getLineNo();
                                 $tag_full = htmlspecialchars($frame->dom->saveXML($nf));
                                 displayChildError($id_panel, $tag_full, $ln, $key, 'input');
                             }
+                            array_push($this->error, $countErr);
                         }
 
                         if (!empty($frame->frameShortTitle)){
@@ -525,12 +557,15 @@ END;
 
                             display_alert($message, $class, 'idInfo', $id_panel, 'no-collapse', '');
                             $msgChild="";
+                            $countWarn=0;
                             foreach ($frame->frameShortTitle as $key=>$nf){
+                                $countWarn += strlen($frame->dom->saveXML($nf));
                                 $ln = $nf->getLineNo();
                                 $tag = htmlspecialchars($frame->dom->saveHTML($nf));
                                 $msgChild .= "<li><samp>Line <a href='#' onclick='toLine(".$ln.")'>".$ln."</a> $tag</samp></li>";
                             }
                             displayChildAlert($msgChild, $id_panel);
+                            array_push($this->warn, $countWarn);
                         }
 
                         $frame = null;
@@ -555,6 +590,7 @@ END;
                                 array_push($this->a, 1);
                                 array_push($this->aaa, 1);
                                 array_push($this->o, 1);
+                                array_push($this->warn, strlen($title->dom->saveXML($title->title)));
                             }
                         }else {
                             //title tag not present error
@@ -563,6 +599,7 @@ END;
                             array_push($this->a, 1);
                             array_push($this->aaa, 1);
                             array_push($this->o, 1);
+                            array_push($this->error, 10);
                         }
                         $title = null;
                     }
@@ -575,15 +612,16 @@ END;
                         array_push($this->aaa, $calc);
                         array_push($this->p, $calc);
                         array_push($this->o, $calc);
+                        $countErr=0;
                         if (count($link->blankLinkTxt) != 0){
                             $message = 'Link contain no text description';
                             $class = 'linka-list-error';
                             $id_panel = 'panel_linkaerror';
                             display_error($message, $class, 'linkInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
                             foreach ($link->blankLinkTxt as $key=>$node){
+                                $countErr += strlen($link->dom->saveXML($node));
                                 $tag_full = htmlspecialchars($link->dom->saveXML($node));
                                 $ln = $node->getLineNo();
-                                //form_correct($tag_full, 'img', $ln, $key, '');
                                 displayChildError($id_panel, $tag_full, $ln, $key,'img');
                             }
                         }
@@ -593,24 +631,28 @@ END;
                             $id_panel = 'panel_linkberror';
                             display_error($message, $class, 'linkInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
                             foreach ($link->blankLink as $k=>$node){
+                                $countErr += strlen($link->dom->saveXML($node));
                                 $tag_full = trim(preg_replace('/\s+/', ' ', htmlspecialchars($link->dom->saveXML($node))));
                                 $ln = $node->getLineNo();
                                 //form_correct($tag_full, 'img', $ln, $key, '');
                                 displayChildError($id_panel, $tag_full, $ln, $k,'img');
                             }
                         }
+                        array_push($this->error, $countErr);
                         if (count($link->sortLinktxt) != 0){
                             $msgChild="";
                             $class = 'short-link-info';
                             $message = "Link contain sort description";
                             $id_panel = 'panel_linkalert';
                             display_alert($message, $class, 'linkInfo', $id_panel, 'collapse', "<i class='glyphicon glyphicon-menu-down'></i>");
+                            $countWarn=0;
                             foreach ($link->sortLinktxt as $node){
+                                $countWarn += strlen($link->dom->saveXML($node));
                                 $line = $node->getLineNo();
                                 $tag = trim(preg_replace('/\s+/', ' ', $node->nodeValue));
-                                //$italic_li.= "<li><samp>Line <a href='#' onclick='toLine(".$ln.")'>".$ln."</a> $tag</samp></li>";
                                 $msgChild .= "<li><samp>Line <a href='#' onclick='toLine(".$line.")'>".$line."</a> $tag</samp></li>";
                             }
+                            array_push($this->warn, $countWarn);
                             displayChildAlert($msgChild, $id_panel);
                         }
                         $link = null;
@@ -623,12 +665,14 @@ END;
                         $calc = count($tbl->tableDecor)+count($tbl->tableNoTh)+count($tbl->thNoScope);
                         array_push($this->a, $calc);
                         array_push($this->o, $calc);
+                        $countErr =0;
                         if (count($tbl->tableDecor) != 0){
                             $message = "table used for decorative purpose";
                             $class = 'tbla-list-error';
                             $id_panel = 'panel_tblaerror';
                             display_error($message, $class, 'tableInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
                             foreach ($tbl->tableDecor as $k=>$node){
+                                $countErr += strlen($tbl->dom->saveXML($node));
                                 $tag_full = "Table should only used for data tabular, fix manually";
                                 $ln = $node->getLineNo();
                                 displayChildErrorManual($id_panel, $tag_full, $ln, $k,'tabel');
@@ -640,6 +684,7 @@ END;
                             $id_panel = 'panel_tblberror';
                             display_error($message, $class, 'tableInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
                             foreach ($tbl->tableNoTh as $k=>$node){
+                                $countErr += strlen($tbl->dom->saveXML($node));
                                 $tag_full = "Table should have header, fix manually";
                                 $ln = $node->getLineNo();
                                 displayChildErrorManual($id_panel, $tag_full, $ln, $k,'tabel');
@@ -651,12 +696,14 @@ END;
                             $id_panel = 'panel_tblcerror';
                             display_error($message, $class, 'tableInfo', $id_panel, "<i class='glyphicon glyphicon-menu-down'></i>");
                             foreach ($tbl->thNoScope as $k=>$node){
+                                $countErr += strlen($tbl->dom->saveXML($node));
                                 $tag_full = trim(preg_replace('/\s+/', ' ', htmlspecialchars($tbl->dom->saveXML($node))));
                                 $ln = $node->getLineNo();
                                 displayChildError($id_panel, $tag_full, $ln, $k,'tabel');
                             }
                         }
                         $tbl = null;
+                        array_push($this->error, $countErr);
                     }
 
                     public function checkIcon(){
@@ -668,10 +715,13 @@ END;
                         array_push($this->p, count($ico->nodeIcon));
                         $messageChild="";
                         if(count($ico->nodeIcon) != 0){
+                            $countWarn=0;
                             foreach ($ico->nodeIcon as $node){
+                                $countWarn += strlen($ico->dom->saveXML($node));
                                 $node->removeAttribute('style');
                                 $messageChild .= "<li>".trim(preg_replace('/\s\s+/', ' ',htmlspecialchars($ico->dom->saveHTML($node))))."</li>";
                             }
+                            array_push($this->warn, $countWarn);
                             $message ="<strong>icon/s</strong>: ".count($ico->nodeIcon);
                             display_auto($message, 'basic-list', $class, 'glyphInfo');
                             display_child_many($messageChild, 'basic-list', $class, 'panel-success', 'icon-list');

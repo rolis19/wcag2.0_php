@@ -224,4 +224,39 @@ function displayPie($p, $o, $u, $r, $a, $aa, $aaa){
 END;
 }
 
+function pieCode($all, $err, $warn){
+    echo <<< END
+    <script type="text/javascript">
+        document.getElementById("info-intro").style.display = "none";
+        document.getElementById("nav-tab").style.visibility = "visible";
+        $("#report").css("display","block");
+        var data = {
+            labels: ['ALL CODE', 'WARNING', 'ERROR'],
+            series: [$all, $warn, $err]
+        };
+        var options = {
+            labelInterpolationFnc: function(value) {
+                return value[0]
+            }
+        };
+        var responsiveOptions = [
+            ['screen and (min-width: 640px)', {
+                chartPadding: 30,
+                labelOffset: 100,
+                labelDirection: 'explode',
+                labelInterpolationFnc: function(value) {
+                    return value;
+                }
+            }],
+            ['screen and (min-width: 1024px)', {
+                labelOffset: 80,
+                chartPadding: 20
+            }]
+        ];
+
+        new Chartist.Pie('.ct-chart', data, options, responsiveOptions);
+    </script>
+END;
+}
+
 ?>

@@ -5,6 +5,8 @@ class CheckImg extends ParseHtml{
     public $nodeImg;
     public $imgnoAlt = array();
     public $imgBlankAlt = array();
+    public $imgError=0;
+    public $imgWarn=0;
 
     public function __construct($html){
         parent::__construct($html);
@@ -19,6 +21,7 @@ class CheckImg extends ParseHtml{
         foreach ($this->nodeImg as $key=>$node){
             if (!$node->hasAttribute('alt')){
 //                $node->setAttribute('alt','Makan makan bro');
+                $this->imgError += strlen($this->dom->saveXML($node));
                 $imgnoAlt[$key] = array(
                     'imgTag' => htmlspecialchars($this->dom->saveXML($node)),
                     'line' => $node->getLineNo(),
@@ -31,7 +34,7 @@ class CheckImg extends ParseHtml{
         $imgBlankAlt = array();
         foreach ($this->nodeImg as $key=>$node){
             if (empty($node->getAttribute('alt')) && $node->hasAttribute('alt')){
-//                $node->setAttribute('alt','Makan makan bro');
+                $this->imgWarn += strlen($this->dom->saveXML($node));
                 $imgBlankAlt[$key] = array(
                     'imgTag' => htmlspecialchars($this->dom->saveXML($node)),
                     'line' => $node->getLineNo(),
