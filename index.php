@@ -138,8 +138,8 @@ END;
                     public function tag_check(){
                         if(filesize("newfile.html") != 0){
                             $this->docLangCheck();
-                            $this->imgBlankAlt();
                             $this->imgNoAlt();
+                            $this->imgBlankAlt();
                             $this->checkInput();
                             $this->checkLink();
                             $this->checkTitle();
@@ -166,6 +166,25 @@ END;
                     /***
                      * For now showing code only trigerred from img check
                      */
+                    public function imgBlankAlt(){
+                        $img = new CheckImg($this->html);
+                        $class = 'blank-img-info';
+                        array_push($this->testCount, count($img->imgBlankAlt));
+                        array_push($this->warn, $img->imgWarn);
+                        if (!empty($img->imgBlankAlt)){
+                            $msgChild="";
+                            $message = "Image with blank alt properties";
+                            $id_panel = 'panel_imgalert';
+                            display_alert($message, $class, 'img', $id_panel, 'collapse', "<i class='glyphicon glyphicon-menu-down'></i>");
+                            foreach ($img->imgBlankAlt as $key=>$img){
+                                $line = $img['line'];
+                                $src = $img['src'];
+                                $msgChild .= "<li><samp>Line <a href='#' onclick='toLine(".$line.")'>".$line."</a> $src</samp></li>";
+                            }
+                            displayChildAlert($msgChild, $id_panel);
+                        }
+                        $img = null;
+                    }
                     public function imgNoAlt(){
                         $img = new CheckImg($this->html);
                         // REPORT
@@ -184,26 +203,6 @@ END;
                             }
                         }
                         //Freed memory
-                        $img = null;
-                    }
-
-                    public function imgBlankAlt(){
-                        $img = new CheckImg($this->html);
-                        $class = 'blank-img-info';
-                        array_push($this->testCount, count($img->imgBlankAlt));
-                        array_push($this->warn, $img->imgWarn);
-                        if (!empty($img->imgBlankAlt)){
-                            $msgChild="";
-                            $message = "Image with blank alt properties";
-                            $id_panel = 'panel_imgalert';
-                            display_alert($message, $class, 'img', $id_panel, 'collapse', "<i class='glyphicon glyphicon-menu-down'></i>");
-                            foreach ($img->imgBlankAlt as $key=>$img){
-                                $line = $img['line'];
-                                $src = $img['src'];
-                                $msgChild .= "<li><samp>Line <a href='#' onclick='toLine(".$line.")'>".$line."</a> $src</samp></li>";
-                            }
-                            displayChildAlert($msgChild, $id_panel);
-                        }
                         $img = null;
                     }
 
@@ -715,7 +714,17 @@ END;
                                     </ul>
 
                                     <div class="ct-chart1" style="width: 100%; height: 300px"></div>
-                                    <br>
+                                    <ul>
+                                        <?php
+                                        $cl = array('Image with no alt', 'Image with no alt value', 'Accessibility check for input',
+                                            'Link with no description value', 'Link with no destination', 'Link with short description value',
+                                            'Accessibility check for icon', 'Check duplicate id', 'Button contain html entity', 'Button with short description',
+                                            'Frame with no title information', 'Frame with short title information', 'Accessibility for table');
+                                        foreach ($cl as $i=>$itm){
+                                            echo "<li><strong>T-$i:</strong> $itm</li>";
+                                        }
+                                        ?>
+                                    </ul>
                                     <hr>
                                     <div class="about-report">
                                         <ul>

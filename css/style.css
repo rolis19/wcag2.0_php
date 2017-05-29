@@ -581,15 +581,14 @@ li.ttl-check span{
 }
 .summ-info ul li{
     list-style: none;
-    margin-left: 25px;
+    margin-left: 34px;
     margin-right: 50px;
     color: rgba(0, 0, 0, .5);
-    font-weight: bold;
     clear: both;
 }
 .summ-info ul li strong{
     display: block;
-    width: 80px;
+    width: 36px;
     float: left;
 }
 li.stacked{
