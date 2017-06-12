@@ -185,6 +185,14 @@ function displayChildErrorManual($id_panel, $tag_full, $line1, $index, $tag){
 END;
 }
 
+function vainUrl(){
+    echo <<< END
+    <script type="text/javascript">
+        document.getElementById("info-intro").innerHTML = "Something went wrong<br><small>Unable to recognize url" +
+         "<br><i class='glyphicon glyphicon-fire'></i></small>";
+    </script>
+END;
+}
 
 function principleGraph($p, $o, $u, $r, $a, $aa, $aaa){
     echo <<< END

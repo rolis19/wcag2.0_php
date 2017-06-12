@@ -780,8 +780,12 @@ END;
                                 //Program start here for insert url
                                 if (isset($_POST['stageurl']) && ('process' == $_POST['stageurl'])) {
                                     function datafeed($url){
-                                        $text =  file_get_contents($url);
-                                        return $text;
+                                        $content = @file_get_contents($url);
+                                        if ($content === FALSE){
+                                            vainUrl();
+                                        } else{
+                                            return $content;
+                                        }
                                     }
                                     $dataraw = datafeed(addScheme($_POST['cekodeurl']));//raw data tag code
                                     $all_array = htmlspecialchars($dataraw);

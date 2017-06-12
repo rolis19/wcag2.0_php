@@ -318,6 +318,8 @@ html, body, .container, .content-wrap {
 .menu-wrap .btn {
     border-radius: 100px;
 }
+.glyphicon-fire{  color: #EE5E4F;}
+.glyphicon-flash {color: #69B1C4}
 .info-container{
     padding: 22px;
     font-size: 16px;
