@@ -91,8 +91,12 @@ ini_set('max_execution_time', 300);
                                 <form action="" method="post">
                                     <button class="btn btn-success" id="check" type="submit"><strong>CHECK</strong> <i class=" glyphicon glyphicon-check"></i></button>
                                     <div class="form-group">
-                                        <textarea class="form-control url" id="url" name="cekodeurl"></textarea>
+                                        <input class="form-control url" id="url" name="cekodeurl" style="height: 40px">
                                         <input type="hidden" name="stageurl" value="process">
+                                        <div class="url-strict" style="height: 440px;">
+                                            <p>One url per check <br><i class="glyphicon glyphicon-globe"></i></p>
+
+                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -769,13 +773,17 @@ END;
                                     $main_array->tag_check(); //First function to run in class
                                     display_code();
                                 }
+                                function addScheme($url, $scheme='http://'){
+                                    $newscheme = parse_url($url, PHP_URL_SCHEME) === null ? $scheme . $url : $url;
+                                    return preg_replace('/(http:\/\/)(www\.)?(.+)/', '$1www.$3', $newscheme);
+                                }
                                 //Program start here for insert url
                                 if (isset($_POST['stageurl']) && ('process' == $_POST['stageurl'])) {
                                     function datafeed($url){
                                         $text =  file_get_contents($url);
                                         return $text;
                                     }
-                                    $dataraw = datafeed($_POST['cekodeurl']);//raw data tag code
+                                    $dataraw = datafeed(addScheme($_POST['cekodeurl']));//raw data tag code
                                     $all_array = htmlspecialchars($dataraw);
                                     $myfile = fopen("temp2.html", "w") or die("Unable to open file!");
                                     if (empty($all_array)){

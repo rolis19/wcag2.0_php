@@ -217,7 +217,18 @@ textarea.form-control, .content-correct {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     overflow: auto;
 }
-textarea.form-control:focus{  box-shadow: none;  }
+input.form-control.url{  border-bottom: none;  }
+.url-strict{
+    border: 1px solid #B5BAC0;
+    border-top: none;
+    background: #FFF;
+}
+.url-strict p{
+    font-size: 23px;
+    color: #777;
+    text-align: center;
+    padding-top: 180px;
+}
 .tag-info, .form-inline {
     font-size: 90%;
     font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
